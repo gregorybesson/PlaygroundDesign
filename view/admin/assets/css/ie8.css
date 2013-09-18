@@ -1,0 +1,17 @@
+#footer .span3 {
+  vertical-align: top;
+  display: inline-block;
+  width: 22%;
+}
+.block-game .dark-overlay {
+  z-index: 1;
+}
+.block-game .btn {
+  z-index: 2;
+}
+.sidebar .tonnes-cadeaux .btn {
+  background: url("../images/common/button-green-light.jpg") repeat-x center center;
+}
+.game-quiz .center .timer {
+  font-size: 15px;
+}

@@ -1,0 +1,116 @@
+#footer {
+  overflow: auto;
+}
+#footer .span3 {
+  vertical-align: top;
+  display: block;
+  float: left;
+  width: 23.0769%;
+}
+#footer .span3.logo {
+  width: 17%;
+}
+#header .bartop {
+  position: relative;
+}
+#header .bartop .actu {
+  position: absolute;
+  right: 610px;
+  top: 0;
+}
+#header .bartop .topnav {
+  position: absolute;
+  right: 180px;
+  top: 0;
+  margin-right: 8px;
+}
+#header .bartop .topnav li {
+  float: left;
+}
+#header .bartop .fb-jaime {
+  position: absolute;
+  right: 0;
+  top: 5px;
+  width: 160px;
+}
+#header .bartop .fb-jaime span {
+  float: left;
+}
+#header .bartop .fb-jaime .fb-like {
+  float: right;
+}
+.block-game .game-infos div {
+  float: left;
+}
+.block-game .game-infos div.social-share {
+  float: right;
+}
+.block-game .game-infos div.social-share a {
+  margin: 0 2px;
+}
+.pagination {
+  overflow: hidden;
+  width: 100%;
+  padding-bottom: 5px;
+}
+.pagination .paginate-nb {
+  height: 20px;
+}
+.pagination .paginate-nb li {
+  float: left;
+}
+.breadcrumb {
+  padding-bottom: 20px;
+}
+.breadcrumb li {
+  float: left;
+}
+.breadcrumb li .divider {
+  margin: 0 5px;
+}
+#containerpage #top-promo .promo-infos div {
+  float: left;
+}
+#containerpage #top-promo .promo-infos .quiz {
+  margin-right: 10px;
+}
+#containerpage #top-promo .promo-infos .social-share a {
+  margin: 0 2px;
+}
+#containerpage #top-promo .img-content .button-wrap {
+  float: right;
+  position: absolute;
+  bottom: 25px;
+  right: 3%;
+}
+#containerpage #top-promo .img-content .title-promo {
+  float: left;
+}
+.game-lottery h1,
+.game-lottery-result h1 {
+  font-weight: normal;
+}
+.game-quiz .center .timer {
+  font-size: 15px;
+}
+#parrainer #invit-social #round-social li {
+  float: left;
+}
+#sidebar-homepage,
+#sidebar-homepage-connecte {
+  margin-top: 25px;
+}
+.sidebar .sd-block .filter-bar .week {
+  float: left;
+  width: 49.8%;
+}
+.sidebar .sd-block .filter-bar .general {
+  float: left;
+  width: 49.8%;
+}
+.sidebar .news-feed .news-list ul li {
+  float: left;
+}
+.sidebar .news-feed .news-list ul li.right {
+  float: right;
+}
