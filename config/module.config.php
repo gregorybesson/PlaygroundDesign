@@ -1,5 +1,23 @@
 <?php
 return array(
+
+  'doctrine' => array(
+        'driver' => array(
+            'zfcuser_entity' => array(
+                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'cache' => 'array',
+                'paths' => __DIR__ . '/../src/PlaygroundDesign/Entity'
+            ),
+
+            'orm_default' => array(
+                'drivers' => array(
+                    /*'PlaygroundDesign\Entity'  => 'zfcdesign_entity'*/
+                )
+            )
+        )
+    ),
+
+
 	'service_manager' => array(
 		'factories' => array(
 			// this definition has to be done here to override Wilmogrod Assetic declaration
@@ -222,79 +240,101 @@ return array(
 		),
 	),
 
-    'router' => array(
-        'routes' => array(
-            'frontend' => array(
-            	'type' => 'PlaygroundCore\Mvc\Router\Http\RegexSlash',
-            	'options' => array(
-            		'regex'    => '\/(?<channel>(embed|facebook|platform|mobile)+)?\/?',
-            		'defaults' => array(
-         				'controller' => 'PlaygroundDesign\Controller\Dashboard',
-            			'action'     => 'index',
-            		),
-            		'spec' => '/%channel%/',
-            	),
-                'may_terminate' => true,
-        	),
-            'admin' => array(
-                'type' => 'Literal',
-            	'priority' => 1000,
-                'options' => array(
-                    'route'    => '/admin',
-                    'defaults' => array(
-                        'controller' => 'PlaygroundDesign\Controller\Dashboard',
-                        'action'     => 'index',
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                	'dashboard' => array(
-               			'type' => 'literal',
-              			'options' => array(
-              				'route'    => '/dashboard',
-                			'defaults' => array(
-               					'controller' => 'PlaygroundDesign\Controller\Dashboard',
-                				'action'     => 'index',
-                			),
-               			),
-                	),
-                    'system' => array(
-                        'type' => 'literal',
-                        'options' => array(
-                            'route'    => '/system',
-                            'defaults' => array(
-                                'controller' => 'PlaygroundDesign\Controller\System',
-                                'action'     => 'index',
-                            ),
-                        ),
-                        'may_terminate' => true,
-                        'child_routes' => array(
-                            'modules' => array(
-                                'type' => 'literal',
-                                'options' => array(
-                                    'route'    => '/modules',
-                                    'defaults' => array(
-                                            'controller' => 'PlaygroundDesign\Controller\System',
-                                            'action'     => 'modules',
-                                    ),
-                                )
-                            ),
-                            'settings' => array(
-                                'type' => 'literal',
-                                'options' => array(
-                                    'route'    => '/settings',
-                                    'defaults' => array(
-                                        'controller' => 'PlaygroundDesign\Controller\System',
-                                        'action'     => 'settings',
-                                    ),
-                                )
-                            ),
-                        )
-                    ),
-                ),
-            ),
+  'router' => array(
+    'routes' => array(
+      'frontend' => array(
+        'type' => 'PlaygroundCore\Mvc\Router\Http\RegexSlash',
+        'options' => array(
+          'regex'    => '\/(?<channel>(embed|facebook|platform|mobile)+)?\/?',
+          'defaults' => array(
+            'controller' => 'PlaygroundDesign\Controller\Dashboard',
+            'action'     => 'index',
+          ),
+          'spec' => '/%channel%/',
         ),
+        'may_terminate' => true,
+      ),
+      'admin' => array(
+        'type' => 'Literal',
+        'priority' => 1000,
+        'options' => array(
+          'route'    => '/admin',
+          'defaults' => array(
+            'controller' => 'PlaygroundDesign\Controller\Dashboard',
+            'action'     => 'index',
+          ),
+        ),
+        'may_terminate' => true,
+        'child_routes' => array(
+          'dashboard' => array(
+            'type' => 'literal',
+            'options' => array(
+              'route'    => '/dashboard',
+              'defaults' => array(
+                'controller' => 'PlaygroundDesign\Controller\Dashboard',
+                'action'     => 'index',
+              ),
+            ),
+          ),
+          'playgrounddesign_companyadmin' => array(
+            'type' => 'Literal',
+            'options' => array(
+              'route'    => '/company',
+              'defaults' => array(
+                'controller' => 'PlaygroundDesign\Controller\CompanyAdmin',
+                'action'     => 'index',
+              ),
+            ),
+            'may_terminate' => true,
+          ),
+          'playgrounddesign_skinadmin' => array(
+            'type' => 'Literal',
+            'options' => array(
+              'route'    => '/skin',
+              'defaults' => array(
+                'controller' => 'PlaygroundDesign\Controller\SkinAdmin',
+                'action'     => 'list',
+              ),
+            ),
+            'may_terminate' => true,
+          ),
+          'system' => array(
+            'type' => 'literal',
+            'options' => array(
+              'route'    => '/system',
+              'defaults' => array(
+                'controller' => 'PlaygroundDesign\Controller\System',
+                'action'     => 'index',
+              ),
+            ),
+            'may_terminate' => true,
+            'child_routes' => array(
+              'modules' => array(
+                'type' => 'literal',
+                'options' => array(
+                  'route'    => '/modules',
+                  'defaults' => array(
+                    'controller' => 'PlaygroundDesign\Controller\System',
+                    'action'     => 'modules',
+                  ),
+                )
+              ),
+              'settings' => array(
+                'type' => 'literal',
+                'options' => array(
+                  'route'    => '/settings',
+                  'defaults' => array(
+                    'controller' => 'PlaygroundDesign\Controller\System',
+                    'action'     => 'settings',
+                  ),
+                )
+              ),
+            )
+          ),
+        ),
+      ),
     ),
+  ), 
 
 	'core_layout' => array(
 	    'admin' => array(
@@ -310,6 +350,8 @@ return array(
         'invokables' => array(
             'PlaygroundDesign\Controller\Dashboard' => 'PlaygroundDesign\Controller\DashboardController',
             'PlaygroundDesign\Controller\System'    => 'PlaygroundDesign\Controller\SystemController',
+            'PlaygroundDesign\Controller\CompanyAdmin' => 'PlaygroundDesign\Controller\CompanyAdminController',
+            'PlaygroundDesign\Controller\SkinAdmin' => 'PlaygroundDesign\Controller\SkinAdminController',
         ),
     ),
 
@@ -334,6 +376,27 @@ return array(
                 'resource' => 'design',
                 'privilege' => 'edit',
             ),
+             'playgroundconfigurationadmin' => array(
+                'order' => 100,
+                'label' => 'Configuration',
+                'route' => 'admin/playgrounddesign_companyadmin',
+                'resource' => 'partner',
+                'privilege' => 'list',
+                'pages' => array(
+                    'company' => array(
+                        'label' => 'Société',
+                        'route' => 'admin/playgrounddesign_companyadmin',
+                        'resource' => 'design',
+                        'privilege' => 'system',
+                    ),
+                    'skin' => array(
+                        'label' => 'Gestion des thème',
+                        'route' => 'admin/playgrounddesign_skinadmin',
+                        'resource' => 'design',
+                        'privilege' => 'system',
+                    ),
+                ),
+            ),
         ),
     ),
 
@@ -348,15 +411,4 @@ return array(
             __DIR__ . '/../view/frontend',
         ),
     ),
-
-	/*'design' => array(
-		'admin' => array(
-			'package' => 'default',
-			'theme' => 'base',
-		),
-		'frontend' => array(
-			'package' => 'default',
-			'theme' => 'base',
-		),
-	),*/
 );
