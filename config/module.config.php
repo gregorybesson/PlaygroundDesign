@@ -234,6 +234,7 @@ return array(
             		),
             		'spec' => '/%channel%/',
             	),
+                'may_terminate' => true,
         	),
             'admin' => array(
                 'type' => 'Literal',
