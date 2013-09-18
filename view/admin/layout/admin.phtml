@@ -107,11 +107,7 @@ if(isset($children[0])){
 			<?php endforeach; ?>
 		</ul>
 		<?php endif; ?>
-		<?php echo $this->navigation()
-		->breadcrumbs('admin_navigation')
-		->setMaxDepth(3)
-		->setPartial(array('application/breadcrumbs.phtml', 'default'));
-		?>
+
 		<?php echo $this->content; ?>
 
 		<footer>
