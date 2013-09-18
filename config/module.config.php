@@ -225,7 +225,7 @@ return array(
     'router' => array(
         'routes' => array(
             'frontend' => array(
-            	'type' => 'PlaygroundDesign\Mvc\Router\Http\RegexSlash',
+            	'type' => 'PlaygroundCore\Mvc\Router\Http\RegexSlash',
             	'options' => array(
             		'regex'    => '\/(?<channel>(embed|facebook|platform|mobile)+)?\/?',
             		'defaults' => array(
