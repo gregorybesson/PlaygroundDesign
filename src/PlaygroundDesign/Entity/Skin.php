@@ -11,14 +11,17 @@ use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
+
 /**
  * @ORM\Entity @HasLifecycleCallbacks
  * @ORM\Table(name="skin")
  */
 class Skin implements SkinInterface, InputFilterAwareInterface
 {
-    protected $inputFilter;
+    
+    const BASE = 'design/';
 
+    protected $inputFilter;
     /**
      * @ORM\Id
      * @ORM\Column(type="integer");
@@ -34,31 +37,31 @@ class Skin implements SkinInterface, InputFilterAwareInterface
 
     /**
      * image
-     * @ORM\Column(type="string", length=255, unique=true, nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     protected $image;
 
     /**
      * type
-     * @ORM\Column(type="string", length=255, unique=true, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $type;
 
     /**
      * package
-     * @ORM\Column(type="string", length=255, unique=true, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $package;
 
     /**
      * theme
-     * @ORM\Column(type="string", length=255, unique=true, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $theme;
 
      /**
      * Author of the skin
-     * @ORM\Column(type="string", length=255, unique=true, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $author;
 
@@ -66,7 +69,7 @@ class Skin implements SkinInterface, InputFilterAwareInterface
      * Is this Skin is activated on the site
      * @ORM\Column(name="is_active",type="boolean")
      */
-    protected $isActive;
+    protected $is_active;
 
     /**
      * @ORM\Column(type="datetime")
@@ -84,6 +87,8 @@ class Skin implements SkinInterface, InputFilterAwareInterface
     {
         $this->created_at = new \DateTime("now");
         $this->updated_at = new \DateTime("now");
+        // Le skin est par defaut désactivé
+        $this->is_active = false;
     }
 
     /** @PreUpdate */
@@ -231,7 +236,7 @@ class Skin implements SkinInterface, InputFilterAwareInterface
      */
     public function setIsActive($isActive)
     {
-        $this->isActive = (bool) $isActive;
+        $this->is_active = (bool) $isActive;
 
         return $this;
     }
@@ -241,7 +246,7 @@ class Skin implements SkinInterface, InputFilterAwareInterface
      */
     public function getIsActive()
     {
-        return $this->isActive;
+        return $this->is_active;
     }
 
 
@@ -276,11 +281,76 @@ class Skin implements SkinInterface, InputFilterAwareInterface
     }
 
     /**
+     * Convert the object to an array.
+     *
+     * @return array
+     */
+    public function getArrayCopy()
+    {
+        return get_object_vars($this);
+    }
+
+    /**
      * @return date
      */
     public function getUpdatedAt()
     {
         return $this->updated_at;
+    }
+
+        /**
+     * Populate from an array.
+     *
+     * @param array $data
+     */
+    public function populate($data = array())
+    {
+        if (isset($data['title']) && $data['title'] != null) {
+            $this->title = $data['title'];
+        }
+
+        if (isset($data['image']) && $data['image'] != null) {
+            $this->active = $data['image'];
+        }
+
+        if (isset($data['type']) && $data['type'] != null) {
+            $this->type = $data['type'];
+        }
+
+        if (isset($data['package']) && $data['package'] != null) {
+            $this->package = $data['package'];
+        }
+
+        if (isset($data['theme']) && $data['theme'] != null) {
+            $this->theme = $data['theme'];
+        }
+
+        if (isset($data['author']) && $data['author'] != null) {
+            $this->author = $data['author'];
+        }
+
+        if (isset($data['is_active']) && $data['is_active'] != null) {
+            $this->is_active = $data['is_active'];
+        }
+    }
+
+    public function getBasePath($applicationName = 'playground')
+    {
+        $paths = explode("/".$applicationName."/", __DIR__);
+
+        return $paths[0]."/".$applicationName."/".self::BASE;
+    }
+
+
+    public function getUrlBase($applicationName = null)
+    {
+        if (!empty($applicationName)) {
+            $basePath = $this->getBasePath($applicationName);
+        } else {
+            $basePath = $this->getBasePath();
+        }
+
+        return $basePath.$this->getType().'/'.$this->getPackage().'/'.$this->getTheme().'/';
     }
 
     public function setInputFilter(InputFilterInterface $inputFilter)
@@ -290,7 +360,11 @@ class Skin implements SkinInterface, InputFilterAwareInterface
 
     public function getInputFilter()
     {
+         if (!$this->inputFilter) {
+            $inputFilter = new InputFilter();
+            $this->inputFilter = $inputFilter;
+        }
+        
         return $this->inputFilter;
     }
-
 }

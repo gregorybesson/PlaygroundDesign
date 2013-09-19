@@ -1,14 +1,12 @@
 <?php
 
-namespace PlaygroundDesign\Entity;
+namespace PlaygroundDesign\Mapper;
 
 interface SkinInterface
 {
     public function findById($id);
 
-    public function findByIdentifier($identifier);
+    public function insert($skin);
 
-    public function insert($block);
-
-    public function update($block);
+    public function update($skin);
 }

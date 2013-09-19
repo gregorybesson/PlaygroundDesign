@@ -276,4 +276,11 @@ return array(
     // Zend_Validator_Uri
     "Invalid type given. String expected" => "Invalid type given. String expected",
     "The input does not appear to be a valid Uri" => "The input does not appear to be a valid Uri",
+
+    'Input Name'            => 'Input Name',
+    'skin_title'            => 'Theme Name:',
+    'skin_path'             => 'Theme path :',
+    'skin_author'           => 'Author :',
+    'skin_image'            => 'Preview :' , 
+    
 );

@@ -1,0 +1,38 @@
+<div class="row-fluid show-grid">
+    <?php echo $this->partial('playground-design/partial/menu.phtml', array('action' => 'add')); ?>
+    <?php $this->plugin('translate')->setTranslatorTextDomain('playgrounddesign');// Pour le texte ?>
+    <?php
+    $form = $this->form;
+    $form->prepare();
+    ?>
+    <?php echo $this->form()->openTag($form) ?>
+    <?php echo $this->formButton($form->get('submit')) ?>
+    <div class="tab-pane active" id="general">
+        <div>
+
+            <?php echo $this->formHidden($form->get('id')); ?>
+
+            <?php echo $this->formLabel($form->get('title')); ?>
+            <?php echo $this->formInput($form->get('title')); ?>
+            <?php echo $this->formElementErrors($form->get('title')) ?>
+
+            <?php echo $this->formLabel($form->get('skin_path')); ?>
+            <?php echo $base.$this->formInput($form->get('type')); ?>/<?php echo $this->formInput($form->get('package')); ?>/<?php echo $this->formInput($form->get('theme')); ?>
+
+            <?php echo $this->formLabel($form->get('author')); ?>
+            <?php echo $this->formInput($form->get('author')); ?>
+            <?php echo $this->formElementErrors($form->get('author')) ?>
+            
+        </div>
+    </div>
+    <div class="tab-pane" id="images">
+        <div>
+        <?php echo $this->formLabel($form->get('uploadImage')); ?>
+        <?php echo $this->formFile($form->get('uploadImage')); ?>
+        </div>
+        <?php if($form->get('image')->getValue() != ''):?>
+            <img src="<?php echo $this->basePath($form->get('image')->getValue()); ?>" />
+        <?php endif;?>
+    </div>
+    <?php echo $this->form()->closeTag() ?>
+</div>

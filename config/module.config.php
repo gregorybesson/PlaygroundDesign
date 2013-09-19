@@ -290,10 +290,63 @@ return array(
           'playgrounddesign_skinadmin' => array(
             'type' => 'Literal',
             'options' => array(
-              'route'    => '/skin',
+                'route'    => '/skin',
+                'defaults' => array(
+                    'controller' => 'PlaygroundDesign\Controller\SkinAdmin',
+                    'action'     => 'list',
+                ),
+            ),
+            'may_terminate' => true,
+          ),
+          'playgrounddesign_skinadmin_new' => array(
+            'type' => 'Literal',
+            'options' => array(
+                'route'    => '/skin/new',
+                'defaults' => array(
+                    'controller' => 'PlaygroundDesign\Controller\SkinAdmin',
+                    'action'     => 'new',
+                ),
+            ),
+            'may_terminate' => true,
+          ),
+          'playgrounddesign_skinadmin_edit' => array(
+            'type' => 'Segment',
+            'options' => array(
+                'route'    => '/skin/[:skinId]/update',
+                'constraints' => array(
+                    'id' => '[0-9]+',
+                ),
               'defaults' => array(
                 'controller' => 'PlaygroundDesign\Controller\SkinAdmin',
-                'action'     => 'list',
+                'action'     => 'edit',
+              ),
+            ),
+            'may_terminate' => true,
+          ),
+          'playgrounddesign_skinadmin_delete' => array(
+            'type' => 'Segment',
+            'options' => array(
+                'route'    => '/skin/[:skinId]/delete',
+                'constraints' => array(
+                    'id' => '[0-9]+',
+                ),
+              'defaults' => array(
+                'controller' => 'PlaygroundDesign\Controller\SkinAdmin',
+                'action'     => 'delete',
+              ),
+            ),
+            'may_terminate' => true,
+          ),
+          'playgrounddesign_skinadmin_activate' => array(
+            'type' => 'Segment',
+            'options' => array(
+                'route'    => '/skin/[:skinId]/activate',
+                'constraints' => array(
+                    'id' => '[0-9]+',
+                ),
+              'defaults' => array(
+                'controller' => 'PlaygroundDesign\Controller\SkinAdmin',
+                'action'     => 'activate',
               ),
             ),
             'may_terminate' => true,
