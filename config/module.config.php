@@ -380,8 +380,8 @@ return array(
                 'order' => 100,
                 'label' => 'Configuration',
                 'route' => 'admin/playgrounddesign_companyadmin',
-                'resource' => 'partner',
-                'privilege' => 'list',
+                'resource' => 'design',
+                'privilege' => 'system',
                 'pages' => array(
                     'company' => array(
                         'label' => 'Société',
