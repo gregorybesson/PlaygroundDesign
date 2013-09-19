@@ -22,7 +22,7 @@ class Block extends AbstractDbMapper implements SkinInterface
 
     public function __construct(EntityManager $em)
     {
-        $this->em      = $em;
+        $this->em = $em;
     }
 
     public function findAll()
