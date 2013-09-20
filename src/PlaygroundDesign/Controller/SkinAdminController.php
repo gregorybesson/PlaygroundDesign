@@ -10,9 +10,19 @@ use PlaygroundDesign\Mapper\Skin;
 
 class SkinAdminController extends AbstractActionController
 {
+    /**
+    * @var $skinMapper mapper de l'entity skin
+    */
+    protected $skinMapper;
 
-  protected $options, $skinMapper, $adminActionService;
-
+    /**
+    * Liste des skins
+    *
+    * @return array $array Passage des variables dans le template
+    * skinsActivated : skin qui sont activés
+    * skinsNotActivated : skin qui ne sont pas activés
+    * flashMessages : flashMessages
+    */
     public function listAction()
     {
         $skinMaper = $this->getSkinMapper();
@@ -25,6 +35,13 @@ class SkinAdminController extends AbstractActionController
                      'flashMessages' => $this->flashMessenger()->getMessages());
     }
 
+    /**
+    * Edition d'un skin 
+    *
+    * @return array $array Passage des variables dans le template
+    * form : formulaire qui correspond au skin
+    * base : dossier qui correspond a la base du projet
+    */
     public function editAction()
     {
         $skinId = $this->getEvent()->getRouteMatch()->getParam('skinId');
@@ -63,6 +80,13 @@ class SkinAdminController extends AbstractActionController
                                               'base' => exec(escapeshellcmd('pwd'))));
     }
 
+    /**
+    * Creation d'un skin 
+    *
+    * @return array $array Passage des variables dans le template
+    * form : formulaire qui correspond au skin
+    * base : dossier qui correspond a la base du projet
+    */
     public function newAction()
     {
         $form = $this->getServiceLocator()->get('playgrounddesign_skin_form');
@@ -98,6 +122,11 @@ class SkinAdminController extends AbstractActionController
 
     }
 
+    /**
+    * Suppresion d'un skin 
+    *
+    * @redirect vers la liste des skin
+    */
     public function deleteAction()
     {
         $skinId = $this->getEvent()->getRouteMatch()->getParam('skinId');
@@ -109,6 +138,11 @@ class SkinAdminController extends AbstractActionController
         return $this->redirect()->toRoute('admin/playgrounddesign_skinadmin');
     }
 
+    /**
+    * Activation d'un skin 
+    *
+    * @redirect vers la liste des skin
+    */
     public function activateAction()
     {
 
@@ -127,6 +161,11 @@ class SkinAdminController extends AbstractActionController
         return $this->redirect()->toRoute('admin/playgrounddesign_skinadmin');
     }
 
+    /**
+    * Recuperation du skinMapper
+    *
+    * @return PlaygroundDesign\Mapper\Skin $skinMapper
+    */
     public function getSkinMapper()
     {
         if (null === $this->skinMapper) {
@@ -134,14 +173,5 @@ class SkinAdminController extends AbstractActionController
         }
 
         return $this->skinMapper;
-    }
-
-    public function getAdminSkinService()
-    {
-        if (null === $this->adminActionService) {
-            $this->adminActionService = $this->getServiceLocator()->get('playgrounddesign_skin_service');
-        }
-
-        return $this->adminActionService;
     }
 }

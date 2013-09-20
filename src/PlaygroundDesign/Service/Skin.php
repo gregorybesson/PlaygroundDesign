@@ -32,12 +32,12 @@ class Skin extends EventProvider implements ServiceManagerAwareInterface
 
     /**
      *
-     * This service is ready for all types of games
+     * This service is ready for create a skin
      *
      * @param  array  $data
-     * @param  string $entityClass
      * @param  string $formClass
-     * @return \PlaygroundPartnership\Entity\Partner
+     *
+     * @return \PlaygroundPartnership\Entity\Skin
      */
     public function create(array $data, $formClass)
     {
@@ -83,11 +83,12 @@ class Skin extends EventProvider implements ServiceManagerAwareInterface
 
     /**
      *
-     * This service is ready for all types of games
+     * This service is ready for edit a skin
      *
      * @param  array  $data
-     * @param  string $entityClass
+     * @param  string $skin
      * @param  string $formClass
+     *
      * @return \PlaygroundDesignEntity\Skin
      */
     public function edit(array $data, $skin, $formClass)
@@ -120,6 +121,15 @@ class Skin extends EventProvider implements ServiceManagerAwareInterface
         return $skin;
     }
     
+    /**
+     *
+     * Check if the directory skin exist
+     *
+     * @param  \PlaygroundPartnership\Entity\Skin $skin
+     * @param  array  $data
+     *
+     * @return bool $bool
+     */
     public function checkDirectorySkin($skin, $data)
     {
         $newUrlTheme = $skin->getBasePath().''.$data['type'].'/'.$data['package'].'/'.$data['theme'];
@@ -147,9 +157,9 @@ class Skin extends EventProvider implements ServiceManagerAwareInterface
 
     /**
      * setSkinMapper
-     *
      * @param  SkinMapperInterface $skinMapper
-     * @return Skin
+     *
+     * @return PlaygroundPartnership\Entity\Skin Skin
      */
     public function setSkinMapper($skinMapper)
     {
@@ -158,6 +168,12 @@ class Skin extends EventProvider implements ServiceManagerAwareInterface
         return $this;
     }
 
+    /**
+     * setOptions
+     * @param  ModuleOptions $options
+     *
+     * @return PlaygroundDesign\Service\Skin $this
+     */
     public function setOptions(ModuleOptions $options)
     {
         $this->options = $options;
@@ -165,6 +181,11 @@ class Skin extends EventProvider implements ServiceManagerAwareInterface
         return $this;
     }
 
+    /**
+     * getOptions
+     *
+     * @return ModuleOptions $optins
+     */
     public function getOptions()
     {
         if (!$this->options instanceof ModuleOptions) {

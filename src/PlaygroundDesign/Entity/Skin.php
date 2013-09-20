@@ -7,7 +7,6 @@ use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Doctrine\ORM\Mapping\PrePersist;
 use Doctrine\ORM\Mapping\PreUpdate;
 use Zend\InputFilter\InputFilter;
-use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
@@ -298,7 +297,7 @@ class Skin implements SkinInterface, InputFilterAwareInterface
         return $this->updated_at;
     }
 
-        /**
+    /**
      * Populate from an array.
      *
      * @param array $data
@@ -334,22 +333,41 @@ class Skin implements SkinInterface, InputFilterAwareInterface
         }
     }
 
+    /**
+    * getBasePath : recuperation du dossier de base de l'application
+    *  
+    * @return string $base  
+    */
     public function getBasePath()
     {
         $base = exec(escapeshellcmd('pwd'));
         return trim($base);
     }
 
+    /**
+    * getUrlBase : recuperation du chemin complet du skin
+    *  
+    * @return string $base  
+    */
     public function getUrlBase()
     {
         return $this->getBasePath().'/'.$this->getType().'/'.$this->getPackage().'/'.$this->getTheme().'/';
     }
 
+    /**
+    * setInputFilter
+    * @param InputFilterInterface $inputFilter  
+    */
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
         throw new \Exception("Not used");
     }
 
+    /**
+    * getInputFilter
+    *
+    * @return  InputFilter $inputFilter  
+    */
     public function getInputFilter()
     {
          if (!$this->inputFilter) {

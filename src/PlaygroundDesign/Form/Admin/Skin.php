@@ -2,17 +2,26 @@
 
 namespace PlaygroundDesign\Form\Admin;
 
-use Zend\Form\Form;
 use Zend\Form\Element;
 use ZfcBase\Form\ProvidesEventsForm;
 use Zend\I18n\Translator\Translator;
-use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 use Zend\ServiceManager\ServiceManager;
 
 class Skin extends ProvidesEventsForm
 {
+    /**
+    * @var Zend\ServiceManager\ServiceManager $serviceManager
+    */
     protected $serviceManager;
 
+    /**
+    * __construct : permet de construire le formulaire qui peuplera l'entity skin
+    *
+    * @param string $name
+    * @param Zend\ServiceManager\ServiceManager $serviceManager 
+    * @param Zend\I18n\Translator\Translator $translator
+    *
+    */
     public function __construct($name = null, ServiceManager $serviceManager, Translator $translator)
     {
         parent::__construct($name);
