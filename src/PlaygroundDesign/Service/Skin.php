@@ -30,6 +30,8 @@ class Skin extends EventProvider implements ServiceManagerAwareInterface
      */
     protected $options;
 
+    public static $files = array('assets.php', 'layout.php', 'theme.php');
+
     /**
      *
      * This service is ready for create a skin
@@ -65,6 +67,8 @@ class Skin extends EventProvider implements ServiceManagerAwareInterface
         if (!$form->isValid() && !$this->checkDirectorySkin($skin, $data)) {
             return false;
         }
+
+        $this->createFiles($skin, $data);
 
         $skinMapper = $this->getSkinMapper();
         $skin = $skinMapper->insert($skin);
@@ -132,13 +136,25 @@ class Skin extends EventProvider implements ServiceManagerAwareInterface
      */
     public function checkDirectorySkin($skin, $data)
     {
-        $newUrlTheme = $skin->getBasePath().''.$data['type'].'/'.$data['package'].'/'.$data['theme'];
+        $newUrlTheme = $skin->getBasePath().'/'.$data['type'].'/'.$data['package'].'/'.$data['theme'];
         if (!is_dir($newUrlTheme)) {
         
             return false;
         }
 
         return true;
+    }
+
+    public function createFiles($skin, $data)
+    {
+        foreach (self::$files as $file) {
+            if (file_exists($skin->getBasePath().'/design/'.$data['type'].'/'.$data['package'].'/'.$data['theme'].'/'.$file)) {
+                continue;
+            }
+            $contentAssets = file_get_contents(__DIR__.'/../Templates/'.$file);
+            $contentAssets = str_replace(array('{{type}}', '{{package}}','{{theme}}'), array($data['type'], $data['package'], $data['theme']), $contentAssets);
+            file_put_contents($skin->getBasePath().'/design/'.$data['type'].'/'.$data['package'].'/'.$data['theme'].'/'.$file, $contentAssets);
+        }
     }
 
     /**

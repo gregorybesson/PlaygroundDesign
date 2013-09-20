@@ -16,6 +16,11 @@ class SkinAdminController extends AbstractActionController
     protected $skinMapper;
 
     /**
+    * @var $adminActionService Service de l'entity skin
+    */
+    protected $adminActionService;
+
+    /**
     * Liste des skins
     *
     * @return array $array Passage des variables dans le template
@@ -173,5 +178,19 @@ class SkinAdminController extends AbstractActionController
         }
 
         return $this->skinMapper;
+    }
+
+    /**
+    * Recuperation du skinMapper
+    *
+    * @return PlaygroundDesign\Service\Skin $skinMapper
+    */
+    public function getAdminSkinService()
+    {
+        if (null === $this->adminActionService) {           
+            $this->adminActionService = $this->getServiceLocator()->get('playgrounddesign_skin_service');
+        }
+
+        return $this->adminActionService;
     }
 }
