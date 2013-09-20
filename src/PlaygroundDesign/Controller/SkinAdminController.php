@@ -15,7 +15,6 @@ class SkinAdminController extends AbstractActionController
 
     public function listAction()
     {
-        $config = $this->getAdminSkinService()->getServiceManager()->get('config');
         $skinMaper = $this->getSkinMapper();
 
         $skinsActivated = $skinMaper->findBy(array('is_active' => true));
@@ -23,13 +22,11 @@ class SkinAdminController extends AbstractActionController
 
         return array('skinsActivated' => $skinsActivated,
                      'skinsNotActivated' => $skinsNotActivated,
-                     'base' => $config['applicationDirectory'],
                      'flashMessages' => $this->flashMessenger()->getMessages());
     }
 
     public function editAction()
     {
-        $config = $this->getAdminSkinService()->getServiceManager()->get('config');
         $skinId = $this->getEvent()->getRouteMatch()->getParam('skinId');
         $skin = $this->getSkinMapper()->findById($skinId);
 
@@ -63,13 +60,11 @@ class SkinAdminController extends AbstractActionController
         $viewModel->setTemplate('playground-design/skin-admin/skin');
 
         return $viewModel->setVariables(array('form' => $form,
-                                              'base' => $skin->getBasePath($config['applicationDirectory'])));
+                                              'base' => exec(escapeshellcmd('pwd'))));
     }
 
     public function newAction()
     {
-        $config = $this->getAdminSkinService()->getServiceManager()->get('config');
-        
         $form = $this->getServiceLocator()->get('playgrounddesign_skin_form');
         $form->get('submit')->setLabel('Créer');
         
@@ -99,7 +94,7 @@ class SkinAdminController extends AbstractActionController
         $viewModel->setTemplate('playground-design/skin-admin/skin');
 
         return $viewModel->setVariables(array('form' => $form,
-                                              'base' => $skinEntity->getBasePath($config['applicationDirectory'])));
+                                              'base' => exec(escapeshellcmd('pwd'))));
 
     }
 

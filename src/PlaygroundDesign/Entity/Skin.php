@@ -334,23 +334,15 @@ class Skin implements SkinInterface, InputFilterAwareInterface
         }
     }
 
-    public function getBasePath($applicationName = 'playground')
+    public function getBasePath()
     {
-        $paths = explode("/".$applicationName."/", __DIR__);
-
-        return $paths[0]."/".$applicationName."/".self::BASE;
+        $base = exec(escapeshellcmd('pwd'));
+        return trim($base);
     }
 
-
-    public function getUrlBase($applicationName = null)
+    public function getUrlBase()
     {
-        if (!empty($applicationName)) {
-            $basePath = $this->getBasePath($applicationName);
-        } else {
-            $basePath = $this->getBasePath();
-        }
-
-        return $basePath.$this->getType().'/'.$this->getPackage().'/'.$this->getTheme().'/';
+        return $this->getBasePath().'/'.$this->getType().'/'.$this->getPackage().'/'.$this->getTheme().'/';
     }
 
     public function setInputFilter(InputFilterInterface $inputFilter)

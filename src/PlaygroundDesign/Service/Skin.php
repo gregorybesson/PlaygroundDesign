@@ -119,7 +119,7 @@ class Skin extends EventProvider implements ServiceManagerAwareInterface
 
         return $skin;
     }
-
+    
     public function checkDirectorySkin($skin, $data)
     {
         $newUrlTheme = $skin->getBasePath().''.$data['type'].'/'.$data['package'].'/'.$data['theme'];

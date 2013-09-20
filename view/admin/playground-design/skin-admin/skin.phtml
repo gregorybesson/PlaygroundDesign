@@ -17,7 +17,7 @@
             <?php echo $this->formElementErrors($form->get('title')) ?>
 
             <?php echo $this->formLabel($form->get('skin_path')); ?>
-            <?php echo $base.$this->formInput($form->get('type')); ?>/<?php echo $this->formInput($form->get('package')); ?>/<?php echo $this->formInput($form->get('theme')); ?>
+            <?php echo $base.'/'.$this->formInput($form->get('type')); ?>/<?php echo $this->formInput($form->get('package')); ?>/<?php echo $this->formInput($form->get('theme')); ?>
 
             <?php echo $this->formLabel($form->get('author')); ?>
             <?php echo $this->formInput($form->get('author')); ?>

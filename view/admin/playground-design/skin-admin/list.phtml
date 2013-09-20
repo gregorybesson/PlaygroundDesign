@@ -9,7 +9,7 @@
                         <p class="muted">Theme actuel<p>
                         <h3><?php echo $skin->getTitle(); ?> de type <?php echo $skin->getType(); ?></h3>
                         <p>par <?php echo $skin->getAuthor(); ?></p>
-                        <p>Tous les fichiers de ce thème se trouvent dans <?php echo $skin->getUrlBase(); ?></p>
+                        <p>Tous les fichiers de ce thème se trouvent dans <?php echo $skin->getUrlBase();?></p>
                     </div>
                 </div>
             </li>
@@ -24,7 +24,7 @@
                     <div class="caption">
                         <h3><?php echo $skin->getTitle(); ?> de type <?php echo $skin->getType(); ?></h3>
                         <p>par <?php echo $skin->getAuthor(); ?></p>
-                        <p>Tous les fichiers de ce thème se trouvent dans <?php echo $skin->getUrlBase($base); ?></p>
+                        <p>Tous les fichiers de ce thème se trouvent dans <?php echo $skin->getUrlBase(); ?></p>
                         <p>
                             <a class="btn btn-primary" href="<?php echo $this->url('admin/playgrounddesign_skinadmin_activate', array('skinId' => $skin->getId()));?>">Activer</a>
                             <a class="btn" href="<?php echo $this->url('admin/playgrounddesign_skinadmin_edit', array('skinId' => $skin->getId()));?>">Editer</a> 
