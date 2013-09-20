@@ -18,7 +18,7 @@ use Zend\InputFilter\InputFilterInterface;
 class Skin implements SkinInterface, InputFilterAwareInterface
 {
     
-    const BASE = 'design/';
+    const BASE = '/design';
 
     protected $inputFilter;
     /**
@@ -341,7 +341,7 @@ class Skin implements SkinInterface, InputFilterAwareInterface
     public function getBasePath()
     {
         $base = exec(escapeshellcmd('pwd'));
-        return trim($base);
+        return trim($base).self::BASE;
     }
 
     /**

@@ -25,13 +25,14 @@ class Module implements
 
     public function init(ModuleManager $manager)
     {
+
         $eventManager = $manager->getEventManager();
         /*
          * This event will exist in ZF 2.3.0. I'll then use it to change the config before it's cached
          * The change will apply to 'template_path_stack' and 'assetic_configuration'
          * These 2 config take part in the Playground Theme Management
          */
-        //$eventManager->attach(\Zend\ModuleManager\ModuleEvent::EVENT_MERGE_CONFIG, array($this, 'onMergeConfig'));
+        $eventManager->attach(\Zend\ModuleManager\ModuleEvent::EVENT_MERGE_CONFIG, array($this, 'onMergeConfig'));
     }
 
     /*
@@ -39,26 +40,35 @@ class Module implements
      */
     public function onMergeConfig($e)
     {
+       $config = $e->getConfigListener()->getMergedConfig(false);
 
-        $config = $e->getConfigListener()->getMergedConfig(false);
-
-        if(isset($config['design'])){
+        // Recuperation du skin pour le backoffice.
+        if (isset($config['design'])) {
             $configHasChanged = false;
             $viewResolverPathStack = $config['template_path_stack'];
-            if(isset($config['design']['admin']) && isset($config['design']['admin']['package']) && isset($config['design']['admin']['theme'])){
+            if (isset($config['design']['admin']) && isset($config['design']['admin']['package']) && isset($config['design']['admin']['theme'])) {
 
                 $adminPath = __DIR__ . '/../../../../../design/admin/'. $config['design']['admin']['package'] .'/'. $config['design']['admin']['theme'];
+
+                $skinMaper = $this->getSkinMapper();
+                $skinsActivated = $skinMaper->findBy(array('is_active' => true, 'type' => 'admin'));
+                $skinActivated = $skinsActivated[0];
+
+                // Surchage par le skin qui est activé en base de donnée
+                if(!empty($skinActivated)) {
+                    $frontendPath = __DIR__ . '/../../../../../design/admin/'. $skinActivated['package'] .'/'. $skinActivated['theme'];
+                }
 
                 // I get the Theme definition file and apply a check on the parent theme.
                 // TODO : Apply recursion to this stuff.
                 $adminThemePath = $adminPath . '/theme.php';
-                if(is_file($adminThemePath) && is_readable($adminThemePath)){
+                if (is_file($adminThemePath) && is_readable($adminThemePath)) {
                     $configTheme = new \Zend\Config\Config(include $adminThemePath);
 
-                    if (isset($configTheme['design']['package']['theme']['parent'])){
+                    if (isset($configTheme['design']['package']['theme']['parent'])) {
                         $stack = array();
                         $parentTheme = explode('_', $configTheme['design']['package']['theme']['parent']);
-                        if(!(strtolower($parentTheme[0]) === 'playground' && strtolower($parentTheme[1]) === 'base')){
+                        if (!(strtolower($parentTheme[0]) === 'playground' && strtolower($parentTheme[1]) === 'base')) {
                             // The parent for this theme is not the base one. I remove the base admin paths
                             foreach($viewResolverPathStack->getPaths() as $path){
                                 if(!$result = preg_match('/\/admin\/$/',$path,$matches)){
@@ -72,8 +82,8 @@ class Module implements
                         }
                     } else {
                         // There is no parent to this theme. I remove the base admin paths
-                        foreach($viewResolverPathStack->getPaths() as $path){
-                            if(!$result = preg_match('/\/admin\/$/',$path,$matches)){
+                        foreach ($viewResolverPathStack->getPaths() as $path) {
+                            if (!$result = preg_match('/\/admin\/$/',$path,$matches)) {
                                 $stack[] = $path;
                             }
                         }
@@ -93,33 +103,44 @@ class Module implements
                 //print_r($viewResolverPathStack->getPaths());
 
                 $assets = $adminPath . '/assets.php';
-                if(is_file($assets) && is_readable($assets)){
+                if (is_file($assets) && is_readable($assets)) {
                     $configAssets = new \Zend\Config\Config(include $assets);
                     $config = array_replace_recursive($config, $configAssets->toArray());
                     $configHasChanged = true;
                 }
 
                 $layout = $adminPath . '/layout.php';
-                if(is_file($layout) && is_readable($layout)){
+                if (is_file($layout) && is_readable($layout)) {
                     $configLayout = new \Zend\Config\Config(include $layout);
                     $config = array_replace_recursive($config, $configLayout->toArray());
                     $configHasChanged = true;
                 }
             }
-            if(isset($config['design']['frontend']) && isset($config['design']['frontend']['package']) && isset($config['design']['frontend']['theme'])){
+            if (isset($config['design']['frontend']) && isset($config['design']['frontend']['package']) && isset($config['design']['frontend']['theme'])) {
+
                 $frontendPath = __DIR__ . '/../../../../../design/frontend/'. $config['design']['frontend']['package'] .'/'. $config['design']['frontend']['theme'];
+                
+                $skinMaper = $this->getSkinMapper();
+                $skinsActivated = $skinMaper->findBy(array('is_active' => true, 'type' => 'frontend'));
+                $skinActivated = $skinsActivated[0];
+
+                // Surchage par le skin qui est activé en base de donnée
+                if(!empty($skinActivated)) {
+                    $frontendPath = __DIR__ . '/../../../../../design/frontend/'. $skinActivated['package'] .'/'. $skinActivated['theme'];
+                }
+
 
                 $frontendThemePath = $frontendPath . '/theme.php';
-                if(is_file($frontendThemePath) && is_readable($frontendThemePath)){
+                if (is_file($frontendThemePath) && is_readable($frontendThemePath)) {
                     $configTheme = new \Zend\Config\Config(include $frontendThemePath);
 
-                    if (isset($configTheme['design']['package']['theme']['parent'])){
+                    if (isset($configTheme['design']['package']['theme']['parent'])) {
                         $stack = array();
                         $parentTheme = explode('_', $configTheme['design']['package']['theme']['parent']);
-                        if(!(strtolower($parentTheme[0]) === 'playground' && strtolower($parentTheme[1]) === 'base')){
+                        if (!(strtolower($parentTheme[0]) === 'playground' && strtolower($parentTheme[1]) === 'base')) {
                             // The parent for this theme is not the base one. I remove the base frontend paths
-                            foreach($viewResolverPathStack->getPaths() as $path){
-                                if(!$result = preg_match('/\/frontend\/$/',$path,$matches)){
+                            foreach ($viewResolverPathStack->getPaths() as $path) {
+                                if (!$result = preg_match('/\/frontend\/$/',$path,$matches)) {
                                     $stack[] = $path;
                                 }
                             }
@@ -130,8 +151,8 @@ class Module implements
                         }
                     } else {
                         // There is no parent to this theme. I remove the base frontend paths
-                        foreach($viewResolverPathStack->getPaths() as $path){
-                            if(!$result = preg_match('/\/frontend\/$/',$path,$matches)){
+                        foreach ($viewResolverPathStack->getPaths() as $path) {
+                            if (!$result = preg_match('/\/frontend\/$/',$path,$matches)) {
                                 $stack[] = $path;
                             }
                         }
@@ -147,20 +168,22 @@ class Module implements
                 $viewResolverPathStack->addPaths($pathStack);
 
                 $assets = $frontendPath . '/assets.php';
-                if(is_file($assets) && is_readable($assets)){
+                if (is_file($assets) && is_readable($assets)) {
                     $configAssets = new \Zend\Config\Config(include $assets);
                     $config = array_replace_recursive($config, $configAssets->toArray() );
                     $configHasChanged = true;
                 }
 
                 $layout = $frontendPath . '/layout.php';
-                if(is_file($layout) && is_readable($layout)){
+                if (is_file($layout) && is_readable($layout)) {
                     $configLayout = new \Zend\Config\Config(include $layout);
                     $config = array_replace_recursive($config, $configLayout->toArray() );
                     $configHasChanged = true;
                 }
             }
-            if($configHasChanged){
+
+
+            if ($configHasChanged) {
                 $e->getApplication()->getServiceManager()->setAllowOverride(true);
                 $e->getApplication()->getServiceManager()->setService('config', $config);
             }
@@ -480,5 +503,19 @@ class Module implements
                 'playgrounddesign_skin_service' => 'PlaygroundDesign\Service\Skin'
             ),
         );
+    }
+
+    /**
+    * Recuperation du skinMapper
+    *
+    * @return PlaygroundDesign\Mapper\Skin $skinMapper
+    */
+    public function getSkinMapper()
+    {
+        if (null === $this->skinMapper) {
+            $this->skinMapper = $this->getServiceLocator()->get('playgrounddesign_skin_mapper');
+        }
+
+        return $this->skinMapper;
     }
 }

@@ -4,6 +4,7 @@ namespace PlaygroundDesign\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\EventManager\EventManager;
 
 use PlaygroundDesign\Entity\Skin as SkinEntity;
 use PlaygroundDesign\Mapper\Skin;
@@ -82,7 +83,7 @@ class SkinAdminController extends AbstractActionController
         $viewModel->setTemplate('playground-design/skin-admin/skin');
 
         return $viewModel->setVariables(array('form' => $form,
-                                              'base' => exec(escapeshellcmd('pwd'))));
+                                              'base' => exec(escapeshellcmd('pwd')).SkinEntity::BASE));
     }
 
     /**
@@ -123,7 +124,7 @@ class SkinAdminController extends AbstractActionController
         $viewModel->setTemplate('playground-design/skin-admin/skin');
 
         return $viewModel->setVariables(array('form' => $form,
-                                              'base' => exec(escapeshellcmd('pwd'))));
+                                              'base' => exec(escapeshellcmd('pwd')).SkinEntity::BASE));
 
     }
 
@@ -162,6 +163,9 @@ class SkinAdminController extends AbstractActionController
         $skin->setIsActive(true);
         $this->getSkinMapper()->update($skin);
         $this->flashMessenger()->addMessage('The skin "'.$skin->getTitle().'" is activate');
+
+        $eventManager = new EventManager();
+        $eventManager->trigger(\Zend\ModuleManager\ModuleEvent::EVENT_MERGE_CONFIG);
 
         return $this->redirect()->toRoute('admin/playgrounddesign_skinadmin');
     }
