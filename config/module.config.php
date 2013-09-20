@@ -1,9 +1,9 @@
 <?php
 return array(
 
-  'doctrine' => array(
+    'doctrine' => array(
         'driver' => array(
-            'zfcuser_entity' => array(
+            'playgrounddesign_entity' => array(
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
                 'paths' => __DIR__ . '/../src/PlaygroundDesign/Entity'
@@ -11,7 +11,7 @@ return array(
 
             'orm_default' => array(
                 'drivers' => array(
-                    /*'PlaygroundDesign\Entity'  => 'zfcdesign_entity'*/
+                    'PlaygroundDesign\Entity'  => 'playgrounddesign_entity'
                 )
             )
         )
@@ -290,10 +290,63 @@ return array(
           'playgrounddesign_skinadmin' => array(
             'type' => 'Literal',
             'options' => array(
-              'route'    => '/skin',
+                'route'    => '/skin',
+                'defaults' => array(
+                    'controller' => 'PlaygroundDesign\Controller\SkinAdmin',
+                    'action'     => 'list',
+                ),
+            ),
+            'may_terminate' => true,
+          ),
+          'playgrounddesign_skinadmin_new' => array(
+            'type' => 'Literal',
+            'options' => array(
+                'route'    => '/skin/new',
+                'defaults' => array(
+                    'controller' => 'PlaygroundDesign\Controller\SkinAdmin',
+                    'action'     => 'new',
+                ),
+            ),
+            'may_terminate' => true,
+          ),
+          'playgrounddesign_skinadmin_edit' => array(
+            'type' => 'Segment',
+            'options' => array(
+                'route'    => '/skin/[:skinId]/update',
+                'constraints' => array(
+                    'id' => '[0-9]+',
+                ),
               'defaults' => array(
                 'controller' => 'PlaygroundDesign\Controller\SkinAdmin',
-                'action'     => 'list',
+                'action'     => 'edit',
+              ),
+            ),
+            'may_terminate' => true,
+          ),
+          'playgrounddesign_skinadmin_delete' => array(
+            'type' => 'Segment',
+            'options' => array(
+                'route'    => '/skin/[:skinId]/delete',
+                'constraints' => array(
+                    'id' => '[0-9]+',
+                ),
+              'defaults' => array(
+                'controller' => 'PlaygroundDesign\Controller\SkinAdmin',
+                'action'     => 'delete',
+              ),
+            ),
+            'may_terminate' => true,
+          ),
+          'playgrounddesign_skinadmin_activate' => array(
+            'type' => 'Segment',
+            'options' => array(
+                'route'    => '/skin/[:skinId]/activate',
+                'constraints' => array(
+                    'id' => '[0-9]+',
+                ),
+              'defaults' => array(
+                'controller' => 'PlaygroundDesign\Controller\SkinAdmin',
+                'action'     => 'activate',
               ),
             ),
             'may_terminate' => true,
@@ -380,8 +433,8 @@ return array(
                 'order' => 100,
                 'label' => 'Configuration',
                 'route' => 'admin/playgrounddesign_companyadmin',
-                'resource' => 'partner',
-                'privilege' => 'list',
+                'resource' => 'design',
+                'privilege' => 'system',
                 'pages' => array(
                     'company' => array(
                         'label' => 'Société',
