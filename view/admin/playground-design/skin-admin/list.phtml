@@ -1,3 +1,4 @@
+<?php $this->plugin('translate')->setTranslatorTextDomain('playgrounddesign');// Pour le texte ?>
 <div class="row-fluid show-grid">
     <?php echo $this->partial('playground-design/partial/menu.phtml', array('action' => 'list')); ?>
     <ul class="thumbnails">
@@ -6,10 +7,10 @@
                 <div class="thumbnail">
                     <img alt="<?php echo $skin->getTitle(); ?>" data-src="holder.js/300x200" style="width: 300px; height: 200px;" src="<?php echo $this->basePath($skin->getImage()); ?>">
                     <div class="caption">
-                        <p class="muted">Theme actuel<p>
-                        <h3><?php echo $skin->getTitle(); ?> de type <?php echo $skin->getType(); ?></h3>
-                        <p>par <?php echo $skin->getAuthor(); ?></p>
-                        <p>Tous les fichiers de ce thème se trouvent dans <?php echo $skin->getUrlBase();?></p>
+                        <p class="muted"><?php echo $this->translate('Theme actuel'); ?><p>
+                        <h3><?php echo $skin->getTitle(); ?> <?php echo $this->translate('de type'); ?> <?php echo $skin->getType(); ?></h3>
+                        <p><?php echo $this->translate('par'); ?> <?php echo $skin->getAuthor(); ?></p>
+                        <p><?php echo $this->translate('Tous les fichiers de ce thème se trouvent dans');?> <?php echo $skin->getUrlBase();?></p>
                     </div>
                 </div>
             </li>
@@ -22,13 +23,13 @@
                 <div class="thumbnail">
                     <img alt="<?php echo $skin->getTitle(); ?>" data-src="holder.js/300x200" style="width: 300px; height: 200px;" src="<?php echo $this->basePath($skin->getImage()); ?>">
                     <div class="caption">
-                        <h3><?php echo $skin->getTitle(); ?> de type <?php echo $skin->getType(); ?></h3>
-                        <p>par <?php echo $skin->getAuthor(); ?></p>
-                        <p>Tous les fichiers de ce thème se trouvent dans <?php echo $skin->getUrlBase(); ?></p>
+                        <h3><?php echo $skin->getTitle(); ?> <?php echo $this->translate('de type'); ?>e <?php echo $skin->getType(); ?></h3>
+                        <p><?php echo $this->translate('par'); ?> <?php echo $skin->getAuthor(); ?></p>
+                        <p><?php echo $this->translate('Tous les fichiers de ce thème se trouvent dans');?> <?php echo $skin->getUrlBase(); ?></p>
                         <p>
-                            <a class="btn btn-primary" href="<?php echo $this->url('admin/playgrounddesign_skinadmin_activate', array('skinId' => $skin->getId()));?>">Activer</a>
-                            <a class="btn" href="<?php echo $this->url('admin/playgrounddesign_skinadmin_edit', array('skinId' => $skin->getId()));?>">Editer</a> 
-                            <a class="btn" href="<?php echo $this->url('admin/playgrounddesign_skinadmin_delete', array('skinId' => $skin->getId()));?>">Supprimer</a>
+                            <a class="btn btn-primary" href="<?php echo $this->url('admin/playgrounddesign_skinadmin_activate', array('skinId' => $skin->getId()));?>"><?php echo $this->translate('Activer');?></a>
+                            <a class="btn" href="<?php echo $this->url('admin/playgrounddesign_skinadmin_edit', array('skinId' => $skin->getId()));?>"><?php echo $this->translate('Editer');?></a> 
+                            <a class="btn" href="<?php echo $this->url('admin/playgrounddesign_skinadmin_delete', array('skinId' => $skin->getId()));?>"><?php echo $this->translate('Supprimer');?></a>
                         </p>
                     </div>
                 </div>
