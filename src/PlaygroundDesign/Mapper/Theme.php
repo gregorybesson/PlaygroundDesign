@@ -7,7 +7,7 @@ use ZfcBase\Mapper\AbstractDbMapper;
 
 use PlaygroundDesign\Options\ModuleOptions;
 
-class Skin implements SkinInterface
+class Theme implements ThemeInterface
 {
     /**
      * @var \Doctrine\ORM\EntityManager
@@ -39,9 +39,9 @@ class Skin implements SkinInterface
 
     /**
     * findById : recupere l'entite en fonction de son id
-    * @param int $id id du skin
+    * @param int $id id du theme
     *
-    * @return PlaygroundDesign\Entity\Skin $skin
+    * @return PlaygroundDesign\Entity\Theme $theme
     */
     public function findById($id)
     {
@@ -52,7 +52,7 @@ class Skin implements SkinInterface
     * findBy : recupere des entites en fonction de filtre
     * @param array $array tableau de filtre
     *
-    * @return collection $skins collection de PlaygroundDesign\Entity\Skin
+    * @return collection $themes collection de PlaygroundDesign\Entity\Theme
     */
     public function findBy($array)
     {
@@ -60,10 +60,10 @@ class Skin implements SkinInterface
     }
 
     /**
-    * insert : insert en base une entité skin
-    * @param PlaygroundDesign\Entity\Skin $entity skin
+    * insert : insert en base une entité theme
+    * @param PlaygroundDesign\Entity\Theme $entity theme
     *
-    * @return PlaygroundDesign\Entity\Skin $skin
+    * @return PlaygroundDesign\Entity\Theme $theme
     */
     public function insert($entity)
     {
@@ -71,10 +71,10 @@ class Skin implements SkinInterface
     }
 
     /**
-    * insert : met a jour en base une entité skin
-    * @param PlaygroundDesign\Entity\Skin $entity skin
+    * insert : met a jour en base une entité theme
+    * @param PlaygroundDesign\Entity\Theme $entity theme
     *
-    * @return PlaygroundDesign\Entity\Skin $skin
+    * @return PlaygroundDesign\Entity\Theme $theme
     */
     public function update($entity)
     {
@@ -82,10 +82,10 @@ class Skin implements SkinInterface
     }
 
     /**
-    * insert : met a jour en base une entité skin et persiste en base
-    * @param PlaygroundDesign\Entity\Skin $entity skin
+    * insert : met a jour en base une entité theme et persiste en base
+    * @param PlaygroundDesign\Entity\Theme $entity theme
     *
-    * @return PlaygroundDesign\Entity\Skin $skin
+    * @return PlaygroundDesign\Entity\Theme $theme
     */
     protected function persist($entity)
     {
@@ -98,7 +98,7 @@ class Skin implements SkinInterface
     /**
     * findAll : recupere toutes les entites 
     *
-    * @return collection $skins collection de PlaygroundDesign\Entity\Skin
+    * @return collection $themes collection de PlaygroundDesign\Entity\Theme
     */
     public function findAll()
     {
@@ -106,8 +106,8 @@ class Skin implements SkinInterface
     }
 
      /**
-    * remove : supprimer une entite skin
-    * @param PlaygroundDesign\Entity\Skin $entity skin
+    * remove : supprimer une entite theme
+    * @param PlaygroundDesign\Entity\Theme $entity theme
     *
     */
     public function remove($entity)
@@ -117,14 +117,14 @@ class Skin implements SkinInterface
     }
 
     /**
-    * getEntityRepository : recupere l'entite skin
+    * getEntityRepository : recupere l'entite theme
     *
-    * @return PlaygroundDesign\Entity\Skin $skin
+    * @return PlaygroundDesign\Entity\Theme $theme
     */
     public function getEntityRepository()
     {
         if (null === $this->er) {
-            $this->er = $this->em->getRepository('PlaygroundDesign\Entity\Skin');
+            $this->er = $this->em->getRepository('PlaygroundDesign\Entity\Theme');
         }
 
         return $this->er;

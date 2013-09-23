@@ -297,9 +297,9 @@ return array(
     
     // Formgen Input
     'Input Name'            => 'Nom du champ',
-    'skin_title'            => 'Nom du thème :', 
-    'skin_path'             => 'Chemin du thème :',
-    'skin_author'           => 'Auteur :',
-    'skin_image'            => 'Aperçu :',  
+    'theme_title'            => 'Nom du thème :', 
+    'theme_path'             => 'Chemin du thème :',
+    'theme_author'           => 'Auteur :',
+    'theme_image'            => 'Aperçu :',  
     
 );

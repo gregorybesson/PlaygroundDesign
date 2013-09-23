@@ -17,6 +17,10 @@ return array(
         )
     ),
 
+    'data-fixture' => array(
+        'PlaygroundDesign_fixture' => __DIR__ . '/../src/PlaygroundDesign/DataFixtures/ORM',
+    ),
+
 
     'service_manager' => array(
         'factories' => array(
@@ -287,65 +291,65 @@ return array(
             ),
             'may_terminate' => true,
           ),
-          'playgrounddesign_skinadmin' => array(
+          'playgrounddesign_themeadmin' => array(
             'type' => 'Literal',
             'options' => array(
-                'route'    => '/skin',
+                'route'    => '/theme',
                 'defaults' => array(
-                    'controller' => 'PlaygroundDesign\Controller\SkinAdmin',
+                    'controller' => 'PlaygroundDesign\Controller\ThemeAdmin',
                     'action'     => 'list',
                 ),
             ),
             'may_terminate' => true,
           ),
-          'playgrounddesign_skinadmin_new' => array(
+          'playgrounddesign_themeadmin_new' => array(
             'type' => 'Literal',
             'options' => array(
-                'route'    => '/skin/new',
+                'route'    => '/theme/new',
                 'defaults' => array(
-                    'controller' => 'PlaygroundDesign\Controller\SkinAdmin',
+                    'controller' => 'PlaygroundDesign\Controller\ThemeAdmin',
                     'action'     => 'new',
                 ),
             ),
             'may_terminate' => true,
           ),
-          'playgrounddesign_skinadmin_edit' => array(
+          'playgrounddesign_themeadmin_edit' => array(
             'type' => 'Segment',
             'options' => array(
-                'route'    => '/skin/[:skinId]/update',
+                'route'    => '/theme/[:themeId]/update',
                 'constraints' => array(
                     'id' => '[0-9]+',
                 ),
               'defaults' => array(
-                'controller' => 'PlaygroundDesign\Controller\SkinAdmin',
+                'controller' => 'PlaygroundDesign\Controller\ThemeAdmin',
                 'action'     => 'edit',
               ),
             ),
             'may_terminate' => true,
           ),
-          'playgrounddesign_skinadmin_delete' => array(
+          'playgrounddesign_themeadmin_delete' => array(
             'type' => 'Segment',
             'options' => array(
-                'route'    => '/skin/[:skinId]/delete',
+                'route'    => '/theme/[:themeId]/delete',
                 'constraints' => array(
                     'id' => '[0-9]+',
                 ),
               'defaults' => array(
-                'controller' => 'PlaygroundDesign\Controller\SkinAdmin',
+                'controller' => 'PlaygroundDesign\Controller\ThemeAdmin',
                 'action'     => 'delete',
               ),
             ),
             'may_terminate' => true,
           ),
-          'playgrounddesign_skinadmin_activate' => array(
+          'playgrounddesign_themeadmin_activate' => array(
             'type' => 'Segment',
             'options' => array(
-                'route'    => '/skin/[:skinId]/activate',
+                'route'    => '/theme/[:themeId]/activate',
                 'constraints' => array(
                     'id' => '[0-9]+',
                 ),
               'defaults' => array(
-                'controller' => 'PlaygroundDesign\Controller\SkinAdmin',
+                'controller' => 'PlaygroundDesign\Controller\ThemeAdmin',
                 'action'     => 'activate',
               ),
             ),
@@ -404,7 +408,7 @@ return array(
             'PlaygroundDesign\Controller\Dashboard' => 'PlaygroundDesign\Controller\DashboardController',
             'PlaygroundDesign\Controller\System'    => 'PlaygroundDesign\Controller\SystemController',
             'PlaygroundDesign\Controller\CompanyAdmin' => 'PlaygroundDesign\Controller\CompanyAdminController',
-            'PlaygroundDesign\Controller\SkinAdmin' => 'PlaygroundDesign\Controller\SkinAdminController',
+            'PlaygroundDesign\Controller\themeAdmin' => 'PlaygroundDesign\Controller\ThemeAdminController',
         ),
     ),
 
@@ -442,9 +446,9 @@ return array(
                         'resource' => 'design',
                         'privilege' => 'system',
                     ),
-                    'skin' => array(
+                    'theme' => array(
                         'label' => 'Gestion des thèmes',
-                        'route' => 'admin/playgrounddesign_skinadmin',
+                        'route' => 'admin/playgrounddesign_themeadmin',
                         'resource' => 'design',
                         'privilege' => 'system',
                     ),

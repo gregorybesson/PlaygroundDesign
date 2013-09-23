@@ -1,5 +1,5 @@
 <style>
-    #skin_path input[type="text"] {width:125px;}
+    #theme_path input[type="text"] {width:125px;}
 </style>
 <?php $this->plugin('translate')->setTranslatorTextDomain('playgrounddesign');// Pour le texte ?>
 <div class="row-fluid show-grid">
@@ -19,8 +19,8 @@
         <?php echo $this->formLabel($form->get('title')); ?>
         <?php echo $this->formInput($form->get('title')); ?>
         <?php echo $this->formElementErrors($form->get('title')) ?>
-        <div id='skin_path'>
-            <?php echo $this->formLabel($form->get('skin_path')); ?>
+        <div id='theme_path'>
+            <?php echo $this->formLabel($form->get('theme_path')); ?>
             <strong><?php echo $base.'/'; ?></strong>
             <?php echo $this->formInput($form->get('type')); ?>/<?php echo $this->formInput($form->get('package')); ?>/<?php echo $this->formInput($form->get('theme')); ?>
         </div>

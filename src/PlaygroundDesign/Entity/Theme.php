@@ -13,9 +13,9 @@ use Zend\InputFilter\InputFilterInterface;
 
 /**
  * @ORM\Entity @HasLifecycleCallbacks
- * @ORM\Table(name="skin")
+ * @ORM\Table(name="theme")
  */
-class Skin implements SkinInterface, InputFilterAwareInterface
+class Theme implements ThemeInterface, InputFilterAwareInterface
 {
     
     const BASE = '/design';
@@ -59,13 +59,13 @@ class Skin implements SkinInterface, InputFilterAwareInterface
     protected $theme;
 
      /**
-     * Author of the skin
+     * Author of the theme
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $author;
 
     /**
-     * Is this Skin is activated on the site
+     * Is this Theme is activated on the site
      * @ORM\Column(name="is_active",type="boolean")
      */
     protected $is_active;
@@ -86,7 +86,7 @@ class Skin implements SkinInterface, InputFilterAwareInterface
     {
         $this->created_at = new \DateTime("now");
         $this->updated_at = new \DateTime("now");
-        // Le skin est par defaut désactivé
+        // Le theme est par defaut désactivé
         $this->is_active = false;
     }
 
@@ -98,7 +98,7 @@ class Skin implements SkinInterface, InputFilterAwareInterface
 
     /**
      * @param int $id
-     * @return Skin
+     * @return Theme
      */
     public function setId($id)
     {
@@ -117,7 +117,7 @@ class Skin implements SkinInterface, InputFilterAwareInterface
 
     /**
      * @param string $title
-     * @return Skin
+     * @return Theme
      */
     public function setTitle($title)
     {
@@ -136,7 +136,7 @@ class Skin implements SkinInterface, InputFilterAwareInterface
 
     /**
      * @param string $image
-     * @return Skin
+     * @return Theme
      */
     public function setImage($image)
     {
@@ -155,7 +155,7 @@ class Skin implements SkinInterface, InputFilterAwareInterface
 
     /**
      * @param string $type
-     * @return Skin
+     * @return Theme
      */
     public function setType($type)
     {
@@ -174,7 +174,7 @@ class Skin implements SkinInterface, InputFilterAwareInterface
 
     /**
      * @param string $type
-     * @return Skin
+     * @return Theme
      */
     public function setPackage($package)
     {
@@ -193,7 +193,7 @@ class Skin implements SkinInterface, InputFilterAwareInterface
 
     /**
      * @param string $theme
-     * @return Skin
+     * @return Theme
      */
     public function setTheme($theme)
     {
@@ -212,7 +212,7 @@ class Skin implements SkinInterface, InputFilterAwareInterface
 
     /**
      * @param string $author
-     * @return Skin
+     * @return Theme
      */
     public function setAuthor($author)
     {
@@ -231,7 +231,7 @@ class Skin implements SkinInterface, InputFilterAwareInterface
 
     /**
      * @param bool $isActive
-     * @return Skin
+     * @return Theme
      */
     public function setIsActive($isActive)
     {
@@ -251,9 +251,9 @@ class Skin implements SkinInterface, InputFilterAwareInterface
 
     /**
      * @param mixed $createdAt
-     * @return Skin
+     * @return Theme
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt($created_at)
     {
         $this->created_at = $created_at;
 
@@ -270,7 +270,7 @@ class Skin implements SkinInterface, InputFilterAwareInterface
 
     /**
      * @param mixed $updatedAt
-     * @return Skin
+     * @return Theme
      */
     public function setUpdatedAt($updated_at)
     {
@@ -345,7 +345,7 @@ class Skin implements SkinInterface, InputFilterAwareInterface
     }
 
     /**
-    * getUrlBase : recuperation du chemin complet du skin
+    * getUrlBase : recuperation du chemin complet du theme
     *  
     * @return string $base  
     */

@@ -2,7 +2,7 @@
 
 namespace PlaygroundDesign\Service;
 
-use PlaygroundDesign\Entity\Skin as SkinEntity;
+use PlaygroundDesign\Entity\Theme as ThemeEntity;
 
 use Zend\Form\Form;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
@@ -12,13 +12,13 @@ use PlaygroundDesign\Options\ModuleOptions;
 use DoctrineModule\Validator\NoObjectExists as NoObjectExistsValidator;
 use Zend\Stdlib\ErrorHandler;
 
-class Skin extends EventProvider implements ServiceManagerAwareInterface
+class Theme extends EventProvider implements ServiceManagerAwareInterface
 {
 
     /**
-     * @var skinMapperInterface
+     * @var themeMapperInterface
      */
-    protected $skinMapper;
+    protected $themeMapper;
   
     /**
      * @var ServiceManager
@@ -34,74 +34,74 @@ class Skin extends EventProvider implements ServiceManagerAwareInterface
 
     /**
      *
-     * This service is ready for create a skin
+     * This service is ready for create a theme
      *
      * @param  array  $data
      * @param  string $formClass
      *
-     * @return \PlaygroundPartnership\Entity\Skin
+     * @return \PlaygroundPartnership\Entity\Theme
      */
     public function create(array $data, $formClass)
     {
-        $skin  = new SkinEntity;
+        $theme  = new ThemeEntity;
         $entityManager = $this->getServiceManager()->get('playgrounddesign_doctrine_em');
 
         $form  = $this->getServiceManager()->get($formClass);
 
-        $form->bind($skin);
+        $form->bind($theme);
 
         $path = $this->getOptions()->getMediaPath() . DIRECTORY_SEPARATOR;
         $media_url = $this->getOptions()->getMediaUrl() . '/';
 
         $input = $form->getInputFilter()->get('title');
         $noObjectExistsValidator = new NoObjectExistsValidator(array(
-                'object_repository' => $entityManager->getRepository('PlaygroundDesign\Entity\Skin'),
+                'object_repository' => $entityManager->getRepository('PlaygroundDesign\Entity\Theme'),
                 'fields'            => 'title',
                 'messages'          => array('objectFound' => 'Ce titre existe déjà !')
         ));
 
         $input->getValidatorChain()->addValidator($noObjectExistsValidator);
-        $skin->setImage('tmp');
+        $theme->setImage('tmp');
         $form->setData($data);
 
-        if (!$form->isValid() && !$this->checkDirectorySkin($skin, $data)) {
+        if (!$form->isValid() && !$this->checkDirectoryTheme($theme, $data)) {
             return false;
         }
 
-        $this->createFiles($skin, $data);
+        $this->createFiles($theme, $data);
 
-        $skinMapper = $this->getSkinMapper();
-        $skin = $skinMapper->insert($skin);
+        $themeMapper = $this->getThemeMapper();
+        $theme = $themeMapper->insert($theme);
 
         if (!empty($data['uploadImage']['tmp_name'])) {
             ErrorHandler::start();
-            move_uploaded_file($data['uploadImage']['tmp_name'], $path . $skin->getId() . "-" . $data['uploadImage']['name']);
-            $skin->setImage($media_url . $skin->getId() . "-" . $data['uploadImage']['name']);
+            move_uploaded_file($data['uploadImage']['tmp_name'], $path . $theme->getId() . "-" . $data['uploadImage']['name']);
+            $theme->setImage($media_url . $theme->getId() . "-" . $data['uploadImage']['name']);
             ErrorHandler::stop(true);
         }
 
-        $skin = $skinMapper->update($skin);
+        $theme = $themeMapper->update($theme);
 
-        return $skin;
+        return $theme;
     }
 
     /**
      *
-     * This service is ready for edit a skin
+     * This service is ready for edit a theme
      *
      * @param  array  $data
-     * @param  string $skin
+     * @param  string $theme
      * @param  string $formClass
      *
-     * @return \PlaygroundDesignEntity\Skin
+     * @return \PlaygroundDesignEntity\Theme
      */
-    public function edit(array $data, $skin, $formClass)
+    public function edit(array $data, $theme, $formClass)
     {
        $entityManager = $this->getServiceManager()->get('playgrounddesign_doctrine_em');
 
         $form  = $this->getServiceManager()->get($formClass);
 
-        $form->bind($skin);
+        $form->bind($theme);
 
         $path = $this->getOptions()->getMediaPath() . DIRECTORY_SEPARATOR;
 
@@ -109,34 +109,34 @@ class Skin extends EventProvider implements ServiceManagerAwareInterface
 
         $form->setData($data);
  
-        if (!$form->isValid() && !$this->checkDirectorySkin($skin, $data)) {
+        if (!$form->isValid() && !$this->checkDirectoryTheme($theme, $data)) {
             return false;
         }
 
         if (!empty($data['uploadImage']['tmp_name'])) {
             ErrorHandler::start();
-            move_uploaded_file($data['uploadImage']['tmp_name'], $path . $skin->getId() . "-" . $data['uploadImage']['name']);
-            $skin->setImage($media_url . $skin->getId() . "-" . $data['uploadImage']['name']);
+            move_uploaded_file($data['uploadImage']['tmp_name'], $path . $theme->getId() . "-" . $data['uploadImage']['name']);
+            $theme->setImage($media_url . $theme->getId() . "-" . $data['uploadImage']['name']);
             ErrorHandler::stop(true);
         }
 
-        $skin = $this->getSkinMapper()->update($skin);
+        $theme = $this->getThemeMapper()->update($theme);
 
-        return $skin;
+        return $theme;
     }
     
     /**
      *
-     * Check if the directory skin exist
+     * Check if the directory theme exist
      *
-     * @param  \PlaygroundPartnership\Entity\Skin $skin
+     * @param  \PlaygroundPartnership\Entity\Theme $theme
      * @param  array  $data
      *
      * @return bool $bool
      */
-    public function checkDirectorySkin($skin, $data)
+    public function checkDirectoryTheme($theme, $data)
     {
-        $newUrlTheme = $skin->getBasePath().'/'.$data['type'].'/'.$data['package'].'/'.$data['theme'];
+        $newUrlTheme = $theme->getBasePath().'/'.$data['type'].'/'.$data['package'].'/'.$data['theme'];
         if (!is_dir($newUrlTheme)) {
         
             return false;
@@ -145,41 +145,41 @@ class Skin extends EventProvider implements ServiceManagerAwareInterface
         return true;
     }
 
-    public function createFiles($skin, $data)
+    public function createFiles($theme, $data)
     {
         foreach (self::$files as $file) {
-            if (file_exists($skin->getBasePath().'/design/'.$data['type'].'/'.$data['package'].'/'.$data['theme'].'/'.$file)) {
+            if (file_exists($theme->getBasePath().'/design/'.$data['type'].'/'.$data['package'].'/'.$data['theme'].'/'.$file)) {
                 continue;
             }
             $contentAssets = file_get_contents(__DIR__.'/../Templates/'.$file);
             $contentAssets = str_replace(array('{{type}}', '{{package}}','{{theme}}'), array($data['type'], $data['package'], $data['theme']), $contentAssets);
-            file_put_contents($skin->getBasePath().'/design/'.$data['type'].'/'.$data['package'].'/'.$data['theme'].'/'.$file, $contentAssets);
+            file_put_contents($theme->getBasePath().'/design/'.$data['type'].'/'.$data['package'].'/'.$data['theme'].'/'.$file, $contentAssets);
         }
     }
 
     /**
-     * getSkinMapper
+     * getThemeMapper
      *
-     * @return SkinMapperInterface
+     * @return ThemeMapperInterface
      */
-    public function getSkinMapper()
+    public function getThemeMapper()
     {
-        if (null === $this->skinMapper) {
-            $this->skinMapper = $this->getServiceManager()->get('playgrounddesign_skin_mapper');
+        if (null === $this->themeMapper) {
+            $this->themeMapper = $this->getServiceManager()->get('playgrounddesign_theme_mapper');
         }
 
-        return $this->skinMapper;
+        return $this->themeMapper;
     }
 
     /**
-     * setSkinMapper
-     * @param  SkinMapperInterface $skinMapper
+     * setThemeMapper
+     * @param  ThemeMapperInterface $themeMapper
      *
-     * @return PlaygroundPartnership\Entity\Skin Skin
+     * @return PlaygroundPartnership\Entity\Theme Theme
      */
-    public function setSkinMapper($skinMapper)
+    public function setThemeMapper($themeMapper)
     {
-        $this->skinMapper = $skinMapper;
+        $this->themeMapper = $themeMapper;
 
         return $this;
     }
@@ -188,7 +188,7 @@ class Skin extends EventProvider implements ServiceManagerAwareInterface
      * setOptions
      * @param  ModuleOptions $options
      *
-     * @return PlaygroundDesign\Service\Skin $this
+     * @return PlaygroundDesign\Service\Theme $this
      */
     public function setOptions(ModuleOptions $options)
     {

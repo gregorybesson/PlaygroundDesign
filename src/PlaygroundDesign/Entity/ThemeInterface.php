@@ -2,7 +2,7 @@
 
 namespace PlaygroundDesign\Entity;
 
-interface SkinInterface
+interface ThemeInterface
 {
    /**
      * @return int $id

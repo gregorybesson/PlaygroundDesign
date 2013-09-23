@@ -7,7 +7,7 @@ class ModuleOptions
     /**
      * @var string
      */
-    protected $actionEntityClass = 'PlaygroundDesign\Entity\Skin';
+    protected $actionEntityClass = 'PlaygroundDesign\Entity\Theme';
 
     /**
      * @var bool
@@ -20,19 +20,19 @@ class ModuleOptions
     protected $__strictMode__ = false;
 
     /**
-     * drive path to game media files
+     * drive path to theme media files
      */
-    protected $media_path = 'public/media/skin';
+    protected $media_path = 'public/media/theme';
 
     /**
-     * url path to game media files
+     * url path to theme media files
      */
-    protected $media_url = 'media/skin';
+    protected $media_url = 'media/theme';
 
     /**
      * @var string
      */
-    protected $partnerMapper = 'PlaygroundDesign\Mapper\Skin';
+    protected $partnerMapper = 'PlaygroundDesign\Mapper\Theme';
 
     /**
      * Set media path

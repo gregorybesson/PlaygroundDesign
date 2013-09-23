@@ -7,7 +7,7 @@ use ZfcBase\Form\ProvidesEventsForm;
 use Zend\I18n\Translator\Translator;
 use Zend\ServiceManager\ServiceManager;
 
-class Skin extends ProvidesEventsForm
+class Theme extends ProvidesEventsForm
 {
     /**
     * @var Zend\ServiceManager\ServiceManager $serviceManager
@@ -15,7 +15,7 @@ class Skin extends ProvidesEventsForm
     protected $serviceManager;
 
     /**
-    * __construct : permet de construire le formulaire qui peuplera l'entity skin
+    * __construct : permet de construire le formulaire qui peuplera l'entity theme
     *
     * @param string $name
     * @param Zend\ServiceManager\ServiceManager $serviceManager 
@@ -42,11 +42,11 @@ class Skin extends ProvidesEventsForm
         $this->add(array(
             'name' => 'title',
             'options' => array(
-                'label' => $translator->translate('skin_title', 'playgrounddesign'),
+                'label' => $translator->translate('theme_title', 'playgrounddesign'),
             ),
             'attributes' => array(
                 'type' => 'text',
-                'placeholder' => $translator->translate('skin_title', 'playgrounddesign'),
+                'placeholder' => $translator->translate('theme_title', 'playgrounddesign'),
             ),
         ));
 
@@ -56,7 +56,7 @@ class Skin extends ProvidesEventsForm
                 'type'  => 'file',
             ),
             'options' => array(
-                'label' => $translator->translate('skin_image', 'playgrounddesign'),
+                'label' => $translator->translate('theme_image', 'playgrounddesign'),
             ),
         ));
         $this->add(array(
@@ -68,9 +68,9 @@ class Skin extends ProvidesEventsForm
         ));
 
         $this->add(array(
-            'name' => 'skin_path',
+            'name' => 'theme_path',
             'options' => array(
-                'label' => $translator->translate('skin_path', 'playgrounddesign'),
+                'label' => $translator->translate('theme_path', 'playgrounddesign'),
             ),
         ));
 
@@ -78,7 +78,7 @@ class Skin extends ProvidesEventsForm
             'name' => 'type',
             'attributes' => array(
                 'type' => 'text',
-                'placeholder' => $translator->translate('skin_type', 'playgrounddesign'),
+                'placeholder' => $translator->translate('theme_type', 'playgrounddesign'),
             ),
         ));
 
@@ -86,7 +86,7 @@ class Skin extends ProvidesEventsForm
             'name' => 'package',
             'attributes' => array(
                 'type' => 'text',
-                'placeholder' => $translator->translate('skin_package', 'playgrounddesign'),
+                'placeholder' => $translator->translate('theme_package', 'playgrounddesign'),
             ),
         ));
 
@@ -94,18 +94,18 @@ class Skin extends ProvidesEventsForm
             'name' => 'theme',
             'attributes' => array(
                 'type' => 'text',
-                'placeholder' => $translator->translate('skin_theme', 'playgrounddesign'),
+                'placeholder' => $translator->translate('theme_theme', 'playgrounddesign'),
             ),
         ));
 
         $this->add(array(
             'name' => 'author',
             'options' => array(
-                'label' => $translator->translate('skin_author', 'playgrounddesign'),
+                'label' => $translator->translate('theme_author', 'playgrounddesign'),
             ),
             'attributes' => array(
                 'type' => 'text',
-                'placeholder' => $translator->translate('skin_author', 'playgrounddesign'),
+                'placeholder' => $translator->translate('theme_author', 'playgrounddesign'),
             ),
         ));
 

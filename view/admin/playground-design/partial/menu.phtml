@@ -1,10 +1,10 @@
 <ul class="nav nav-tabs">
     <li <?php echo $action=='list'?'class="active"':'' ?> >
-        <a href="<?php echo $this->url('admin/playgrounddesign_skinadmin'); ?>">Gérer les thèmes</a>
+        <a href="<?php echo $this->url('admin/playgrounddesign_themeadmin'); ?>">Gérer les thèmes</a>
     </li>
     <?php if($action == 'add' || $action == 'list') : ?>
         <li <?php echo $action=='add'?'class="active"':'' ?>>
-            <a href="<?php echo $this->url('admin/playgrounddesign_skinadmin_new'); ?>">Ajouter un thème</a>
+            <a href="<?php echo $this->url('admin/playgrounddesign_themeadmin_new'); ?>">Ajouter un thème</a>
         </li>
     <?php elseif ($action == 'edit') : ?>
         <li class="active">

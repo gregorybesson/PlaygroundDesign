@@ -42,7 +42,7 @@ class Module implements
     {
        $config = $e->getConfigListener()->getMergedConfig(false);
 
-        // Recuperation du skin pour le backoffice.
+        // Recuperation du theme pour le backoffice.
         if (isset($config['design'])) {
             $configHasChanged = false;
             $viewResolverPathStack = $config['template_path_stack'];
@@ -50,13 +50,13 @@ class Module implements
 
                 $adminPath = __DIR__ . '/../../../../../design/admin/'. $config['design']['admin']['package'] .'/'. $config['design']['admin']['theme'];
 
-                $skinMaper = $this->getSkinMapper();
-                $skinsActivated = $skinMaper->findBy(array('is_active' => true, 'type' => 'admin'));
-                $skinActivated = $skinsActivated[0];
+                $themeMaper = $this->getThemeMapper();
+                $themesActivated = $themeMaper->findBy(array('is_active' => true, 'type' => 'admin'));
+                $themeActivated = $themesActivated[0];
 
-                // Surchage par le skin qui est activé en base de donnée
-                if(!empty($skinActivated)) {
-                    $frontendPath = __DIR__ . '/../../../../../design/admin/'. $skinActivated['package'] .'/'. $skinActivated['theme'];
+                // Surchage par le theme qui est activé en base de donnée
+                if(!empty($themeActivated)) {
+                    $frontendPath = __DIR__ . '/../../../../../design/admin/'. $themeActivated['package'] .'/'. $themeActivated['theme'];
                 }
 
                 // I get the Theme definition file and apply a check on the parent theme.
@@ -120,13 +120,13 @@ class Module implements
 
                 $frontendPath = __DIR__ . '/../../../../../design/frontend/'. $config['design']['frontend']['package'] .'/'. $config['design']['frontend']['theme'];
                 
-                $skinMaper = $this->getSkinMapper();
-                $skinsActivated = $skinMaper->findBy(array('is_active' => true, 'type' => 'frontend'));
-                $skinActivated = $skinsActivated[0];
+                $themeMaper = $this->getThemeMapper();
+                $themesActivated = $themeMaper->findBy(array('is_active' => true, 'type' => 'frontend'));
+                $themeActivated = $themesActivated[0];
 
-                // Surchage par le skin qui est activé en base de donnée
-                if(!empty($skinActivated)) {
-                    $frontendPath = __DIR__ . '/../../../../../design/frontend/'. $skinActivated['package'] .'/'. $skinActivated['theme'];
+                // Surchage par le theme qui est activé en base de donnée
+                if(!empty($themeActivated)) {
+                    $frontendPath = __DIR__ . '/../../../../../design/frontend/'. $themeActivated['package'] .'/'. $themeActivated['theme'];
                 }
 
 
@@ -483,15 +483,15 @@ class Module implements
 
                     return new Options\ModuleOptions(isset($config['playgrounddesign']) ? $config['playgrounddesign'] : array());
                 },
-                'playgrounddesign_skin_mapper' => function  ($sm) {
+                'playgrounddesign_theme_mapper' => function  ($sm) {
                     
-                    return new Mapper\Skin($sm->get('playgrounddesign_doctrine_em'), $sm->get('playgrounddesign_module_options'));
+                    return new Mapper\Theme($sm->get('playgrounddesign_doctrine_em'), $sm->get('playgrounddesign_module_options'));
                 },
-                'playgrounddesign_skin_form' => function  ($sm) {
+                'playgrounddesign_theme_form' => function  ($sm) {
                     $translator = $sm->get('translator');
-                    $form = new Form\Admin\Skin(null, $sm, $translator);
-                    $skin = new Entity\Skin();
-                    $form->setInputFilter($skin->getInputFilter());
+                    $form = new Form\Admin\Theme(null, $sm, $translator);
+                    $theme = new Entity\Theme();
+                    $form->setInputFilter($theme->getInputFilter());
 
                     return $form;
                 }
@@ -500,22 +500,22 @@ class Module implements
                 'playgrounddesign_doctrine_em' => 'doctrine.entitymanager.orm_default'
             ),
             'invokables' => array(
-                'playgrounddesign_skin_service' => 'PlaygroundDesign\Service\Skin'
+                'playgrounddesign_theme_service' => 'PlaygroundDesign\Service\Theme'
             ),
         );
     }
 
     /**
-    * Recuperation du skinMapper
+    * Recuperation du themeMapper
     *
-    * @return PlaygroundDesign\Mapper\Skin $skinMapper
+    * @return PlaygroundDesign\Mapper\Theme $themeMapper
     */
-    public function getSkinMapper()
+    public function getThemeMapper()
     {
-        if (null === $this->skinMapper) {
-            $this->skinMapper = $this->getServiceLocator()->get('playgrounddesign_skin_mapper');
+        if (null === $this->themeMapper) {
+            $this->themeMapper = $this->getServiceLocator()->get('playgrounddesign_theme_mapper');
         }
 
-        return $this->skinMapper;
+        return $this->themeMapper;
     }
 }
