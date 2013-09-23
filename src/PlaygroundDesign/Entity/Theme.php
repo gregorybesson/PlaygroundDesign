@@ -36,7 +36,7 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
 
     /**
      * image
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text", nullable = true)
      */
     protected $image;
 

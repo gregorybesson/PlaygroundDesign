@@ -50,9 +50,6 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
 
         $form->bind($theme);
 
-        $path = $this->getOptions()->getMediaPath() . DIRECTORY_SEPARATOR;
-        $media_url = $this->getOptions()->getMediaUrl() . '/';
-
         $input = $form->getInputFilter()->get('title');
         $noObjectExistsValidator = new NoObjectExistsValidator(array(
                 'object_repository' => $entityManager->getRepository('PlaygroundDesign\Entity\Theme'),
@@ -73,12 +70,7 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
         $themeMapper = $this->getThemeMapper();
         $theme = $themeMapper->insert($theme);
 
-        if (!empty($data['uploadImage']['tmp_name'])) {
-            ErrorHandler::start();
-            move_uploaded_file($data['uploadImage']['tmp_name'], $path . $theme->getId() . "-" . $data['uploadImage']['name']);
-            $theme->setImage($media_url . $theme->getId() . "-" . $data['uploadImage']['name']);
-            ErrorHandler::stop(true);
-        }
+        $this->uploadImage($theme, $data);
 
         $theme = $themeMapper->update($theme);
 
@@ -103,25 +95,28 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
 
         $form->bind($theme);
 
-        $path = $this->getOptions()->getMediaPath() . DIRECTORY_SEPARATOR;
-
-        $media_url = $this->getOptions()->getMediaUrl() . '/';
-
         $form->setData($data);
  
         if (!$form->isValid() && !$this->checkDirectoryTheme($theme, $data)) {
             return false;
         }
 
-        if (!empty($data['uploadImage']['tmp_name'])) {
-            ErrorHandler::start();
-            move_uploaded_file($data['uploadImage']['tmp_name'], $path . $theme->getId() . "-" . $data['uploadImage']['name']);
-            $theme->setImage($media_url . $theme->getId() . "-" . $data['uploadImage']['name']);
-            ErrorHandler::stop(true);
-        }
+        $this->uploadImage($theme, $data);
 
         $theme = $this->getThemeMapper()->update($theme);
 
+        return $theme;
+    }
+
+    public function uploadImage($theme, $data)
+    {
+         if (!empty($data['uploadImage']['tmp_name'])) {
+            ErrorHandler::start();
+            $image = file_get_contents($data['uploadImage']['tmp_name']);
+            unlink($data['uploadImage']['tmp_name']);
+            $theme->setImage(base64_encode($image));
+            ErrorHandler::stop(true);
+        }
         return $theme;
     }
     

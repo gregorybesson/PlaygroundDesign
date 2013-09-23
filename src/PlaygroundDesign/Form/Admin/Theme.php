@@ -47,6 +47,7 @@ class Theme extends ProvidesEventsForm
             'attributes' => array(
                 'type' => 'text',
                 'placeholder' => $translator->translate('theme_title', 'playgrounddesign'),
+                'required' => 'required'
             ),
         ));
 
@@ -79,6 +80,7 @@ class Theme extends ProvidesEventsForm
             'attributes' => array(
                 'type' => 'text',
                 'placeholder' => $translator->translate('theme_type', 'playgrounddesign'),
+                'required' => 'required'
             ),
         ));
 
@@ -87,6 +89,7 @@ class Theme extends ProvidesEventsForm
             'attributes' => array(
                 'type' => 'text',
                 'placeholder' => $translator->translate('theme_package', 'playgrounddesign'),
+                'required' => 'required'
             ),
         ));
 
@@ -95,6 +98,7 @@ class Theme extends ProvidesEventsForm
             'attributes' => array(
                 'type' => 'text',
                 'placeholder' => $translator->translate('theme_theme', 'playgrounddesign'),
+                'required' => 'required'
             ),
         ));
 
@@ -106,6 +110,7 @@ class Theme extends ProvidesEventsForm
             'attributes' => array(
                 'type' => 'text',
                 'placeholder' => $translator->translate('theme_author', 'playgrounddesign'),
+                'required' => 'required'
             ),
         ));
 

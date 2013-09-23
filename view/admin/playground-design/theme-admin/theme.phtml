@@ -32,7 +32,7 @@
         <div class="thumbnail">
             <?php if($form->get('image')->getValue() != ''):?>
             <?php echo $this->formLabel($form->get('uploadImage')); ?>
-            <img  data-src="holder.js/300x200" style="width: 300px; height: 200px;"src="<?php echo $this->basePath($form->get('image')->getValue()); ?>" />
+            <img  data-src="holder.js/300x200" style="width: 300px; height: 200px;"src="data:image/x-icon;base64,<?php echo $this->basePath($form->get('image')->getValue()); ?>" />
             <?php endif;?>
             <div class="caption">
                <?php echo $this->formFile($form->get('uploadImage')); ?>
