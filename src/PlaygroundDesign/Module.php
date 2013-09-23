@@ -318,8 +318,8 @@ class Module implements
         		    //print_r($viewResolverPathStack->getPaths());
         		}
 
-        		print_r($viewResolverPathStack->getPaths());
-        		echo "<br>";
+        		//print_r($viewResolverPathStack->getPaths());
+        		//echo "<br>";
         	}
 
         	if(isset($config['design']['frontend']['theme'])){
@@ -434,7 +434,7 @@ class Module implements
         	    }
         	}
 
-        	print_r($viewResolverPathStack->getPaths());
+        	//print_r($viewResolverPathStack->getPaths());
         	$e->getApplication()->getServiceManager()->setAllowOverride(true);
         	$e->getApplication()->getServiceManager()->setService('config', $config);
         	//print_r($config);
