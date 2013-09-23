@@ -133,7 +133,7 @@ return array(
                     ),
                     'admin_jquery_min_map' => array(
                         'assets' => array(
-                            'js/lib/jquery-1.9.0.min.map',
+                            'js/jquery.min.map',
                         ),
                         'options' => array(
                             'move_raw' => true,
@@ -222,6 +222,15 @@ return array(
                         'options' => array(
                             'move_raw' => true,
                             'output' => 'frontend'
+                        )
+                    ),
+                    'frontend_jquery_min_map' => array(
+                        'assets' => array(
+                            'js/jquery.min.map',
+                        ),
+                        'options' => array(
+                            'move_raw' => true,
+                            'output' => 'frontend',
                         )
                     ),
                 ),
@@ -334,7 +343,7 @@ return array(
         ),
       ),
     ),
-  ), 
+  ),
 
     'core_layout' => array(
         'admin' => array(
