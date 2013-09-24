@@ -8,11 +8,8 @@ return array(
             'theme' => array(
                 'code' => '{{theme}}',
                 'title' => '{{title}}',
-                'parent' => 'default_base',
+                'parent' => '{{package}}_{{theme}}',
             )
         ),
-    ),
-    'screenshot' => array(
-        'screenshot'    
-    ),
+    )
 );

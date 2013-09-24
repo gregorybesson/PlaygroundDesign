@@ -232,9 +232,9 @@ class Module implements
                 $themeActivated = $themesActivated[0];
 
                 // Surchage par le theme qui est activé en base de donnée
-               /* if(!empty($themeActivated)) {
+                if(!empty($themeActivated)) {
                     $adminPath = __DIR__ . '/../../../../../design/admin/'. $themeActivated->getPackage() .'/'. $themeActivated->getTheme();
-                }*/
+                }
 
                 // I get the Theme definition file and apply a check on the parent theme.
                 // TODO : Apply recursion to this stuff.
@@ -313,9 +313,9 @@ class Module implements
                 $themeActivated = $themesActivated[0];
 
                 // Surchage par le theme qui est activé en base de donnée
-               /* if(!empty($themeActivated)) {
+                if(!empty($themeActivated)) {
                     $frontendPath = __DIR__ . '/../../../../../design/frontend/'. $themeActivated->getPackage().'/'. $themeActivated->getTheme();
-                }*/
+                }
 
                 $frontendThemePath = $frontendPath . '/theme.php';
                 if(is_file($frontendThemePath) && is_readable($frontendThemePath)){
