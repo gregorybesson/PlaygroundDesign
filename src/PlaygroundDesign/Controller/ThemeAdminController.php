@@ -31,14 +31,16 @@ class ThemeAdminController extends AbstractActionController
     */
     public function listAction()
     {
+        $automaticTheme = $this->addAutomaticTheme();
         $themeMaper = $this->getThemeMapper();
 
         $themesActivated = $themeMaper->findBy(array('is_active' => true));
         $themesNotActivated = $themeMaper->findBy(array('is_active' => false));
 
-        return array('themesActivated' => $themesActivated,
+        return array('themesActivated'    => $themesActivated,
                      'themesNotActivated' => $themesNotActivated,
-                     'flashMessages' => $this->flashMessenger()->getMessages());
+                     'automaticTheme'     => $automaticTheme,
+                     'flashMessages'      => $this->flashMessenger()->getMessages());
     }
 
     /**
@@ -50,6 +52,7 @@ class ThemeAdminController extends AbstractActionController
     */
     public function editAction()
     {
+        $automaticTheme = $this->addAutomaticTheme();
         $themeId = $this->getEvent()->getRouteMatch()->getParam('themeId');
         $theme = $this->getThemeMapper()->findById($themeId);
 
@@ -82,8 +85,8 @@ class ThemeAdminController extends AbstractActionController
         $viewModel = new ViewModel();
         $viewModel->setTemplate('playground-design/theme-admin/theme');
 
-        return $viewModel->setVariables(array('form' => $form,
-                                              'base' => exec(escapeshellcmd('pwd')).ThemeEntity::BASE));
+        return $viewModel->setVariables(array('form'           => $form,
+                                              'automaticTheme' => $automaticTheme));
     }
 
     /**
@@ -95,6 +98,7 @@ class ThemeAdminController extends AbstractActionController
     */
     public function newAction()
     {
+        $automaticTheme = $this->addAutomaticTheme();
         $form = $this->getServiceLocator()->get('playgrounddesign_theme_form');
         $form->get('submit')->setLabel('Créer');
         
@@ -123,8 +127,8 @@ class ThemeAdminController extends AbstractActionController
         $viewModel = new ViewModel();
         $viewModel->setTemplate('playground-design/theme-admin/theme');
 
-        return $viewModel->setVariables(array('form' => $form,
-                                              'base' => exec(escapeshellcmd('pwd')).ThemeEntity::BASE));
+        return $viewModel->setVariables(array('form'           => $form,
+                                              'automaticTheme' => $automaticTheme));
 
     }
 
@@ -168,6 +172,12 @@ class ThemeAdminController extends AbstractActionController
         $eventManager->trigger(\Zend\ModuleManager\ModuleEvent::EVENT_MERGE_CONFIG);
 
         return $this->redirect()->toRoute('admin/playgrounddesign_themeadmin');
+    }
+
+    public function addAutomaticTheme()
+    {
+        
+        return 2;
     }
 
     /**

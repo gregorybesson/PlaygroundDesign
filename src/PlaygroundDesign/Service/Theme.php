@@ -96,8 +96,10 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
         $form->bind($theme);
 
         $form->setData($data);
+
+
  
-        if (!$form->isValid() && !$this->checkDirectoryTheme($theme, $data)) {
+        if (!$form->isValid() || !$this->checkDirectoryTheme($theme, $data)) {
             return false;
         }
 
@@ -111,11 +113,13 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
     public function uploadImage($theme, $data)
     {
          if (!empty($data['uploadImage']['tmp_name'])) {
-            ErrorHandler::start();
-            $image = file_get_contents($data['uploadImage']['tmp_name']);
-            unlink($data['uploadImage']['tmp_name']);
-            $theme->setImage(base64_encode($image));
-            ErrorHandler::stop(true);
+            $path = $this->getOptions()->getMediaPath() . $data['type'] . DIRECTORY_SEPARATOR . $data['package'] . DIRECTORY_SEPARATOR . $data['theme'] . '/assets/images/screenshots/';
+            if (!is_dir($path)) {
+                mkdir($path,0777, true);
+            }
+            $media_url = $this->getOptions()->getMediaUrl() . '/';
+            move_uploaded_file($data['uploadImage']['tmp_name'], $path . $theme->getId() . "-" . $data['uploadImage']['name']);
+            $theme->setImage($media_url . $theme->getId() . "-" . $data['uploadImage']['name']);
         }
         return $theme;
     }
@@ -131,6 +135,7 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
      */
     public function checkDirectoryTheme($theme, $data)
     {
+        
         $newUrlTheme = $theme->getBasePath().'/'.$data['type'].'/'.$data['package'].'/'.$data['theme'];
         if (!is_dir($newUrlTheme)) {
         
@@ -143,12 +148,12 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
     public function createFiles($theme, $data)
     {
         foreach (self::$files as $file) {
-            if (file_exists($theme->getBasePath().'/design/'.$data['type'].'/'.$data['package'].'/'.$data['theme'].'/'.$file)) {
+            if (file_exists($theme->getBasePath().$data['type'].'/'.$data['package'].'/'.$data['theme'].'/'.$file)) {
                 continue;
             }
             $contentAssets = file_get_contents(__DIR__.'/../Templates/'.$file);
-            $contentAssets = str_replace(array('{{type}}', '{{package}}','{{theme}}'), array($data['type'], $data['package'], $data['theme']), $contentAssets);
-            file_put_contents($theme->getBasePath().'/design/'.$data['type'].'/'.$data['package'].'/'.$data['theme'].'/'.$file, $contentAssets);
+            $contentAssets = str_replace(array('{{type}}', '{{package}}','{{theme}}', '{{title}}'), array($data['type'], $data['package'], $data['theme'], $data['title']), $contentAssets);
+            file_put_contents($theme->getBasePath().$data['type'].'/'.$data['package'].'/'.$data['theme'].'/'.$file, $contentAssets);
         }
     }
 

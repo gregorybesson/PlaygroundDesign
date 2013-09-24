@@ -18,7 +18,8 @@ use Zend\InputFilter\InputFilterInterface;
 class Theme implements ThemeInterface, InputFilterAwareInterface
 {
     
-    const BASE = '/design';
+    const BASE = 'design/';
+    const SCREENSHOT_PATH = 'assets/images/screenshots';
 
     protected $inputFilter;
     /**
@@ -36,7 +37,7 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
 
     /**
      * image
-     * @ORM\Column(type="text", nullable = true)
+     * @ORM\Column(type="string", length=255, nullable = true)
      */
     protected $image;
 
@@ -151,6 +152,30 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+    * getImages permet de recuperer les images depuis le filer
+    *
+    * @return array $images 
+    */
+    public function getImages()
+    {
+        $images = array();
+
+        $images[$this->getImage()] = $this->getImage();
+        
+        $screenshotsPath = $this->getFilePath().self::SCREENSHOT_PATH;
+        $files = scandir($screenshotsPath);
+
+        foreach ($files as $file) {
+            if ($file != '.' && $file != '..') {
+                $images['/theme/images/screenshots/'.$file] = '/theme/images/screenshots/'.$file;
+            }
+        }
+
+       
+        return $images;
     }
 
     /**
@@ -340,8 +365,7 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
     */
     public function getBasePath()
     {
-        $base = exec(escapeshellcmd('pwd'));
-        return trim($base).self::BASE;
+        return __DIR__.'/../../../../../../'.self::BASE;
     }
 
     /**
@@ -351,7 +375,17 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
     */
     public function getUrlBase()
     {
-        return $this->getBasePath().'/'.$this->getType().'/'.$this->getPackage().'/'.$this->getTheme().'/';
+        return self::BASE.$this->getType().'/'.$this->getPackage().'/'.$this->getTheme().'/';
+    }
+
+    /**
+    * getBasePath : recuperation du dossier de base de l'application
+    *  
+    * @return string $base  
+    */
+    public function getFilePath()
+    {
+        return $this->getBasePath().$this->getType().'/'.$this->getPackage().'/'.$this->getTheme().'/';
     }
 
     /**

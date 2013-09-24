@@ -11,4 +11,9 @@
             <a href="#">Editer un thème</a>
         </li>
     <?php endif; ?>
+    <?php if($automaticTheme > 0) : ?>
+        <li class="">
+            <a href="#">Valider un thème (<?php echo $automaticTheme; ?>) </a>
+        </li>
+    <?php endif; ?>
 </ul>
