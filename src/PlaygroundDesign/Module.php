@@ -14,6 +14,7 @@ use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Zend\ModuleManager\Feature\ViewHelperProviderInterface;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 class Module implements
     AutoloaderProviderInterface,
@@ -228,14 +229,22 @@ class Module implements
                 $adminPath = __DIR__ . '/../../../../../design/admin/'. $config['design']['admin']['package'] .'/'. $config['design']['admin']['theme'];
 
                 $themeMaper = $this->getThemeMapper($serviceManager);
-                $themesActivated = $themeMaper->findBy(array('is_active' => true, 'type' => 'admin'));
-                $themeActivated = $themesActivated[0];
+                $rsm = new \Doctrine\ORM\Query\ResultSetMapping();
+                $q = $serviceManager->get('playgrounddesign_doctrine_em')->createNativeQuery("show tables;", $rsm);
+                $tables = $q->getResult();
 
-                // Surchage par le theme qui est activé en base de donnée
-                if(!empty($themeActivated)) {
-                    $adminPath = __DIR__ . '/../../../../../design/admin/'. $themeActivated->getPackage() .'/'. $themeActivated->getTheme();
+                if(sizeof($tables) > 0 ) {
+                    $themesActivated = @$themeMaper->findBy(array('is_active' => true, 'type' => 'admin'));
+                    if (!empty($themeActivated)) {
+                        $themeActivated = $themesActivated[0];
+
+                        // Surchage par le theme qui est activé en base de donnée
+                        if(!empty($themeActivated)) {
+                            $adminPath = __DIR__ . '/../../../../../design/admin/'. $themeActivated->getPackage() .'/'. $themeActivated->getTheme();
+                        }
+                    }
                 }
-
+               
                 // I get the Theme definition file and apply a check on the parent theme.
                 // TODO : Apply recursion to this stuff.
                 $adminThemePath = $adminPath . '/theme.php';
@@ -294,13 +303,14 @@ class Module implements
                 }
 
 
-
-                $themes = $themeMaper->findBy(array('type' => 'admin'));
-                foreach ($themes as $theme) {
-                    $config['assetic_configuration']['modules'][$theme->getTitle()]['root_path'][] = __DIR__ . '/../../../../../design/'.$theme->getType().'/'.$theme->getPackage().'/'.$theme->getTheme().'/assets';
-                    $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['admin_images']['assets'] = array('images/screenshots/*.jpg');
-                    $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['admin_images']['options']['output'] = 'theme/';
-                    $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['admin_images']['options']['move_raw'] = 'true';
+                if(sizeof($tables) > 0 ) {
+                    $themes = $themeMaper->findBy(array('type' => 'admin'));
+                    foreach ($themes as $theme) {
+                        $config['assetic_configuration']['modules'][$theme->getTitle()]['root_path'][] = __DIR__ . '/../../../../../design/'.$theme->getType().'/'.$theme->getPackage().'/'.$theme->getTheme().'/assets';
+                        $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['admin_images']['assets'] = array('images/screenshots/*.jpg');
+                        $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['admin_images']['options']['output'] = 'theme/';
+                        $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['admin_images']['options']['move_raw'] = 'true';
+                    }
                 }
                
                 $configHasChanged = true;
@@ -308,13 +318,23 @@ class Module implements
             if(isset($config['design']['frontend']) && isset($config['design']['frontend']['package']) && isset($config['design']['frontend']['theme'])){
                 $frontendPath = __DIR__ . '/../../../../../design/frontend/'. $config['design']['frontend']['package'] .'/'. $config['design']['frontend']['theme'];
 
-                $themeMaper = $this->getThemeMapper($serviceManager);
-                $themesActivated = $themeMaper->findBy(array('is_active' => true, 'type' => 'frontend'));
-                $themeActivated = $themesActivated[0];
 
-                // Surchage par le theme qui est activé en base de donnée
-                if(!empty($themeActivated)) {
-                    $frontendPath = __DIR__ . '/../../../../../design/frontend/'. $themeActivated->getPackage().'/'. $themeActivated->getTheme();
+
+                $themeMaper = $this->getThemeMapper($serviceManager);
+                $rsm = new \Doctrine\ORM\Query\ResultSetMapping();
+                $q = $serviceManager->get('playgrounddesign_doctrine_em')->createNativeQuery("show tables;", $rsm);
+                $tables = $q->getResult();
+
+                if(sizeof($tables) > 0 ) {
+                    $themesActivated = @$themeMaper->findBy(array('is_active' => true, 'type' => 'frontend'));
+                    if (!empty($themeActivated)) {
+                        $themeActivated = $themesActivated[0];
+
+                        // Surchage par le theme qui est activé en base de donnée
+                        if(!empty($themeActivated)) {
+                            $adminPath = __DIR__ . '/../../../../../design/frontend/'. $themeActivated->getPackage() .'/'. $themeActivated->getTheme();
+                        }
+                    }
                 }
 
                 $frontendThemePath = $frontendPath . '/theme.php';
@@ -368,15 +388,17 @@ class Module implements
                     $configHasChanged = true;
                 }
             }
-             
-            $themes = $themeMaper->findBy(array('type' => 'frontend'));
-            foreach ($themes as $theme) {
-                $config['assetic_configuration']['modules'][$theme->getTitle()]['root_path'][] = __DIR__ . '/../../../../../design/'.$theme->getType().'/'.$theme->getPackage().'/'.$theme->getTheme().'/assets';
-                $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['frontend_images']['assets'] = array('images/screenshots/*.jpg');
-                $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['frontend_images']['options']['output'] = 'theme/';
-                $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['frontend_images']['options']['move_raw'] = 'true';
+            
+            if(sizeof($tables) > 0 ) {
+                $themes = $themeMaper->findBy(array('type' => 'frontend'));
+                foreach ($themes as $theme) {
+                    $config['assetic_configuration']['modules'][$theme->getTitle()]['root_path'][] = __DIR__ . '/../../../../../design/'.$theme->getType().'/'.$theme->getPackage().'/'.$theme->getTheme().'/assets';
+                    $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['frontend_images']['assets'] = array('images/screenshots/*.jpg');
+                    $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['frontend_images']['options']['output'] = 'theme/';
+                    $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['frontend_images']['options']['move_raw'] = 'true';
+                }
             }
-           
+
             $configHasChanged = true;
 
             if($configHasChanged){
