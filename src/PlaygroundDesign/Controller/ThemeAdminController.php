@@ -32,6 +32,7 @@ class ThemeAdminController extends AbstractActionController
     public function listAction()
     {
         $automaticTheme = $this->addAutomaticTheme();
+
         $themeMaper = $this->getThemeMapper();
 
         $themesActivated = $themeMaper->findBy(array('is_active' => true));
@@ -52,7 +53,6 @@ class ThemeAdminController extends AbstractActionController
     */
     public function editAction()
     {
-        $automaticTheme = $this->addAutomaticTheme();
         $themeId = $this->getEvent()->getRouteMatch()->getParam('themeId');
         $theme = $this->getThemeMapper()->findById($themeId);
 
@@ -86,7 +86,7 @@ class ThemeAdminController extends AbstractActionController
         $viewModel->setTemplate('playground-design/theme-admin/theme');
 
         return $viewModel->setVariables(array('form'           => $form,
-                                              'automaticTheme' => $automaticTheme));
+                                              'automaticTheme' => 0));
     }
 
     /**
@@ -98,7 +98,6 @@ class ThemeAdminController extends AbstractActionController
     */
     public function newAction()
     {
-        $automaticTheme = $this->addAutomaticTheme();
         $form = $this->getServiceLocator()->get('playgrounddesign_theme_form');
         $form->get('submit')->setLabel('Créer');
         
@@ -128,7 +127,7 @@ class ThemeAdminController extends AbstractActionController
         $viewModel->setTemplate('playground-design/theme-admin/theme');
 
         return $viewModel->setVariables(array('form'           => $form,
-                                              'automaticTheme' => $automaticTheme));
+                                              'automaticTheme' => 0));
 
     }
 
@@ -161,9 +160,11 @@ class ThemeAdminController extends AbstractActionController
         
         $themeActivated = $this->getThemeMapper()->findBy(array('is_active' => true,
                                                               'type'      => $theme->getType()));
-        $themeActivated[0]->setIsActive(false);
-        $this->getThemeMapper()->update($themeActivated[0]);
-
+        if (sizeof($themeActivated) > 0) {
+            $themeActivated[0]->setIsActive(false);
+            $this->getThemeMapper()->update($themeActivated[0]);  
+        }
+        
         $theme->setIsActive(true);
         $this->getThemeMapper()->update($theme);
         $this->flashMessenger()->addMessage('The theme "'.$theme->getTitle().'" is activate');
@@ -174,11 +175,74 @@ class ThemeAdminController extends AbstractActionController
         return $this->redirect()->toRoute('admin/playgrounddesign_themeadmin');
     }
 
+
+    /**
+    * Permet de rajouter automatique des thèmes
+    *
+    *
+    * @eturn int $nbTheme 
+    */
     public function addAutomaticTheme()
     {
-        
-        return 2;
+        $nbTheme = 0;
+        $theme = new ThemeEntity();
+
+        $directoryThemes = $theme->getBasePath();
+
+        $nbTheme = $this->checkAssets($directoryThemes, $nbTheme);
+
+        return $nbTheme;
     }
+
+    /**
+    * checkAssets : Permet de creer automatiquement un theme depuis le filer
+    * @param $directoryThemes : dossier dans lequel chercher un assets.php
+    * @param $nbTheme : nombre de theme ajouté automatiquement
+    * 
+    * Fonction recursive qui parcourt tous le dossier theme 
+    *
+    * @return $nbTheme nombre de theme ajouté automatiquement
+    */
+    public function checkAssets($directoryThemes, $nbTheme)
+    {
+        $files = scandir($directoryThemes);
+        foreach ($files as $file) {
+            if ($file != '.' && $file != '..') {
+                if(is_dir($directoryThemes.'/'.$file)){
+                    $nbTheme = $this->checkAssets($directoryThemes.'/'.$file, $nbTheme);
+                }else{
+                    if($file=="assets.php"){  
+                        $themeDefine = explode('//', $directoryThemes.'/'.$file);
+                        $themeDefine = explode('/', $themeDefine[1]);
+                        $type = $themeDefine[0];
+                        if(file_exists($directoryThemes.'/theme.php')) {
+                            $themeArray = include($directoryThemes.'/theme.php');
+                            $package = $themeArray['design']['package']['code'];
+                            $title = $themeArray['design']['package']['theme']['title'];
+                            $themeCode = $themeArray['design']['package']['theme']['code'];
+
+                            $themes = $this->getThemeMapper()->findBy(array('type'    => $type,
+                                                                            'package' => $package,
+                                                                            'theme'   => $themeCode));
+                            if(sizeof($themes) == 0) {
+                                $theme = new ThemeEntity();
+                                $theme->setTitle($title);
+                                $theme->setType($type);
+                                $theme->setPackage($package);
+                                $theme->setTheme($themeCode);
+                                $this->getThemeMapper()->insert($theme);
+                                $nbTheme ++;
+                            }
+                        }
+                    }
+                }
+                
+            }
+        }
+
+        return $nbTheme;
+    }
+
 
     /**
     * Recuperation du themeMapper

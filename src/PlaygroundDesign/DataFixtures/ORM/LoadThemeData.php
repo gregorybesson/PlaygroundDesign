@@ -31,10 +31,6 @@ class LoadThemeData extends AbstractFixture implements OrderedFixtureInterface
         $theme->setPackage('default');
         $theme->setTheme('base');
         $theme->setAuthor('system');
-        $theme->setIsActive(0);
-        $theme->setCreatedAt(time());
-        $theme->setUpdatedAt(time());
-
         $manager->persist($theme);
 
         $theme = new Theme();
@@ -43,11 +39,6 @@ class LoadThemeData extends AbstractFixture implements OrderedFixtureInterface
         $theme->setType('admin');
         $theme->setPackage('default');
         $theme->setTheme('demo');
-        $theme->setAuthor('system');
-        $theme->setIsActive(0);
-        $theme->setCreatedAt(time());
-        $theme->setUpdatedAt(time());
-
         $manager->persist($theme);
         $theme->setIsActive(1);
         $manager->persist($theme);
@@ -58,12 +49,6 @@ class LoadThemeData extends AbstractFixture implements OrderedFixtureInterface
         $theme->setType('frontend');
         $theme->setPackage('default');
         $theme->setTheme('base');
-        $theme->setAuthor('system');
-        $theme->setIsActive(0);
-        $theme->setCreatedAt(time());
-        $theme->setUpdatedAt(time());
-
-
         $manager->persist($theme);
 
         $theme = new Theme();
@@ -72,11 +57,6 @@ class LoadThemeData extends AbstractFixture implements OrderedFixtureInterface
         $theme->setType('frontend');
         $theme->setPackage('default');
         $theme->setTheme('demo');
-        $theme->setAuthor('system');
-        $theme->setIsActive(0);
-        $theme->setCreatedAt(time());
-        $theme->setUpdatedAt(time());
-
         $manager->persist($theme);
         $theme->setIsActive(1);
         $manager->persist($theme);

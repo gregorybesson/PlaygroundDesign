@@ -19,6 +19,7 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
 {
     
     const BASE = 'design/';
+    const AUTHOR = 'system';
     const SCREENSHOT_PATH = 'assets/images/screenshots';
 
     protected $inputFilter;
@@ -37,7 +38,7 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
 
     /**
      * image
-     * @ORM\Column(type="string", length=255, nullable = true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $image;
 
@@ -87,7 +88,25 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
     {
         $this->created_at = new \DateTime("now");
         $this->updated_at = new \DateTime("now");
-        // Le theme est par defaut désactivé
+    }
+
+    /**
+    * Si le theme n'a pas d'auteur, on met System 
+    * @PrePersist 
+    */
+    public function createAuthor()
+    {
+        if (empty($this->author)) {
+            $this->author = self::AUTHOR;
+        }
+    }
+
+    /**
+    * Un theme crée est automatiquement désactivé
+    * @PrePersist 
+    */
+    public function createActive()
+    {
         $this->is_active = false;
     }
 
@@ -162,8 +181,10 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
     public function getImages()
     {
         $images = array();
-
-        $images[$this->getImage()] = $this->getImage();
+        $image = $this->getImage();
+        if (!empty($image)) {
+            $images[$image] = $image;
+        }
         
         $screenshotsPath = $this->getFilePath().self::SCREENSHOT_PATH;
         $files = scandir($screenshotsPath);
