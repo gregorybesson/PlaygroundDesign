@@ -113,7 +113,7 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
     public function uploadImage($theme, $data)
     {
          if (!empty($data['uploadImage']['tmp_name'])) {
-            $path = $this->getOptions()->getMediaPath() . $data['type'] . DIRECTORY_SEPARATOR . $data['package'] . DIRECTORY_SEPARATOR . $data['theme'] . '/assets/images/screenshots/';
+            $path = $this->getOptions()->getMediaPath() . $data['area'] . DIRECTORY_SEPARATOR . $data['package'] . DIRECTORY_SEPARATOR . $data['theme'] . '/assets/images/screenshots/';
             if (!is_dir($path)) {
                 mkdir($path,0777, true);
             }
@@ -136,7 +136,7 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
     public function checkDirectoryTheme($theme, $data)
     {
         
-        $newUrlTheme = $theme->getBasePath().'/'.$data['type'].'/'.$data['package'].'/'.$data['theme'];
+        $newUrlTheme = $theme->getBasePath().'/'.$data['area'].'/'.$data['package'].'/'.$data['theme'];
         if (!is_dir($newUrlTheme)) {
         
             return false;
@@ -148,12 +148,12 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
     public function createFiles($theme, $data)
     {
         foreach (self::$files as $file) {
-            if (file_exists($theme->getBasePath().$data['type'].'/'.$data['package'].'/'.$data['theme'].'/'.$file)) {
+            if (file_exists($theme->getBasePath().$data['area'].'/'.$data['package'].'/'.$data['theme'].'/'.$file)) {
                 continue;
             }
             $contentAssets = file_get_contents(__DIR__.'/../Templates/'.$file);
-            $contentAssets = str_replace(array('{{type}}', '{{package}}','{{theme}}', '{{title}}'), array($data['type'], $data['package'], $data['theme'], $data['title']), $contentAssets);
-            file_put_contents($theme->getBasePath().$data['type'].'/'.$data['package'].'/'.$data['theme'].'/'.$file, $contentAssets);
+            $contentAssets = str_replace(array('{{area}}', '{{package}}','{{theme}}', '{{title}}'), array($data['area'], $data['package'], $data['theme'], $data['title']), $contentAssets);
+            file_put_contents($theme->getBasePath().$data['area'].'/'.$data['package'].'/'.$data['theme'].'/'.$file, $contentAssets);
         }
     }
 

@@ -44,7 +44,7 @@ class ThemeAdminControllerTest extends AbstractHttpControllerTestCase
         $theme = new Theme();
         $theme->setTitle('Theme 1');
         $theme->setImage('/theme/images/screenshots/1-Penguins.jpg');
-        $theme->setType('admin');
+        $theme->setArea('admin');
         $theme->setPackage('default');
         $theme->setTheme('base');
         $theme->setAuthor('system');

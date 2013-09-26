@@ -1,13 +1,13 @@
 <?php
 return array(
     'core_layout' => array(
-        '{{type}}' => array(
-            'layout' => 'layout/{{type}}',
+        '{{area}}' => array(
+            'layout' => 'layout/{{area}}',
             'modules' => array(
                 'playgrounduser' => array(
                     'controllers' => array(
-                        'playgrounduser{{type}}_login' => array(
-                            'layout' => 'layout/{{type}}login',
+                        'playgrounduser{{area}}_login' => array(
+                            'layout' => 'layout/{{area}}login',
                         ),
                     ),
                 ),

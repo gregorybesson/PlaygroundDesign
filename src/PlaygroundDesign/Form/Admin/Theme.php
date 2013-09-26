@@ -79,10 +79,10 @@ class Theme extends ProvidesEventsForm
         ));
 
         $this->add(array(
-            'name' => 'type',
+            'name' => 'area',
             'attributes' => array(
                 'type' => 'text',
-                'placeholder' => $translator->translate('theme_type', 'playgrounddesign'),
+                'placeholder' => $translator->translate('theme_area', 'playgrounddesign'),
                 'required' => 'required'
             ),
         ));

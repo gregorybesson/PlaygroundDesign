@@ -159,7 +159,7 @@ class ThemeAdminController extends AbstractActionController
         $theme = $this->getThemeMapper()->findById($themeId);
         
         $themeActivated = $this->getThemeMapper()->findBy(array('is_active' => true,
-                                                              'type'      => $theme->getType()));
+                                                                'area'      => $theme->getArea()));
         if (sizeof($themeActivated) > 0) {
             $themeActivated[0]->setIsActive(false);
             $this->getThemeMapper()->update($themeActivated[0]);  
@@ -214,20 +214,20 @@ class ThemeAdminController extends AbstractActionController
                     if($file=="assets.php"){  
                         $themeDefine = explode('//', $directoryThemes.'/'.$file);
                         $themeDefine = explode('/', $themeDefine[1]);
-                        $type = $themeDefine[0];
+                        $area = $themeDefine[0];
                         if(file_exists($directoryThemes.'/theme.php')) {
                             $themeArray = include($directoryThemes.'/theme.php');
                             $package = $themeArray['design']['package']['code'];
                             $title = $themeArray['design']['package']['theme']['title'];
                             $themeCode = $themeArray['design']['package']['theme']['code'];
 
-                            $themes = $this->getThemeMapper()->findBy(array('type'    => $type,
+                            $themes = $this->getThemeMapper()->findBy(array('area'    => $area,
                                                                             'package' => $package,
                                                                             'theme'   => $themeCode));
                             if(sizeof($themes) == 0) {
                                 $theme = new ThemeEntity();
                                 $theme->setTitle($title);
-                                $theme->setType($type);
+                                $theme->setArea($area);
                                 $theme->setPackage($package);
                                 $theme->setTheme($themeCode);
                                 $this->getThemeMapper()->insert($theme);

@@ -54,7 +54,7 @@ class Module implements
                 $adminPath = __DIR__ . '/../../../../../design/admin/'. $config['design']['admin']['package'] .'/'. $config['design']['admin']['theme'];
 
                 $themeMaper = $this->getThemeMapper();
-                $themesActivated = $themeMaper->findBy(array('is_active' => true, 'type' => 'admin'));
+                $themesActivated = $themeMaper->findBy(array('is_active' => true, 'area' => 'admin'));
                 $themeActivated = $themesActivated[0];
 
                 // Surchage par le theme qui est activé en base de donnée
@@ -124,7 +124,7 @@ class Module implements
                 $frontendPath = __DIR__ . '/../../../../../design/frontend/'. $config['design']['frontend']['package'] .'/'. $config['design']['frontend']['theme'];
                 
                 $themeMaper = $this->getThemeMapper();
-                $themesActivated = $themeMaper->findBy(array('is_active' => true, 'type' => 'frontend'));
+                $themesActivated = $themeMaper->findBy(array('is_active' => true, 'area' => 'frontend'));
                 $themeActivated = $themesActivated[0];
 
                 // Surchage par le theme qui est activé en base de donnée
@@ -231,7 +231,7 @@ class Module implements
                 $themeMaper = $this->getThemeMapper($serviceManager);
 
                 if (PHP_SAPI !== 'cli') { 
-                    $themesActivated = $themeMaper->findBy(array('is_active' => true, 'type' => 'admin'));
+                    $themesActivated = $themeMaper->findBy(array('is_active' => true, 'area' => 'admin'));
                     if (!empty($themeActivated)) {
                         $themeActivated = $themesActivated[0];
 
@@ -301,9 +301,9 @@ class Module implements
 
 
                 if (PHP_SAPI !== 'cli') { 
-                    $themes = $themeMaper->findBy(array('type' => 'admin'));
+                    $themes = $themeMaper->findBy(array('area' => 'admin'));
                     foreach ($themes as $theme) {
-                        $config['assetic_configuration']['modules'][$theme->getTitle()]['root_path'][] = __DIR__ . '/../../../../../design/'.$theme->getType().'/'.$theme->getPackage().'/'.$theme->getTheme().'/assets';
+                        $config['assetic_configuration']['modules'][$theme->getTitle()]['root_path'][] = __DIR__ . '/../../../../../design/'.$theme->getArea().'/'.$theme->getPackage().'/'.$theme->getTheme().'/assets';
                         $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['admin_images']['assets'] = array('images/screenshots/*.jpg');
                         $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['admin_images']['options']['output'] = 'theme/';
                         $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['admin_images']['options']['move_raw'] = 'true';
@@ -319,7 +319,7 @@ class Module implements
 
                 $themeMaper = $this->getThemeMapper($serviceManager);
                 if (PHP_SAPI !== 'cli') { 
-                    $themesActivated = $themeMaper->findBy(array('is_active' => true, 'type' => 'frontend'));
+                    $themesActivated = $themeMaper->findBy(array('is_active' => true, 'area' => 'frontend'));
                     if (!empty($themeActivated)) {
                         $themeActivated = $themesActivated[0];
 
@@ -383,9 +383,9 @@ class Module implements
             }
             
             if (PHP_SAPI !== 'cli') { 
-                $themes = $themeMaper->findBy(array('type' => 'frontend'));
+                $themes = $themeMaper->findBy(array('area' => 'frontend'));
                 foreach ($themes as $theme) {
-                    $config['assetic_configuration']['modules'][$theme->getTitle()]['root_path'][] = __DIR__ . '/../../../../../design/'.$theme->getType().'/'.$theme->getPackage().'/'.$theme->getTheme().'/assets';
+                    $config['assetic_configuration']['modules'][$theme->getTitle()]['root_path'][] = __DIR__ . '/../../../../../design/'.$theme->getArea().'/'.$theme->getPackage().'/'.$theme->getTheme().'/assets';
                     $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['frontend_images']['assets'] = array('images/screenshots/*.jpg');
                     $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['frontend_images']['options']['output'] = 'theme/';
                     $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['frontend_images']['options']['move_raw'] = 'true';

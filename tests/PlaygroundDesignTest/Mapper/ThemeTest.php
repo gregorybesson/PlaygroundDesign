@@ -27,7 +27,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
         $this->themeData = array(
             'title' => 'Theme 1',
             'image' => '/theme/images/screenshots/1-Penguins.jpg',
-            'type'  => 'admin',
+            'area'  => 'admin',
             'package' => 'default',
             'theme' => 'base',
             'author' => 'troger',

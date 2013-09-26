@@ -4,10 +4,10 @@ return array(
         'modules' => array(
             'default_base' => array(
                 'root_path' => array(
-                    __DIR__ . '/../../../../design/{{type}}/{{package}}/{{theme}}/assets',
+                    __DIR__ . '/../../../../design/{{area}}/{{package}}/{{theme}}/assets',
                 ),
                 'collections' => array(
-                    '{{type}}_images' => array(
+                    '{{area}}_images' => array(
                         'assets' => array(
                             'images/**/*.jpg',
                             'images/**/*.png',
@@ -15,11 +15,11 @@ return array(
                         ),
                         'options' => array(
                             'move_raw' => true,
-                            'output' => '{{type}}/',
+                            'output' => '{{area}}/',
                         )
                     ),
                     
-                    '{{type}}_fonts' => array(
+                    '{{area}}_fonts' => array(
                         'assets' => array(
                             'fonts/**/*.eot',
                             'fonts/**/*.svg',
@@ -28,7 +28,7 @@ return array(
                         ),
                         'options' => array(
                             'move_raw' => true,
-                            'output' => '{{type}}'
+                            'output' => '{{area}}'
                         )
                     ),
                 ),

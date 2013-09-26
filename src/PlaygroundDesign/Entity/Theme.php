@@ -43,10 +43,10 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
     protected $image;
 
     /**
-     * type
+     * area
      * @ORM\Column(type="string", length=255, nullable=false)
      */
-    protected $type;
+    protected $area;
 
     /**
      * package
@@ -200,26 +200,26 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
     }
 
     /**
-     * @param string $type
+     * @param string $area
      * @return Theme
      */
-    public function setType($type)
+    public function setArea($area)
     {
-        $this->type = (string) $type;
+        $this->area = (string) $area;
 
         return $this;
     }
 
     /**
-     * @return string $type
+     * @return string $area
      */
-    public function getType()
+    public function getArea()
     {
-        return $this->type;
+        return $this->area;
     }
 
     /**
-     * @param string $type
+     * @param string $package
      * @return Theme
      */
     public function setPackage($package)
@@ -358,8 +358,8 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
             $this->active = $data['image'];
         }
 
-        if (isset($data['type']) && $data['type'] != null) {
-            $this->type = $data['type'];
+        if (isset($data['area']) && $data['area'] != null) {
+            $this->area = $data['area'];
         }
 
         if (isset($data['package']) && $data['package'] != null) {
@@ -396,7 +396,7 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
     */
     public function getUrlBase()
     {
-        return self::BASE.$this->getType().'/'.$this->getPackage().'/'.$this->getTheme().'/';
+        return self::BASE.$this->getArea().'/'.$this->getPackage().'/'.$this->getTheme().'/';
     }
 
     /**
@@ -406,7 +406,7 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
     */
     public function getFilePath()
     {
-        return $this->getBasePath().$this->getType().'/'.$this->getPackage().'/'.$this->getTheme().'/';
+        return $this->getBasePath().$this->getArea().'/'.$this->getPackage().'/'.$this->getTheme().'/';
     }
 
     /**

@@ -18,7 +18,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
     public function testCheckDirectoryThemeFalse()
     {
         $theme = new ThemeEntity();
-        $data = array('type' => 'toto',
+        $data = array('area' => 'toto',
                       'package' => 'tata',
                       'theme' => 'titi');
 
@@ -29,7 +29,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
     public function testCheckDirectoryThemeTrue()
     {
         $theme = new ThemeEntity();
-        $data = array('type' => 'frontend',
+        $data = array('area' => 'frontend',
                       'package' => 'default',
                       'theme' => 'base');
 
@@ -39,7 +39,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateFalse()
     {
-        $data = array('type' => 'frontend',
+        $data = array('area' => 'frontend',
                       'package' => 'default',
                       'theme' => 'base',
                       'title' => '');
@@ -49,10 +49,10 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($ts->create($data, "playgrounddesign_theme_form"));
 
 
-        $data = array('type' => 'frontend',
-                  'package' => 'default',
-                  'theme' => 'bas',
-                  'title' => 'test');
+        $data = array('area' => 'frontend',
+                     'package' => 'default',
+                     'theme' => 'bas',
+                     'title' => 'test');
 
         $ts = new \PlaygroundDesign\Service\Theme();
         $ts->setServiceManager(Bootstrap::getServiceManager());
@@ -62,7 +62,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
 
     public function testEditFalse()
     {
-        $data = array('type' => 'frontend',
+        $data = array('area' => 'frontend',
                       'package' => 'default',
                       'theme' => 'base',
                       'title' => '');
@@ -72,10 +72,10 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($ts->create($data, "playgrounddesign_theme_form"));
 
 
-        $data = array('type' => 'frontend',
-                  'package' => 'default',
-                  'theme' => 'bas',
-                  'title' => 'test');
+        $data = array('area' => 'frontend',
+                      'package' => 'default',
+                      'theme' => 'bas',
+                      'title' => 'test');
 
         $ts = new \PlaygroundDesign\Service\Theme();
         $ts->setServiceManager(Bootstrap::getServiceManager());

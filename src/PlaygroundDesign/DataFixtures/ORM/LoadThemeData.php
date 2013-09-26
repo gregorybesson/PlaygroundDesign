@@ -27,7 +27,7 @@ class LoadThemeData extends AbstractFixture implements OrderedFixtureInterface
         $theme = new Theme();
         $theme->setTitle('Theme 1');
         $theme->setImage('/theme/images/screenshots/1-Penguins.jpg');
-        $theme->setType('admin');
+        $theme->setArea('admin');
         $theme->setPackage('default');
         $theme->setTheme('base');
         $manager->persist($theme);
@@ -35,7 +35,7 @@ class LoadThemeData extends AbstractFixture implements OrderedFixtureInterface
         $theme = new Theme();
         $theme->setTitle('Theme 2');
         $theme->setImage('/theme/images/screenshots/2-Desert.jpg');
-        $theme->setType('admin');
+        $theme->setArea('admin');
         $theme->setPackage('default');
         $theme->setTheme('demo');
         $manager->persist($theme);
@@ -45,7 +45,7 @@ class LoadThemeData extends AbstractFixture implements OrderedFixtureInterface
         $theme = new Theme();
         $theme->setTitle('Theme 3');
         $theme->setImage('/theme/images/screenshots/3-Tulips.jpg');
-        $theme->setType('frontend');
+        $theme->setArea('frontend');
         $theme->setPackage('default');
         $theme->setTheme('base');
         $manager->persist($theme);
@@ -53,7 +53,7 @@ class LoadThemeData extends AbstractFixture implements OrderedFixtureInterface
         $theme = new Theme();
         $theme->setTitle('Theme 4');
         $theme->setImage('/theme/images/screenshots/4-Koala.jpg');
-        $theme->setType('frontend');
+        $theme->setArea('frontend');
         $theme->setPackage('default');
         $theme->setTheme('demo');
         $manager->persist($theme);
