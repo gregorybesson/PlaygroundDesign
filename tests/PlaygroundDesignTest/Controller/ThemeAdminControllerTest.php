@@ -7,7 +7,7 @@ use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 use PlaygroundDesignTest\Bootstrap;
 use PlaygroundDesign\Entity\Theme;
 
-class DashboardControllerTest extends AbstractHttpControllerTestCase
+class ThemeAdminControllerTest extends AbstractHttpControllerTestCase
 {
     protected $traceError = true;
 
