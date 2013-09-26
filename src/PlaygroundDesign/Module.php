@@ -232,7 +232,7 @@ class Module implements
 
                 if (PHP_SAPI !== 'cli') { 
                     $themesActivated = $themeMaper->findBy(array('is_active' => true, 'area' => 'admin'));
-                    if (!empty($themeActivated)) {
+                    if (!empty($themesActivated)) {
                         $themeActivated = $themesActivated[0];
 
                         // Surchage par le theme qui est activé en base de donnée
@@ -320,16 +320,16 @@ class Module implements
                 $themeMaper = $this->getThemeMapper($serviceManager);
                 if (PHP_SAPI !== 'cli') { 
                     $themesActivated = $themeMaper->findBy(array('is_active' => true, 'area' => 'frontend'));
-                    if (!empty($themeActivated)) {
+                    if (!empty($themesActivated)) {
                         $themeActivated = $themesActivated[0];
-
                         // Surchage par le theme qui est activé en base de donnée
-                        if(!empty($themeActivated)) {
-                            $adminPath = __DIR__ . '/../../../../../design/frontend/'. $themeActivated->getPackage() .'/'. $themeActivated->getTheme();
+                        if (!empty($themeActivated)) {
+                            $frontendPath = __DIR__ . '/../../../../../design/frontend/'. $themeActivated->getPackage() .'/'. $themeActivated->getTheme();
                         }
+
                     }
                 }
-
+                        
                 $frontendThemePath = $frontendPath . '/theme.php';
                 if(is_file($frontendThemePath) && is_readable($frontendThemePath)){
                     $configTheme = new \Zend\Config\Config(include $frontendThemePath);
