@@ -49,6 +49,9 @@ class Theme extends ProvidesEventsForm
                 'placeholder' => $translator->translate('theme_title', 'playgrounddesign'),
                 'required' => 'required'
             ),
+            'validator' => array(
+                new \Zend\Validator\NotEmpty(),
+            )
         ));
 
         $this->add(array(

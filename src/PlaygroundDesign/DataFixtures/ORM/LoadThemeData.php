@@ -30,7 +30,6 @@ class LoadThemeData extends AbstractFixture implements OrderedFixtureInterface
         $theme->setType('admin');
         $theme->setPackage('default');
         $theme->setTheme('base');
-        $theme->setAuthor('system');
         $manager->persist($theme);
 
         $theme = new Theme();

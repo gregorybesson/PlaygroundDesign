@@ -7,6 +7,7 @@ use PlaygroundDesign\Entity\Theme as ThemeEntity;
 use Zend\Form\Form;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
+use Zend\Validator\NotEmpty;
 use ZfcBase\EventManager\EventProvider;
 use PlaygroundDesign\Options\ModuleOptions;
 use DoctrineModule\Validator\NoObjectExists as NoObjectExistsValidator;
@@ -43,25 +44,21 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
      */
     public function create(array $data, $formClass)
     {
-        $theme  = new ThemeEntity;
+        $valid = new NotEmpty();
+        if (!$valid->isValid($data['title'])) {
+            return false;
+        }
+
+        $theme = new ThemeEntity;
         $entityManager = $this->getServiceManager()->get('playgrounddesign_doctrine_em');
 
-        $form  = $this->getServiceManager()->get($formClass);
+        $form = $this->getServiceManager()->get($formClass);
 
         $form->bind($theme);
-
-        $input = $form->getInputFilter()->get('title');
-        $noObjectExistsValidator = new NoObjectExistsValidator(array(
-                'object_repository' => $entityManager->getRepository('PlaygroundDesign\Entity\Theme'),
-                'fields'            => 'title',
-                'messages'          => array('objectFound' => 'Ce titre existe déjà !')
-        ));
-
-        $input->getValidatorChain()->addValidator($noObjectExistsValidator);
         $theme->setImage('tmp');
         $form->setData($data);
 
-        if (!$form->isValid() && !$this->checkDirectoryTheme($theme, $data)) {
+        if (!$form->isValid() || !$this->checkDirectoryTheme($theme, $data)) {
             return false;
         }
 
@@ -89,15 +86,18 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
      */
     public function edit(array $data, $theme, $formClass)
     {
-       $entityManager = $this->getServiceManager()->get('playgrounddesign_doctrine_em');
+        $valid = new NotEmpty();
+        if (!$valid->isValid($data['title'])) {
+            return false;
+        }
+
+        $entityManager = $this->getServiceManager()->get('playgrounddesign_doctrine_em');
 
         $form  = $this->getServiceManager()->get($formClass);
 
         $form->bind($theme);
 
         $form->setData($data);
-
-
  
         if (!$form->isValid() || !$this->checkDirectoryTheme($theme, $data)) {
             return false;

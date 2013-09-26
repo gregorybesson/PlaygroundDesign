@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="playgroundcore" tests="16" assertions="54" failures="0" errors="0" time="10.064383">
+    <testsuite name="PlaygroundDesignTest\Controller\Frontend\ThemeAdminControllerTest" file="/home/troger/webroot/playground/vendor/playground/design/tests/PlaygroundDesignTest/Controller/DashboardControllerTest.php" namespace="PlaygroundDesignTest\Controller\Frontend" fullPackage="PlaygroundDesignTest.Controller.Frontend" tests="1" assertions="5" failures="0" errors="0" time="0.513653">
+      <testcase name="testIndexAction" class="PlaygroundDesignTest\Controller\Frontend\ThemeAdminControllerTest" file="/home/troger/webroot/playground/vendor/playground/design/tests/PlaygroundDesignTest/Controller/DashboardControllerTest.php" line="20" assertions="5" time="0.513653"/>
+    </testsuite>
+    <testsuite name="PlaygroundDesignTest\Controller\Frontend\DashboardControllerTest" file="/home/troger/webroot/playground/vendor/playground/design/tests/PlaygroundDesignTest/Controller/ThemeAdminControllerTest.php" namespace="PlaygroundDesignTest\Controller\Frontend" fullPackage="PlaygroundDesignTest.Controller.Frontend" tests="5" assertions="28" failures="0" errors="0" time="3.822897">
+      <testcase name="testIndexAction" class="PlaygroundDesignTest\Controller\Frontend\DashboardControllerTest" file="/home/troger/webroot/playground/vendor/playground/design/tests/PlaygroundDesignTest/Controller/ThemeAdminControllerTest.php" line="30" assertions="5" time="1.049437"/>
+      <testcase name="testeditAction" class="PlaygroundDesignTest\Controller\Frontend\DashboardControllerTest" file="/home/troger/webroot/playground/vendor/playground/design/tests/PlaygroundDesignTest/Controller/ThemeAdminControllerTest.php" line="41" assertions="5" time="0.879364"/>
+      <testcase name="testnewAction" class="PlaygroundDesignTest\Controller\Frontend\DashboardControllerTest" file="/home/troger/webroot/playground/vendor/playground/design/tests/PlaygroundDesignTest/Controller/ThemeAdminControllerTest.php" line="64" assertions="5" time="0.587380"/>
+      <testcase name="testactivateAction" class="PlaygroundDesignTest\Controller\Frontend\DashboardControllerTest" file="/home/troger/webroot/playground/vendor/playground/design/tests/PlaygroundDesignTest/Controller/ThemeAdminControllerTest.php" line="75" assertions="7" time="0.660232"/>
+      <testcase name="testdeleteAction" class="PlaygroundDesignTest\Controller\Frontend\DashboardControllerTest" file="/home/troger/webroot/playground/vendor/playground/design/tests/PlaygroundDesignTest/Controller/ThemeAdminControllerTest.php" line="92" assertions="6" time="0.646484"/>
+    </testsuite>
+    <testsuite name="PlaygroundDesginTest\Maper\ThemeTest" file="/home/troger/webroot/playground/vendor/playground/design/tests/PlaygroundDesignTest/Mapper/ThemeTest.php" namespace="PlaygroundDesginTest\Maper" fullPackage="PlaygroundDesginTest.Maper" tests="6" assertions="15" failures="0" errors="0" time="5.634961">
+      <testcase name="testInsert" class="PlaygroundDesginTest\Maper\ThemeTest" file="/home/troger/webroot/playground/vendor/playground/design/tests/PlaygroundDesignTest/Mapper/ThemeTest.php" line="43" assertions="4" time="1.146731"/>
+      <testcase name="testUpdate" class="PlaygroundDesginTest\Maper\ThemeTest" file="/home/troger/webroot/playground/vendor/playground/design/tests/PlaygroundDesignTest/Mapper/ThemeTest.php" line="65" assertions="2" time="0.867127"/>
+      <testcase name="testFindAll" class="PlaygroundDesginTest\Maper\ThemeTest" file="/home/troger/webroot/playground/vendor/playground/design/tests/PlaygroundDesignTest/Mapper/ThemeTest.php" line="76" assertions="2" time="0.914126"/>
+      <testcase name="testFindBy" class="PlaygroundDesginTest\Maper\ThemeTest" file="/home/troger/webroot/playground/vendor/playground/design/tests/PlaygroundDesignTest/Mapper/ThemeTest.php" line="88" assertions="2" time="0.870683"/>
+      <testcase name="testFindById" class="PlaygroundDesginTest\Maper\ThemeTest" file="/home/troger/webroot/playground/vendor/playground/design/tests/PlaygroundDesignTest/Mapper/ThemeTest.php" line="96" assertions="3" time="0.906677"/>
+      <testcase name="testRemove" class="PlaygroundDesginTest\Maper\ThemeTest" file="/home/troger/webroot/playground/vendor/playground/design/tests/PlaygroundDesignTest/Mapper/ThemeTest.php" line="108" assertions="2" time="0.929617"/>
+    </testsuite>
+    <testsuite name="PlaygroundDesginTest\Service\ThemeTest" file="/home/troger/webroot/playground/vendor/playground/design/tests/PlaygroundDesignTest/Service/ThemeTest.php" namespace="PlaygroundDesginTest\Service" fullPackage="PlaygroundDesginTest.Service" tests="4" assertions="6" failures="0" errors="0" time="0.092872">
+      <testcase name="testCheckDirectoryThemeFalse" class="PlaygroundDesginTest\Service\ThemeTest" file="/home/troger/webroot/playground/vendor/playground/design/tests/PlaygroundDesignTest/Service/ThemeTest.php" line="18" assertions="1" time="0.005799"/>
+      <testcase name="testCheckDirectoryThemeTrue" class="PlaygroundDesginTest\Service\ThemeTest" file="/home/troger/webroot/playground/vendor/playground/design/tests/PlaygroundDesignTest/Service/ThemeTest.php" line="29" assertions="1" time="0.004661"/>
+      <testcase name="testCreateFalse" class="PlaygroundDesginTest\Service\ThemeTest" file="/home/troger/webroot/playground/vendor/playground/design/tests/PlaygroundDesignTest/Service/ThemeTest.php" line="40" assertions="2" time="0.066744"/>
+      <testcase name="testEditFalse" class="PlaygroundDesginTest\Service\ThemeTest" file="/home/troger/webroot/playground/vendor/playground/design/tests/PlaygroundDesignTest/Service/ThemeTest.php" line="63" assertions="2" time="0.015668"/>
+    </testsuite>
+  </testsuite>
+</testsuites>

@@ -116,6 +116,11 @@ class Theme implements ThemeInterface
         $this->em->flush();
     }
 
+    public function refresh($entity)
+    {
+        $this->em->refresh($entity);
+    }
+
     /**
     * getEntityRepository : recupere l'entite theme
     *

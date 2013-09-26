@@ -190,7 +190,7 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
         $files = scandir($screenshotsPath);
 
         foreach ($files as $file) {
-            if ($file != '.' && $file != '..') {
+            if (is_file($file)) {
                 $images['/theme/images/screenshots/'.$file] = '/theme/images/screenshots/'.$file;
             }
         }

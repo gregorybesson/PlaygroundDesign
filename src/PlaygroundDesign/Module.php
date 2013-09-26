@@ -215,6 +215,7 @@ class Module implements
         setlocale(LC_TIME, "fr_FR", 'fr_FR.utf8', 'fra');
 
         AbstractValidator::setDefaultTranslator($translator,'playgrounddesign');
+        $tables = array();
 
 
         // Start the session container
@@ -227,14 +228,10 @@ class Module implements
             if(isset($config['design']['admin']) && isset($config['design']['admin']['package']) && isset($config['design']['admin']['theme'])){
 
                 $adminPath = __DIR__ . '/../../../../../design/admin/'. $config['design']['admin']['package'] .'/'. $config['design']['admin']['theme'];
-
                 $themeMaper = $this->getThemeMapper($serviceManager);
-                $rsm = new \Doctrine\ORM\Query\ResultSetMapping();
-                $q = $serviceManager->get('playgrounddesign_doctrine_em')->createNativeQuery("show tables;", $rsm);
-                $tables = $q->getResult();
 
-                if(sizeof($tables) > 0 ) {
-                    $themesActivated = @$themeMaper->findBy(array('is_active' => true, 'type' => 'admin'));
+                if (PHP_SAPI !== 'cli') { 
+                    $themesActivated = $themeMaper->findBy(array('is_active' => true, 'type' => 'admin'));
                     if (!empty($themeActivated)) {
                         $themeActivated = $themesActivated[0];
 
@@ -303,7 +300,7 @@ class Module implements
                 }
 
 
-                if(sizeof($tables) > 0 ) {
+                if (PHP_SAPI !== 'cli') { 
                     $themes = $themeMaper->findBy(array('type' => 'admin'));
                     foreach ($themes as $theme) {
                         $config['assetic_configuration']['modules'][$theme->getTitle()]['root_path'][] = __DIR__ . '/../../../../../design/'.$theme->getType().'/'.$theme->getPackage().'/'.$theme->getTheme().'/assets';
@@ -321,12 +318,8 @@ class Module implements
 
 
                 $themeMaper = $this->getThemeMapper($serviceManager);
-                $rsm = new \Doctrine\ORM\Query\ResultSetMapping();
-                $q = $serviceManager->get('playgrounddesign_doctrine_em')->createNativeQuery("show tables;", $rsm);
-                $tables = $q->getResult();
-
-                if(sizeof($tables) > 0 ) {
-                    $themesActivated = @$themeMaper->findBy(array('is_active' => true, 'type' => 'frontend'));
+                if (PHP_SAPI !== 'cli') { 
+                    $themesActivated = $themeMaper->findBy(array('is_active' => true, 'type' => 'frontend'));
                     if (!empty($themeActivated)) {
                         $themeActivated = $themesActivated[0];
 
@@ -389,7 +382,7 @@ class Module implements
                 }
             }
             
-            if(sizeof($tables) > 0 ) {
+            if (PHP_SAPI !== 'cli') { 
                 $themes = $themeMaper->findBy(array('type' => 'frontend'));
                 foreach ($themes as $theme) {
                     $config['assetic_configuration']['modules'][$theme->getTitle()]['root_path'][] = __DIR__ . '/../../../../../design/'.$theme->getType().'/'.$theme->getPackage().'/'.$theme->getTheme().'/assets';
