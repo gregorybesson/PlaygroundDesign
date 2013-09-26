@@ -258,6 +258,7 @@ class Module implements
         		        }
         		        $themeHierarchy[$themeId]['template_path']= array_reverse($stack);
 
+
         		        if(isset($config['assetic_configuration']['modules']['admin'])){
         		            $asseticConfig = array('assetic_configuration' => array(
         		                'modules' => array('admin' => $config['assetic_configuration']['modules']['admin']),
@@ -290,6 +291,7 @@ class Module implements
         		/*echo "tous paths sauf admin<br>";
         		print_r($viewResolverPathStack->getPaths());
                 echo "<br><br>";*/
+
         		// removing default assetic configuration
         		if(isset($config['assetic_configuration']['modules']['admin'])){
         		    unset($config['assetic_configuration']['modules']['admin']);
@@ -377,6 +379,7 @@ class Module implements
         	                    $stack[] = $path;
         	                }
         	            }
+        	            
         	            $themeHierarchy[$themeId]['template_path']= array_reverse($stack);
 
         	            /*echo "tous paths frontend par defaut<br>";
@@ -409,11 +412,13 @@ class Module implements
         	    }
 
         	    $viewResolverPathStack->clearPaths();
+
         	    $viewResolverPathStack->addPaths(array_reverse($stack));
         	    
         	    /*echo "tous paths sauf frontend<br>";
         	    print_r($viewResolverPathStack->getPaths());
         	    echo "<br><br>";*/
+
 
         	    // removing default assetic configuration
         	    if(isset($config['assetic_configuration']['modules']['frontend'])){
@@ -448,6 +453,7 @@ class Module implements
         	}
 
         	//print_r($viewResolverPathStack->getPaths()); 
+
         	$e->getApplication()->getServiceManager()->setAllowOverride(true);
         	$e->getApplication()->getServiceManager()->setService('config', $config);
         	//print_r($config);
