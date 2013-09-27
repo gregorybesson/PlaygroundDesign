@@ -280,23 +280,26 @@ return array(
     // Doctrine
     "This email already exists !" => "Cet email est déjà associé à un compte",
     
-	// Formgen upload
-	'File Upload Name'		=> 'Nom du champ',
-	'Replace Label Text'	=> 'Libellé du champ',
-	'Required'				=> 'Requis',
-	'No'					=> 'Non',
-	'Yes'					=> 'Oui',
-	'Save'					=> 'Enregistrer',
-	
-	// Formgen paragraph
-	'Paragraph Name'		=> 'Nom du champ',
-	'Placeholder Text'		=> 'Texte de substitution',
-	'Type something...'		=> 'Votre paragraphe',
-	'Validate between'		=> 'Valider entre',
-	'number of characters' 	=> 'nombre de caractères',
-	
-	// Formgen Input
-	'Input Name'			=> 'Nom du champ',
-	
-	
+    // Formgen upload
+    'File Upload Name'      => 'Nom du champ',
+    'Replace Label Text'    => 'Libellé du champ',
+    'Required'              => 'Requis',
+    'No'                    => 'Non',
+    'Yes'                   => 'Oui',
+    'Save'                  => 'Enregistrer',
+    
+    // Formgen paragraph
+    'Paragraph Name'        => 'Nom du champ',
+    'Placeholder Text'      => 'Texte de substitution',
+    'Type something...'     => 'Votre paragraphe',
+    'Validate between'      => 'Valider entre',
+    'number of characters'  => 'nombre de caractères',
+    
+    // Formgen Input
+    'Input Name'            => 'Nom du champ',
+    'theme_title'            => 'Nom du thème :', 
+    'theme_path'             => 'Chemin du thème :',
+    'theme_author'           => 'Auteur :',
+    'theme_image'            => 'Aperçu :',  
+    
 );

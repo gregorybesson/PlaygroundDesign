@@ -1,0 +1,20 @@
+<?php $this->plugin('translate')->setTranslatorTextDomain('playgrounddesign');// Pour le texte ?>
+<ul class="nav nav-tabs">
+    <li <?php echo $action=='list'?'class="active"':'' ?> >
+        <a href="<?php echo $this->url('admin/playgrounddesign_themeadmin'); ?>"><?php echo $this->translate('Gérer les thèmes'); ?></a>
+    </li>
+    <?php if($action == 'add' || $action == 'list') : ?>
+        <li <?php echo $action=='add'?'class="active"':'' ?>>
+            <a href="<?php echo $this->url('admin/playgrounddesign_themeadmin_new'); ?>"><?php echo $this->translate('Ajouter un thème'); ?></a>
+        </li>
+    <?php elseif ($action == 'edit') : ?>
+        <li class="active">
+            <a href="#">Editer un thème</a>
+        </li>
+    <?php endif; ?>
+    <?php if($automaticTheme > 0) : ?>
+        <li class="">
+            <span class="text-success"><?php echo $this->translate('Ajout automatique de Thème'); ?>(<?php echo $automaticTheme;?>) </span>
+        </li>
+    <?php endif; ?>
+</ul>

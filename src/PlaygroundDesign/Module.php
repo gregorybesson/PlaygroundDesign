@@ -23,15 +23,18 @@ class Module implements
     ViewHelperProviderInterface
 {
 
+    public $themeMapper;
+
     public function init(ModuleManager $manager)
     {
+
         $eventManager = $manager->getEventManager();
         /*
          * This event will exist in ZF 2.3.0. I'll then use it to change the config before it's cached
          * The change will apply to 'template_path_stack' and 'assetic_configuration'
          * These 2 config take part in the Playground Theme Management
          */
-        //$eventManager->attach(\Zend\ModuleManager\ModuleEvent::EVENT_MERGE_CONFIG, array($this, 'onMergeConfig'));
+        $eventManager->attach(\Zend\ModuleManager\ModuleEvent::EVENT_MERGE_CONFIG, array($this, 'onMergeConfig'));
     }
 
     /*
@@ -39,137 +42,153 @@ class Module implements
      */
     public function onMergeConfig($e)
     {
+       $config = $e->getConfigListener()->getMergedConfig(false);
 
-        $config = $e->getConfigListener()->getMergedConfig(false);
+        // Recuperation du theme pour le backoffice.
+        if (isset($config['design'])) {
+            $configHasChanged = false;
+            $viewResolverPathStack = $config['template_path_stack'];
+            if (isset($config['design']['admin']) && isset($config['design']['admin']['package']) && isset($config['design']['admin']['theme'])) {
 
-        if(isset($config['design'])){
-        	$configHasChanged = false;
-        	$viewResolverPathStack = $config['template_path_stack'];
-        	if(isset($config['design']['admin']) && isset($config['design']['admin']['package']) && isset($config['design']['admin']['theme'])){
+                $adminPath = __DIR__ . '/../../../../../design/admin/'. $config['design']['admin']['package'] .'/'. $config['design']['admin']['theme'];
 
-        		$adminPath = __DIR__ . '/../../../../../design/admin/'. $config['design']['admin']['package'] .'/'. $config['design']['admin']['theme'];
+                $themeMaper = $this->getThemeMapper();
+                $themesActivated = $themeMaper->findBy(array('is_active' => true, 'area' => 'admin'));
+                $themeActivated = $themesActivated[0];
 
-        		// I get the Theme definition file and apply a check on the parent theme.
-        		// TODO : Apply recursion to this stuff.
-        		$adminThemePath = $adminPath . '/theme.php';
-        		if(is_file($adminThemePath) && is_readable($adminThemePath)){
-        		    $configTheme = new \Zend\Config\Config(include $adminThemePath);
+                // Surchage par le theme qui est activé en base de donnée
+                if(!empty($themeActivated)) {
+                    $frontendPath = __DIR__ . '/../../../../../design/admin/'. $themeActivated['package'] .'/'. $themeActivated['theme'];
+                }
 
-        		    if (isset($configTheme['design']['package']['theme']['parent'])){
-        		        $stack = array();
-        		        $parentTheme = explode('_', $configTheme['design']['package']['theme']['parent']);
-        		        if(!(strtolower($parentTheme[0]) === 'playground' && strtolower($parentTheme[1]) === 'base')){
-        		            // The parent for this theme is not the base one. I remove the base admin paths
-        		            foreach($viewResolverPathStack->getPaths() as $path){
-            		            if(!$result = preg_match('/\/admin\/$/',$path,$matches)){
-            		              $stack[] = $path;
-            		            }
-        		            }
-        		            $parentPath = __DIR__ . '/../../../../../design/admin/'. $parentTheme[0] .'/'. $parentTheme[1];
-        		            $stack[] = $parentPath;
-        		            $viewResolverPathStack->clearPaths();
-        		            $viewResolverPathStack->addPaths($stack);
-        		        }
-        		    } else {
-        		        // There is no parent to this theme. I remove the base admin paths
-        		        foreach($viewResolverPathStack->getPaths() as $path){
-        		            if(!$result = preg_match('/\/admin\/$/',$path,$matches)){
-        		                $stack[] = $path;
-        		            }
-        		        }
-        		        $viewResolverPathStack->clearPaths();
-        		        $viewResolverPathStack->addPaths($stack);
-        		    }
-        		}
+                // I get the Theme definition file and apply a check on the parent theme.
+                // TODO : Apply recursion to this stuff.
+                $adminThemePath = $adminPath . '/theme.php';
+                if (is_file($adminThemePath) && is_readable($adminThemePath)) {
+                    $configTheme = new \Zend\Config\Config(include $adminThemePath);
 
-        		$pathStack = array($adminPath);
+                    if (isset($configTheme['design']['package']['theme']['parent'])) {
+                        $stack = array();
+                        $parentTheme = explode('_', $configTheme['design']['package']['theme']['parent']);
+                        if (!(strtolower($parentTheme[0]) === 'playground' && strtolower($parentTheme[1]) === 'base')) {
+                            // The parent for this theme is not the base one. I remove the base admin paths
+                            foreach($viewResolverPathStack->getPaths() as $path){
+                                if(!$result = preg_match('/\/admin\/$/',$path,$matches)){
+                                  $stack[] = $path;
+                                }
+                            }
+                            $parentPath = __DIR__ . '/../../../../../design/admin/'. $parentTheme[0] .'/'. $parentTheme[1];
+                            $stack[] = $parentPath;
+                            $viewResolverPathStack->clearPaths();
+                            $viewResolverPathStack->addPaths($stack);
+                        }
+                    } else {
+                        // There is no parent to this theme. I remove the base admin paths
+                        foreach ($viewResolverPathStack->getPaths() as $path) {
+                            if (!$result = preg_match('/\/admin\/$/',$path,$matches)) {
+                                $stack[] = $path;
+                            }
+                        }
+                        $viewResolverPathStack->clearPaths();
+                        $viewResolverPathStack->addPaths($stack);
+                    }
+                }
 
-        		// Assetic pour les CSS
-        		$config['assetic_configuration']['modules']['admin']['root_path'][] = $adminPath . '/assets';
+                $pathStack = array($adminPath);
 
-        		// Resolver des templates phtml
-        		$viewResolverPathStack->addPaths($pathStack);
+                // Assetic pour les CSS
+                $config['assetic_configuration']['modules']['admin']['root_path'][] = $adminPath . '/assets';
 
-        		//print_r($viewResolverPathStack->getPaths());
+                // Resolver des templates phtml
+                $viewResolverPathStack->addPaths($pathStack);
 
-        		$assets = $adminPath . '/assets.php';
-        		if(is_file($assets) && is_readable($assets)){
-        			$configAssets = new \Zend\Config\Config(include $assets);
-        			$config = array_replace_recursive($config, $configAssets->toArray());
-        			$configHasChanged = true;
-        		}
+                //print_r($viewResolverPathStack->getPaths());
 
-        		$layout = $adminPath . '/layout.php';
-        		if(is_file($layout) && is_readable($layout)){
-        		    $configLayout = new \Zend\Config\Config(include $layout);
-        		    $config = array_replace_recursive($config, $configLayout->toArray());
-        		    $configHasChanged = true;
-        		}
-        	}
-        	if(isset($config['design']['frontend']) && isset($config['design']['frontend']['package']) && isset($config['design']['frontend']['theme'])){
-        		$frontendPath = __DIR__ . '/../../../../../design/frontend/'. $config['design']['frontend']['package'] .'/'. $config['design']['frontend']['theme'];
+                $assets = $adminPath . '/assets.php';
+                if (is_file($assets) && is_readable($assets)) {
+                    $configAssets = new \Zend\Config\Config(include $assets);
+                    $config = array_replace_recursive($config, $configAssets->toArray());
+                    $configHasChanged = true;
+                }
 
-        		$frontendThemePath = $frontendPath . '/theme.php';
-        		if(is_file($frontendThemePath) && is_readable($frontendThemePath)){
-        		    $configTheme = new \Zend\Config\Config(include $frontendThemePath);
+                $layout = $adminPath . '/layout.php';
+                if (is_file($layout) && is_readable($layout)) {
+                    $configLayout = new \Zend\Config\Config(include $layout);
+                    $config = array_replace_recursive($config, $configLayout->toArray());
+                    $configHasChanged = true;
+                }
+            }
+            if (isset($config['design']['frontend']) && isset($config['design']['frontend']['package']) && isset($config['design']['frontend']['theme'])) {
 
-        		    if (isset($configTheme['design']['package']['theme']['parent'])){
-        		        $stack = array();
-        		        $parentTheme = explode('_', $configTheme['design']['package']['theme']['parent']);
-        		        if(!(strtolower($parentTheme[0]) === 'playground' && strtolower($parentTheme[1]) === 'base')){
-        		            // The parent for this theme is not the base one. I remove the base frontend paths
-        		            foreach($viewResolverPathStack->getPaths() as $path){
-        		                if(!$result = preg_match('/\/frontend\/$/',$path,$matches)){
-        		                    $stack[] = $path;
-        		                }
-        		            }
-        		            $parentPath = __DIR__ . '/../../../../../design/frontend/'. $parentTheme[0] .'/'. $parentTheme[1];
-        		            $stack[] = $parentPath;
-        		            $viewResolverPathStack->clearPaths();
-        		            $viewResolverPathStack->addPaths($stack);
-        		        }
-        		    } else {
-        		        // There is no parent to this theme. I remove the base frontend paths
-        		        foreach($viewResolverPathStack->getPaths() as $path){
-        		            if(!$result = preg_match('/\/frontend\/$/',$path,$matches)){
-        		                $stack[] = $path;
-        		            }
-        		        }
-        		        $viewResolverPathStack->clearPaths();
-        		        $viewResolverPathStack->addPaths($stack);
-        		    }
-        		}
+                $frontendPath = __DIR__ . '/../../../../../design/frontend/'. $config['design']['frontend']['package'] .'/'. $config['design']['frontend']['theme'];
+                
+                $themeMaper = $this->getThemeMapper();
+                $themesActivated = $themeMaper->findBy(array('is_active' => true, 'area' => 'frontend'));
+                $themeActivated = $themesActivated[0];
 
-        		$pathStack = array($frontendPath);
-        		// Assetic pour les CSS
-        		$config['assetic_configuration']['modules']['frontend']['root_path'][] = $frontendPath . '/assets';
+                // Surchage par le theme qui est activé en base de donnée
+                if(!empty($themeActivated)) {
+                    $frontendPath = __DIR__ . '/../../../../../design/frontend/'. $themeActivated['package'] .'/'. $themeActivated['theme'];
+                }
 
-        		$viewResolverPathStack->addPaths($pathStack);
 
-        		$assets = $frontendPath . '/assets.php';
-        		if(is_file($assets) && is_readable($assets)){
-        			$configAssets = new \Zend\Config\Config(include $assets);
-        			$config = array_replace_recursive($config, $configAssets->toArray() );
-        			$configHasChanged = true;
-        		}
+                $frontendThemePath = $frontendPath . '/theme.php';
+                if (is_file($frontendThemePath) && is_readable($frontendThemePath)) {
+                    $configTheme = new \Zend\Config\Config(include $frontendThemePath);
 
-        		$layout = $frontendPath . '/layout.php';
-        		if(is_file($layout) && is_readable($layout)){
-        		    $configLayout = new \Zend\Config\Config(include $layout);
-        		    $config = array_replace_recursive($config, $configLayout->toArray() );
-        		    $configHasChanged = true;
-        		}
-        	}
-        	if($configHasChanged){
-        		$e->getApplication()->getServiceManager()->setAllowOverride(true);
-        		$e->getApplication()->getServiceManager()->setService('config', $config);
-        	}
-        	//print_r($config);
-        	/*foreach($config['core_layout'] as $i=>$t){
-        	    echo "<br>". $i . "<br>";
-        	    print_r($t);
+                    if (isset($configTheme['design']['package']['theme']['parent'])) {
+                        $stack = array();
+                        $parentTheme = explode('_', $configTheme['design']['package']['theme']['parent']);
+                        if (!(strtolower($parentTheme[0]) === 'playground' && strtolower($parentTheme[1]) === 'base')) {
+                            // The parent for this theme is not the base one. I remove the base frontend paths
+                            foreach ($viewResolverPathStack->getPaths() as $path) {
+                                if (!$result = preg_match('/\/frontend\/$/',$path,$matches)) {
+                                    $stack[] = $path;
+                                }
+                            }
+                            $parentPath = __DIR__ . '/../../../../../design/frontend/'. $parentTheme[0] .'/'. $parentTheme[1];
+                            $stack[] = $parentPath;
+                            $viewResolverPathStack->clearPaths();
+                            $viewResolverPathStack->addPaths($stack);
+                        }
+                    } else {
+                        // There is no parent to this theme. I remove the base frontend paths
+                        foreach ($viewResolverPathStack->getPaths() as $path) {
+                            if (!$result = preg_match('/\/frontend\/$/',$path,$matches)) {
+                                $stack[] = $path;
+                            }
+                        }
+                        $viewResolverPathStack->clearPaths();
+                        $viewResolverPathStack->addPaths($stack);
+                    }
+                }
 
-        	}*/
+                $pathStack = array($frontendPath);
+                // Assetic pour les CSS
+                $config['assetic_configuration']['modules']['frontend']['root_path'][] = $frontendPath . '/assets';
+
+                $viewResolverPathStack->addPaths($pathStack);
+
+                $assets = $frontendPath . '/assets.php';
+                if (is_file($assets) && is_readable($assets)) {
+                    $configAssets = new \Zend\Config\Config(include $assets);
+                    $config = array_replace_recursive($config, $configAssets->toArray() );
+                    $configHasChanged = true;
+                }
+
+                $layout = $frontendPath . '/layout.php';
+                if (is_file($layout) && is_readable($layout)) {
+                    $configLayout = new \Zend\Config\Config(include $layout);
+                    $config = array_replace_recursive($config, $configLayout->toArray() );
+                    $configHasChanged = true;
+                }
+            }
+
+
+            if ($configHasChanged) {
+                $e->getApplication()->getServiceManager()->setAllowOverride(true);
+                $e->getApplication()->getServiceManager()->setService('config', $config);
+            }
         }
 
         $e->getConfigListener()->setMergedConfig($config);
@@ -195,6 +214,7 @@ class Module implements
         setlocale(LC_TIME, "fr_FR", 'fr_FR.utf8', 'fra');
 
         AbstractValidator::setDefaultTranslator($translator,'playgrounddesign');
+        $tables = array();
 
 
         // Start the session container
@@ -208,6 +228,20 @@ class Module implements
         	$viewResolverPathStack = $e->getApplication()->getServiceManager()->get('ViewTemplatePathStack');
         	if(isset($config['design']['admin']['theme'])){
 
+        	    $themeMaper = $this->getThemeMapper($serviceManager);
+
+                if (PHP_SAPI !== 'cli') { 
+                    $themesActivated = $themeMaper->findBy(array('is_active' => true, 'area' => 'admin'));
+                    if (!empty($themesActivated)) {
+                        $themeActivated = $themesActivated[0];
+
+                        // Surchage par le theme qui est activé en base de donnée
+                        if(!empty($themeActivated)) {
+                            $adminPath = __DIR__ . '/../../../../../design/admin/'. $themeActivated->getPackage() .'/'. $themeActivated->getTheme();
+                        }
+                    }
+                }
+                
         	    $themeHierarchy = array();
                 $hasParent = true;
                 $parentTheme = array($config['design']['admin']['package'], $config['design']['admin']['theme']);
@@ -452,6 +486,16 @@ class Module implements
         	    }
         	}
 
+        	if (PHP_SAPI !== 'cli') { 
+                $themes = $themeMaper->findBy(array('area' => 'frontend'));
+                foreach ($themes as $theme) {
+                    $config['assetic_configuration']['modules'][$theme->getTitle()]['root_path'][] = __DIR__ . '/../../../../../design/'.$theme->getArea().'/'.$theme->getPackage().'/'.$theme->getTheme().'/assets';
+                    $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['frontend_images']['assets'] = array('images/screenshots/*.jpg');
+                    $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['frontend_images']['options']['output'] = 'theme/';
+                    $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['frontend_images']['options']['move_raw'] = 'true';
+                }
+            }
+            
         	//print_r($viewResolverPathStack->getPaths()); 
 
         	$e->getApplication()->getServiceManager()->setAllowOverride(true);
@@ -479,19 +523,15 @@ class Module implements
             if (isset($config['core_layout'])) {
                 $controller      = $e->getTarget();
                 $controllerClass = get_class($controller);
-                $moduleName		 = strtolower(substr($controllerClass, 0, strpos($controllerClass, '\\')));
-                $match			 = $e->getRouteMatch();
+                $moduleName      = strtolower(substr($controllerClass, 0, strpos($controllerClass, '\\')));
+                $match           = $e->getRouteMatch();
                 $routeName       = $match->getMatchedRouteName();
                 $areaName        = (strpos($routeName, '/'))?substr($routeName, 0, strpos($routeName, '/')):$routeName;
                 $controllerName  = $match->getParam('controller', 'not-found');
-                $actionName 	 = $match->getParam('action', 'not-found');
-                $channel		 = $match->getParam('channel', 'not-found');
-                $viewModel 		 = $e->getViewModel();
+                $actionName      = $match->getParam('action', 'not-found');
+                $channel         = $match->getParam('channel', 'not-found');
+                $viewModel       = $e->getViewModel();
 
-                //print_r($match);
-                //echo $areaName;
-
-                //die('module : '.$moduleName . "- controller : " . $controllerName . "- action :" . $actionName);
 
                 /**
                  * Assign the correct layout
@@ -522,7 +562,6 @@ class Module implements
                     $controller->layout($config['core_layout'][$areaName]['layout']);
                 }
 
-                //echo $controller->layout()->getTemplate();
                 /**
                  * Create variables attached to layout containing path views
                  * cascading assignment is managed
@@ -579,27 +618,27 @@ class Module implements
                 },
 
                 'adminAssetPath' => function($sm) {
-                	$config = $sm->getServiceLocator()->has('Config') ? $sm->getServiceLocator()->get('Config') : array();
-                	$helper  = new View\Helper\AdminAssetPath;
-                	if (isset($config['view_manager']) && isset($config['view_manager']['base_path'])) {
-                		$basePath = $config['view_manager']['base_path'];
-                	} else {
-                		$basePath = $sm->getServiceLocator()->get('Request')->getBasePath();
-                	}
-                	$helper->setBasePath($basePath);
-                	return $helper;
+                    $config = $sm->getServiceLocator()->has('Config') ? $sm->getServiceLocator()->get('Config') : array();
+                    $helper  = new View\Helper\AdminAssetPath;
+                    if (isset($config['view_manager']) && isset($config['view_manager']['base_path'])) {
+                        $basePath = $config['view_manager']['base_path'];
+                    } else {
+                        $basePath = $sm->getServiceLocator()->get('Request')->getBasePath();
+                    }
+                    $helper->setBasePath($basePath);
+                    return $helper;
                 },
 
                 'frontendAssetPath' => function($sm) {
                 	$config = $sm->getServiceLocator()->has('Config') ? $sm->getServiceLocator()->get('Config') : array();
-                	$helper  = new View\Helper\FrontendAssetPath;
-                	if (isset($config['view_manager']) && isset($config['view_manager']['base_path'])) {
-                		$basePath = $config['view_manager']['base_path'];
-                	} else {
-                		$basePath = $sm->getServiceLocator()->get('Request')->getBasePath();
-                	}
-                	$helper->setBasePath($basePath);
-                	return $helper;
+                    $helper  = new View\Helper\FrontendAssetPath;
+                    if (isset($config['view_manager']) && isset($config['view_manager']['base_path'])) {
+                        $basePath = $config['view_manager']['base_path'];
+                    } else {
+                        $basePath = $sm->getServiceLocator()->get('Request')->getBasePath();
+                    }
+                    $helper->setBasePath($basePath);
+                    return $helper;
                 },
 
                 'head' => function ($sm) {
@@ -634,9 +673,46 @@ class Module implements
     public function getServiceConfig()
     {
         return array(
-                'factories' => array(
-                    'admin_navigation' => 'PlaygroundDesign\Service\AdminNavigationFactory',
-                ),
+            'factories' => array(
+                'admin_navigation' => 'PlaygroundDesign\Service\AdminNavigationFactory',
+                'playgrounddesign_module_options' => function  ($sm) {
+                    $config = $sm->get('Configuration');
+
+                    return new Options\ModuleOptions(isset($config['playgrounddesign']) ? $config['playgrounddesign'] : array());
+                },
+                'playgrounddesign_theme_mapper' => function  ($sm) {
+                    
+                    return new Mapper\Theme($sm->get('playgrounddesign_doctrine_em'), $sm->get('playgrounddesign_module_options'));
+                },
+                'playgrounddesign_theme_form' => function  ($sm) {
+                    $translator = $sm->get('translator');
+                    $form = new Form\Admin\Theme(null, $sm, $translator);
+                    $theme = new Entity\Theme();
+                    $form->setInputFilter($theme->getInputFilter());
+
+                    return $form;
+                }
+            ),
+            'aliases' => array(
+                'playgrounddesign_doctrine_em' => 'doctrine.entitymanager.orm_default'
+            ),
+            'invokables' => array(
+                'playgrounddesign_theme_service' => 'PlaygroundDesign\Service\Theme'
+            ),
         );
+    }
+
+    /**
+    * Recuperation du themeMapper
+    *
+    * @return PlaygroundDesign\Mapper\Theme $themeMapper
+    */
+    public function getThemeMapper($sm)
+    {
+        if (null === $this->themeMapper) {
+            $this->themeMapper = $sm->get('playgrounddesign_theme_mapper');
+        }
+
+        return $this->themeMapper;
     }
 }
