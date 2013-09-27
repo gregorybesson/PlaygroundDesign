@@ -58,14 +58,6 @@ class Bootstrap
 
         static::$config = $config;
 
-        $em = $serviceManager->get('doctrine.entitymanager.orm_default');
-
-        $tool = new \Doctrine\ORM\Tools\SchemaTool($em);
-        $classes = $em->getMetadataFactory()->getAllMetadata();
-
-        $tool->dropSchema($classes);
-
-        $tool->createSchema($classes);
         // disable FirePHP for Unit testing
         //$firephp = \FirePHP::getInstance(true);
         //$firephp->setEnabled(false);

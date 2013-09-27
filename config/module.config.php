@@ -17,11 +17,6 @@ return array(
         )
     ),
 
-    'data-fixture' => array(
-        'PlaygroundDesign_fixture' => __DIR__ . '/../src/PlaygroundDesign/DataFixtures/ORM',
-    ),
-
-
     'service_manager' => array(
         'factories' => array(
             // this definition has to be done here to override Wilmogrod Assetic declaration
