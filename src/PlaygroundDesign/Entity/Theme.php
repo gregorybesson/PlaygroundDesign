@@ -13,7 +13,7 @@ use Zend\InputFilter\InputFilterInterface;
 
 /**
  * @ORM\Entity @HasLifecycleCallbacks
- * @ORM\Table(name="design_theme")
+ * @ORM\Table(name="design_theme") 
  */
 class Theme implements ThemeInterface, InputFilterAwareInterface
 {
