@@ -121,7 +121,7 @@ class Module implements
             if (isset($config['design']['frontend']) && isset($config['design']['frontend']['package']) && isset($config['design']['frontend']['theme'])) {
 
                 $frontendPath = __DIR__ . '/../../../../../design/frontend/'. $config['design']['frontend']['package'] .'/'. $config['design']['frontend']['theme'];
-                
+
                 $themeMapper = $this->getThemeMapper();
                 $themesActivated = $themeMapper->findBy(array('is_active' => true, 'area' => 'frontend'));
                 $themeActivated = $themesActivated[0];
@@ -222,13 +222,13 @@ class Module implements
 
         // overriding the theme definition in config if present in database
         if (PHP_SAPI !== 'cli') {
-            
+
             $themeMapper = $this->getThemeMapper($serviceManager);
-            
+
             $themesActivated = $themeMapper->findBy(array('is_active' => true, 'area' => 'admin'));
             if (!empty($themesActivated)) {
                 $themeActivated = $themesActivated[0];
-        
+
                 // Surchage par le theme qui est activé en base de donnée
                 if(!empty($themeActivated)) {
                     //$adminPath = __DIR__ . '/../../../../../design/admin/'. $themeActivated->getPackage() .'/'. $themeActivated->getTheme();
@@ -236,11 +236,11 @@ class Module implements
                     $config['design']['admin']['theme'] = $themeActivated->getTheme();
                 }
             }
-            
+
             $themesActivated = $themeMapper->findBy(array('is_active' => true, 'area' => 'frontend'));
             if (!empty($themesActivated)) {
                 $themeActivated = $themesActivated[0];
-            
+
                 // Surchage par le theme qui est activé en base de donnée
                 if(!empty($themeActivated)) {
                     //$adminPath = __DIR__ . '/../../../../../design/admin/'. $themeActivated->getPackage() .'/'. $themeActivated->getTheme();
@@ -255,7 +255,7 @@ class Module implements
 
         	$viewResolverPathStack = $e->getApplication()->getServiceManager()->get('ViewTemplatePathStack');
         	if(isset($config['design']['admin']['theme'])){
-                
+
         	    $themeHierarchy = array();
                 $hasParent = true;
                 $parentTheme = array($config['design']['admin']['package'], $config['design']['admin']['theme']);
@@ -338,7 +338,7 @@ class Module implements
 
         		$viewResolverPathStack->clearPaths();
         		$viewResolverPathStack->addPaths(array_reverse($stack));
-        		
+
         		/*echo "tous paths sauf admin<br>";
         		print_r($viewResolverPathStack->getPaths());
                 echo "<br><br>";*/
@@ -374,7 +374,7 @@ class Module implements
         		    }
 
         		}
-        		
+
         		/*echo "tous paths avec hierarchie admin<br>";
         		print_r($viewResolverPathStack->getPaths());
                 echo "<br><br>";*/
@@ -433,13 +433,13 @@ class Module implements
         	                    $stack[] = $path;
         	                }
         	            }
-        	            
+
         	            $themeHierarchy[$themeId]['template_path']= array_reverse($stack);
 
         	            /*echo "tous paths frontend par defaut<br>";
         	            print_r($viewResolverPathStack->getPaths());
         	            echo "<br><br>";*/
-        	            
+
         	            if(isset($config['assetic_configuration']['modules']['frontend'])){
         	                $asseticConfig = array('assetic_configuration' => array(
         		                'modules' => array('frontend' => $config['assetic_configuration']['modules']['frontend']),
@@ -468,7 +468,7 @@ class Module implements
         	    $viewResolverPathStack->clearPaths();
 
         	    $viewResolverPathStack->addPaths(array_reverse($stack));
-        	    
+
         	    /*echo "tous paths sauf frontend<br>";
         	    print_r($viewResolverPathStack->getPaths());
         	    echo "<br><br>";*/
@@ -506,26 +506,18 @@ class Module implements
         	    }
         	}
 
-        	if (PHP_SAPI !== 'cli') { 
-        	    
-        	    $themes = $themeMapper->findBy(array('area' => 'admin'));
+            if (PHP_SAPI !== 'cli') {
+        	    $themes = $themeMapper->findAll();
         	    foreach ($themes as $theme) {
-        	        $config['assetic_configuration']['modules'][$theme->getTitle()]['root_path'][] = __DIR__ . '/../../../../../design/'.$theme->getArea().'/'.$theme->getPackage().'/'.$theme->getTheme().'/assets';
-        	        $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['admin_images']['assets'] = array('images/screenshots/*.jpg', 'images/screenshots/*.gif', 'images/screenshots/*.png');
-        	        $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['admin_images']['options']['output'] = 'theme/';
-        	        $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['admin_images']['options']['move_raw'] = 'true';
+        	        $moduleName = $theme->getArea() . $theme->getPackage() . $theme->getTheme();
+        	        $config['assetic_configuration']['modules'][$moduleName]['root_path'][] = __DIR__ . '/../../../../../design/'.$theme->getArea().'/'.$theme->getPackage().'/'.$theme->getTheme().'/assets';
+        	        $config['assetic_configuration']['modules'][$moduleName]['collections']['admin_images']['assets'] = array('images/screenshots/*.jpg', 'images/screenshots/*.gif', 'images/screenshots/*.png');
+        	        $config['assetic_configuration']['modules'][$moduleName]['collections']['admin_images']['options']['output'] = 'theme/';
+        	        $config['assetic_configuration']['modules'][$moduleName]['collections']['admin_images']['options']['move_raw'] = 'true';
         	    }
-        	    
-                $themes = $themeMapper->findBy(array('area' => 'frontend'));
-                foreach ($themes as $theme) {
-                    $config['assetic_configuration']['modules'][$theme->getTitle()]['root_path'][] = __DIR__ . '/../../../../../design/'.$theme->getArea().'/'.$theme->getPackage().'/'.$theme->getTheme().'/assets';
-                    $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['frontend_images']['assets'] = array('images/screenshots/*.jpg', 'images/screenshots/*.gif', 'images/screenshots/*.png');
-                    $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['frontend_images']['options']['output'] = 'theme/';
-                    $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['frontend_images']['options']['move_raw'] = 'true';
-                }
             }
-            
-        	//print_r($viewResolverPathStack->getPaths()); 
+
+        	//print_r($viewResolverPathStack->getPaths());
 
         	$e->getApplication()->getServiceManager()->setAllowOverride(true);
         	$e->getApplication()->getServiceManager()->setService('config', $config);
@@ -710,7 +702,7 @@ class Module implements
                     return new Options\ModuleOptions(isset($config['playgrounddesign']) ? $config['playgrounddesign'] : array());
                 },
                 'playgrounddesign_theme_mapper' => function  ($sm) {
-                    
+
                     return new Mapper\Theme($sm->get('playgrounddesign_doctrine_em'), $sm->get('playgrounddesign_module_options'));
                 },
                 'playgrounddesign_theme_form' => function  ($sm) {
