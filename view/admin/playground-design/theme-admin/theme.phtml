@@ -3,6 +3,7 @@
     <?php 
         $form = $this->form;
         $form->prepare();
+        $form->get('submit')->setLabel('Validate');
         $type = 'add';
         if($form->get('title')->getValue() != '') {
             $type = 'edit';

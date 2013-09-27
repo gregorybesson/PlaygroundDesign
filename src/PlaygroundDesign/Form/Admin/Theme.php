@@ -119,8 +119,7 @@ class Theme extends ProvidesEventsForm
 
 
         $submitElement = new Element\Button('submit');
-        $submitElement->setLabel($translator->translate('Create', 'playgrounddesign'))
-                      ->setAttributes(array('type'  => 'submit'));
+        $submitElement->setAttributes(array('type'  => 'submit'));
 
         $this->add($submitElement, array('priority' => -100));
     }

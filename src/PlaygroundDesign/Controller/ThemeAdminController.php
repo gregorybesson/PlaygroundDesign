@@ -57,7 +57,6 @@ class ThemeAdminController extends AbstractActionController
         $theme = $this->getThemeMapper()->findById($themeId);
 
         $form = $this->getServiceLocator()->get('playgrounddesign_theme_form');
-        $form->get('submit')->setLabel('Mettre à jour');
 
         $request = $this->getRequest();
 
@@ -99,7 +98,6 @@ class ThemeAdminController extends AbstractActionController
     public function newAction()
     {
         $form = $this->getServiceLocator()->get('playgrounddesign_theme_form');
-        $form->get('submit')->setLabel('Créer');
         
         $request = $this->getRequest();
         $themeEntity = new themeEntity;
