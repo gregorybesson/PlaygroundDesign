@@ -505,7 +505,7 @@ class Module implements
         	    $themes = $themeMapper->findBy(array('area' => 'admin'));
         	    foreach ($themes as $theme) {
         	        $config['assetic_configuration']['modules'][$theme->getTitle()]['root_path'][] = __DIR__ . '/../../../../../design/'.$theme->getArea().'/'.$theme->getPackage().'/'.$theme->getTheme().'/assets';
-        	        $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['admin_images']['assets'] = array('images/screenshots/*.jpg');
+        	        $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['admin_images']['assets'] = array('images/screenshots/*.jpg', 'images/screenshots/*.gif', 'images/screenshots/*.png');
         	        $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['admin_images']['options']['output'] = 'theme/';
         	        $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['admin_images']['options']['move_raw'] = 'true';
         	    }
@@ -513,7 +513,7 @@ class Module implements
                 $themes = $themeMapper->findBy(array('area' => 'frontend'));
                 foreach ($themes as $theme) {
                     $config['assetic_configuration']['modules'][$theme->getTitle()]['root_path'][] = __DIR__ . '/../../../../../design/'.$theme->getArea().'/'.$theme->getPackage().'/'.$theme->getTheme().'/assets';
-                    $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['frontend_images']['assets'] = array('images/screenshots/*.jpg');
+                    $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['frontend_images']['assets'] = array('images/screenshots/*.jpg', 'images/screenshots/*.gif', 'images/screenshots/*.png');
                     $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['frontend_images']['options']['output'] = 'theme/';
                     $config['assetic_configuration']['modules'][$theme->getTitle()]['collections']['frontend_images']['options']['move_raw'] = 'true';
                 }
