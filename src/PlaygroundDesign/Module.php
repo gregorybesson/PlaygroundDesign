@@ -661,6 +661,18 @@ class Module implements
                     $helper->setBasePath($basePath);
                     return $helper;
                 },
+                
+                'facebookUrl' => function ($sm) {
+                    $locator = $sm->getServiceLocator();
+                    $fbUrl = null;
+                    $config = $locator->get('config');
+                    if (isset($config['facebook_url'])) {
+                        $fbUrl = $config['facebook_url'];
+                    }
+                    $viewHelper = new View\Helper\FacebookUrl($fbUrl);
+                
+                    return $viewHelper;
+                },
 
                 'head' => function ($sm) {
                     return new View\Helper\Head();
