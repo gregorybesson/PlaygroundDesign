@@ -187,7 +187,10 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
         }
         
         $screenshotsPath = $this->getFilePath().self::SCREENSHOT_PATH;
-        $files = scandir($screenshotsPath);
+        $files = array();
+        if(is_dir($screenshotsPath)){
+            $files = scandir($screenshotsPath);
+        }
 
         foreach ($files as $file) {
             $ext = pathinfo($file, PATHINFO_EXTENSION);
