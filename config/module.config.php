@@ -244,7 +244,7 @@ return array(
       'frontend' => array(
         'type' => 'PlaygroundCore\Mvc\Router\Http\RegexSlash',
         'options' => array(
-          'regex'    => '\/(?<channel>(embed|facebook|platform|mobile)+)?\/?',
+          'regex'    => '\/(?<channel>(embed|facebook|platform|mobile|preview)+)?\/?',
           'defaults' => array(
             'controller' => 'PlaygroundDesign\Controller\Dashboard',
             'action'     => 'index',
