@@ -114,7 +114,7 @@ class ThemeAdminController extends AbstractActionController
 
                 return $this->redirect()->toRoute('admin/playgrounddesign_themeadmin');
             } else {
-                 $this->flashMessenger()->addMessage('The theme "'.$theme->getTitle().'" was not created');
+                 $this->flashMessenger()->addMessage('The theme was not created');
 
                 return $this->redirect()->toRoute('admin/playgrounddesign_themeadmin');
             }

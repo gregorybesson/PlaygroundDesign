@@ -138,9 +138,12 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
         
         $newUrlTheme = $theme->getBasePath().'/'.$data['area'].'/'.$data['package'].'/'.$data['theme'];
         if (!is_dir($newUrlTheme)) {
-        
-            return false;
-        }
+            if(mkdir($newUrlTheme, 0777, true)) {
+                return true;
+            } else {
+                return false;
+            }
+        }  
 
         return true;
     }
