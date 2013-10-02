@@ -58,8 +58,11 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
         $theme->setImage('tmp');
         $form->setData($data);
 
-        if (!$form->isValid() || !$this->checkDirectoryTheme($theme, $data)) {
+        if (!$form->isValid()) {
             return false;
+        }
+        if(!$this->checkDirectoryTheme($theme, $data)) {
+            mkdir($theme->getBasePath().'/'.$data['area'].'/'.$data['package'].'/'.$data['theme'], 0777, true);
         }
 
         $this->createFiles($theme, $data);
@@ -138,11 +141,7 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
         
         $newUrlTheme = $theme->getBasePath().'/'.$data['area'].'/'.$data['package'].'/'.$data['theme'];
         if (!is_dir($newUrlTheme)) {
-            if(mkdir($newUrlTheme, 0777, true)) {
-                return true;
-            } else {
-                return false;
-            }
+            return false;
         }  
 
         return true;
