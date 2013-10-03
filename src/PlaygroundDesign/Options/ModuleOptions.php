@@ -22,14 +22,14 @@ class ModuleOptions extends AbstractOptions
     protected $__strictMode__ = false;
 
     /**
-     * drive path to theme media files
+     * drive path to game media files
      */
-    protected $media_path = 'design/';
+    protected $media_path = 'public/media/design';
 
     /**
-     * url path to theme media files
+     * url path to game media files
      */
-    protected $media_url = '/theme/images/screenshots';
+    protected $media_url = 'media/design';
 
     /**
      * @var string
