@@ -26,9 +26,6 @@ class CompanyAdminController extends AbstractActionController
 
         $form = $this->getCompanyForm();
         $form->setAttribute('method', 'post');
-        if($company) {
-            $form->bind($company);
-        }
 
         if ($this->getRequest()->isPost()) {
             $data = array_merge(
@@ -41,6 +38,11 @@ class CompanyAdminController extends AbstractActionController
                 $company = $service->create($data);
             }
         }
+
+        if($company) {
+            $form->bind($company);
+        }
+
         return $viewModel->setVariables(array('form' => $form, 'title' => 'Company'));
     }
 
