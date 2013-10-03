@@ -31,8 +31,6 @@ class Company extends EventProvider implements ServiceManagerAwareInterface
      */
     protected $options;
 
-    public static $files = array('assets.php', 'layout.php', 'company.php');
-
     /**
      *
      * This service is ready for create a company
@@ -44,11 +42,6 @@ class Company extends EventProvider implements ServiceManagerAwareInterface
      */
     public function create(array $data)
     {
-        $valid = new NotEmpty();
-        if (!$valid->isValid($data['title'])) {
-            return false;
-        }
-
         $company = new CompanyEntity;
         $entityManager = $this->getServiceManager()->get('playgrounddesign_doctrine_em');
 
@@ -83,11 +76,6 @@ class Company extends EventProvider implements ServiceManagerAwareInterface
      */
     public function edit(array $data, $company)
     {
-        $valid = new NotEmpty();
-        if (!$valid->isValid($data['title'])) {
-            return false;
-        }
-
         $entityManager = $this->getServiceManager()->get('playgrounddesign_doctrine_em');
 
         $form  = $this->getServiceManager()->get('playgrounddesign_company_form');
@@ -109,7 +97,7 @@ class Company extends EventProvider implements ServiceManagerAwareInterface
     public function uploadImage($company, $data)
     {
          if (!empty($data['uploadMainImage']['tmp_name'])) {
-            $path = $this->getOptions()->getMediaPath() . $data['area'] . DIRECTORY_SEPARATOR . $data['package'] . DIRECTORY_SEPARATOR . $data['company'];
+            $path = $this->getOptions()->getMediaPath();
             if (!is_dir($path)) {
                 mkdir($path,0777, true);
             }
@@ -118,39 +106,6 @@ class Company extends EventProvider implements ServiceManagerAwareInterface
             $company->setMainImage($media_url . $company->getId() . "-" . $data['uploadMainImage']['name']);
         }
         return $company;
-    }
-
-    /**
-     *
-     * Check if the directory company exist
-     *
-     * @param  \PlaygroundDesign\Entity\Company $company
-     * @param  array  $data
-     *
-     * @return bool $bool
-     */
-    public function checkDirectoryCompany($company, $data)
-    {
-
-        $newUrlCompany = $company->getBasePath().'/'.$data['area'].'/'.$data['package'].'/'.$data['company'];
-        if (!is_dir($newUrlCompany)) {
-
-            return false;
-        }
-
-        return true;
-    }
-
-    public function createFiles($company, $data)
-    {
-        foreach (self::$files as $file) {
-            if (file_exists($company->getBasePath().$data['area'].'/'.$data['package'].'/'.$data['company'].'/'.$file)) {
-                continue;
-            }
-            $contentAssets = file_get_contents(__DIR__.'/../Templates/'.$file);
-            $contentAssets = str_replace(array('{{area}}', '{{package}}','{{company}}', '{{title}}'), array($data['area'], $data['package'], $data['company'], $data['title']), $contentAssets);
-            file_put_contents($company->getBasePath().$data['area'].'/'.$data['package'].'/'.$data['company'].'/'.$file, $contentAssets);
-        }
     }
 
     /**

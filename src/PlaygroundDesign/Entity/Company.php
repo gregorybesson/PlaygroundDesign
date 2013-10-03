@@ -40,7 +40,7 @@ class Company implements CompanyInterface, InputFilterAwareInterface
 
     /**
      * phoneNumber
-     * @ORM\Column(type="string", length=10, nullable=false)
+     * @ORM\Column(type="string", length=20, nullable=false)
      */
     protected $phoneNumber;
 

@@ -41,7 +41,7 @@ class CompanyAdminController extends AbstractActionController
                 $company = $service->create($data);
             }
         }
-        return $viewModel->setVariables(array('form' => $form, 'title' => 'company'));
+        return $viewModel->setVariables(array('form' => $form, 'title' => 'Company'));
     }
 
 

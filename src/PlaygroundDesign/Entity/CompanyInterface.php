@@ -25,4 +25,24 @@ interface CompanyInterface
      * @return mixed
     */
     public function getAddress();
+    /**
+     * @param $phoneNumber
+     * @return mixed
+     */
+    public function setPhoneNumber($phoneNumber);
+
+    /**
+     * @return mixed
+    */
+    public function getPhoneNumber();
+    /**
+     * @param $mainImage
+     * @return mixed
+     */
+    public function setMainImage($mainImage);
+
+    /**
+     * @return mixed
+    */
+    public function getMainImage();
 }

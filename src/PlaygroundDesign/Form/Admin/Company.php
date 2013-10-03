@@ -78,7 +78,6 @@ class Company extends ProvidesEventsForm
             'attributes' => array(
                 'type' => 'tel',
                 'placeholder' => $translator->translate('Company phone number', 'playgrounddesign'),
-                'pattern'  => '^0[1-9]([-. ]?[0-9]{2}){4}$',
                 'required' => 'required'
             ),
             'validator' => array(
