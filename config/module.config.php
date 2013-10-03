@@ -3,7 +3,7 @@ return array(
 
   'doctrine' => array(
         'driver' => array(
-            'zfcuser_entity' => array(
+            'playgrounddesign_entity' => array(
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
                 'paths' => __DIR__ . '/../src/PlaygroundDesign/Entity'
@@ -11,7 +11,7 @@ return array(
 
             'orm_default' => array(
                 'drivers' => array(
-                    /*'PlaygroundDesign\Entity'  => 'zfcdesign_entity'*/
+                    'PlaygroundDesign\Entity'  => 'playgrounddesign_entity'
                 )
             )
         )
@@ -334,7 +334,7 @@ return array(
         ),
       ),
     ),
-  ), 
+  ),
 
     'core_layout' => array(
         'admin' => array(

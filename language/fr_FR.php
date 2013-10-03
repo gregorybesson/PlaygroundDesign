@@ -279,7 +279,7 @@ return array(
 
     // Doctrine
     "This email already exists !" => "Cet email est déjà associé à un compte",
-    
+
 	// Formgen upload
 	'File Upload Name'		=> 'Nom du champ',
 	'Replace Label Text'	=> 'Libellé du champ',
@@ -287,16 +287,21 @@ return array(
 	'No'					=> 'Non',
 	'Yes'					=> 'Oui',
 	'Save'					=> 'Enregistrer',
-	
+
 	// Formgen paragraph
 	'Paragraph Name'		=> 'Nom du champ',
 	'Placeholder Text'		=> 'Texte de substitution',
 	'Type something...'		=> 'Votre paragraphe',
 	'Validate between'		=> 'Valider entre',
 	'number of characters' 	=> 'nombre de caractères',
-	
+
 	// Formgen Input
 	'Input Name'			=> 'Nom du champ',
-	
-	
+
+	// Company Form
+    'Company'               => 'Société',
+    'Company title'         => 'Nom',
+    'Company address'       => 'Adresse',
+    'Company phone number'  => 'Numéro de téléphone',
+    'Main image'            => 'Logo'
 );

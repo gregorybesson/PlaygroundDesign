@@ -287,7 +287,7 @@ class Module implements
 
         		$viewResolverPathStack->clearPaths();
         		$viewResolverPathStack->addPaths(array_reverse($stack));
-        		
+
         		/*echo "tous paths sauf admin<br>";
         		print_r($viewResolverPathStack->getPaths());
                 echo "<br><br>";*/
@@ -323,7 +323,7 @@ class Module implements
         		    }
 
         		}
-        		
+
         		/*echo "tous paths avec hierarchie admin<br>";
         		print_r($viewResolverPathStack->getPaths());
                 echo "<br><br>";*/
@@ -379,13 +379,13 @@ class Module implements
         	                    $stack[] = $path;
         	                }
         	            }
-        	            
+
         	            $themeHierarchy[$themeId]['template_path']= array_reverse($stack);
 
         	            /*echo "tous paths frontend par defaut<br>";
         	            print_r($viewResolverPathStack->getPaths());
         	            echo "<br><br>";*/
-        	            
+
         	            if(isset($config['assetic_configuration']['modules']['frontend'])){
         	                $asseticConfig = array('assetic_configuration' => array(
         		                'modules' => array('frontend' => $config['assetic_configuration']['modules']['frontend']),
@@ -414,7 +414,7 @@ class Module implements
         	    $viewResolverPathStack->clearPaths();
 
         	    $viewResolverPathStack->addPaths(array_reverse($stack));
-        	    
+
         	    /*echo "tous paths sauf frontend<br>";
         	    print_r($viewResolverPathStack->getPaths());
         	    echo "<br><br>";*/
@@ -452,7 +452,7 @@ class Module implements
         	    }
         	}
 
-        	//print_r($viewResolverPathStack->getPaths()); 
+        	//print_r($viewResolverPathStack->getPaths());
 
         	$e->getApplication()->getServiceManager()->setAllowOverride(true);
         	$e->getApplication()->getServiceManager()->setService('config', $config);
@@ -633,10 +633,32 @@ class Module implements
 
     public function getServiceConfig()
     {
-        return array(
-                'factories' => array(
-                    'admin_navigation' => 'PlaygroundDesign\Service\AdminNavigationFactory',
-                ),
-        );
+    return array(
+        'factories' => array(
+            'admin_navigation' => 'PlaygroundDesign\Service\AdminNavigationFactory',
+            'playgrounddesign_module_options' => function  ($sm) {
+                $config = $sm->get('Configuration');
+                return new Options\ModuleOptions(isset($config['playgrounddesign']) ? $config['playgrounddesign'] : array());
+            },
+
+            'playgrounddesign_company_mapper' => function  ($sm) {
+                    return new Mapper\Company($sm->get('playgrounddesign_doctrine_em'), $sm->get('playgrounddesign_module_options'));
+            },
+
+            'playgrounddesign_company_form' => function  ($sm) {
+                $translator = $sm->get('translator');
+                $form = new Form\Admin\Company(null, $sm, $translator);
+                $company = new Entity\Company();
+                $form->setInputFilter($company->getInputFilter());
+                return $form;
+            }
+        ),
+        'aliases' => array(
+            'playgrounddesign_doctrine_em' => 'doctrine.entitymanager.orm_default'
+        ),
+        'invokables' => array(
+            'playgrounddesign_company_service' => 'PlaygroundDesign\Service\Company'
+        ),
+    );
     }
 }
