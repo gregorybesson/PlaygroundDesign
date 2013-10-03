@@ -35,8 +35,8 @@ class ThemeAdminController extends AbstractActionController
 
         $themeMaper = $this->getThemeMapper();
 
-        $themesActivated = $themeMaper->findBy(array('is_active' => true));
-        $themesNotActivated = $themeMaper->findBy(array('is_active' => false));
+        $themesActivated = $themeMaper->findActiveTheme();
+        $themesNotActivated = $themeMaper->findActiveTheme(false);
 
         return array('themesActivated'    => $themesActivated,
                      'themesNotActivated' => $themesNotActivated,
@@ -156,8 +156,7 @@ class ThemeAdminController extends AbstractActionController
         $themeId = $this->getEvent()->getRouteMatch()->getParam('themeId');
         $theme = $this->getThemeMapper()->findById($themeId);
         
-        $themeActivated = $this->getThemeMapper()->findBy(array('is_active' => true,
-                                                                'area'      => $theme->getArea()));
+        $themeActivated = $this->getThemeMapper()->findActiveThemeByArea($theme->getArea());
         if (sizeof($themeActivated) > 0) {
             $themeActivated[0]->setIsActive(false);
             $this->getThemeMapper()->update($themeActivated[0]);  
@@ -219,9 +218,7 @@ class ThemeAdminController extends AbstractActionController
                             $title = $themeArray['design']['package']['theme']['title'];
                             $themeCode = $themeArray['design']['package']['theme']['code'];
 
-                            $themes = $this->getThemeMapper()->findBy(array('area'    => $area,
-                                                                            'package' => $package,
-                                                                            'theme'   => $themeCode));
+                            $themes = $this->getThemeMapper()->findThemeByAreaPackageAndBase($area, $package, $themeCode);
                             if(sizeof($themes) == 0) {
                                 $theme = new ThemeEntity();
                                 $theme->setTitle($title);
