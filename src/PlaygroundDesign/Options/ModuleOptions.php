@@ -2,7 +2,9 @@
 
 namespace PlaygroundDesign\Options;
 
-class ModuleOptions
+use Zend\Stdlib\AbstractOptions;
+
+class ModuleOptions extends AbstractOptions
 {
     /**
      * @var string
@@ -32,12 +34,30 @@ class ModuleOptions
     /**
      * @var string
      */
-    protected $partnerMapper = 'PlaygroundDesign\Mapper\Theme';
+    protected $companyEntityClass = 'PlaygroundDesign\Entity\Company';
 
     /**
-     * Set media path
+     * Set page entity class name
      *
-     * @param  string    $media_path
+     * @param $pageEntityClass
+     * @return ModuleOptions
+     */
+    public function setCompanyEntityClass($companyEntityClass)
+    {
+        $this->companyEntityClass = $companyeEntityClass;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCompanyEntityClass()
+    {
+        return $this->companyEntityClass;
+    }
+
+    /*
      * @return \PlaygroundDesign\Options\ModuleOptions
      */
     public function setMediaPath($media_path)
