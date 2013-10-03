@@ -60,6 +60,45 @@ class Theme implements ThemeInterface
     }
 
     /**
+    * findActiveTheme : recupere des entites en fonction du filtre active
+    * @param boolean $active valeur du champ active
+    *
+    * @return collection $themes collection de PlaygroundDesign\Entity\Theme
+    */
+    public function findActiveTheme($active = true)
+    {
+        return $this->findBy(array('is_active' => $active));
+    }
+
+    /**
+    * findActiveThemeByArea : recupere des entites active en fonction du filtre Area
+    * @param string $area area du theme
+    * @param boolean $active valeur du champ active
+    *
+    * @return collection $themes collection de PlaygroundDesign\Entity\Theme
+    */
+    public function findActiveThemeByArea($area, $active = true)
+    {
+        return $this->findBy(array('is_active' => $active,
+                                   'area'      => $area));
+    }
+
+    /**
+    * findThemeByAreaPackageAndBase : recupere des entites en fonction des filtre Area, Package et Theme
+    * @param string $area area du theme
+    * @param string $package package du theme
+    * @param string $base base du theme
+    *
+    * @return collection $themes collection de PlaygroundDesign\Entity\Theme
+    */
+    public function findThemeByAreaPackageAndBase($area, $package, $base)
+    {
+        return $this->findBy(array('area'    => $area,
+                                   'package' => $package,
+                                   'theme'   => $base));
+    }
+
+    /**
     * insert : insert en base une entité theme
     * @param PlaygroundDesign\Entity\Theme $entity theme
     *
