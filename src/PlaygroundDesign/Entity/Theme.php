@@ -86,8 +86,8 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
     /** @PrePersist */
     public function createChrono()
     {
-        $this->created_at = new \DateTime("now");
-        $this->updated_at = new \DateTime("now");
+        $this->setCreatedAt(new \DateTime("now"));
+        $this->setUpdatedAt(new \DateTime("now"));
     }
 
     /**
@@ -330,6 +330,14 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
     }
 
     /**
+     * @return date
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updated_at;
+    }
+
+    /**
      * Convert the object to an array.
      *
      * @return array
@@ -337,14 +345,6 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
     public function getArrayCopy()
     {
         return get_object_vars($this);
-    }
-
-    /**
-     * @return date
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updated_at;
     }
 
     /**
@@ -359,7 +359,7 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
         }
 
         if (isset($data['image']) && $data['image'] != null) {
-            $this->active = $data['image'];
+            $this->image = $data['image'];
         }
 
         if (isset($data['area']) && $data['area'] != null) {

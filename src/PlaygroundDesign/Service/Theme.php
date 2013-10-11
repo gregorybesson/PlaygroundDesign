@@ -50,7 +50,6 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
         }
 
         $theme = new ThemeEntity;
-        $entityManager = $this->getServiceManager()->get('playgrounddesign_doctrine_em');
 
         $form = $this->getServiceManager()->get($formClass);
 
@@ -58,8 +57,11 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
         $theme->setImage('tmp');
         $form->setData($data);
 
-        if (!$form->isValid() || !$this->checkDirectoryTheme($theme, $data)) {
+        if (!$form->isValid()) {
             return false;
+        }
+        if(!$this->checkDirectoryTheme($theme, $data)) {
+            mkdir($theme->getBasePath().'/'.$data['area'].'/'.$data['package'].'/'.$data['theme'], 0777, true);
         }
 
         $this->createFiles($theme, $data);
@@ -138,9 +140,8 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
         
         $newUrlTheme = $theme->getBasePath().'/'.$data['area'].'/'.$data['package'].'/'.$data['theme'];
         if (!is_dir($newUrlTheme)) {
-        
             return false;
-        }
+        }  
 
         return true;
     }
@@ -155,6 +156,85 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
             $contentAssets = str_replace(array('{{area}}', '{{package}}','{{theme}}', '{{title}}'), array($data['area'], $data['package'], $data['theme'], $data['title']), $contentAssets);
             file_put_contents($theme->getBasePath().$data['area'].'/'.$data['package'].'/'.$data['theme'].'/'.$file, $contentAssets);
         }
+    }
+
+    /**
+    * findById : recupere l'entite en fonction de son id
+    * @param int $id id du theme
+    *
+    * @return PlaygroundDesign\Entity\Theme $theme
+    */
+    public function findById($id)
+    {
+        return $this->getThemeMapper()->findById($id);
+    }
+
+    /**
+    * insert : insert en base une entité theme
+    * @param PlaygroundDesign\Entity\Theme $entity theme
+    *
+    * @return PlaygroundDesign\Entity\Theme $theme
+    */
+    public function insert($entity)
+    {
+        return $this->getThemeMapper()->insert($entity);
+    }
+
+    /**
+    * insert : met a jour en base une entité theme
+    * @param PlaygroundDesign\Entity\Theme $entity theme
+    *
+    * @return PlaygroundDesign\Entity\Theme $theme
+    */
+    public function update($entity)
+    {
+        return $this->getThemeMapper()->update($entity);
+    }
+
+    /**
+    * remove : supprimer une entite theme
+    * @param PlaygroundDesign\Entity\Theme $entity theme
+    *
+    */
+    public function remove($entity)
+    {
+        $this->getThemeMapper()->remove($entity);
+    }
+
+    /**
+    * findActiveTheme : recupere des entites en fonction du filtre active
+    * @param boolean $active valeur du champ active
+    *
+    * @return collection $themes collection de PlaygroundDesign\Entity\Theme
+    */
+    public function findActiveTheme($active = true)
+    {
+        return $this->getThemeMapper()->findActiveTheme($active);
+    }
+
+    /**
+    * findActiveThemeByArea : recupere des entites active en fonction du filtre Area
+    * @param string $area area du theme
+    * @param boolean $active valeur du champ active
+    *
+    * @return collection $themes collection de PlaygroundDesign\Entity\Theme
+    */
+    public function findActiveThemeByArea($area, $active = true)
+    {
+        return $this->getThemeMapper()->findActiveThemeByArea($area, $active);
+    }
+
+    /**
+    * findThemeByAreaPackageAndBase : recupere des entites en fonction des filtre Area, Package et Theme
+    * @param string $area area du theme
+    * @param string $package package du theme
+    * @param string $base base du theme
+    *
+    * @return collection $themes collection de PlaygroundDesign\Entity\Theme
+    */
+    public function findThemeByAreaPackageAndBase($area, $package, $base)
+    {
+        return $this->getThemeMapper()->findThemeByAreaPackageAndBase($area, $package, $base);
     }
 
     /**

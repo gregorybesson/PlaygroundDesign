@@ -33,10 +33,10 @@ class ThemeAdminController extends AbstractActionController
     {
         $automaticTheme = $this->addAutomaticTheme();
 
-        $themeMaper = $this->getThemeMapper();
+        $themeMaper = $this->getAdminThemeService();
 
-        $themesActivated = $themeMaper->findBy(array('is_active' => true));
-        $themesNotActivated = $themeMaper->findBy(array('is_active' => false));
+        $themesActivated = $themeMaper->findActiveTheme();
+        $themesNotActivated = $themeMaper->findActiveTheme(false);
 
         return array('themesActivated'    => $themesActivated,
                      'themesNotActivated' => $themesNotActivated,
@@ -54,7 +54,7 @@ class ThemeAdminController extends AbstractActionController
     public function editAction()
     {
         $themeId = $this->getEvent()->getRouteMatch()->getParam('themeId');
-        $theme = $this->getThemeMapper()->findById($themeId);
+        $theme = $this->getAdminThemeService()->findById($themeId);
 
         $form = $this->getServiceLocator()->get('playgrounddesign_theme_form');
 
@@ -75,7 +75,7 @@ class ThemeAdminController extends AbstractActionController
 
                 return $this->redirect()->toRoute('admin/playgrounddesign_themeadmin');
             } else {
-                 $this->flashMessenger()->addMessage('The theme "'.$theme->getTitle().'" was not updated');
+                 $this->flashMessenger()->addMessage('The theme was not updated');
 
                 return $this->redirect()->toRoute('admin/playgrounddesign_themeadmin');
             }
@@ -114,7 +114,7 @@ class ThemeAdminController extends AbstractActionController
 
                 return $this->redirect()->toRoute('admin/playgrounddesign_themeadmin');
             } else {
-                 $this->flashMessenger()->addMessage('The theme "'.$theme->getTitle().'" was not created');
+                 $this->flashMessenger()->addMessage('The theme was not created');
 
                 return $this->redirect()->toRoute('admin/playgrounddesign_themeadmin');
             }
@@ -137,9 +137,9 @@ class ThemeAdminController extends AbstractActionController
     public function deleteAction()
     {
         $themeId = $this->getEvent()->getRouteMatch()->getParam('themeId');
-        $theme = $this->getThemeMapper()->findById($themeId);
+        $theme = $this->getAdminThemeService()->findById($themeId);
         $title = $theme->getTitle();
-        $this->getThemeMapper()->remove($theme);
+        $this->getAdminThemeService()->remove($theme);
         $this->flashMessenger()->addMessage('The theme "'.$title.'"has been deleted');
 
         return $this->redirect()->toRoute('admin/playgrounddesign_themeadmin');
@@ -154,17 +154,16 @@ class ThemeAdminController extends AbstractActionController
     {
 
         $themeId = $this->getEvent()->getRouteMatch()->getParam('themeId');
-        $theme = $this->getThemeMapper()->findById($themeId);
+        $theme = $this->getAdminThemeService()->findById($themeId);
         
-        $themeActivated = $this->getThemeMapper()->findBy(array('is_active' => true,
-                                                                'area'      => $theme->getArea()));
+        $themeActivated = $this->getAdminThemeService()->findActiveThemeByArea($theme->getArea());
         if (sizeof($themeActivated) > 0) {
             $themeActivated[0]->setIsActive(false);
-            $this->getThemeMapper()->update($themeActivated[0]);  
+            $this->getAdminThemeService()->update($themeActivated[0]);  
         }
         
         $theme->setIsActive(true);
-        $this->getThemeMapper()->update($theme);
+        $this->getAdminThemeService()->update($theme);
         $this->flashMessenger()->addMessage('The theme "'.$theme->getTitle().'" is activate');
 
         $eventManager = new EventManager();
@@ -219,16 +218,14 @@ class ThemeAdminController extends AbstractActionController
                             $title = $themeArray['design']['package']['theme']['title'];
                             $themeCode = $themeArray['design']['package']['theme']['code'];
 
-                            $themes = $this->getThemeMapper()->findBy(array('area'    => $area,
-                                                                            'package' => $package,
-                                                                            'theme'   => $themeCode));
+                            $themes = $this->getAdminThemeService()->findThemeByAreaPackageAndBase($area, $package, $themeCode);
                             if(sizeof($themes) == 0) {
                                 $theme = new ThemeEntity();
                                 $theme->setTitle($title);
                                 $theme->setArea($area);
                                 $theme->setPackage($package);
                                 $theme->setTheme($themeCode);
-                                $this->getThemeMapper()->insert($theme);
+                                $this->getAdminThemeService()->insert($theme);
                                 $nbTheme ++;
                             }
                         }
@@ -239,21 +236,6 @@ class ThemeAdminController extends AbstractActionController
         }
 
         return $nbTheme;
-    }
-
-
-    /**
-    * Recuperation du themeMapper
-    *
-    * @return PlaygroundDesign\Mapper\Theme $themeMapper
-    */
-    public function getThemeMapper()
-    {
-        if (null === $this->themeMapper) {
-            $this->themeMapper = $this->getServiceLocator()->get('playgrounddesign_theme_mapper');
-        }
-
-        return $this->themeMapper;
     }
 
     /**
