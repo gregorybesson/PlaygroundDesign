@@ -126,7 +126,7 @@ class Theme implements ThemeInterface
     *
     * @return PlaygroundDesign\Entity\Theme $theme
     */
-    protected function persist($entity)
+    public function persist($entity)
     {
         $this->em->persist($entity);
         $this->em->flush();
