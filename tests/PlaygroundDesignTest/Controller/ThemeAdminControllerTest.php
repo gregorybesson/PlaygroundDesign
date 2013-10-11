@@ -1,5 +1,4 @@
 <?php
-
 namespace PlaygroundDesignTest\Controller\Frontend;
 
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
@@ -10,11 +9,6 @@ use PlaygroundDesign\Entity\Theme;
 class ThemeAdminControllerTest extends AbstractHttpControllerTestCase
 {
     protected $traceError = true;
-
-   /**
-    * @var $themeMapper mapper de l'entity theme
-    */
-    protected $themeMapper;
 
     protected $themeId;
 
@@ -27,73 +21,122 @@ class ThemeAdminControllerTest extends AbstractHttpControllerTestCase
         parent::setUp();
     }
 
-    public function testIndexAction()
+
+    public function testIndexActionWithoutAutomaticThemeAdd()
     {
-        $this->dispatch('/admin/theme');
         
+        $serviceManager = $this->getApplicationServiceLocator();
+        $serviceManager->setAllowOverride(true);
+
+        $service = $this->getMockBuilder('PlaygroundDesign\Service\Theme')
+            ->setMethods(array('findActiveTheme', 'findThemeByAreaPackageAndBase'))
+            ->disableOriginalConstructor()
+            ->getMock();
+        $serviceManager->setService('playgrounddesign_theme_service', $service);
+
+        $return = array();
+
+        $service->expects($this->any())
+            ->method('findActiveTheme')
+            ->will($this->returnValue($return));
+        $service->expects($this->any())
+            ->method('findThemeByAreaPackageAndBase')
+            ->will($this->returnValue(array_push($return, new Theme)));
+
+        $this->dispatch('/admin/theme');
         $this->assertModuleName('playgrounddesign');
         $this->assertControllerName('playgrounddesign\controller\ThemeAdmin');
         $this->assertControllerClass('ThemeAdminController');
         $this->assertActionName('list');
         $this->assertMatchedRouteName('admin/playgrounddesign_themeadmin');
+
     }
 
-    public function testeditAction()
+    public function testIndexActionWithAutomaticThemeAdd()
     {
-
-        $theme = new Theme();
-        $theme->setTitle('Theme 1');
-        $theme->setImage('/theme/images/screenshots/1-Penguins.jpg');
-        $theme->setArea('admin');
-        $theme->setPackage('default');
-        $theme->setTheme('base');
-        $theme->setAuthor('system');
-        $this->getThemeMapper()->insert($theme);
-
-        // Afin de pouvoir l'utiliser pour l'activation ou la suppression :)
-        $this->themeId = $theme->getId();
-        $this->dispatch('/admin/theme/'.$theme->getId().'/update');
         
+        $serviceManager = $this->getApplicationServiceLocator();
+        $serviceManager->setAllowOverride(true);
+
+        $service = $this->getMockBuilder('PlaygroundDesign\Service\Theme')
+            ->setMethods(array('findActiveTheme', 'findThemeByAreaPackageAndBase', 'insert'))
+            ->disableOriginalConstructor()
+            ->getMock();
+        $serviceManager->setService('playgrounddesign_theme_service', $service);
+
+        $return = array();
+
+        $service->expects($this->any())
+            ->method('findActiveTheme')
+            ->will($this->returnValue($return));
+        $service->expects($this->any())
+            ->method('findThemeByAreaPackageAndBase')
+            ->will($this->returnValue($return));
+
+        $this->dispatch('/admin/theme');
+        $this->assertModuleName('playgrounddesign');
+        $this->assertControllerName('playgrounddesign\controller\ThemeAdmin');
+        $this->assertControllerClass('ThemeAdminController');
+        $this->assertActionName('list');
+        $this->assertMatchedRouteName('admin/playgrounddesign_themeadmin');
+
+    }
+
+    /*public function testEditAction() {
+
+        $serviceManager = $this->getApplicationServiceLocator();
+        $serviceManager->setAllowOverride(true);
+
+        $form = $this->getMockBuilder('PlaygroundDesign\Form\Theme')
+            ->setMethods(array('bind', 'prepare', 'get'))
+            ->disableOriginalConstructor()
+            ->getMock();
+        $serviceManager->setService('playgrounddesign_theme_form', $form);
+
+        $service = $this->getMockBuilder('PlaygroundDesign\Service\Theme')
+            ->setMethods(array('findById'))
+            ->disableOriginalConstructor()
+            ->getMock();
+        $serviceManager->setService('playgrounddesign_theme_service', $service);
+
+        $id = 1;
+        $theme = new Theme;
+        $theme->setId($id);
+
+        $service->expects($this->any())
+            ->method('findById')
+            ->will($this->returnValue($theme));
+
+        $this->dispatch('/admin/theme/'.$id.'/update');
         $this->assertModuleName('playgrounddesign');
         $this->assertControllerName('playgrounddesign\controller\ThemeAdmin');
         $this->assertControllerClass('ThemeAdminController');
         $this->assertActionName('edit');
         $this->assertMatchedRouteName('admin/playgrounddesign_themeadmin_edit');
-    }
+    }*/
 
-    public function testnewAction()
+    public function testDeleteAction() 
     {
-        $this->dispatch('/admin/theme/new');
-        
-        $this->assertModuleName('playgrounddesign');
-        $this->assertControllerName('playgrounddesign\controller\ThemeAdmin');
-        $this->assertControllerClass('ThemeAdminController');
-        $this->assertActionName('new');
-        $this->assertMatchedRouteName('admin/playgrounddesign_themeadmin_new');
-    }
+        $serviceManager = $this->getApplicationServiceLocator();
+        $serviceManager->setAllowOverride(true);
 
-    public function testactivateAction()
-    {
-        $themes = $this->getThemeMapper()->findAll();
-        $theme = $themes[0];
-        $this->assertEquals(0, $theme->getIsActive());
+        $service = $this->getMockBuilder('PlaygroundDesign\Service\Theme')
+            ->setMethods(array('findById', 'remove'))
+            ->disableOriginalConstructor()
+            ->getMock();
+        $serviceManager->setService('playgrounddesign_theme_service', $service);
 
-        $this->dispatch('/admin/theme/'.$theme->getId().'/activate');
-        $this->assertModuleName('playgrounddesign');
-        $this->assertControllerName('playgrounddesign\controller\ThemeAdmin');
-        $this->assertControllerClass('ThemeAdminController');
-        $this->assertActionName('activate');
-        $this->assertMatchedRouteName('admin/playgrounddesign_themeadmin_activate');
+        $id = 1;
+        $theme = new Theme;
+        $theme->setId($id);
+        $theme->setTitle("Ceci est un titre");
 
-        $this->getThemeMapper()->refresh($theme);
-        $this->assertEquals(1, $theme->getIsActive());
-    }
-
-    public function testdeleteAction()
-    {
-        $themes = $this->getThemeMapper()->findAll();
-        $count = sizeof($themes);
-        $theme = $themes[0];
+        $service->expects($this->any())
+            ->method('findById')
+            ->will($this->returnValue($theme));
+        $service->expects($this->any())
+            ->method('remove')
+            ->will($this->returnValue(null));
 
         $this->dispatch('/admin/theme/'.$theme->getId().'/delete');
         $this->assertModuleName('playgrounddesign');
@@ -102,21 +145,81 @@ class ThemeAdminControllerTest extends AbstractHttpControllerTestCase
         $this->assertActionName('delete');
         $this->assertMatchedRouteName('admin/playgrounddesign_themeadmin_delete');
 
-        $themes = $this->getThemeMapper()->findAll();
-        $this->assertEquals($count - 1 ,  sizeof($themes));
+        $this->assertRedirectTo('/admin/theme');
     }
 
-    
-
-
-    public function getThemeMapper()
+    public function testActivateAction() 
     {
+        $serviceManager = $this->getApplicationServiceLocator();
+        $serviceManager->setAllowOverride(true);
 
-        if (null === $this->themeMapper) {
-            $sm = Bootstrap::getServiceManager();
-            $this->themeMapper = $sm->get('playgrounddesign_theme_mapper');
-        }
+        $service = $this->getMockBuilder('PlaygroundDesign\Service\Theme')
+            ->setMethods(array('findById', 'update', 'findActiveThemeByArea'))
+            ->disableOriginalConstructor()
+            ->getMock();
+        $serviceManager->setService('playgrounddesign_theme_service', $service);
 
-        return $this->themeMapper;
+        $id = 1;
+        $theme = new Theme;
+        $theme->setId($id);
+        $theme->setArea("ceciestunearea");
+        $theme->setTitle("Ceci est un titre");
+
+        $service->expects($this->any())
+            ->method('findById')
+            ->will($this->returnValue($theme));
+        $service->expects($this->any())
+            ->method('update')
+            ->will($this->returnValue(null));
+        $service->expects($this->any())
+            ->method('findActiveThemeByArea')
+            ->will($this->returnValue(array()));
+
+        $this->dispatch('/admin/theme/'.$id.'/activate');
+        $this->assertModuleName('playgrounddesign');
+        $this->assertControllerName('playgrounddesign\controller\ThemeAdmin');
+        $this->assertControllerClass('ThemeAdminController');
+        $this->assertActionName('activate');
+        $this->assertMatchedRouteName('admin/playgrounddesign_themeadmin_activate');
+
+        $this->assertRedirectTo('/admin/theme');
     }
+
+    public function testActivateActionWithAllreadyActivedTheme() 
+    {
+        $serviceManager = $this->getApplicationServiceLocator();
+        $serviceManager->setAllowOverride(true);
+
+        $service = $this->getMockBuilder('PlaygroundDesign\Service\Theme')
+            ->setMethods(array('findById', 'update', 'findActiveThemeByArea'))
+            ->disableOriginalConstructor()
+            ->getMock();
+        $serviceManager->setService('playgrounddesign_theme_service', $service);
+
+        $id = 1;
+        $theme = new Theme;
+        $theme->setId($id);
+        $theme->setArea("ceciestunearea");
+        $theme->setTitle("Ceci est un titre");
+
+        $service->expects($this->any())
+            ->method('findById')
+            ->will($this->returnValue($theme));
+        $service->expects($this->any())
+            ->method('update')
+            ->will($this->returnValue(null));
+        $service->expects($this->any())
+            ->method('findActiveThemeByArea')
+            ->will($this->returnValue(array($theme)));
+
+        $this->dispatch('/admin/theme/'.$id.'/activate');
+        $this->assertModuleName('playgrounddesign');
+        $this->assertControllerName('playgrounddesign\controller\ThemeAdmin');
+        $this->assertControllerClass('ThemeAdminController');
+        $this->assertActionName('activate');
+        $this->assertMatchedRouteName('admin/playgrounddesign_themeadmin_activate');
+
+        $this->assertRedirectTo('/admin/theme');
+    }
+    
 }
