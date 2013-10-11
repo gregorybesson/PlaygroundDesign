@@ -201,14 +201,17 @@ class Module implements
     {
         $serviceManager = $e->getApplication()->getServiceManager();
 
-        /* Set the translator for default validation messages
-         * I've copy/paste the Validator messages from ZF2 and placed them in a correct path : PlaygroundDesign
-        * TODO : Centraliser la trad pour les Helper et les Plugins
-        */
-        $translator = $serviceManager->get('translator');
+        $options = $serviceManager->get('playgroundcore_module_options');
+        $locale = $options->getLocale();
+        if (!empty($locale)) {
+            //translator
+            $translator = $serviceManager->get('translator');
+            $translator->setLocale($locale);
 
-        //Translation based on Browser's locale
-        //$translator->setLocale(\Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']));
+            // plugins
+            $translate = $serviceManager->get('viewhelpermanager')->get('translate');
+            $translate->getTranslator()->setLocale($locale);
+        }
 
         // positionnement de la langue pour les traductions de date avec strftime
         setlocale(LC_TIME, "fr_FR", 'fr_FR.utf8', 'fra');
