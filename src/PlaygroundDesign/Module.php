@@ -202,8 +202,8 @@ class Module implements
         $serviceManager = $e->getApplication()->getServiceManager();
 
         $options = $serviceManager->get('playgroundcore_module_options');
-        $locale = $options->getLocale();
         $translator = $serviceManager->get('translator');
+        $locale = $options->getLocale();
         if (!empty($locale)) {
             //translator
             $translator->setLocale($locale);
