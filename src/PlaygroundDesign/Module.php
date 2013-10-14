@@ -201,14 +201,17 @@ class Module implements
     {
         $serviceManager = $e->getApplication()->getServiceManager();
 
-        /* Set the translator for default validation messages
-         * I've copy/paste the Validator messages from ZF2 and placed them in a correct path : PlaygroundDesign
-        * TODO : Centraliser la trad pour les Helper et les Plugins
-        */
+        $options = $serviceManager->get('playgroundcore_module_options');
+        $locale = $options->getLocale();
         $translator = $serviceManager->get('translator');
+        if (!empty($locale)) {
+            //translator
+            $translator->setLocale($locale);
 
-        //Translation based on Browser's locale
-        //$translator->setLocale(\Locale::acceptFromHttp($_SERVER['HTTP_ACCEPT_LANGUAGE']));
+            // plugins
+            $translate = $serviceManager->get('viewhelpermanager')->get('translate');
+            $translate->getTranslator()->setLocale($locale);
+        }
 
         // positionnement de la langue pour les traductions de date avec strftime
         setlocale(LC_TIME, "fr_FR", 'fr_FR.utf8', 'fra');
@@ -661,7 +664,7 @@ class Module implements
                     $helper->setBasePath($basePath);
                     return $helper;
                 },
-                
+
                 'facebookUrl' => function ($sm) {
                     $locator = $sm->getServiceLocator();
                     $fbUrl = null;
@@ -670,7 +673,7 @@ class Module implements
                         $fbUrl = $config['facebook_url'];
                     }
                     $viewHelper = new View\Helper\FacebookUrl($fbUrl);
-                
+
                     return $viewHelper;
                 },
 
@@ -717,6 +720,11 @@ class Module implements
 
                     return new Mapper\Theme($sm->get('playgrounddesign_doctrine_em'), $sm->get('playgrounddesign_module_options'));
                 },
+
+                'playgrounddesign_company_mapper' => function  ($sm) {
+                    return new Mapper\Company($sm->get('playgrounddesign_doctrine_em'), $sm->get('playgrounddesign_module_options'));
+                },
+
                 'playgrounddesign_theme_form' => function  ($sm) {
                     $translator = $sm->get('translator');
                     $form = new Form\Admin\Theme(null, $sm, $translator);
@@ -724,13 +732,22 @@ class Module implements
                     $form->setInputFilter($theme->getInputFilter());
 
                     return $form;
+                },
+
+                'playgrounddesign_company_form' => function  ($sm) {
+                    $translator = $sm->get('translator');
+                    $form = new Form\Admin\Company(null, $sm, $translator);
+                    $company = new Entity\Company();
+                    $form->setInputFilter($company->getInputFilter());
+                    return $form;
                 }
             ),
             'aliases' => array(
                 'playgrounddesign_doctrine_em' => 'doctrine.entitymanager.orm_default'
             ),
             'invokables' => array(
-                'playgrounddesign_theme_service' => 'PlaygroundDesign\Service\Theme'
+                'playgrounddesign_theme_service' => 'PlaygroundDesign\Service\Theme',
+                'playgrounddesign_company_service' => 'PlaygroundDesign\Service\Company'
             ),
         );
     }
