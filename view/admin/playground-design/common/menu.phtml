@@ -1,0 +1,26 @@
+<?php foreach ($this->container as $item): ?>
+
+    <?php
+    // As we have to check permissions by ourselves if we use partial for navigation ... :-P
+    // We then have to parse the navigation permissions in this view... What a pity
+    // Below, it's the 'accept' stuff...
+    $container = $this->navigation()->menu('admin_navigation'); ?>
+    
+    <?php if( ! $item->isVisible() || !$container->accept($item)) continue; ?>
+    <?php if ($item->hasPages()): ?>
+        <li class="dropdown"><a href="#" class="dropdown-toggle"
+            data-toggle="dropdown"> <?php echo $this->translate($item->getLabel()) ?>
+                <b class="caret"></b>
+        </a>
+            <ul class="dropdown-menu">
+                <?php foreach ($item->getPages() as $page): ?>
+                <?php if( ! $page->isVisible() || !$container->accept($page)) continue; ?>
+                <li><a href="<?php echo $page->getHref() ?>"><?php echo $this->translate($page->getLabel()) ?>
+                </a></li>
+                <?php endforeach; ?>
+            </ul>
+        </li>
+    <?php else: ?>
+        <li><a href="<?php echo $item->getHref() ?>"><?php echo $this->translate($item->getLabel()) ?></a></li>
+    <?php endif; ?>
+<?php endforeach; ?>
