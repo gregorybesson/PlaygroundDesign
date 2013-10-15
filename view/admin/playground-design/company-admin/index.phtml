@@ -26,6 +26,18 @@ $form->prepare();
             </div>
 
     		<div class="label-input">
+                <?php echo $this->formLabel($form->get('twitterAccount')); ?>
+                <?php echo $this->formInput($form->get('twitterAccount')); ?>
+                <?php echo $this->formElementErrors($form->get('twitterAccount')) ?>
+            </div>
+
+    		<div class="label-input">
+                <?php echo $this->formLabel($form->get('facebookPage')); ?>
+                <?php echo $this->formInput($form->get('facebookPage')); ?>
+                <?php echo $this->formElementErrors($form->get('facebookPage')) ?>
+            </div>
+
+    		<div class="label-input">
                 <?php echo $this->formLabel($form->get('phoneNumber')); ?>
                 <?php echo $this->formInput($form->get('phoneNumber')); ?>
                 <?php echo $this->formElementErrors($form->get('phoneNumber')) ?>
