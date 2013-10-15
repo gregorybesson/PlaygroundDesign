@@ -45,6 +45,18 @@ class Company implements CompanyInterface, InputFilterAwareInterface
     protected $phoneNumber;
 
     /**
+     * facebookPage
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $facebookPage;
+
+    /**
+     * twitterAccount
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $twitterAccount;
+
+    /**
      * @ORM\Column(name="main_image", type="string", length=255, nullable=true)
      */
     protected $mainImage;
@@ -125,6 +137,44 @@ class Company implements CompanyInterface, InputFilterAwareInterface
         return $this->phoneNumber;
     }
 
+    /**
+     * @param string $facebookPage
+     * @return Company
+     */
+    public function setFacebookPage($facebookPage)
+    {
+        $this->facebookPage = (string) $facebookPage;
+
+        return $this;
+    }
+
+    /**
+     * @return string $facebookPage
+     */
+    public function getFacebookPage()
+    {
+        return $this->facebookPage;
+    }
+
+    /**
+     * @param string $twitterAccount
+     * @return Company
+     */
+    public function setTwitterAccount($twitterAccount)
+    {
+        $this->twitterAccount = (string) $twitterAccount;
+
+        return $this;
+    }
+
+    /**
+     * @return string $twitterAccount
+     */
+    public function getTwitterAccount()
+    {
+        return $this->twitterAccount;
+    }
+
 
     /**
      *
@@ -163,8 +213,14 @@ class Company implements CompanyInterface, InputFilterAwareInterface
         if (isset($data['address']) && $data['address'] != null) {
             $this->address = $data['address'];
         }
-        if (isset($data['phoneNumber']) && $data['phoneNumber'] != null) {
+            if (isset($data['phoneNumber']) && $data['phoneNumber'] != null) {
             $this->phoneNumber = $data['phoneNumber'];
+        }
+        if (isset($data['facebookPage']) && $data['facebookPage'] != null) {
+            $this->facebookPage = $data['facebookPage'];
+        }
+        if (isset($data['twitterAccount']) && $data['twitterAccount'] != null) {
+            $this->twitterAccount = $data['twitterAccount'];
         }
         if (isset($data['mainImage']) && $data['mainImage'] != null) {
             $this->mainImage = $data['mainImage'];
