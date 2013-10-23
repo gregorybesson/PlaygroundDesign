@@ -26,9 +26,6 @@ class Theme extends ProvidesEventsForm
     {
         parent::__construct($name);
 
-        $entityManager = $serviceManager->get('playgrounddesign_doctrine_em');
-
-        parent::__construct();
         $this->setAttribute('enctype','multipart/form-data');
 
         $this->add(array(
