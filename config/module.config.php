@@ -419,7 +419,7 @@ return array(
         ),
     ),
 
-    'navigation' => array(
+    /*'navigation' => array(
         'admin' => array(
             'home' => array(
                 'label' => 'Accueil',
@@ -450,7 +450,7 @@ return array(
                 ),
             ),
         ),
-    ),
+    ),*/
 
     'view_manager' => array(
         'display_not_found_reason' => true,
