@@ -13,15 +13,11 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         parent::setUp();
+        $this->getForm();
     }
 
     public function testValid()
-    {
-        $data = array('title' => '');
-        $this->form->setData($data);
-        $this->assertFalse($this->form->isValid());
-
-
+    {   
         $data = array('title' => 'test');
         $this->form->setData($data);
         $this->assertTrue($this->form->isValid());
@@ -31,7 +27,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
     {
         if (null === $this->form) {
             $sm = Bootstrap::getServiceManager();
-            $this->themeMapper = $sm->get('playgrounddesign_theme_form');
+            $this->form = $sm->get('playgrounddesign_theme_form');
         }
 
         return $this->form;
