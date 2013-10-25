@@ -309,5 +309,63 @@ return array(
     'Company title'         => 'Nom',
     'Company address'       => 'Adresse',
     'Company phone number'  => 'Numéro de téléphone',
-    'Main image'            => 'Logo'
+    'Company facebook page' => 'Page Facebook',
+    'Company twitter account' => 'Compte twitter',
+    'Main image'            => 'Logo',
+    'Upgrade'				=> 'Mettre à jour',
+    
+    // Menus
+	'Home' 	=> 'Accueil',
+    'Users'			=> 'Utilisateurs',
+    'Users list' 	=> 'Liste des utilisateurs',
+    'Create user' 	=> 'Créer un utilisateur',
+    
+    'Statistics'	=> 'Statistiques',
+    'Game stats'	=> 'Statistiques des jeux',
+    'Export'		=> 'Export',
+    
+    'Posts' => 'Les articles',
+    'Posts list' => 'Liste des articles',
+    'Create a post' => 'Créer un article',
+    'Content bloc list' => 'Liste des blocs de contenu',
+    'Create a content bloc' => 'Créer un bloc de contenu',
+    'Dynamic blocs list' => 'Liste des blocs dynamiques',
+    
+    'Rewards' => 'Récompenses',
+    'Rewards list' => 'Listes des récompenses',
+    
+    'Games' 				=> 'Les jeux',
+    'Games list' 			=> 'Liste des jeux',
+    'Add new lottery' 		=> 'Créer un tirage au sort',
+    'Add new quiz' 			=> 'Créer un quiz',
+    'Add new post & vote' 	=> 'Créer un Post & Vote',
+    'Add new instant win' 	=> 'Créer un instant gagnant',
+    'Manage categories gain' => 'Gérer les catégories de gain',
+    'Add new treasure hunt' => 'Créer une chasse au trésor',
+   	
+    'Open graph' 	=> 'Open graph',
+    'Stories list'	=> 'Liste des stories',
+    'Create story' 	=> 'Créer une story',
+    'Actions list' 	=> 'Liste des actions',
+    'Objects list' 	=> 'Liste des objets',
+    'Domains list' 	=> 'Liste des domaines',
+    'Apps list' 	=> 'Liste des apps',
+    
+    'New appli' 	=> 'Nouvelle Appli',
+    'Pages list' 	=> 'Liste des Pages',
+    'New page' 		=> 'Nouvelle Page',
+    
+    'Partners' 			=> 'Partenaires',
+    'Partners list' 	=> 'Liste des partenaires',
+    'Create partner' 	=> 'Créer un nouveau partenaire',
+    
+    'FAQ' => 'FAQ',
+    'FAQ list' => 'Liste des FAQ',
+    'New FAQ' => 'Nouvelle FAQ',
+    
+    'Configuration' => 'Configuration',
+    'Company' 		=> 'Société',
+    'Themes' 		=> 'Gestion des thèmes',
+    
+    
 );
