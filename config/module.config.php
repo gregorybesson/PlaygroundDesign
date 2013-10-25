@@ -436,13 +436,13 @@ return array(
                 'privilege' => 'system',
                 'pages' => array(
                     'company' => array(
-                        'label' => 'Société',
+                        'label' => 'Company',
                         'route' => 'admin/playgrounddesign_companyadmin',
                         'resource' => 'design',
                         'privilege' => 'system',
                     ),
                     'theme' => array(
-                        'label' => 'Gestion des thèmes',
+                        'label' => 'Themes',
                         'route' => 'admin/playgrounddesign_themeadmin',
                         'resource' => 'design',
                         'privilege' => 'system',
