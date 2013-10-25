@@ -29,15 +29,15 @@ class ColumnLeft extends AbstractHelper
         	$channel = '';
         }
 
-       if (array_key_exists('adserving', $options) && is_array($options['adserving'])) {
+       /*if (array_key_exists('adserving', $options) && is_array($options['adserving'])) {
             $cat1 = $options['adserving']['cat1'];
             $cat2 = $options['adserving']['cat2'];
             $cat3 = $options['adserving']['cat3'];
-        } else {
+        } else {*/
             $cat1 = 'playground';
             $cat2 = '';
             $cat3 = '';
-        }
+        //}
 
         $vm = new ViewModel(array());
         $vm->setTemplate($template);
