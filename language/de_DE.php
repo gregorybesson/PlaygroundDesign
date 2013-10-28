@@ -346,4 +346,77 @@ return array(
     'Company' 		=> 'Company',
     'Themes' 		=> 'Themes',
     
+    // Page Contactez-nous, colonne de gauche
+    'How it works ?' => 'How it works ?',
+    'Badges and points' => 'Badges and points',
+    'F.A.Q' => 'F.A.Q',
+    'Contact us' => 'Contact us',
+    'Win a lot of gits !' => 'Win a lot of gits !',
+    'Playground is 100% free!' => 'Playground is 100% free!',
+    'Sign up now!' => 'Sign up now!',
+    'Connection' => 'Connection',
+    
+    // BLOC FACEBOOK
+    'Join us on Facebook' => 'Join us on Facebook',
+    
+    // BLOC NEWSLETTER
+    'Sign up for the newsletter and never miss a game!' => 'Sign up for the newsletter and never miss a game!',
+    'Your email address' => 'Your email address',
+    'Thank you, your registration is taken into account!' => 'Thank you, your registration is taken into account!',
+    
+    // BLOC HOW IT WORKS
+    'Register or log in to your account' => 'Register or log in to your account',
+    'Participate in contests to win prizes' => 'Participate in contests to win prizes',
+    'Collect points and earn badges.' => 'Collect points and earn badges.',
+    'See how to earn more points!' => 'See how to earn more points!',
+    'Register' => 'Register',
+    'or' => 'or',
+    'log in' => 'log in',
+    'to your account' => 'to your account',
+    'Participate in contests' => 'Participate in contests',
+    'to win prizes' => 'to win prizes',
+    
+    // BLOCK CLASSEMENT
+    'Ranking' => 'Ranking',
+    'This week' => 'This week',
+    'General' => 'General',
+    'Your position' => 'Your position',
+    'See the overall' => 'See the overall',
+    'first_place' => 'st',
+    'second_place' => 'nd',
+    'third_place' => 'rs',
+    'other_place' => 'th',
+     
+    // BLOC ACTIVITES RECENTES
+    'Recent activity' => 'Recent activity',
+    'received the badge' => 'received the badge',
+    
+    // BLOCK WIN POINTS
+    'Earn more points!' => 'Earn more points!',
+    'Fill in your details' => 'Fill in your details',
+    'Refer your friends' => 'Refer your friends',
+    'by friend sponsored' => 'by friend sponsored',
+    'Share on social networks' => 'Share on social networks',
+
+    // FOOTER
+    'Home' => 'Home',
+    'All contests' => 'All contests',
+    'Winners' => 'Winners',
+    'FAQ' => 'FAQ',
+    'My account' => 'My account',
+    'to win' => 'to win',
+    
+    // MON ACTIVITE
+    'My activity' => 'My activity',
+    'Filter history by type of action' => 'Filter history by type of action',
+    'Select' => 'Select',
+    'Overall picture' => 'Overall picture',
+    'Invitations and sponsorship' => 'Invitations and sponsorship',
+    'Badges' => 'Badges',
+    'More news' => 'Plus d\'actus',
+    
+    // NOUS CONTACTER
+    'A question to ask ?' => 'A question to ask ?',
+    
+    
 );
