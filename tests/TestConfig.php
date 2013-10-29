@@ -6,6 +6,7 @@ return array(
         'ZfcBase',
         'ZfcUser',
         'PlaygroundCore',
+        'PlaygroundFlow',
         'PlaygroundUser',
         'PlaygroundDesign',
     ),
