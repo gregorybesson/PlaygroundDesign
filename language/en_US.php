@@ -418,15 +418,23 @@ return array(
     
     // NOUS CONTACTER
     'A question to ask ?' => 'A question to ask ?',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
-    '' => '',
     
+    // HEADER DU SITE
+	'The first open source platform games !' => 'The first open source platform games !',
+	'Contests' => 'Contests',
+	'Winners' => 'Winners',
+	'Badges and points' => 'Badges and points',
+	'My activity' => 'My activity',
+	'Change my informations' => 'Change my informations',
+	'Manage my newletters' => 'Manage my newletters',
+	'Sponsor my friends' => 'Sponsor my friends',
+	'Logout' => 'Logout',
+	'Your badges' => 'Your badges',
+	'All badges' => 'All badges',
+	'' => '',
+	'' => '',
+	'' => '',
+	'' => '',
+	'' => '',
+	'' => '',
 );

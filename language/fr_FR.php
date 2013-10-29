@@ -443,6 +443,22 @@ return array(
     
     // NOUS CONTACTER
     'A question to ask ?' => 'Une question à nous poser ?',
+    
+    // HEADER DU SITE
+    'The first open source platform games !' => 'La première plateforme de jeux open source !',
+    'Contests' => 'Jeux concours',
+    'Winners' => 'Les gagnants',
+    'Badges and points' => 'Mes badges et mes points',
+    'My activity' => 'Mon activité',
+    'Change my informations' => 'Modifier mes informations',
+    'Manage my newletters' => 'Gérer mes newletters',
+    'Sponsor my friends' => 'Parrainer mes amis',
+    'Logout' => 'Déconnexion',
+    'Your badges' => 'Vos badges',
+    'All badges' => 'Tous les badges',
+    '' => '',
+    '' => '',
+    '' => '',
     '' => '',
     '' => '',
     '' => '',
