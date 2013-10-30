@@ -119,7 +119,7 @@ return array(
                             'js/jquery.timer.js',
                         ),
                     ),
-                    
+
                     'head_admin_lib_js' => array(
                         'assets' => array(
                             '@jquery',
@@ -155,7 +155,7 @@ return array(
                             'output' => 'frontend/js/head_lib.js',
                         ),
                     ),
-                    
+
                     'ckeditor' => array(
                         'assets' => array(
                             'js/ckeditor/*',
@@ -282,13 +282,14 @@ return array(
                     ),
                     'head_frontend_js' => array(
                         'assets' => array(
-                            'loader.js' => 'js/loader.js',
-                            'popin.js' => 'js/popin.js',
-                            'functions.js' => 'js/functions.js',
-                            'script.js' => 'js/script.js',
-                            'users.js' => 'js/users.js',
-                            'share.js' => 'js/share.js',
-                            'games.js' => 'js/games.js',
+                            'loader.js'     => 'js/loader.js',
+                            'popin.js'      => 'js/popin.js',
+                            'functions.js'  => 'js/functions.js',
+                            'script.js'     => 'js/script.js',
+                            'users.js'      => 'js/users.js',
+                            'share.js'      => 'js/share.js',
+                            'games.js'      => 'js/games.js',
+                            'fbregister.js' => 'js/fbregister.js',
                         ),
                         'filters' => array(),
                         'options' => array(
@@ -471,7 +472,7 @@ return array(
         ),
       ),
     ),
-  ), 
+  ),
 
     'core_layout' => array(
         'admin' => array(
