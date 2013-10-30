@@ -541,9 +541,9 @@ class Module implements
 
         	}*/
         	
-        	echo '<pre>';
+        	/*echo '<pre>';
         	print_r($config['assetic_configuration']);
-        	echo '</pre>';
+        	echo '</pre>';*/
         }
 
         /**
