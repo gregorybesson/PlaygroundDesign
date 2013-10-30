@@ -450,6 +450,9 @@ class Module implements
         		            ));
 
         		            $themeHierarchy[$themeId]['assets'] = $asseticConfig;
+        		            /*echo '<pre>';
+        		            print_r($asseticConfig['assetic_configuration']['routes']);
+        		            echo '</pre>';*/
         	            }
 
         	            if(isset($config['core_layout']['frontend'])){
@@ -509,10 +512,11 @@ class Module implements
         	    }
         	}
 
+        	// Creating the Assetic configuration for images of all available themes
             if (PHP_SAPI !== 'cli') {
         	    $themes = $themeMapper->findAll();
         	    foreach ($themes as $theme) {
-        	        $moduleName = $theme->getArea() . $theme->getPackage() . $theme->getTheme();
+        	        $moduleName = 'preview_' . $theme->getArea() . '_' . $theme->getPackage() . '_' . $theme->getTheme();
         	        $config['assetic_configuration']['modules'][$moduleName]['root_path'][] = __DIR__ . '/../../../../../design/'.$theme->getArea().'/'.$theme->getPackage().'/'.$theme->getTheme().'/assets';
         	        $config['assetic_configuration']['modules'][$moduleName]['collections']['admin_images']['assets'] = array('images/screenshots/*.jpg', 'images/screenshots/*.gif', 'images/screenshots/*.png');
         	        $config['assetic_configuration']['modules'][$moduleName]['collections']['admin_images']['options']['output'] = 'theme/';
@@ -536,6 +540,10 @@ class Module implements
         	    print_r($t);
 
         	}*/
+        	
+        	echo '<pre>';
+        	print_r($config['assetic_configuration']);
+        	echo '</pre>';
         }
 
         /**
