@@ -246,6 +246,30 @@ return array(
                             'output' => 'lib',
                         )
                     ),
+                    'fonts' => array(
+                        'assets' => array(
+                            'fonts/**/*.eot',
+                            'fonts/**/*.svg',
+                            'fonts/**/*.ttf',
+                            'fonts/**/*.woff',
+                        ),
+                        'options' => array(
+                            'move_raw' => true,
+                            'output' => 'zfcadmin'
+                        )
+                    ),
+                    'fonts' => array(
+                        'assets' => array(
+                            'fonts/**/*.eot',
+                            'fonts/**/*.svg',
+                            'fonts/**/*.ttf',
+                            'fonts/**/*.woff',
+                        ),
+                        'options' => array(
+                            'move_raw' => true,
+                            'output' => 'frontend'
+                        )
+                    ),
                 ),
             ),
             'admin' => array(
@@ -296,18 +320,6 @@ return array(
                             'output' => 'zfcadmin',
                         )
                     ),
-                    'fonts' => array(
-                        'assets' => array(
-                            'fonts/**/*.eot',
-                            'fonts/**/*.svg',
-                            'fonts/**/*.ttf',
-                            'fonts/**/*.woff',
-                        ),
-                        'options' => array(
-                            'move_raw' => true,
-                            'output' => 'zfcadmin'
-                        )
-                    ),
                 ),
             ),
             'frontend' => array(
@@ -355,19 +367,6 @@ return array(
 //                             'output' => 'frontend',
 //                         )
 //                     ),
-                    'fonts' => array(
-                        'assets' => array(
-                            'fonts/**/*.eot',
-                            'fonts/**/*.svg',
-                            'fonts/**/*.ttf',
-                            'fonts/**/*.woff',
-                        ),
-                        'options' => array(
-                            'move_raw' => true,
-                            'output' => 'frontend'
-                        )
-                    ),
-
                 ),
             ),
         ),
