@@ -120,6 +120,50 @@ return array(
                         ),
                     ),
 
+                    'bootstrap_css' => array(
+                        'assets' => array(
+                            'css/bootstrap.min.css',
+                        ),
+                    ),
+                    'bootstrap_responsive_css' => array(
+                        'assets' => array(
+                            'css/bootstrap-responsive.min.css',
+                        ),
+                    ),
+                    'jquery_ui_css' => array(
+                        'assets' => array(
+                            'http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css',
+                        ),
+                    ),
+                    'datepicker_css' => array(
+                        'assets' => array(
+                            'css/datepicker.css',
+                        ),
+                    ),
+                    'jquery_ui_timepicker_addon_css' => array(
+                        'assets' => array(
+                            'css/lib/jquery-ui-timepicker-addon.css',
+                        ),
+                    ),
+                    'uniform_default_css' => array(
+                        'assets' => array(
+                            'css/uniform.default.css',
+                        ),
+                    ),
+                    
+                    'admin_lib_css' => array(
+                        'assets' => array(
+                            '@bootstrap_css',
+                            '@bootstrap_responsive_css',
+                            '@jquery_ui_css',
+                            '@datepicker_css',
+                            '@jquery_ui_timepicker_addon_css',
+                        ),
+                        'filters' => array(),
+                        'options' => array(
+                            'output' => 'zfcadmin/css/head_lib.css'
+                        ),
+                    ),
                     'head_admin_lib_js' => array(
                         'assets' => array(
                             '@jquery',
@@ -135,6 +179,16 @@ return array(
                         ),
                     ),
 
+                    'frontend_lib_css' => array(
+                        'assets' => array(
+                            '@uniform_default_css',
+                        ),
+                        'filters' => array(),
+                        'options' => array(
+                            'output' => 'frontend/css/lib.css'
+                        ),
+                    ),
+                    
                     'head_frontend_lib_js' => array(
                         'assets' => array(
                             '@jquery',
@@ -171,18 +225,7 @@ return array(
                             'output' => 'lib',
                         )
                     ),
-                    'fonts' => array(
-                        'assets' => array(
-                            'fonts/**/*.eot',
-                            'fonts/**/*.svg',
-                            'fonts/**/*.ttf',
-                            'fonts/**/*.woff',
-                        ),
-                        'options' => array(
-                            'move_raw' => true,
-                            'output' => 'lib'
-                        )
-                    ),
+
                     'admin_jquery_ui_images' => array(
                         'assets' => array(
                             'css/images/*.jpg',
@@ -214,14 +257,9 @@ return array(
                 'collections' => array(
                     'admin_css' => array(
                         'assets' => array(
-                            'bootstrap.min.css'              => 'css/bootstrap.min.css',
-                            'bootstrap-responsive.min.css'   => 'css/bootstrap-responsive.min.css',
                             'ie8.css'                        => 'css/ie8.css',
                             'ie.css'                         => 'css/ie.css',
                             'administration.css'             => 'css/administration.css',
-                            'jquery-ui.css'                  => 'http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css',
-                            'datepicker.css'                 => 'css/lib/datepicker.css',
-                            'jquery-ui-timepicker-addon.css' => 'css/lib/jquery-ui-timepicker-addon.css',
                         ),
                         'filters' => array(),
                         'options' => array(
@@ -258,6 +296,18 @@ return array(
                             'output' => 'zfcadmin',
                         )
                     ),
+                    'fonts' => array(
+                        'assets' => array(
+                            'fonts/**/*.eot',
+                            'fonts/**/*.svg',
+                            'fonts/**/*.ttf',
+                            'fonts/**/*.woff',
+                        ),
+                        'options' => array(
+                            'move_raw' => true,
+                            'output' => 'zfcadmin'
+                        )
+                    ),
                 ),
             ),
             'frontend' => array(
@@ -273,7 +323,6 @@ return array(
                             'ie8.css'                => 'css/ie8.css',
                             'ie.css'                 => 'css/ie.css',
                             'styles.css'             => 'css/styles.css',
-                            'uniform.default.css'    => 'css/uniform.default.css',
                         ),
                         'filters' => array(),
                         'options' => array(
@@ -306,6 +355,18 @@ return array(
 //                             'output' => 'frontend',
 //                         )
 //                     ),
+                    'fonts' => array(
+                        'assets' => array(
+                            'fonts/**/*.eot',
+                            'fonts/**/*.svg',
+                            'fonts/**/*.ttf',
+                            'fonts/**/*.woff',
+                        ),
+                        'options' => array(
+                            'move_raw' => true,
+                            'output' => 'frontend'
+                        )
+                    ),
 
                 ),
             ),
