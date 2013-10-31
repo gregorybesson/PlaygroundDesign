@@ -142,7 +142,7 @@ return array(
                     ),
                     'jquery_ui_timepicker_addon_css' => array(
                         'assets' => array(
-                            'css/lib/jquery-ui-timepicker-addon.css',
+                            'css/jquery-ui-timepicker-addon.css',
                         ),
                     ),
                     'uniform_default_css' => array(
