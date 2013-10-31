@@ -373,11 +373,13 @@ return array(
 
         'routes' => array(
             'admin.*' => array(
+                '@admin_lib_css'     => '@admin_lib_css',
                 '@admin_css'         => '@admin_css',
                 '@head_admin_lib_js' => '@head_admin_lib_js',
                 '@head_admin_js'     => '@head_admin_js',
-            ),
+            ), 
             'frontend.*' => array(
+                '@frontend_lib_css'     => '@frontend_lib_css',
                 '@frontend_css'         => '@frontend_css',
                 '@head_frontend_lib_js' => '@head_frontend_lib_js',
                 '@head_frontend_js'     => '@head_frontend_js',
