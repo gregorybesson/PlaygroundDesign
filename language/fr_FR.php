@@ -333,6 +333,7 @@ return array(
     
     'Rewards' => 'Récompenses',
     'Rewards list' => 'Listes des récompenses',
+    'Type of Leaderboard' => 'Type de Classements',
     
     'Games' 				=> 'Les jeux',
     'Games list' 			=> 'Liste des jeux',
