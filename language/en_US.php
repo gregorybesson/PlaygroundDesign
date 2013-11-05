@@ -312,6 +312,7 @@ return array(
     
     'Rewards' => 'Rewards',
     'Rewards list' => 'Rewards list',
+    'Type of Leaderboard' => 'Type of Leaderboard',
     
     'Games' 				=> 'Games',
     'Games list' 			=> 'Games list',
