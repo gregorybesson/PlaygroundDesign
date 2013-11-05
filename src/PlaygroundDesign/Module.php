@@ -673,6 +673,18 @@ class Module implements
                     return $helper;
                 },
 
+                'libAssetPath' => function($sm) {
+                    $config = $sm->getServiceLocator()->has('Config') ? $sm->getServiceLocator()->get('Config') : array();
+                    $helper  = new View\Helper\LibAssetPath;
+                    if (isset($config['view_manager']) && isset($config['view_manager']['base_path'])) {
+                        $basePath = $config['view_manager']['base_path'];
+                    } else {
+                        $basePath = $sm->getServiceLocator()->get('Request')->getBasePath();
+                    }
+                    $helper->setBasePath($basePath);
+                    return $helper;
+                },
+                
                 'facebookUrl' => function ($sm) {
                     $locator = $sm->getServiceLocator();
                     $fbUrl = null;
