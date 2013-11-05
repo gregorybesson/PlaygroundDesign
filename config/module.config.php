@@ -246,7 +246,7 @@ return array(
                             'output' => 'lib',
                         )
                     ),
-                    'fonts' => array(
+                    'admin_fonts' => array(
                         'assets' => array(
                             'fonts/**/*.eot',
                             'fonts/**/*.svg',
@@ -258,7 +258,7 @@ return array(
                             'output' => 'zfcadmin'
                         )
                     ),
-                    'fonts' => array(
+                    'frontend_fonts' => array(
                         'assets' => array(
                             'fonts/**/*.eot',
                             'fonts/**/*.svg',
