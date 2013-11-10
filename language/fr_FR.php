@@ -343,6 +343,7 @@ return array(
     'Add new instant win' 	=> 'Créer un instant gagnant',
     'Manage categories gain' => 'Gérer les catégories de gain',
     'Add new treasure hunt' => 'Créer une chasse au trésor',
+    'Mission Management'    => 'Gestion des missions',
    	
     'Open graph' 	=> 'Open graph',
     'Stories list'	=> 'Liste des stories',

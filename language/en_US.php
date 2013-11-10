@@ -322,6 +322,7 @@ return array(
     'Add new instant win' 	=> 'Add new Instant Win',
     'Manage categories gain' => 'Manage categories gain',
     'Add new treasure hunt' => 'Add new treasure hunt',
+    'Mission Management'    => 'Mission Management',
     
     'Open graph' 	=> 'Open graph',
     'Stories list' 	=> 'Stories list',
