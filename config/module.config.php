@@ -209,23 +209,6 @@ return array(
                             'output' => 'frontend/js/head_lib.js',
                         ),
                     ),
-
-                    'ckeditor' => array(
-                        'assets' => array(
-                            'js/ckeditor/*',
-                            'js/ckeditor/**/*',
-                            'js/ckeditor/**/**/*',
-                            'js/ckeditor/**/**/**/*',
-                            'js/ckeditor-custom/*',
-                            'js/ckeditor-custom/**/*',
-                            'css/ckeditor-custom/*',
-                        ),
-                        'options' => array(
-                            'move_raw' => true,
-                            'output' => 'lib',
-                        )
-                    ),
-
                     'admin_jquery_ui_images' => array(
                         'assets' => array(
                             'css/images/*.jpg',
@@ -290,6 +273,23 @@ return array(
                             'output' => 'zfcadmin/css/main'
                         ),
                     ),
+                    
+                    'ckeditor' => array(
+                        'assets' => array(
+                            'js/lib/ckeditor/*',
+                            'js/lib/ckeditor/**/*',
+                            'js/lib/ckeditor/**/**/*',
+                            'js/lib/ckeditor/**/**/**/*',
+                            'js/ckeditor-custom/*',
+                            'js//keditor-custom/**/*',
+                            'css/ckeditor-custom/*',
+                        ),
+                        'options' => array(
+                            'move_raw' => true,
+                            'output' => 'zfcadmin/',
+                        )
+                    ),
+
                     'head_admin_js' => array(
                         'assets' => array(
                             'admin.js' => 'js/admin.js',
