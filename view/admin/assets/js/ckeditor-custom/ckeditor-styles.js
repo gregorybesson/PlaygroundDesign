@@ -5,8 +5,6 @@ CKEDITOR.stylesSet.add( 'custom_styles',
 	
 	{ name: 'Slider', 				element: 'div', 	attributes: { 'class': 'default-slider' } },
 	{ name: 'Citation',				element: 'p',		attributes: { 'class': 'citation' } },
-
-    { name: 'CitationThomas',             element: 'p',       attributes: { 'class': 'citationTHomas' } },
 	
 	
 	/* Inline Styles */
