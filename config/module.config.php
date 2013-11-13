@@ -216,8 +216,6 @@ return array(
                             'js/ckeditor/**/*',
                             'js/ckeditor/**/**/*',
                             'js/ckeditor/**/**/**/*',
-                            'js/ckeditor-custom/*',
-                            'js/ckeditor-custom/**/*',
                             'css/ckeditor-custom/*',
                         ),
                         'options' => array(
