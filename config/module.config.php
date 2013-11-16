@@ -350,7 +350,6 @@ return array(
                             'users.js'      => 'js/users.js',
                             'share.js'      => 'js/share.js',
                             'games.js'      => 'js/games.js',
-                            'fbregister.js' => 'js/fbregister.js',
                         ),
                         'filters' => array(),
                         'options' => array(
