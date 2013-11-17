@@ -42,56 +42,190 @@ return array(
         'cacheEnabled' => false,
         'cachePath' => __DIR__ . '/../../../../data/cache',
         'modules' => array(
-            'admin' => array(
+            'lib' => array(
                 # module root path for your css and js files
                 'root_path' => array(
-                        __DIR__ . '/../view/admin/assets',
+                    __DIR__ . '/../view/lib',
                 ),
                 # collection of assets
                 'collections' => array(
-                    'admin_css' => array(
+                    'jquery' => array(
                         'assets' => array(
-                            'bootstrap.min.css'              => 'css/bootstrap.min.css',
-                            'bootstrap-responsive.min.css'   => 'css/bootstrap-responsive.min.css',
-                            'ie8.css'                        => 'css/ie8.css',
-                            'ie.css'                         => 'css/ie.css',
-                            'administration.css'             => 'css/administration.css',
-                            'jquery-ui.css'                  => 'http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css',
-                            'datepicker.css'                 => 'css/lib/datepicker.css',
-                            'jquery-ui-timepicker-addon.css' => 'css/lib/jquery-ui-timepicker-addon.css',
+                            'js/jquery.min.js',
+                        ),
+                    ),
+                    'jquery_ui' => array(
+                        'assets' => array(
+                            'js/jquery-ui.min.js',
+                        ),
+                    ),
+                    'jquery_validate' => array(
+                        'assets' => array(
+                            'js/jquery.validate.min.js',
+                        ),
+                    ),
+                    'bootstrap' => array(
+                        'assets' => array(
+                            'js/bootstrap.min.js',
+                        ),
+                    ),
+                    'jquery_ui_timepicker_addon' => array(
+                        'assets' => array(
+                            'js/jquery-ui-timepicker-addon.js',
+                        ),
+                    ),
+                    'json' => array(
+                        'assets' => array(
+                           'js/json.js',
+                        ),
+                    ),
+                    'bowser' => array(
+                        'assets' => array(
+                            'js/bowser.min.js',
+                        ),
+                    ),
+                    'jscrollpane' => array(
+                        'assets' => array(
+                            'js/jscrollpane.js',
+                        ),
+                    ),
+                    'mousewheel' => array(
+                        'assets' => array(
+                            'js/mousewheel.js',
+                        ),
+                    ),
+                    'jquery_nivo_slider' => array(
+                        'assets' => array(
+                            'js/jquery.nivo.slider.js',
+                        ),
+                    ),
+                    'jquery_uniform' => array(
+                        'assets' => array(
+                            'js/jquery.uniform-2.0.js',
+                        ),
+                    ),
+                    'jquery_limit' => array(
+                        'assets' => array(
+                            'js/jquery.limit-1.2.source.js',
+                        ),
+                    ),
+                    'wscratchpad' => array(
+                        'assets' => array(
+                            'js/wScratchPad.js',
+                        ),
+                    ),
+                    'jquery_timer' => array(
+                        'assets' => array(
+                            'js/jquery.timer.js',
+                        ),
+                    ),
+
+                    'bootstrap_css' => array(
+                        'assets' => array(
+                            'css/bootstrap.min.css',
+                        ),
+                    ),
+                    'bootstrap_responsive_css' => array(
+                        'assets' => array(
+                            'css/bootstrap-responsive.min.css',
+                        ),
+                    ),
+                    'jquery_ui_css' => array(
+                        'assets' => array(
+                            'http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css',
+                        ),
+                    ),
+                    'datepicker_css' => array(
+                        'assets' => array(
+                            'css/datepicker.css',
+                        ),
+                    ),
+                    'jquery_ui_timepicker_addon_css' => array(
+                        'assets' => array(
+                            'css/jquery-ui-timepicker-addon.css',
+                        ),
+                    ),
+                    'uniform_default_css' => array(
+                        'assets' => array(
+                            'css/uniform.default.css',
+                        ),
+                    ),
+                    
+                    'admin_lib_css' => array(
+                        'assets' => array(
+                            '@bootstrap_css',
+                            '@bootstrap_responsive_css',
+                            '@jquery_ui_css',
+                            '@datepicker_css',
+                            '@jquery_ui_timepicker_addon_css',
                         ),
                         'filters' => array(),
                         'options' => array(
-                            'output' => 'zfcadmin/css/main'
+                            'output' => 'zfcadmin/css/head_lib.css'
                         ),
                     ),
-                    'head_admin_js' => array(
+                    'head_admin_lib_js' => array(
                         'assets' => array(
-                            'jquery-1.9.0.min.js'           => 'js/lib/jquery-1.9.0.min.js',
-                            'admin.js'                      => 'js/admin/admin.js',
-                            'jquery-validate.js'            => 'js/lib/jquery.validate.min.js',
-                            'jquery-ui.min.js'              => 'js/lib/jquery-ui.min.js',
-                            'bootstrap.min.js'              => 'js/lib/bootstrap.min.js',
-                            'jquery-ui-timepicker-addon.js' => 'js/lib/jquery-ui-timepicker-addon.js',
-                            'json.js'                       => 'js/lib/json.js',
-                            'drag.js'                       => 'js/admin/drag.js',
+                            '@jquery',
+                            '@jquery_ui',
+                            '@jquery_validate',
+                            '@bootstrap',
+                            '@jquery_ui_timepicker_addon',
+                            '@json',
                         ),
                         'filters' => array(),
                         'options' => array(
-                            'output' => 'zfcadmin/js/head_main',
+                            'output' => 'zfcadmin/js/head_lib.js',
                         ),
                     ),
-                    'admin_images' => array(
+
+                    'frontend_lib_css' => array(
                         'assets' => array(
-                            'images/**/*.jpg',
-                            'images/**/*.png',
-                            'images/**/*.gif',
+                            '@uniform_default_css',
+                        ),
+                        'filters' => array(),
+                        'options' => array(
+                            'output' => 'frontend/css/lib.css'
+                        ),
+                    ),
+                    
+                    'head_frontend_lib_js' => array(
+                        'assets' => array(
+                            '@jquery',
+                            '@jquery_ui',
+                            '@bowser',
+                            '@jscrollpane',
+                            '@mousewheel',
+                            '@jquery_nivo_slider',
+                            '@jquery_uniform',
+                            '@jquery_limit',
+                            '@wscratchpad',
+                            '@jquery_timer',
+                            '@jquery_validate',
+                            '@bootstrap',
+                        ),
+                        'filters' => array(),
+                        'options' => array(
+                            'output' => 'frontend/js/head_lib.js',
+                        ),
+                    ),
+
+                    'ckeditor' => array(
+                        'assets' => array(
+                            'js/ckeditor/*',
+                            'js/ckeditor/**/*',
+                            'js/ckeditor/**/**/*',
+                            'js/ckeditor/**/**/**/*',
+                            'js/ckeditor-custom/*',
+                            'js/ckeditor-custom/**/*',
+                            'css/ckeditor-custom/*',
                         ),
                         'options' => array(
                             'move_raw' => true,
-                            'output' => 'zfcadmin',
+                            'output' => 'lib',
                         )
                     ),
+
                     'admin_jquery_ui_images' => array(
                         'assets' => array(
                             'css/images/*.jpg',
@@ -100,7 +234,16 @@ return array(
                         ),
                         'options' => array(
                             'move_raw' => true,
-                            'output' => 'zfcadmin',
+                            'output' => 'lib',
+                        )
+                    ),
+                    'admin_jquery_min_map' => array(
+                        'assets' => array(
+                            'js/jquery.min.map',
+                        ),
+                        'options' => array(
+                            'move_raw' => true,
+                            'output' => 'lib',
                         )
                     ),
                     'admin_fonts' => array(
@@ -112,27 +255,56 @@ return array(
                         ),
                         'options' => array(
                             'move_raw' => true,
-                            'output' => 'zfcadmin',
+                            'output' => 'zfcadmin'
                         )
                     ),
-                    'admin_ckeditor' => array(
+                    'frontend_fonts' => array(
                         'assets' => array(
-                            'js/lib/ckeditor/*',
-                            'js/lib/ckeditor/**/*',
-                            'js/lib/ckeditor/**/**/*',
-                            'js/lib/ckeditor/**/**/**/*',
-                            'js/ckeditor-custom/*',
-                            'js/ckeditor-custom/**/*',
-                            'css/ckeditor-custom/*',
+                            'fonts/**/*.eot',
+                            'fonts/**/*.svg',
+                            'fonts/**/*.ttf',
+                            'fonts/**/*.woff',
                         ),
                         'options' => array(
                             'move_raw' => true,
-                            'output' => 'zfcadmin',
+                            'output' => 'frontend'
                         )
                     ),
-                    'admin_jquery_min_map' => array(
+                ),
+            ),
+            'admin' => array(
+                # module root path for your css and js files
+                'root_path' => array(
+                        __DIR__ . '/../view/admin/assets',
+                ),
+                # collection of assets
+                'collections' => array(
+                    'admin_css' => array(
                         'assets' => array(
-                            'js/lib/jquery-1.9.0.min.map',
+                            'ie8.css'                        => 'css/ie8.css',
+                            'ie.css'                         => 'css/ie.css',
+                            'administration.css'             => 'css/administration.css',
+                        ),
+                        'filters' => array(),
+                        'options' => array(
+                            'output' => 'zfcadmin/css/main'
+                        ),
+                    ),
+                    'head_admin_js' => array(
+                        'assets' => array(
+                            'admin.js' => 'js/admin.js',
+                            'drag.js'  => 'js/drag.js',
+                        ),
+                        'filters' => array(),
+                        'options' => array(
+                            'output' => 'zfcadmin/js/head_main.js',
+                        ),
+                    ),
+                    'admin_images' => array(
+                        'assets' => array(
+                            'images/**/*.jpg',
+                            'images/**/*.png',
+                            'images/**/*.gif',
                         ),
                         'options' => array(
                             'move_raw' => true,
@@ -163,7 +335,6 @@ return array(
                             'ie8.css'                => 'css/ie8.css',
                             'ie.css'                 => 'css/ie.css',
                             'styles.css'             => 'css/styles.css',
-                            'uniform.default.css'    => 'css/uniform.default.css',
                         ),
                         'filters' => array(),
                         'options' => array(
@@ -172,69 +343,45 @@ return array(
                     ),
                     'head_frontend_js' => array(
                         'assets' => array(
-                            //'html5.js' => 'js/html5.js',
-                            //'pie.js' => 'js/lib/pie.js',
-                            //'selectivizr-min.js' => 'js/lib/selectivizr-min.js',
-                            'jquery-1.9.0.min.js' => 'js/lib/jquery-1.9.0.min.js',
-                            'jquery-ui.js' => 'http://code.jquery.com/ui/1.10.2/jquery-ui.js',
-                            'bowser.min.js' => 'js/lib/bowser.min.js',
-                            'loader.js' => 'js/loader.js',
-                            'popin.js' => 'js/popin.js',
-                            'jscrollpane.js' => 'js/lib/jscrollpane.js',
-                            'mousewheel.js' => 'js/lib/mousewheel.js',
-                            'jquery.validate.min.js'=> 'js/lib/jquery.validate.min.js',
-                            'jquery.nivo.slider.js' => 'js/lib/jquery.nivo.slider.js',
-                            'jquery.uniform-2.0.js' => 'js/lib/jquery.uniform-2.0.js',
-                            'jquery.limit-1.2.source.js' => 'js/lib/jquery.limit-1.2.source.js',
-                            'wScratchpad.js' => 'js/lib/wScratchPad.js',
-                            'jquery.timer.js' => 'js/lib/jquery.timer.js',
-                            'sniffer.js' => 'js/sniffer.js',
-                            'functions.js' => 'js/functions.js',
-                            'script.js' => 'js/script.js',
-                            'users.js' => 'js/users.js',
-                            'share.js' => 'js/share.js',
-                            'games.js' => 'js/games.js',
-                            'bootstrap.min.js' => 'js/bootstrap.min.js',
+                            'loader.js'     => 'js/loader.js',
+                            'popin.js'      => 'js/popin.js',
+                            'functions.js'  => 'js/functions.js',
+                            'script.js'     => 'js/script.js',
+                            'users.js'      => 'js/users.js',
+                            'share.js'      => 'js/share.js',
+                            'games.js'      => 'js/games.js',
                         ),
                         'filters' => array(),
                         'options' => array(
                             'output' => 'frontend/js/head_main',
                         ),
                     ),
-                    'frontend_images' => array(
-                        'assets' => array(
-                            'images/**/*.png',
-                            'images/**/*.jpg',
-                        ),
-                        'options' => array(
-                            'move_raw' => true,
-                            'output' => 'frontend',
-                        )
-                    ),
-                    'frontend_fonts' => array(
-                        'assets' => array(
-                            'fonts/**/*.eot',
-                            'fonts/**/*.svg',
-                            'fonts/**/*.ttf',
-                            'fonts/**/*.woff',
-                        ),
-                        'options' => array(
-                            'move_raw' => true,
-                            'output' => 'frontend'
-                        )
-                    ),
+//                     'frontend_images' => array(
+//                         'assets' => array(
+//                             'images/**/*.png',
+//                             'images/**/*.jpg',
+//                         ),
+//                         'options' => array(
+//                             'move_raw' => true,
+//                             'output' => 'frontend',
+//                         )
+//                     ),
                 ),
             ),
         ),
 
         'routes' => array(
             'admin.*' => array(
-                '@admin_css',
-                '@head_admin_js',
-            ),
+                '@admin_lib_css'     => '@admin_lib_css',
+                '@admin_css'         => '@admin_css',
+                '@head_admin_lib_js' => '@head_admin_lib_js',
+                '@head_admin_js'     => '@head_admin_js',
+            ), 
             'frontend.*' => array(
-                '@frontend_css',
-                '@head_frontend_js',
+                '@frontend_lib_css'     => '@frontend_lib_css',
+                '@frontend_css'         => '@frontend_css',
+                '@head_frontend_lib_js' => '@head_frontend_lib_js',
+                '@head_frontend_js'     => '@head_frontend_js',
             ),
         ),
     ),
@@ -386,7 +533,7 @@ return array(
         ),
       ),
     ),
-  ), 
+  ),
 
     'core_layout' => array(
         'admin' => array(
@@ -419,7 +566,7 @@ return array(
         ),
     ),
 
-    'navigation' => array(
+    /*'navigation' => array(
         'admin' => array(
             'home' => array(
                 'label' => 'Accueil',
@@ -436,13 +583,13 @@ return array(
                 'privilege' => 'system',
                 'pages' => array(
                     'company' => array(
-                        'label' => 'Société',
+                        'label' => 'Company',
                         'route' => 'admin/playgrounddesign_companyadmin',
                         'resource' => 'design',
                         'privilege' => 'system',
                     ),
                     'theme' => array(
-                        'label' => 'Gestion des thèmes',
+                        'label' => 'Themes',
                         'route' => 'admin/playgrounddesign_themeadmin',
                         'resource' => 'design',
                         'privilege' => 'system',
@@ -450,7 +597,7 @@ return array(
                 ),
             ),
         ),
-    ),
+    ),*/
 
     'view_manager' => array(
         'display_not_found_reason' => true,

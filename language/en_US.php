@@ -283,4 +283,160 @@ return array(
     'theme_author'           => 'Author :',
     'theme_image'            => 'Preview :' , 
     
+    // Company Form
+	'Company'               => 'Company',
+	'Company title'         => 'Company title',
+	'Company address'       => 'Company address',
+	'Company phone number'  => 'Company phone number',
+	'Company facebook page' => 'Company facebook page',
+	'Company twitter account' => 'Company twitter account',
+	'Main image'            => 'Main image',
+    'Upgrade'				=> 'Upgrade',
+    
+    // Menus
+    'Home'			=> 'Home',
+    'Users'			=> 'Users',
+    'Users list' 	=> 'Users list',
+    'Create user' 	=> 'Create a user',
+    
+    'Statistics'	=> 'Statistics',
+    'Game stats'	=> 'Game stats',
+    'Export'		=> 'Export',
+    
+    'Posts' 				=> 'Posts',
+    'Posts list' 			=> 'Posts list',
+    'Create a post' 		=> 'Create a post',
+    'Content bloc list' 	=> 'Content bloc list',
+    'Create a content bloc' => 'Create a content bloc',
+    'Dynamic blocs list' 	=> 'Dynamic blocs list',
+    
+    'Rewards' => 'Rewards',
+    'Rewards list' => 'Rewards list',
+    'Type of Leaderboard' => 'Type of Leaderboard',
+    
+    'Games' 				=> 'Games',
+    'Games list' 			=> 'Games list',
+    'Add new lottery' 		=> 'Add new lottery',
+    'Add new quiz' 			=> 'Add new quiz',
+    'Add new post & vote' 	=> 'Add new Post & Vote',
+    'Add new instant win' 	=> 'Add new Instant Win',
+    'Manage categories gain' => 'Manage categories gain',
+    'Add new treasure hunt' => 'Add new treasure hunt',
+    'Mission Management'    => 'Mission Management',
+    
+    'Open graph' 	=> 'Open graph',
+    'Stories list' 	=> 'Stories list',
+    'Create story' 	=> 'Create story',
+    'Actions list' 	=> 'Actions list',
+    'Objects list' 	=> 'Objects list',
+    'Domains list' 	=> 'Domains list',
+    'Apps list' 	=> 'Apps list',
+    
+    'New appli' 	=> 'New appli',
+    'Pages list' 	=> 'Pages list',
+    'New page' 		=> 'New page',
+    
+    'Partners' 			=> 'Partners',
+    'Partners list' 	=> 'Partners list',
+    'Create partner' 	=> 'Create partner',
+
+    'FAQ' => 'FAQ',
+    'FAQ list' => 'FAQ list',
+    'New FAQ' => 'New FAQ',
+    
+    'Configuration' => 'Configuration',
+    'Company' 		=> 'Company',
+    'Themes' 		=> 'Themes',
+    
+    // Page Contactez-nous, colonne de gauche
+    'How it works ?' => 'How it works ?',
+    'Badges and points' => 'Badges and points',
+    'F.A.Q' => 'F.A.Q',
+    'Contact us' => 'Contact us',
+    'Win a lot of gits !' => 'Win a lot of gits !',
+    'Playground is 100% free!' => 'Playground is 100% free!',
+    'Sign up now!' => 'Sign up now!',
+    'Connection' => 'Connection',
+    
+    // BLOC FACEBOOK
+    'Join us on Facebook' => 'Join us on Facebook',
+    
+    // BLOC NEWSLETTER
+    'Sign up for the newsletter and never miss a game!' => 'Sign up for the newsletter and never miss a game!',
+    'Your email address' => 'Your email address',
+    'Thank you, your registration is taken into account!' => 'Thank you, your registration is taken into account!',
+    
+    // BLOC HOW IT WORKS
+    'Register or log in to your account' => 'Register or log in to your account',
+    'Participate in contests to win prizes' => 'Participate in contests to win prizes',
+    'Collect points and earn badges.' => 'Collect points and earn badges.',
+    'See how to earn more points!' => 'See how to earn more points!',
+    'Register' => 'Register',
+    'or' => 'or',
+    'log in' => 'log in',
+    'to your account' => 'to your account',
+    'Participate in contests' => 'Participate in contests',
+    'to win prizes' => 'to win prizes',
+    
+    // BLOCK CLASSEMENT
+    'Ranking' => 'Ranking',
+    'This week' => 'This week',
+    'General' => 'General',
+    'Your position' => 'Your position',
+    'See the overall' => 'See the overall',
+    'first_place' => 'st',
+    'second_place' => 'nd',
+    'third_place' => 'rs',
+    'other_place' => 'th',
+     
+    // BLOC ACTIVITES RECENTES
+    'Recent activity' => 'Recent activity',
+    'received the badge' => 'received the badge',
+    
+    // BLOCK WIN POINTS
+    'Earn more points!' => 'Earn more points!',
+    'Fill in your details' => 'Fill in your details',
+    'Refer your friends' => 'Refer your friends',
+    'by friend sponsored' => 'by friend sponsored',
+    'Share on social networks' => 'Share on social networks',
+    
+    // FOOTER
+    'Home' => 'Home',
+    'All contests' => 'All contests',
+    'Winners' => 'Winners',
+   	'FAQ' => 'FAQ',
+    'My account' => 'My account',
+    'to win' => 'to win',
+    
+    // MON ACTIVITE
+    'My activity' => 'My activity',
+    'Filter history by type of action' => 'Filter history by type of action',
+    'Select' => 'Select',
+    'Overall picture' => 'Overall picture',
+    'Participations' => 'Participations',
+    'Invitations and sponsorship' => 'Invitations and sponsorship',
+    'Badges' => 'Badges',
+    'More news' => 'Plus d\'actus',
+    
+    // NOUS CONTACTER
+    'A question to ask ?' => 'A question to ask ?',
+    
+    // HEADER DU SITE
+	'The first open source platform games !' => 'The first open source platform games !',
+	'Contests' => 'Contests',
+	'Winners' => 'Winners',
+	'Badges and points' => 'Badges and points',
+	'My activity' => 'My activity',
+	'Change my informations' => 'Change my informations',
+	'Manage my newletters' => 'Manage my newletters',
+	'Sponsor my friends' => 'Sponsor my friends',
+	'Logout' => 'Logout',
+	'Your badges' => 'Your badges',
+	'All badges' => 'All badges',
+	'' => '',
+	'' => '',
+	'' => '',
+	'' => '',
+	'' => '',
+	'' => '',
 );
