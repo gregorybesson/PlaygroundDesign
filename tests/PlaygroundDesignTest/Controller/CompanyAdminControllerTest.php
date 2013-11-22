@@ -29,9 +29,9 @@ class CompanyAdminControllerTest extends AbstractHttpControllerTestCase
     {
         //$this->dispatch('/admin/company');
         $company = new CompanyEntity();
-        $company->setTitle('titre');
-        $company->setAddress('address');
-        $company->setPhoneNumber('0102030405');
+        $company->setTitle('titre')
+            ->setAddress('address')
+            ->setPhoneNumber('0102030405');
 
         $serviceManager = $this->getApplicationServiceLocator();
         $serviceManager->setAllowOverride(true);
