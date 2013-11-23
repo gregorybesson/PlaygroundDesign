@@ -128,8 +128,8 @@ class ThemeAdminControllerTest extends AbstractHttpControllerTestCase
 
         $id = 1;
         $theme = new Theme;
-        $theme->setId($id);
-        $theme->setTitle("Ceci est un titre");
+        $theme->setId($id)
+            ->setTitle("Ceci est un titre");
 
         $service->expects($this->any())
             ->method('findById')
@@ -161,9 +161,9 @@ class ThemeAdminControllerTest extends AbstractHttpControllerTestCase
 
         $id = 1;
         $theme = new Theme;
-        $theme->setId($id);
-        $theme->setArea("ceciestunearea");
-        $theme->setTitle("Ceci est un titre");
+        $theme->setId($id)
+            ->setArea("ceciestunearea")
+            ->setTitle("Ceci est un titre");
 
         $service->expects($this->any())
             ->method('findById')
@@ -198,9 +198,9 @@ class ThemeAdminControllerTest extends AbstractHttpControllerTestCase
 
         $id = 1;
         $theme = new Theme;
-        $theme->setId($id);
-        $theme->setArea("ceciestunearea");
-        $theme->setTitle("Ceci est un titre");
+        $theme->setId($id)
+            ->setArea("ceciestunearea")
+            ->setTitle("Ceci est un titre");
 
         $service->expects($this->any())
             ->method('findById')
