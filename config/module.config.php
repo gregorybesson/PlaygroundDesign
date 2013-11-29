@@ -69,6 +69,11 @@ return array(
                             'js/bootstrap.min.js',
                         ),
                     ),
+                    'bootstrap_switch' => array(
+                        'assets' => array(
+                            'js/bootstrap-switch.min.js',
+                        ),
+                    ),
                     'jquery_ui_timepicker_addon' => array(
                         'assets' => array(
                             'js/jquery-ui-timepicker-addon.js',
@@ -125,6 +130,11 @@ return array(
                             'css/bootstrap.min.css',
                         ),
                     ),
+                    'bootstrap_switch_css' => array(
+                        'assets' => array(
+                            'css/bootstrap-switch.css',
+                        ),
+                    ),
                     'bootstrap_responsive_css' => array(
                         'assets' => array(
                             'css/bootstrap-responsive.min.css',
@@ -154,6 +164,7 @@ return array(
                     'admin_lib_css' => array(
                         'assets' => array(
                             '@bootstrap_css',
+                            '@bootstrap_switch_css',
                             '@bootstrap_responsive_css',
                             '@jquery_ui_css',
                             '@datepicker_css',
@@ -170,6 +181,7 @@ return array(
                             '@jquery_ui',
                             '@jquery_validate',
                             '@bootstrap',
+                            '@bootstrap_switch',
                             '@jquery_ui_timepicker_addon',
                             '@json',
                         ),
@@ -203,6 +215,7 @@ return array(
                             '@jquery_timer',
                             '@jquery_validate',
                             '@bootstrap',
+                            '@bootstrap_switch',
                         ),
                         'filters' => array(),
                         'options' => array(
@@ -391,7 +404,7 @@ return array(
       'frontend' => array(
         'type' => 'PlaygroundCore\Mvc\Router\Http\RegexSlash',
         'options' => array(
-          'regex'    => '\/(?<channel>(embed|facebook|platform|mobile|preview)+)?\/?',
+          'regex'    => '\/(?<locale>([a-z]{2})\/+)?(?<channel>(embed|facebook|platform|mobile|preview)+)?\/?',
           'defaults' => array(
             'controller' => 'PlaygroundDesign\Controller\Dashboard',
             'action'     => 'index',

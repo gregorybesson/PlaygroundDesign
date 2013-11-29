@@ -192,6 +192,8 @@ class Company implements CompanyInterface, InputFilterAwareInterface
     public function setMainImage ($mainImage)
     {
         $this->mainImage = $mainImage;
+        
+        return $this;
     }
 
 
