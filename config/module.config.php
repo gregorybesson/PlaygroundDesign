@@ -419,7 +419,7 @@ return array(
       'frontend' => array(
         'type' => 'PlaygroundCore\Mvc\Router\Http\RegexSlash',
         'options' => array(
-          'regex'    => '\/(?<locale>([a-z]{2})\/+)?(?<channel>(embed|facebook|platform|mobile|preview)+)?\/?',
+          'regex' => '\/(?<locale>([a-z]{2})(\/|\z)+)?(?<channel>(embed|facebook|platform|mobile|preview)+)?\/?',
           'defaults' => array(
             'controller' => 'PlaygroundDesign\Controller\Dashboard',
             'action'     => 'index',
