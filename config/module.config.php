@@ -160,7 +160,7 @@ return array(
                             'css/uniform.default.css',
                         ),
                     ),
-                    
+
                     'admin_lib_css' => array(
                         'assets' => array(
                             '@bootstrap_css',
@@ -200,7 +200,7 @@ return array(
                             'output' => 'frontend/css/lib.css'
                         ),
                     ),
-                    
+
                     'head_frontend_lib_js' => array(
                         'assets' => array(
                             '@jquery',
@@ -232,6 +232,21 @@ return array(
                             'js/ckeditor-custom/*',
                             'js/ckeditor-custom/**/*',
                             'css/ckeditor-custom/*',
+                        ),
+                        'options' => array(
+                            'move_raw' => true,
+                            'output' => 'lib',
+                        )
+                    ),
+
+                    'admin_elfinder' => array(
+                        'assets' => array(
+                            'js/elfinder/*',
+                            'js/elfinder/**/*',
+                            'js/elfinder/**/**/*',
+                            'js/elfinder/**/**/**/*',
+                            'js/elfinder/**/**/**/**/*',
+                            'js/elfinder/**/**/**/**/**/*',
                         ),
                         'options' => array(
                             'move_raw' => true,
@@ -389,7 +404,7 @@ return array(
                 '@admin_css'         => '@admin_css',
                 '@head_admin_lib_js' => '@head_admin_lib_js',
                 '@head_admin_js'     => '@head_admin_js',
-            ), 
+            ),
             'frontend.*' => array(
                 '@frontend_lib_css'     => '@frontend_lib_css',
                 '@frontend_css'         => '@frontend_css',
@@ -404,7 +419,7 @@ return array(
       'frontend' => array(
         'type' => 'PlaygroundCore\Mvc\Router\Http\RegexSlash',
         'options' => array(
-          'regex'    => '\/(?<locale>([a-z]{2})\/+)?(?<channel>(embed|facebook|platform|mobile|preview)+)?\/?',
+          'regex' => '\/(?<locale>([a-z]{2})(\/|\z)+)?(?<channel>(embed|facebook|platform|mobile|preview)+)?\/?',
           'defaults' => array(
             'controller' => 'PlaygroundDesign\Controller\Dashboard',
             'action'     => 'index',
