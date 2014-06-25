@@ -296,9 +296,12 @@ class Module implements
 
                 		    if (isset($configTheme['design']['package']['theme']['parent'])){
                 		        $parentTheme = explode('_', $configTheme['design']['package']['theme']['parent']);
-                                if ($parentTheme == $themeId) {
+                                $parentThemeId = $parentTheme[0] .'_'. $parentTheme[1];
+                                
+                                if ($parentThemeId  == $themeId) {
                                     $hasParent = false;
                                 }
+                                
                 		        $hasParent = true;
                 		    }
                 		}
@@ -422,7 +425,9 @@ class Module implements
 
         	                if (isset($configTheme['design']['package']['theme']['parent'])){
         	                    $parentTheme = explode('_', $configTheme['design']['package']['theme']['parent']);
-                                if ($parentTheme == $themeId) {
+                                $parentThemeId = $parentTheme[0] .'_'. $parentTheme[1];
+                                
+                                if ($parentThemeId  == $themeId) {
                                     $hasParent = false;
                                 }
         	                    $hasParent = true;
