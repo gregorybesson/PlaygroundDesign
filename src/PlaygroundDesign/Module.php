@@ -14,6 +14,8 @@ use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Zend\ModuleManager\Feature\ViewHelperProviderInterface;
+use Zend\Db\Sql\Sql;
+use Zend\Db\Adapter\Adapter;
 
 class Module implements
     AutoloaderProviderInterface,
@@ -24,11 +26,13 @@ class Module implements
 {
 
     public $themeMapper;
+    public $serviceManager = null;
 
     public function init(ModuleManager $manager)
     {
 
         $eventManager = $manager->getEventManager();
+        
         /*
          * This event will exist in ZF 2.3.0. I'll then use it to change the config before it's cached
          * The change will apply to 'template_path_stack' and 'assetic_configuration'
@@ -42,20 +46,46 @@ class Module implements
      */
     public function onMergeConfig($e)
     {
-       $config = $e->getConfigListener()->getMergedConfig(false);
+        $config = $e->getConfigListener()->getMergedConfig(false);
+
+        $configDatabaseDoctrine = $config['doctrine']['connection']['orm_default']['params'];
+        $configDatabase = array('driver' => 'Mysqli', 
+            'database' => $configDatabaseDoctrine['dbname'],
+            'username' => $configDatabaseDoctrine['user'],
+            'password' => $configDatabaseDoctrine['password'],
+            'hostname' => $configDatabaseDoctrine['host']);
+
+        if (!empty($configDatabaseDoctrine['port'])) {
+            $configDatabase['port'] = $configDatabaseDoctrine['port']; 
+        }
+        if (!empty($configDatabaseDoctrine['charset'])) {
+            $configDatabase['charset'] = $configDatabaseDoctrine['charset']; 
+        }
+
+        $adapter = new Adapter($configDatabase);
+        $sql = new Sql($adapter);
+        
 
         // Recuperation du theme pour le backoffice.
         if (isset($config['design'])) {
             $configHasChanged = false;
-            $viewResolverPathStack = $config['template_path_stack'];
+            $viewResolverPathStack = $config['view_manager']['template_path_stack'];
             if (isset($config['design']['admin']) && isset($config['design']['admin']['package']) && isset($config['design']['admin']['theme'])) {
 
                 $adminPath = __DIR__ . '/../../../../../design/admin/'. $config['design']['admin']['package'] .'/'. $config['design']['admin']['theme'];
-
-                $themeMapper = $this->getThemeMapper();
-                $themesActivated = $themeMapper->findBy(array('is_active' => true, 'area' => 'admin'));
-                $themeActivated = $themesActivated[0];
-
+     
+                
+                $select = $sql->select();
+                $select->from('design_theme');
+                $select->where(array('is_active' => 1, 'area' => 'admin'));
+                $select->limit(1);
+                $statement = $sql->prepareStatementForSqlObject($select);
+                $results = $statement->execute();
+                foreach ($results as $result) {
+                   $themeActivated = $result;
+                }
+        
+               
                 // Surchage par le theme qui est activé en base de donnée
                 if(!empty($themeActivated)) {
                     $frontendPath = __DIR__ . '/../../../../../design/admin/'. $themeActivated['package'] .'/'. $themeActivated['theme'];
@@ -72,15 +102,15 @@ class Module implements
                         $parentTheme = explode('_', $configTheme['design']['package']['theme']['parent']);
                         if (!(strtolower($parentTheme[0]) === 'playground' && strtolower($parentTheme[1]) === 'base')) {
                             // The parent for this theme is not the base one. I remove the base admin paths
-                            foreach($viewResolverPathStack->getPaths() as $path){
+                            foreach($viewResolverPathStack as $path){
                                 if(!$result = preg_match('/\/admin\/$/',$path,$matches)){
                                   $stack[] = $path;
                                 }
                             }
                             $parentPath = __DIR__ . '/../../../../../design/admin/'. $parentTheme[0] .'/'. $parentTheme[1];
                             $stack[] = $parentPath;
-                            $viewResolverPathStack->clearPaths();
-                            $viewResolverPathStack->addPaths($stack);
+                            unset($viewResolverPathStack);
+                            $viewResolverPathStack = $stack;
                         }
                     } else {
                         // There is no parent to this theme. I remove the base admin paths
@@ -89,8 +119,8 @@ class Module implements
                                 $stack[] = $path;
                             }
                         }
-                        $viewResolverPathStack->clearPaths();
-                        $viewResolverPathStack->addPaths($stack);
+                        unset($viewResolverPathStack);
+                        $viewResolverPathStack = $stack;
                     }
                 }
 
@@ -100,7 +130,7 @@ class Module implements
                 $config['assetic_configuration']['modules']['admin']['root_path'][] = $adminPath . '/assets';
 
                 // Resolver des templates phtml
-                $viewResolverPathStack->addPaths($pathStack);
+                //$viewResolverPathStack->addPaths($pathStack);
 
                 //print_r($viewResolverPathStack->getPaths());
 
@@ -122,10 +152,17 @@ class Module implements
 
                 $frontendPath = __DIR__ . '/../../../../../design/frontend/'. $config['design']['frontend']['package'] .'/'. $config['design']['frontend']['theme'];
 
-                $themeMapper = $this->getThemeMapper();
-                $themesActivated = $themeMapper->findBy(array('is_active' => true, 'area' => 'frontend'));
-                $themeActivated = $themesActivated[0];
-
+                $themeActivated = array('package' => 'default', 'theme' => 'base') ;
+                $select = $sql->select();
+                $select->from('design_theme');
+                $select->where(array('is_active' => 1, 'area' => 'frontend'));
+                $select->limit(1);
+                $statement = $sql->prepareStatementForSqlObject($select);
+                $results = $statement->execute();
+                foreach ($results as $result) {
+                   $themeActivated = $result;
+                }
+              
                 // Surchage par le theme qui est activé en base de donnée
                 if(!empty($themeActivated)) {
                     $frontendPath = __DIR__ . '/../../../../../design/frontend/'. $themeActivated['package'] .'/'. $themeActivated['theme'];
@@ -148,26 +185,25 @@ class Module implements
                             }
                             $parentPath = __DIR__ . '/../../../../../design/frontend/'. $parentTheme[0] .'/'. $parentTheme[1];
                             $stack[] = $parentPath;
-                            $viewResolverPathStack->clearPaths();
-                            $viewResolverPathStack->addPaths($stack);
+                            unset($viewResolverPathStack);
+                            $viewResolverPathStack = $stack;
                         }
                     } else {
                         // There is no parent to this theme. I remove the base frontend paths
-                        foreach ($viewResolverPathStack->getPaths() as $path) {
+                        foreach ($viewResolverPathStack as $path) {
                             if (!$result = preg_match('/\/frontend\/$/',$path,$matches)) {
                                 $stack[] = $path;
                             }
                         }
-                        $viewResolverPathStack->clearPaths();
-                        $viewResolverPathStack->addPaths($stack);
+                        unset($viewResolverPathStack);
+                        $viewResolverPathStack = $stack;
                     }
                 }
 
-                $pathStack = array($frontendPath);
                 // Assetic pour les CSS
                 $config['assetic_configuration']['modules']['frontend']['root_path'][] = $frontendPath . '/assets';
 
-                $viewResolverPathStack->addPaths($pathStack);
+
 
                 $assets = $frontendPath . '/assets.php';
                 if (is_file($assets) && is_readable($assets)) {
@@ -183,23 +219,14 @@ class Module implements
                     $configHasChanged = true;
                 }
             }
-
-
-            if ($configHasChanged) {
-                $e->getApplication()->getServiceManager()->setAllowOverride(true);
-                $e->getApplication()->getServiceManager()->setService('config', $config);
-            }
         }
-
         $e->getConfigListener()->setMergedConfig($config);
-
-
-        // do something with the above!
     }
 
     public function onBootstrap(EventInterface $e)
     {
         $serviceManager = $e->getApplication()->getServiceManager();
+        $this->setServiceManager($serviceManager);
 
         $options = $serviceManager->get('playgroundcore_module_options');
         $translator = $serviceManager->get('translator');
@@ -246,7 +273,6 @@ class Module implements
 
                 // Surchage par le theme qui est activé en base de donnée
                 if(!empty($themeActivated)) {
-                    //$adminPath = __DIR__ . '/../../../../../design/admin/'. $themeActivated->getPackage() .'/'. $themeActivated->getTheme();
                     $config['design']['frontend']['package'] = $themeActivated->getPackage();
                     $config['design']['frontend']['theme'] = $themeActivated->getTheme();
                 }
@@ -270,7 +296,7 @@ class Module implements
         		    $adminPath = __DIR__ . '/../../../../../design/admin/'. $parentTheme[0] .'/'. $parentTheme[1];
         		    $themeId = $parentTheme[0] .'_'. $parentTheme[1];
 
-        		    //echo $themeId . "<br>";
+        		    
 
         		    if(!(strtolower($themeId) === 'playground_base')){
                 		$adminThemePath = $adminPath . '/theme.php';
@@ -345,9 +371,7 @@ class Module implements
         		$viewResolverPathStack->clearPaths();
         		$viewResolverPathStack->addPaths(array_reverse($stack));
 
-        		/*echo "tous paths sauf admin<br>";
-        		print_r($viewResolverPathStack->getPaths());
-                echo "<br><br>";*/
+        	
 
         		// removing default assetic configuration
         		if(isset($config['assetic_configuration']['modules']['admin'])){
@@ -362,7 +386,6 @@ class Module implements
 
         		//I then recreate the config
         		foreach($themeHierarchy as $theme=>$tab){
-        		    //echo "<h3>" . $k . ":</h3>";
         		    if(isset($tab['layout'])){
         		      $config = array_replace_recursive($config, $tab['layout'] );
         		    }
@@ -380,10 +403,6 @@ class Module implements
         		    }
 
         		}
-
-        		/*echo "tous paths avec hierarchie admin<br>";
-        		print_r($viewResolverPathStack->getPaths());
-                echo "<br><br>";*/
         	}
 
         	if(isset($config['design']['frontend']['theme'])){
@@ -444,9 +463,7 @@ class Module implements
 
         	            $themeHierarchy[$themeId]['template_path']= array_reverse($stack);
 
-        	            /*echo "tous paths frontend par defaut<br>";
-        	            print_r($viewResolverPathStack->getPaths());
-        	            echo "<br><br>";*/
+        	          
 
         	            if(isset($config['assetic_configuration']['modules']['frontend'])){
         	                $asseticConfig = array('assetic_configuration' => array(
@@ -455,9 +472,7 @@ class Module implements
         		            ));
 
         		            $themeHierarchy[$themeId]['assets'] = $asseticConfig;
-        		            /*echo '<pre>';
-        		            print_r($asseticConfig['assetic_configuration']['routes']);
-        		            echo '</pre>';*/
+        		          
         	            }
 
         	            if(isset($config['core_layout']['frontend'])){
@@ -529,26 +544,10 @@ class Module implements
         	    }
             }
 
-        	//print_r($viewResolverPathStack->getPaths());
 
         	$e->getApplication()->getServiceManager()->setAllowOverride(true);
         	$e->getApplication()->getServiceManager()->setService('config', $config);
-        	//print_r($config);
-        	/*foreach($config['core_layout'] as $i=>$t){
-        	    echo "<br>". $i . "<br>";
-        	    print_r($t);
-
-        	}*/
-
-        	/*foreach($config['assetic_configuration']['modules'] as $i=>$t){
-        	    echo "<br>". $i . "<br>";
-        	    print_r($t);
-
-        	}*/
         	
-        	/*echo '<pre>';
-        	print_r($config['assetic_configuration']);
-        	echo '</pre>';*/
         }
 
         /**
@@ -789,5 +788,18 @@ class Module implements
         }
 
         return $this->themeMapper;
+    }
+
+    public function setServiceManager($sm)
+    {
+        $this->serviceManager = $sm;
+
+        return $this;
+    }
+
+   
+    public function getServiceManager()
+    {
+        return $this->serviceManager;
     }
 }
