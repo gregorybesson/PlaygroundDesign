@@ -46,6 +46,7 @@ class Module implements
      */
     public function onMergeConfig($e)
     {
+        $stack = array();
         $config = $e->getConfigListener()->getMergedConfig(false);
 
         $configDatabaseDoctrine = $config['doctrine']['connection']['orm_default']['params'];
@@ -64,159 +65,165 @@ class Module implements
 
         $adapter = new Adapter($configDatabase);
         $sql = new Sql($adapter);
+
         
+        if (PHP_SAPI !== 'cli') {
+            // Recuperation du theme pour le backoffice.
+            if (isset($config['design'])) {
+                $configHasChanged = false;
+                $viewResolverPathStack = $config['view_manager']['template_path_stack'];
+                if (isset($config['design']['admin']) && isset($config['design']['admin']['package']) && isset($config['design']['admin']['theme'])) {
 
-        // Recuperation du theme pour le backoffice.
-        if (isset($config['design'])) {
-            $configHasChanged = false;
-            $viewResolverPathStack = $config['view_manager']['template_path_stack'];
-            if (isset($config['design']['admin']) && isset($config['design']['admin']['package']) && isset($config['design']['admin']['theme'])) {
+                    $adminPath = __DIR__ . '/../../../../../design/admin/'. $config['design']['admin']['package'] .'/'. $config['design']['admin']['theme'];
+         
+                    
+                    $select = $sql->select();
+                    $select->from('design_theme');
+                    $select->where(array('is_active' => 1, 'area' => 'admin'));
+                    $select->limit(1);
+                    $statement = $sql->prepareStatementForSqlObject($select);
+                    $results = $statement->execute();
+                    foreach ($results as $result) {
+                       $themeActivated = $result;
+                    }
+            
+                   
+                    // Surchage par le theme qui est activé en base de donnée
+                    if(!empty($themeActivated)) {
+                        $frontendPath = __DIR__ . '/../../../../../design/admin/'. $themeActivated['package'] .'/'. $themeActivated['theme'];
+                    }
 
-                $adminPath = __DIR__ . '/../../../../../design/admin/'. $config['design']['admin']['package'] .'/'. $config['design']['admin']['theme'];
-     
-                
-                $select = $sql->select();
-                $select->from('design_theme');
-                $select->where(array('is_active' => 1, 'area' => 'admin'));
-                $select->limit(1);
-                $statement = $sql->prepareStatementForSqlObject($select);
-                $results = $statement->execute();
-                foreach ($results as $result) {
-                   $themeActivated = $result;
-                }
-        
-               
-                // Surchage par le theme qui est activé en base de donnée
-                if(!empty($themeActivated)) {
-                    $frontendPath = __DIR__ . '/../../../../../design/admin/'. $themeActivated['package'] .'/'. $themeActivated['theme'];
-                }
+                    // I get the Theme definition file and apply a check on the parent theme.
+                    // TODO : Apply recursion to this stuff.
+                    $adminThemePath = $adminPath . '/theme.php';
+                    if (is_file($adminThemePath) && is_readable($adminThemePath)) {
+                        $configTheme = new \Zend\Config\Config(include $adminThemePath);
 
-                // I get the Theme definition file and apply a check on the parent theme.
-                // TODO : Apply recursion to this stuff.
-                $adminThemePath = $adminPath . '/theme.php';
-                if (is_file($adminThemePath) && is_readable($adminThemePath)) {
-                    $configTheme = new \Zend\Config\Config(include $adminThemePath);
-
-                    if (isset($configTheme['design']['package']['theme']['parent'])) {
-                        $stack = array();
-                        $parentTheme = explode('_', $configTheme['design']['package']['theme']['parent']);
-                        if (!(strtolower($parentTheme[0]) === 'playground' && strtolower($parentTheme[1]) === 'base')) {
-                            // The parent for this theme is not the base one. I remove the base admin paths
-                            foreach($viewResolverPathStack as $path){
-                                if(!$result = preg_match('/\/admin\/$/',$path,$matches)){
-                                  $stack[] = $path;
+                        if (isset($configTheme['design']['package']['theme']['parent'])) {
+                            $stack = array();
+                            $parentTheme = explode('_', $configTheme['design']['package']['theme']['parent']);
+                            if (!(strtolower($parentTheme[0]) === 'playground' && strtolower($parentTheme[1]) === 'base')) {
+                                // The parent for this theme is not the base one. I remove the base admin paths
+                                foreach($viewResolverPathStack as $path){
+                                    if(!$result = preg_match('/\/admin\/$/',$path,$matches)){
+                                      $stack[] = $path;
+                                    }
+                                }
+                                $parentPath = __DIR__ . '/../../../../../design/admin/'. $parentTheme[0] .'/'. $parentTheme[1];
+                                $stack[] = $parentPath;
+                                unset($viewResolverPathStack);
+                                $viewResolverPathStack = $stack;
+                            }
+                        } else {
+                            // There is no parent to this theme. I remove the base admin paths
+                            if(is_object($viewResolverPathStack)) {
+                                foreach ($viewResolverPathStack->getPaths() as $path) {
+                                    if (!$result = preg_match('/\/admin\/$/',$path,$matches)) {
+                                        $stack[] = $path;
+                                    }
                                 }
                             }
-                            $parentPath = __DIR__ . '/../../../../../design/admin/'. $parentTheme[0] .'/'. $parentTheme[1];
-                            $stack[] = $parentPath;
                             unset($viewResolverPathStack);
                             $viewResolverPathStack = $stack;
                         }
-                    } else {
-                        // There is no parent to this theme. I remove the base admin paths
-                        foreach ($viewResolverPathStack->getPaths() as $path) {
-                            if (!$result = preg_match('/\/admin\/$/',$path,$matches)) {
-                                $stack[] = $path;
-                            }
-                        }
-                        unset($viewResolverPathStack);
-                        $viewResolverPathStack = $stack;
+                    }
+
+                    $pathStack = array($adminPath);
+
+                    // Assetic pour les CSS
+                    $config['assetic_configuration']['modules']['admin']['root_path'][] = $adminPath . '/assets';
+
+                    // Resolver des templates phtml
+                    //$viewResolverPathStack->addPaths($pathStack);
+
+                    //print_r($viewResolverPathStack->getPaths());
+
+                    $assets = $adminPath . '/assets.php';
+                    if (is_file($assets) && is_readable($assets)) {
+                        $configAssets = new \Zend\Config\Config(include $assets);
+                        $config = array_replace_recursive($config, $configAssets->toArray());
+                        $configHasChanged = true;
+                    }
+
+                    $layout = $adminPath . '/layout.php';
+                    if (is_file($layout) && is_readable($layout)) {
+                        $configLayout = new \Zend\Config\Config(include $layout);
+                        $config = array_replace_recursive($config, $configLayout->toArray());
+                        $configHasChanged = true;
                     }
                 }
+                if (isset($config['design']['frontend']) && isset($config['design']['frontend']['package']) && isset($config['design']['frontend']['theme'])) {
 
-                $pathStack = array($adminPath);
+                    $frontendPath = __DIR__ . '/../../../../../design/frontend/'. $config['design']['frontend']['package'] .'/'. $config['design']['frontend']['theme'];
 
-                // Assetic pour les CSS
-                $config['assetic_configuration']['modules']['admin']['root_path'][] = $adminPath . '/assets';
-
-                // Resolver des templates phtml
-                //$viewResolverPathStack->addPaths($pathStack);
-
-                //print_r($viewResolverPathStack->getPaths());
-
-                $assets = $adminPath . '/assets.php';
-                if (is_file($assets) && is_readable($assets)) {
-                    $configAssets = new \Zend\Config\Config(include $assets);
-                    $config = array_replace_recursive($config, $configAssets->toArray());
-                    $configHasChanged = true;
-                }
-
-                $layout = $adminPath . '/layout.php';
-                if (is_file($layout) && is_readable($layout)) {
-                    $configLayout = new \Zend\Config\Config(include $layout);
-                    $config = array_replace_recursive($config, $configLayout->toArray());
-                    $configHasChanged = true;
-                }
-            }
-            if (isset($config['design']['frontend']) && isset($config['design']['frontend']['package']) && isset($config['design']['frontend']['theme'])) {
-
-                $frontendPath = __DIR__ . '/../../../../../design/frontend/'. $config['design']['frontend']['package'] .'/'. $config['design']['frontend']['theme'];
-
-                $themeActivated = array('package' => 'default', 'theme' => 'base') ;
-                $select = $sql->select();
-                $select->from('design_theme');
-                $select->where(array('is_active' => 1, 'area' => 'frontend'));
-                $select->limit(1);
-                $statement = $sql->prepareStatementForSqlObject($select);
-                $results = $statement->execute();
-                foreach ($results as $result) {
-                   $themeActivated = $result;
-                }
-              
-                // Surchage par le theme qui est activé en base de donnée
-                if(!empty($themeActivated)) {
-                    $frontendPath = __DIR__ . '/../../../../../design/frontend/'. $themeActivated['package'] .'/'. $themeActivated['theme'];
-                }
+                    $themeActivated = array('package' => 'default', 'theme' => 'base') ;
+                    $select = $sql->select();
+                    $select->from('design_theme');
+                    $select->where(array('is_active' => 1, 'area' => 'frontend'));
+                    $select->limit(1);
+                    $statement = $sql->prepareStatementForSqlObject($select);
+                    $results = $statement->execute();
+                    foreach ($results as $result) {
+                       $themeActivated = $result;
+                    }
+                  
+                    // Surchage par le theme qui est activé en base de donnée
+                    if(!empty($themeActivated)) {
+                        $frontendPath = __DIR__ . '/../../../../../design/frontend/'. $themeActivated['package'] .'/'. $themeActivated['theme'];
+                    }
 
 
-                $frontendThemePath = $frontendPath . '/theme.php';
-                if (is_file($frontendThemePath) && is_readable($frontendThemePath)) {
-                    $configTheme = new \Zend\Config\Config(include $frontendThemePath);
+                    $frontendThemePath = $frontendPath . '/theme.php';
+                    if (is_file($frontendThemePath) && is_readable($frontendThemePath)) {
+                        $configTheme = new \Zend\Config\Config(include $frontendThemePath);
 
-                    if (isset($configTheme['design']['package']['theme']['parent'])) {
-                        $stack = array();
-                        $parentTheme = explode('_', $configTheme['design']['package']['theme']['parent']);
-                        if (!(strtolower($parentTheme[0]) === 'playground' && strtolower($parentTheme[1]) === 'base')) {
-                            // The parent for this theme is not the base one. I remove the base frontend paths
-                            foreach ($viewResolverPathStack->getPaths() as $path) {
-                                if (!$result = preg_match('/\/frontend\/$/',$path,$matches)) {
-                                    $stack[] = $path;
+                        if (isset($configTheme['design']['package']['theme']['parent'])) {
+                            $stack = array();
+                            $parentTheme = explode('_', $configTheme['design']['package']['theme']['parent']);
+                            if (!(strtolower($parentTheme[0]) === 'playground' && strtolower($parentTheme[1]) === 'base')) {
+                                // The parent for this theme is not the base one. I remove the base frontend paths
+                                foreach ($viewResolverPathStack->getPaths() as $path) {
+                                    if (!$result = preg_match('/\/frontend\/$/',$path,$matches)) {
+                                        $stack[] = $path;
+                                    }
+                                }
+                                $parentPath = __DIR__ . '/../../../../../design/frontend/'. $parentTheme[0] .'/'. $parentTheme[1];
+                                $stack[] = $parentPath;
+                                unset($viewResolverPathStack);
+                                $viewResolverPathStack = $stack;
+                            }
+                        } else {
+                            // There is no parent to this theme. I remove the base frontend paths
+                            if(is_object($viewResolverPathStack)) {
+                                foreach ($viewResolverPathStack as $path) {
+                                    if (!$result = preg_match('/\/frontend\/$/',$path,$matches)) {
+                                        $stack[] = $path;
+                                    }
                                 }
                             }
-                            $parentPath = __DIR__ . '/../../../../../design/frontend/'. $parentTheme[0] .'/'. $parentTheme[1];
-                            $stack[] = $parentPath;
                             unset($viewResolverPathStack);
                             $viewResolverPathStack = $stack;
                         }
-                    } else {
-                        // There is no parent to this theme. I remove the base frontend paths
-                        foreach ($viewResolverPathStack as $path) {
-                            if (!$result = preg_match('/\/frontend\/$/',$path,$matches)) {
-                                $stack[] = $path;
-                            }
-                        }
-                        unset($viewResolverPathStack);
-                        $viewResolverPathStack = $stack;
                     }
-                }
 
-                // Assetic pour les CSS
-                $config['assetic_configuration']['modules']['frontend']['root_path'][] = $frontendPath . '/assets';
-
+                    // Assetic pour les CSS
+                    $config['assetic_configuration']['modules']['frontend']['root_path'][] = $frontendPath . '/assets';
 
 
-                $assets = $frontendPath . '/assets.php';
-                if (is_file($assets) && is_readable($assets)) {
-                    $configAssets = new \Zend\Config\Config(include $assets);
-                    $config = array_replace_recursive($config, $configAssets->toArray() );
-                    $configHasChanged = true;
-                }
 
-                $layout = $frontendPath . '/layout.php';
-                if (is_file($layout) && is_readable($layout)) {
-                    $configLayout = new \Zend\Config\Config(include $layout);
-                    $config = array_replace_recursive($config, $configLayout->toArray() );
-                    $configHasChanged = true;
+                    $assets = $frontendPath . '/assets.php';
+                    if (is_file($assets) && is_readable($assets)) {
+                        $configAssets = new \Zend\Config\Config(include $assets);
+                        $config = array_replace_recursive($config, $configAssets->toArray() );
+                        $configHasChanged = true;
+                    }
+
+                    $layout = $frontendPath . '/layout.php';
+                    if (is_file($layout) && is_readable($layout)) {
+                        $configLayout = new \Zend\Config\Config(include $layout);
+                        $config = array_replace_recursive($config, $configLayout->toArray() );
+                        $configHasChanged = true;
+                    }
                 }
             }
         }
