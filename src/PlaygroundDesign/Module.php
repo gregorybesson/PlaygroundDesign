@@ -46,6 +46,7 @@ class Module implements
      */
     public function onMergeConfig($e)
     {
+        $stack = array();
         $config = $e->getConfigListener()->getMergedConfig(false);
 
         $configDatabaseDoctrine = $config['doctrine']['connection']['orm_default']['params'];
@@ -67,7 +68,7 @@ class Module implements
 
         
         if (PHP_SAPI !== 'cli') {
-        // Recuperation du theme pour le backoffice.
+            // Recuperation du theme pour le backoffice.
             if (isset($config['design'])) {
                 $configHasChanged = false;
                 $viewResolverPathStack = $config['view_manager']['template_path_stack'];
@@ -115,9 +116,11 @@ class Module implements
                             }
                         } else {
                             // There is no parent to this theme. I remove the base admin paths
-                            foreach ($viewResolverPathStack->getPaths() as $path) {
-                                if (!$result = preg_match('/\/admin\/$/',$path,$matches)) {
-                                    $stack[] = $path;
+                            if(is_object($viewResolverPathStack)) {
+                                foreach ($viewResolverPathStack->getPaths() as $path) {
+                                    if (!$result = preg_match('/\/admin\/$/',$path,$matches)) {
+                                        $stack[] = $path;
+                                    }
                                 }
                             }
                             unset($viewResolverPathStack);
@@ -191,9 +194,11 @@ class Module implements
                             }
                         } else {
                             // There is no parent to this theme. I remove the base frontend paths
-                            foreach ($viewResolverPathStack as $path) {
-                                if (!$result = preg_match('/\/frontend\/$/',$path,$matches)) {
-                                    $stack[] = $path;
+                            if(is_object($viewResolverPathStack)) {
+                                foreach ($viewResolverPathStack as $path) {
+                                    if (!$result = preg_match('/\/frontend\/$/',$path,$matches)) {
+                                        $stack[] = $path;
+                                    }
                                 }
                             }
                             unset($viewResolverPathStack);
