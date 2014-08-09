@@ -43,9 +43,9 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
     public function testCheckDirectoryThemeTrue()
     {
         $theme = new ThemeEntity();
-        $data = array('area' => 'frontend',
-                      'package' => 'default',
-                      'theme' => 'base');
+        $data = array('area' => 'area',
+                      'package' => 'package',
+                      'theme' => 'theme');
 
         $ts = new \PlaygroundDesign\Service\Theme();
         $this->assertTrue($ts->checkDirectoryTheme($theme, $data));
