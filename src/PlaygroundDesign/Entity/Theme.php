@@ -390,7 +390,8 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
     */
     public function getBasePath()
     {
-        return __DIR__.'/../../../../../../'.self::BASE;
+
+        return realpath('.'). DIRECTORY_SEPARATOR .self::BASE;
     }
 
     /**

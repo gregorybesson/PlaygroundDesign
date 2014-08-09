@@ -58,7 +58,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateFiles()
     {
-        $data = array("area" => "Ceci", "package" => "Est", "theme" => "bidon", "title" => "Toto");
+        $data = array("area" => "area", "package" => "package", "theme" => "theme", "title" => "Toto");
         $ts = new \PlaygroundDesign\Service\Theme();
         $theme = new ThemeEntity();
         mkdir($theme->getBasePath().'/'.$data['area'].'/'.$data['package'].'/'.$data['theme'], 0777, true);
@@ -74,7 +74,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateExistFiles()
     {
-        $data = array("area" => "Ceci", "package" => "Est", "theme" => "bidon", "title" => "Toto");
+        $data = array("area" => "area", "package" => "package", "theme" => "theme", "title" => "Toto");
         $ts = new \PlaygroundDesign\Service\Theme();
         $theme = new ThemeEntity();
         mkdir($theme->getBasePath().'/'.$data['area'].'/'.$data['package'].'/'.$data['theme'], 0777, true);
