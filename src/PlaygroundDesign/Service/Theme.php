@@ -20,7 +20,7 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
      * @var themeMapperInterface
      */
     protected $themeMapper;
-  
+
     /**
      * @var ServiceManager
      */
@@ -100,7 +100,7 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
         $form->bind($theme);
 
         $form->setData($data);
- 
+
         if (!$form->isValid() || !$this->checkDirectoryTheme($theme, $data)) {
             return false;
         }
@@ -125,7 +125,7 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
         }
         return $theme;
     }
-    
+
     /**
      *
      * Check if the directory theme exist
@@ -137,11 +137,11 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
      */
     public function checkDirectoryTheme($theme, $data)
     {
-        
+
         $newUrlTheme = $theme->getBasePath().'/'.$data['area'].'/'.$data['package'].'/'.$data['theme'];
         if (!is_dir($newUrlTheme)) {
             return false;
-        }  
+        }
 
         return true;
     }
@@ -313,5 +313,4 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
 
         return $this;
     }
-}  
-
+}

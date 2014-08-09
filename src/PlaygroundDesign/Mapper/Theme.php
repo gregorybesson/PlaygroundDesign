@@ -135,7 +135,7 @@ class Theme implements ThemeInterface
     }
 
     /**
-    * findAll : recupere toutes les entites 
+    * findAll : recupere toutes les entites
     *
     * @return collection $themes collection de PlaygroundDesign\Entity\Theme
     */

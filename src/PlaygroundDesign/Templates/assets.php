@@ -1,4 +1,4 @@
-<?php 
+<?php
 return array(
     'assetic_configuration' => array(
         'modules' => array(
@@ -18,7 +18,7 @@ return array(
                             'output' => '{{area}}/',
                         )
                     ),
-                    
+
                     '{{area}}_fonts' => array(
                         'assets' => array(
                             'fonts/**/*.eot',

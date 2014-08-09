@@ -12,7 +12,7 @@ class ColumnRight extends AbstractHelper
     protected $viewTemplate = 'application/common/column_right.phtml';
     protected $rssUrl       = '';
 
-    public function __construct() 
+    public function __construct()
     {
     }
 
@@ -23,13 +23,13 @@ class ColumnRight extends AbstractHelper
         } else {
             $template = $this->viewTemplate;
         }
-        
+
         if (array_key_exists('channel', $options) && $options['channel'] != '') {
-        	$channel = $options['channel'];
+            $channel = $options['channel'];
         } else {
-        	$channel = '';
-        } 
-        
+            $channel = '';
+        }
+
         /*if (array_key_exists('adserving', $options) && is_array($options['adserving'])) {
             $cat1 = $options['adserving']['cat1'];
             $cat2 = $options['adserving']['cat2'];
@@ -47,7 +47,7 @@ class ColumnRight extends AbstractHelper
             'cat2'   => $cat2,
             'cat3'   => $cat3,
             'rssUrl' => $this->getRssUrl(),
-        	'channel' => $channel,
+            'channel' => $channel,
         ));
 
         return $this->getView()->render($vm);

@@ -18,7 +18,7 @@ class Theme extends ProvidesEventsForm
     * __construct : permet de construire le formulaire qui peuplera l'entity theme
     *
     * @param string $name
-    * @param Zend\ServiceManager\ServiceManager $serviceManager 
+    * @param Zend\ServiceManager\ServiceManager $serviceManager
     * @param Zend\Mvc\I18n\Translator $translator
     *
     */

@@ -45,7 +45,7 @@ class ThemeAdminController extends AbstractActionController
     }
 
     /**
-    * Edition d'un theme 
+    * Edition d'un theme
     *
     * @return array $array Passage des variables dans le template
     * form : formulaire qui correspond au theme
@@ -89,7 +89,7 @@ class ThemeAdminController extends AbstractActionController
     }
 
     /**
-    * Creation d'un theme 
+    * Creation d'un theme
     *
     * @return array $array Passage des variables dans le template
     * form : formulaire qui correspond au theme
@@ -98,10 +98,10 @@ class ThemeAdminController extends AbstractActionController
     public function newAction()
     {
         $form = $this->getServiceLocator()->get('playgrounddesign_theme_form');
-        
+
         $request = $this->getRequest();
         $themeEntity = new themeEntity;
-        
+
         if ($request->isPost()) {
             $data = array_merge(
                     $request->getPost()->toArray(),
@@ -118,7 +118,7 @@ class ThemeAdminController extends AbstractActionController
 
                 return $this->redirect()->toRoute('admin/playgrounddesign_themeadmin');
             }
-            
+
         }
 
         $viewModel = new ViewModel();
@@ -130,7 +130,7 @@ class ThemeAdminController extends AbstractActionController
     }
 
     /**
-    * Suppresion d'un theme 
+    * Suppresion d'un theme
     *
     * @redirect vers la liste des theme
     */
@@ -146,7 +146,7 @@ class ThemeAdminController extends AbstractActionController
     }
 
     /**
-    * Activation d'un theme 
+    * Activation d'un theme
     *
     * @redirect vers la liste des theme
     */
@@ -155,13 +155,13 @@ class ThemeAdminController extends AbstractActionController
 
         $themeId = $this->getEvent()->getRouteMatch()->getParam('themeId');
         $theme = $this->getAdminThemeService()->findById($themeId);
-        
+
         $themeActivated = $this->getAdminThemeService()->findActiveThemeByArea($theme->getArea());
         if (sizeof($themeActivated) > 0) {
             $themeActivated[0]->setIsActive(false);
-            $this->getAdminThemeService()->update($themeActivated[0]);  
+            $this->getAdminThemeService()->update($themeActivated[0]);
         }
-        
+
         $theme->setIsActive(true);
         $this->getAdminThemeService()->update($theme);
         $this->flashMessenger()->addMessage('The theme "'.$theme->getTitle().'" is activate');
@@ -177,7 +177,7 @@ class ThemeAdminController extends AbstractActionController
     * Permet de rajouter automatique des thèmes
     *
     *
-    * @eturn int $nbTheme 
+    * @eturn int $nbTheme
     */
     public function addAutomaticTheme()
     {
@@ -195,8 +195,8 @@ class ThemeAdminController extends AbstractActionController
     * checkAssets : Permet de creer automatiquement un theme depuis le filer
     * @param $directoryThemes : dossier dans lequel chercher un assets.php
     * @param $nbTheme : nombre de theme ajouté automatiquement
-    * 
-    * Fonction recursive qui parcourt tous le dossier theme 
+    *
+    * Fonction recursive qui parcourt tous le dossier theme
     *
     * @return $nbTheme nombre de theme ajouté automatiquement
     */
@@ -208,7 +208,7 @@ class ThemeAdminController extends AbstractActionController
                 if(is_dir($directoryThemes.'/'.$file)){
                     $nbTheme = $this->checkAssets($directoryThemes.'/'.$file, $nbTheme);
                 }else{
-                    if($file=="assets.php"){  
+                    if($file=="assets.php"){
                         $themeDefine = explode('//', $directoryThemes.'/'.$file);
                         $themeDefine = explode('/', $themeDefine[1]);
                         $area = $themeDefine[0];
@@ -231,7 +231,7 @@ class ThemeAdminController extends AbstractActionController
                         }
                     }
                 }
-                
+
             }
         }
 
@@ -245,7 +245,7 @@ class ThemeAdminController extends AbstractActionController
     */
     public function getAdminThemeService()
     {
-        if (null === $this->adminActionService) {           
+        if (null === $this->adminActionService) {
             $this->adminActionService = $this->getServiceLocator()->get('playgrounddesign_theme_service');
         }
 
