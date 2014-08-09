@@ -251,8 +251,6 @@ class Module implements
         setlocale(LC_TIME, "fr_FR", 'fr_FR.utf8', 'fra');
 
         AbstractValidator::setDefaultTranslator($translator,'playgrounddesign');
-        $tables = array();
-
 
         // Start the session container
         $config = $e->getApplication()->getServiceManager()->get('config');
