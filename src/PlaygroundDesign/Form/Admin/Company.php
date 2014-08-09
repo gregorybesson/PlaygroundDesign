@@ -5,7 +5,7 @@ namespace PlaygroundDesign\Form\Admin;
 use Zend\Form\Form;
 use Zend\Form\Element;
 use ZfcBase\Form\ProvidesEventsForm;
-use Zend\I18n\Translator\Translator;
+use Zend\Mvc\I18n\Translator;
 use Zend\ServiceManager\ServiceManager;
 
 class Company extends ProvidesEventsForm
@@ -20,7 +20,7 @@ class Company extends ProvidesEventsForm
     *
     * @param string $name
     * @param Zend\ServiceManager\ServiceManager $serviceManager
-    * @param Zend\I18n\Translator\Translator $translator
+    * @param use Zend\Mvc\I18n\Translator $translator
     *
     */
     public function __construct($name = null, ServiceManager $serviceManager, Translator $translator)

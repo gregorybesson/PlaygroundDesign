@@ -54,9 +54,9 @@ class Company implements CompanyInterface
     *
     * @return collection $companys collection de PlaygroundDesign\Entity\Company
     */
-    public function findBy($array)
+    public function findBy($filter, $order = null, $limit = null, $offset = null)
     {
-        return $this->getEntityRepository()->findBy($array);
+        return $this->getEntityRepository()->findBy($filter, $order, $limit, $offset);
     }
 
     /**

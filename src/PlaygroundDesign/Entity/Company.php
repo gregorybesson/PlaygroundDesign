@@ -180,7 +180,7 @@ class Company implements CompanyInterface, InputFilterAwareInterface
      *
      * @return the $mainImage
      */
-    public function getMainImage ()
+    public function getMainImage()
     {
         return $this->mainImage;
     }
@@ -189,15 +189,15 @@ class Company implements CompanyInterface, InputFilterAwareInterface
      *
      * @param field_type $mainImage
      */
-    public function setMainImage ($mainImage)
+    public function setMainImage($mainImage)
     {
         $this->mainImage = $mainImage;
-        
+
         return $this;
     }
 
 
-    public function getArrayCopy ()
+    public function getArrayCopy()
     {
         return get_object_vars($this);
     }

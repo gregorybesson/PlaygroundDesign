@@ -6,7 +6,6 @@ return array(
         'ZfcBase',
         'ZfcUser',
         'PlaygroundCore',
-        'PlaygroundUser',
         'PlaygroundDesign',
     ),
     'module_listener_options' => array(

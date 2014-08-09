@@ -13,11 +13,11 @@ use Zend\InputFilter\InputFilterInterface;
 
 /**
  * @ORM\Entity @HasLifecycleCallbacks
- * @ORM\Table(name="design_theme") 
+ * @ORM\Table(name="design_theme")
  */
 class Theme implements ThemeInterface, InputFilterAwareInterface
 {
-    
+
     const BASE = 'design/';
     const AUTHOR = 'system';
     const SCREENSHOT_PATH = 'assets/images/screenshots';
@@ -91,8 +91,8 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
     }
 
     /**
-    * Si le theme n'a pas d'auteur, on met System 
-    * @PrePersist 
+    * Si le theme n'a pas d'auteur, on met System
+    * @PrePersist
     */
     public function createAuthor()
     {
@@ -103,7 +103,7 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
 
     /**
     * Un theme crée est automatiquement désactivé
-    * @PrePersist 
+    * @PrePersist
     */
     public function createActive()
     {
@@ -176,7 +176,7 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
     /**
     * getImages permet de recuperer les images depuis le filer
     *
-    * @return array $images 
+    * @return array $images
     */
     public function getImages()
     {
@@ -185,7 +185,7 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
         if (!empty($image)) {
             $images[$image] = $image;
         }
-        
+
         $screenshotsPath = $this->getFilePath().self::SCREENSHOT_PATH;
         $files = array();
         if(is_dir($screenshotsPath)){
@@ -199,7 +199,7 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
             }
         }
 
-       
+
         return $images;
     }
 
@@ -385,18 +385,19 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
 
     /**
     * getBasePath : recuperation du dossier de base de l'application
-    *  
-    * @return string $base  
+    *
+    * @return string $base
     */
     public function getBasePath()
     {
-        return __DIR__.'/../../../../../../'.self::BASE;
+
+        return realpath('.'). DIRECTORY_SEPARATOR .self::BASE;
     }
 
     /**
     * getUrlBase : recuperation du chemin complet du theme
-    *  
-    * @return string $base  
+    *
+    * @return string $base
     */
     public function getUrlBase()
     {
@@ -405,8 +406,8 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
 
     /**
     * getBasePath : recuperation du dossier de base de l'application
-    *  
-    * @return string $base  
+    *
+    * @return string $base
     */
     public function getFilePath()
     {
@@ -415,7 +416,7 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
 
     /**
     * setInputFilter
-    * @param InputFilterInterface $inputFilter  
+    * @param InputFilterInterface $inputFilter
     */
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
@@ -425,7 +426,7 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
     /**
     * getInputFilter
     *
-    * @return  InputFilter $inputFilter  
+    * @return  InputFilter $inputFilter
     */
     public function getInputFilter()
     {
@@ -433,7 +434,7 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
             $inputFilter = new InputFilter();
             $this->inputFilter = $inputFilter;
         }
-        
+
         return $this->inputFilter;
     }
 }

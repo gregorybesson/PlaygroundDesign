@@ -2,7 +2,7 @@
 
 <phpunit bootstrap="./tests/Bootstrap.php">
     <testsuites>
-        <testsuite name="playgroundcore">
+        <testsuite name="playgrounddesign">
             <directory>./tests/PlaygroundDesignTest</directory>
         </testsuite>
     </testsuites>

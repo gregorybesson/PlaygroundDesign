@@ -22,11 +22,11 @@ class ColumnLeft extends AbstractHelper
         } else {
             $template = $this->viewTemplate;
         }
-        
+
         if (array_key_exists('channel', $options) && $options['channel'] != '') {
-        	$channel = $options['channel'];
+            $channel = $options['channel'];
         } else {
-        	$channel = '';
+            $channel = '';
         }
 
        /*if (array_key_exists('adserving', $options) && is_array($options['adserving'])) {
@@ -45,7 +45,7 @@ class ColumnLeft extends AbstractHelper
             'cat1' => $cat1,
             'cat2' => $cat2,
             'cat3' => $cat3,
-        	'channel' => $channel,
+            'channel' => $channel,
         ));
 
         return $this->getView()->render($vm);

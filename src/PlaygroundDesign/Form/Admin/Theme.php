@@ -4,7 +4,7 @@ namespace PlaygroundDesign\Form\Admin;
 
 use Zend\Form\Element;
 use ZfcBase\Form\ProvidesEventsForm;
-use Zend\I18n\Translator\Translator;
+use Zend\Mvc\I18n\Translator;
 use Zend\ServiceManager\ServiceManager;
 
 class Theme extends ProvidesEventsForm
@@ -18,8 +18,8 @@ class Theme extends ProvidesEventsForm
     * __construct : permet de construire le formulaire qui peuplera l'entity theme
     *
     * @param string $name
-    * @param Zend\ServiceManager\ServiceManager $serviceManager 
-    * @param Zend\I18n\Translator\Translator $translator
+    * @param Zend\ServiceManager\ServiceManager $serviceManager
+    * @param Zend\Mvc\I18n\Translator $translator
     *
     */
     public function __construct($name = null, ServiceManager $serviceManager, Translator $translator)
