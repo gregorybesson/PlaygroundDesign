@@ -1,6 +1,32 @@
 <?php
 return array(
 
+    'bjyauthorize' => array(
+        'resource_providers' => array(
+            'BjyAuthorize\Provider\Resource\Config' => array(
+                'design'        => array(),
+            ),
+        ),
+    
+        'rule_providers' => array(
+            'BjyAuthorize\Provider\Rule\Config' => array(
+                'allow' => array(
+                    array(array('admin'), 'design',         array('system')),
+                ),
+            ),
+        ),
+    
+        'guards' => array(
+            'BjyAuthorize\Guard\Controller' => array(
+                array('controller' => 'PlaygroundDesign\Controller\Frontend\Home',             'roles' => array('guest', 'user')),
+                array('controller' => 'PlaygroundDesign\Controller\System',                     'roles' => array('admin')),
+                array('controller' => 'PlaygroundDesign\Controller\Dashboard',                  'roles' => array('admin')),
+                array('controller' => 'PlaygroundDesign\Controller\CompanyAdmin',               'roles' => array('admin')),
+                array('controller' => 'PlaygroundDesign\Controller\ThemeAdmin',                 'roles' => array('admin')),
+            ),
+        ),
+    ),
+    
     'doctrine' => array(
         'driver' => array(
             'playgrounddesign_entity' => array(
@@ -421,7 +447,7 @@ return array(
         'options' => array(
           'regex' => '\/(?<locale>([a-z]{2})(\/|\z)+)?(?<channel>(embed|facebook|platform|mobile|preview)+)?\/?',
           'defaults' => array(
-            'controller' => 'PlaygroundDesign\Controller\Dashboard',
+            'controller' => 'PlaygroundDesign\Controller\Frontend\Home',
             'action'     => 'index',
           ),
           'spec' => '/%channel%/',
@@ -575,6 +601,7 @@ return array(
 
     'controllers' => array(
         'invokables' => array(
+            'PlaygroundDesign\Controller\Frontend\Home' => 'PlaygroundDesign\Controller\Frontend\HomeController',
             'PlaygroundDesign\Controller\Dashboard' => 'PlaygroundDesign\Controller\DashboardController',
             'PlaygroundDesign\Controller\System'    => 'PlaygroundDesign\Controller\SystemController',
             'PlaygroundDesign\Controller\CompanyAdmin' => 'PlaygroundDesign\Controller\CompanyAdminController',
