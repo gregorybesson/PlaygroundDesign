@@ -9,7 +9,7 @@ class Header extends AbstractHelper
     /**
      * $var string template used for view
      */
-    protected $viewTemplate='application/common/header.phtml';
+    protected $viewTemplate='playground-design/common/header.phtml';
 
     public function __construct()
     {

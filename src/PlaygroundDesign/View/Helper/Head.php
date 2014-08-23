@@ -9,7 +9,7 @@ class Head extends AbstractHelper
     /**
      * $var string template used for view
      */
-    protected $viewTemplate='application/common/head.phtml';
+    protected $viewTemplate='playground-design/common/head.phtml';
 
     public function __construct()
     {

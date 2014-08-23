@@ -9,7 +9,7 @@ class Footer extends AbstractHelper
     /**
      * $var string template used for view
      */
-    protected $viewTemplate='application/common/footer.phtml';
+    protected $viewTemplate='playground-design/common/footer.phtml';
 
     public function __construct()
     {

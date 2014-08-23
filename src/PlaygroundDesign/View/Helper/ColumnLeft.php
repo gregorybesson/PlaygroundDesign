@@ -9,7 +9,7 @@ class ColumnLeft extends AbstractHelper
     /**
      * $var string template used for view
      */
-    protected $viewTemplate='application/common/column_left.phtml';
+    protected $viewTemplate='playground-design/common/column_left.phtml';
 
     public function __construct()
     {
