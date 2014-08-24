@@ -65,44 +65,46 @@ class Module implements
             $configDatabase['charset'] = $configDatabaseDoctrine['charset'];
         }
 
-        $adapter = new Adapter($configDatabase);
-        $sql = new Sql($adapter);
-
-        // ******************************************
-        // Check if an admin theme is set in database
-        // ******************************************
-        $select = $sql->select();
-        $select->from('design_theme');
-        $select->where(array('is_active' => 1, 'area' => 'admin'));
-        $select->limit(1);
-        $statement = $sql->prepareStatementForSqlObject($select);
-        $results = $statement->execute();
-        foreach ($results as $result) {
-            $themeActivated = $result;
-        }
-        
-        if(!empty($themeActivated)) {
-            $config['design']['admin']['package'] = $themeActivated['package'];
-            $config['design']['admin']['theme'] = $themeActivated['theme'];
-        }
-        
-        // ********************************************
-        // Check if a frontend theme is set in database
-        // ********************************************
-        $select = $sql->select();
-        $select->from('design_theme');
-        $select->where(array('is_active' => 1, 'area' => 'frontend'));
-        $select->limit(1);
-        $statement = $sql->prepareStatementForSqlObject($select);
-        $results = $statement->execute();
-        foreach ($results as $result) {
-            $themeActivated = $result;
-        }
-        
-        // Surchage par le theme qui est activé en base de donnée
-        if(!empty($themeActivated)) {
-            $config['design']['frontend']['package'] = $themeActivated['package'];
-            $config['design']['frontend']['theme'] = $themeActivated['theme'];
+        if (PHP_SAPI !== 'cli') {
+            $adapter = new Adapter($configDatabase);
+            $sql = new Sql($adapter);
+    
+            // ******************************************
+            // Check if an admin theme is set in database
+            // ******************************************
+            $select = $sql->select();
+            $select->from('design_theme');
+            $select->where(array('is_active' => 1, 'area' => 'admin'));
+            $select->limit(1);
+            $statement = $sql->prepareStatementForSqlObject($select);
+            $results = $statement->execute();
+            foreach ($results as $result) {
+                $themeActivated = $result;
+            }
+            
+            if(!empty($themeActivated)) {
+                $config['design']['admin']['package'] = $themeActivated['package'];
+                $config['design']['admin']['theme'] = $themeActivated['theme'];
+            }
+            
+            // ********************************************
+            // Check if a frontend theme is set in database
+            // ********************************************
+            $select = $sql->select();
+            $select->from('design_theme');
+            $select->where(array('is_active' => 1, 'area' => 'frontend'));
+            $select->limit(1);
+            $statement = $sql->prepareStatementForSqlObject($select);
+            $results = $statement->execute();
+            foreach ($results as $result) {
+                $themeActivated = $result;
+            }
+            
+            // Surchage par le theme qui est activé en base de donnée
+            if(!empty($themeActivated)) {
+                $config['design']['frontend']['package'] = $themeActivated['package'];
+                $config['design']['frontend']['theme'] = $themeActivated['theme'];
+            }
         }
         
         // **************************************************
