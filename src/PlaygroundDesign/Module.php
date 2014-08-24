@@ -181,8 +181,9 @@ class Module implements
                             $stack = array();
                             $parentTheme = explode('_', $configTheme['design']['package']['theme']['parent']);
                             if (!(strtolower($parentTheme[0]) === 'playground' && strtolower($parentTheme[1]) === 'base')) {
+                                
                                 // The parent for this theme is not the base one. I remove the base frontend paths
-                                foreach ($viewResolverPathStack->getPaths() as $path) {
+                                foreach($viewResolverPathStack as $path){
                                     if (!$result = preg_match('/\/frontend\/$/',$path,$matches)) {
                                         $stack[] = $path;
                                     }
