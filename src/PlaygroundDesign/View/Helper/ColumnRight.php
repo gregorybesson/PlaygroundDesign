@@ -9,7 +9,7 @@ class ColumnRight extends AbstractHelper
     /**
      * $var string template used for view
      */
-    protected $viewTemplate = 'application/common/column_right.phtml';
+    protected $viewTemplate = 'playground-design/common/column_right.phtml';
     protected $rssUrl       = '';
 
     public function __construct()

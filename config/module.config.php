@@ -18,6 +18,7 @@ return array(
     
         'guards' => array(
             'BjyAuthorize\Guard\Controller' => array(
+                
                 array('controller' => 'PlaygroundDesign\Controller\Frontend\Home',             'roles' => array('guest', 'user')),
                 array('controller' => 'PlaygroundDesign\Controller\System',                     'roles' => array('admin')),
                 array('controller' => 'PlaygroundDesign\Controller\Dashboard',                  'roles' => array('admin')),
