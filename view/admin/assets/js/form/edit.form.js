@@ -181,8 +181,8 @@ var editLineText = function editLineText (id, type){
         liClass.find('input[name="filewordcount_max"]').val(filewordcountMaxEdit);
     }
 
-    console.log(liId);
-    console.log(liClass);
+    //console.log(liId);
+    //console.log(liClass);
 
 }
 
