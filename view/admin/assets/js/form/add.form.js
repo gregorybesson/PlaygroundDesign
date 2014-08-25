@@ -102,24 +102,24 @@ $(document).ready(function()
         $(this).parent('li').remove();
 
         var remIdTemp = $(this).attr('id');
-        var mainCheckbox = $('code').text();
+        var mainCheckbox = $('#formElementCode').val();
         $('#' + mainCheckbox + ' #check_' + remIdTemp).remove();
     });
 
-    $(document).on("click", "button:contains('set default')", function(e){
+    $(document).on("click", "button:contains('set checkbox default')", function(e){
         e.preventDefault();
         var defId = $(this).attr('id').replace(/[^\d.]/g, "");
-        var mainCheckbox = $('code').text();
+        var mainCheckbox = $('#formElementCode').val();
 
-        $('#' + mainCheckbox).find('input').removeAttr('checked');
+        $('#' + mainCheckbox).find('input').prop('checked', false);
 
-        $('#' + mainCheckbox).find('#form_checkbox_' + defId).attr({'checked':'checked'})
-        .attr({'type':'checkbox'}); // don't know why it doesn't work without this yet
+        $('#' + mainCheckbox).find('#form_checkbox_' + defId).prop('checked', true).checkboxradio('refresh');
+
     });
 
     $(document).on("click", "#add_new_checkbox_field", function(e){
         e.preventDefault();
-        var mainCheckbox = $('code').text();
+        var mainCheckbox = $('#formElementCode').val();
         var prevLi = $(this).parent('ul').children('li').last();
         var prevId = prevLi.find("button:contains('remove')").attr('id').replace(/[^\d.]/g, "");
         var nextIdNr = parseFloat(prevId) + 1;
@@ -133,7 +133,7 @@ $(document).ready(function()
             .end()
             .find("button:contains('remove')").attr({'id':nextId})
             .end()
-            .find("button:contains('set default')").attr({'id':'def' + nextIdNr});
+            .find("button:contains('set checkbox default')").attr({'id':'def' + nextIdNr});
 
         // clone in the view side
         $('#' + mainCheckbox)
@@ -159,22 +159,22 @@ $(document).ready(function()
         $(this).parent('li').remove();
 
         var remIdTemp = $(this).attr('id');
-        var mainRadio = $('code').text();
+        var mainRadio = $('#formElementCode').val();
         $('#' + mainRadio + ' #radio_' + remIdTemp).remove();
     });
 
-    $(document).on("click", "button:contains('set default')", function(e){
+    $(document).on("click", "button:contains('set radio default')", function(e){
         e.preventDefault();
         var defId = $(this).attr('id').replace(/[^\d.]/g, "");
-        var mainRadio = $('code').text();
+        var mainRadio = $('#formElementCode').val();
 
-        $('#' + mainRadio).find('input').removeAttr('checked');
-        $('#' + mainRadio).find('#form_radio_' + defId).attr({'checked':'checked'});
+        $('#' + mainRadio).find('input').prop('checked', false);
+        $('#' + mainRadio).find('#form_radio_' + defId).prop('checked', true).checkboxradio('refresh');
     });
 
     $(document).on("click", "#add_new_radio_field", function(e){
         e.preventDefault();
-        var mainRadio = $('code').text();
+        var mainRadio = $('#formElementCode').val();
         var prevLi = $(this).parent('ul').children('li').last();
         var prevId = prevLi.find("button:contains('remove')").attr('id').replace(/[^\d.]/g, "");
         var nextIdNr = parseFloat(prevId) + 1;
@@ -188,7 +188,7 @@ $(document).ready(function()
             .end()
             .find("button:contains('remove')").attr({'id':nextId})
             .end()
-            .find("button:contains('set default')").attr({'id':'def' + nextIdNr});
+            .find("button:contains('set radio default')").attr({'id':'def' + nextIdNr});
 
         // clone in the view side
         $('#' + mainRadio)
@@ -221,14 +221,14 @@ $(document).ready(function()
         $(this).parent('li').remove();
 
         var remIdTemp = $(this).attr('id');
-        var mainRadio = $('code').text();
+        var mainRadio = $('#formElementCode').val();
         $('#' + mainRadio + ' #dropdown_' + remIdTemp).remove();
     });
 
-    $(document).on("click", "button:contains('set default')", function(e){
+    $(document).on("click", "button:contains('set option default')", function(e){
         e.preventDefault();
         var defId = $(this).attr('id').replace(/[^\d.]/g, "");
-        var mainRadio = $('code').text();
+        var mainRadio = $('#formElementCode').val();
 
         $('#' + mainRadio).find('option').removeAttr('selected');
         $('#dropdown_rem' + defId).attr({'selected':'selected'});
@@ -236,7 +236,7 @@ $(document).ready(function()
 
     $(document).on("click", "#add_new_dropdown_field", function(e){
         e.preventDefault();
-        var mainRadio = $('code').text();
+        var mainRadio = $('#formElementCode').val();
         var prevLi = $(this).parent('ul').children('li').last();
         var prevId = prevLi.find("button:contains('remove')").attr('id').replace(/[^\d.]/g, "");
         var nextIdNr = parseFloat(prevId) + 1;
@@ -250,7 +250,7 @@ $(document).ready(function()
             .end()
             .find("button:contains('remove')").attr({'id':nextId})
             .end()
-            .find("button:contains('set default')").attr({'id':'def' + nextIdNr});
+            .find("button:contains('set option default')").attr({'id':'def' + nextIdNr});
 
         // clone in the view side
         $('#' + mainRadio)
