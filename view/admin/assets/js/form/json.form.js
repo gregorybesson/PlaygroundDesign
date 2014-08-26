@@ -109,7 +109,7 @@ var commonsJson = function (formElements, typeName, classType, typeType){
         if (classType === 'form_checkbox'){
             var innerData = [];
 
-            $('span.span_checkbox').each(function (){
+            $('span.span_checkbox', $(this)).each(function (){
                 innerData.push({
                     'label': $(this).find('label.checkbox').text()
                 });
