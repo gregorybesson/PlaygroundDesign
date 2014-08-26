@@ -120,11 +120,11 @@ var commonsJson = function (formElements, typeName, classType, typeType){
                 'type' : typeType,
                 'order' : order,
                 'data' : {
-                    'label': $(this).find('label.main_label').html(),
+                    'label': li.find('label.main_label').html(),
                     'innerData': innerData,
                     'class': li.find('[name="class"]').attr("value"),
                     'id': li.find('[name="id"]').attr("value"),
-                    'default': $(this).find('[checked="checked"]').attr('id').replace(/[^\d.]/g, ""),
+                    'default': (li.find(':checked').attr('id'))?li.find(':checked').attr('id').replace(/[^\d.]/g, ""):0,
                     'label_class': li.find('[name="label_class"]').attr("value"),
                     'label_id': li.find('[name="label_id"]').attr("value")
                 }

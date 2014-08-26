@@ -111,9 +111,9 @@ $(document).ready(function()
         var defId = $(this).attr('id').replace(/[^\d.]/g, "");
         var mainCheckbox = $('#formElementCode').val();
 
-        $('#' + mainCheckbox).find('input').prop('checked', false);
+        $('#' + mainCheckbox).find('input').removeAttr('checked');
 
-        $('#' + mainCheckbox).find('#form_checkbox_' + defId).prop('checked', true).checkboxradio('refresh');
+        $('#' + mainCheckbox).find('#form_checkbox_' + defId).attr('checked', 'checked');
 
     });
 
@@ -168,8 +168,8 @@ $(document).ready(function()
         var defId = $(this).attr('id').replace(/[^\d.]/g, "");
         var mainRadio = $('#formElementCode').val();
 
-        $('#' + mainRadio).find('input').prop('checked', false);
-        $('#' + mainRadio).find('#form_radio_' + defId).prop('checked', true).checkboxradio('refresh');
+        $('#' + mainRadio).find('input').removeAttr('checked');
+        $('#' + mainRadio).find('#form_radio_' + defId).attr('checked', 'checked');
     });
 
     $(document).on("click", "#add_new_radio_field", function(e){
