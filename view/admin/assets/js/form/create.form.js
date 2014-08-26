@@ -15,32 +15,33 @@ $(document).ready(function() {
 	var thirdTab = $('#add_form_element li:eq(2) a');
 	var fieldProp = $('#field_properties');
 
-	$(".delete_li").on("click", function () {
+	$(document).on("click", ".delete_li", function () {
 		$(this).parent().remove();
 	});
 	
-	$(".edit_form_checkbox .edit_li").on("click", function () {
-	           var liId = $(this).parent().attr('id'),
-	               size = $(this).parent().find('.span_checkbox').length();
-	           secondTab.tab('show');
-	           $.get(basepath+'/formgen/checkbox', { name: "Edit Checkbox Field", id: liId, 'length': size}).done(function(data) {
-	               fieldProp.html(data);
-	                  editLineText(liId, 'line_checkbox');
-	           });
-	       });
+	$(document).on("click", ".edit_form_checkbox .edit_li", function () {
+       var liId = $(this).parent().attr('id'),
+           size = $(this).parent().find('.span_checkbox').size();
+       secondTab.tab('show');
+       $.get(basepath+'/formgen/checkbox', { name: "Edit Checkbox Field", id: liId, 'length': size}).done(function(data) {
+           fieldProp.html(data);
+              editLineText(liId, 'line_checkbox');
+       });
+	});
 	       
-	       $(".edit_form_radio .edit_li").on("click", function () {
-	           var liId = $(this).parent().attr('id'),
-	                   size = $(this).parent().find('.span_radio').size();
-	    
-	           secondTab.tab('show');
-	           $.get(basepath+'/formgen/radio', { name: "Edit Radio Field", id: liId, 'length': size}).done(function(data) {
-	               fieldProp.html(data);
-	             editLineText(liId, 'line_radio');
-	           });
+	$(document).on("click", ".edit_form_radio .edit_li", function () {
+       var liId = $(this).parent().attr('id'),
+               size = $(this).parent().find('.span_radio').size();
+
+       secondTab.tab('show');
+       $.get(basepath+'/formgen/radio', { name: "Edit Radio Field", id: liId, 'length': size}).done(function(data) {
+           fieldProp.html(data);
+         editLineText(liId, 'line_radio');
+       });
 	 });
 	    
-	 $(".edit_form_text .edit_li").on("click", function () {
+	$(document).on("click", ".edit_form_text .edit_li", function () {
+	     
 		var liId = $(this).parent().attr('id');
 		secondTab.tab('show');
 		$.get(basepath+'/formgen/input', { name: "Editer le champ texte", id: liId}).done(function(data) {
@@ -49,7 +50,7 @@ $(document).ready(function() {
 	    });
 	});
 	
-	 $(".edit_form_paragraph .edit_li").on("click", function () {
+	 $(document).on("click", ".edit_form_paragraph .edit_li", function () {
 		var liId = $(this).parent().attr('id');
 		secondTab.tab('show');
 		$.get(basepath+'/formgen/paragraph', { name: "Editer le champ paragraphe", id: liId}).done(function(data) {
@@ -58,7 +59,7 @@ $(document).ready(function() {
 	    });
 	});
 	
-	 $(".edit_form_upload .edit_li").on("click", function () {
+	 $(document).on("click", ".edit_form_upload .edit_li", function () {
 		var liId = $(this).parent().attr('id');
 		secondTab.tab('show');
 		$.get(basepath+'/formgen/upload', { name: "Editer le champ fichier", id: liId}).done(function(data) {
@@ -67,7 +68,7 @@ $(document).ready(function() {
 	    });
 	});
 	
-	 $(".edit_form_url .edit_li").on("click", function () {
+	 $(document).on("click", ".edit_form_url .edit_li", function () {
 		var liId = $(this).parent().attr('id');
 		secondTab.tab('show');
 		$.get(basepath+'/formgen/url', { name: "Edit Web Site / Url Field", id: liId}).done(function(data) {
