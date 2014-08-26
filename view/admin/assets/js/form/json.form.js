@@ -109,7 +109,7 @@ var commonsJson = function (formElements, typeName, classType, typeType){
         if (classType === 'form_checkbox'){
             var innerData = [];
 
-            $('span.span_checkbox').each(function (){
+            $('span.span_checkbox', $(this)).each(function (){
                 innerData.push({
                     'label': $(this).find('label.checkbox').text()
                 });
@@ -120,11 +120,11 @@ var commonsJson = function (formElements, typeName, classType, typeType){
                 'type' : typeType,
                 'order' : order,
                 'data' : {
-                    'label': li.find('label.main_label').html(),
+                    'label': $(this).find('label.main_label').html(),
                     'innerData': innerData,
                     'class': li.find('[name="class"]').attr("value"),
                     'id': li.find('[name="id"]').attr("value"),
-                    'default': (li.find(':checked').attr('id'))?li.find(':checked').attr('id').replace(/[^\d.]/g, ""):0,
+                    'default': $(this).find('[checked="checked"]').attr('id').replace(/[^\d.]/g, ""),
                     'label_class': li.find('[name="label_class"]').attr("value"),
                     'label_id': li.find('[name="label_id"]').attr("value")
                 }
