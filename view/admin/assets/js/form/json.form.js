@@ -122,6 +122,7 @@ var commonsJson = function (formElements, typeName, classType, typeType){
                 'data' : {
                     'label': li.find('label.main_label').html(),
                     'innerData': innerData,
+                    'required': li.find('[name="required"]').attr("value"),
                     'class': li.find('[name="class"]').attr("value"),
                     'id': li.find('[name="id"]').attr("value"),
                     'default': (li.find(':checked').attr('id'))?li.find(':checked').attr('id').replace(/[^\d.]/g, ""):0,

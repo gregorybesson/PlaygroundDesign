@@ -325,6 +325,8 @@ var line_checkbox = function (liId, theForm, fieldProp, uniqueId, liClass)
 {
     "use strict";
 	var li = addLi(liId, liClass).appendTo(theForm);
+	
+	hiddenRequired('required', '0').appendTo(li);
 
 	$("<label/>", {
 		text: "Checkboxes Label",
