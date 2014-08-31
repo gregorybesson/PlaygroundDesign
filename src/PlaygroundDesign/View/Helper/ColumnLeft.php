@@ -28,6 +28,12 @@ class ColumnLeft extends AbstractHelper
         } else {
             $channel = '';
         }
+        
+        if (array_key_exists('game', $options) && $options['game'] != '') {
+            $game = $options['game'];
+        } else {
+            $game = '';
+        }
 
        /*if (array_key_exists('adserving', $options) && is_array($options['adserving'])) {
             $cat1 = $options['adserving']['cat1'];
