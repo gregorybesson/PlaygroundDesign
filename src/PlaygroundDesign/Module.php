@@ -208,6 +208,9 @@ class Module implements
                 if(isset($config['core_layout']['admin'])){
                     unset($config['core_layout']['admin']);
                 }
+                
+                //clearing the template_path_stack
+                $config['view_manager']['template_path_stack'] = $viewResolverPathStack;
         
                 //I then recreate the config
                 foreach($themeHierarchy as $theme=>$tab){
@@ -220,13 +223,12 @@ class Module implements
                     }
         
                     if(isset($tab['template_path'])){
-                        $config['view_manager']['template_path_stack'] = array_merge($viewResolverPathStack,$tab['template_path']);
+                        $config['view_manager']['template_path_stack'] = array_merge($config['view_manager']['template_path_stack'],$tab['template_path']);
                     }
         
                     if(isset($tab['path']) && isset($config['assetic_configuration']['modules']['admin'])){
                         $config['assetic_configuration']['modules']['admin']['root_path'][] = $tab['path'] . '/assets';
                     }
-        
                 }
             }
         
@@ -238,13 +240,12 @@ class Module implements
                 $parentTheme = array($config['design']['frontend']['package'], $config['design']['frontend']['theme']);
         
                 while($hasParent){
+
                     // I get the Theme definition file and apply a check on the parent theme.
                     // TODO : Apply recursion to this stuff.
                     $hasParent = false;
                     $frontendPath = __DIR__ . '/../../../../../design/frontend/'. $parentTheme[0] .'/'. $parentTheme[1];
                     $themeId = $parentTheme[0] .'_'. $parentTheme[1];
-        
-                    //echo $themeId . "<br>";
         
                     if(!(strtolower($themeId) === 'playground_base')){
                         $frontendThemePath = $frontendPath . '/theme.php';
@@ -274,12 +275,13 @@ class Module implements
         
                                 if ($parentThemeId  == $themeId) {
                                     $hasParent = false;
+                                }else{
+                                    $hasParent = true;
                                 }
-                                $hasParent = true;
                             }
                         }
                     } else {
-        
+
                         $stack = array();
                         foreach($viewResolverPathStack as $path){
                             if($result = preg_match('/\/frontend\/$/',$path,$matches)){
@@ -330,9 +332,11 @@ class Module implements
                     unset($config['core_layout']['frontend']);
                 }
         
+                //clearing the template_path_stack
+                $config['view_manager']['template_path_stack'] = $viewResolverPathStack;
+                
                 //I then recreate the config
                 foreach($themeHierarchy as $theme=>$tab){
-                    //echo "<h3>" . $theme . ":</h3>";
                     if(isset($tab['layout'])){
                         $config = array_replace_recursive($config, $tab['layout'] );
                     }
@@ -343,7 +347,7 @@ class Module implements
         
                     if(isset($tab['template_path'])){
                         //print_r($tab['template_path']);
-                        $config['view_manager']['template_path_stack'] = array_merge($viewResolverPathStack, $tab['template_path']);
+                        $config['view_manager']['template_path_stack'] = array_merge($config['view_manager']['template_path_stack'], $tab['template_path']);
                     }
         
                     if(isset($tab['path']) && isset($config['assetic_configuration']['modules']['frontend'])){
@@ -351,7 +355,7 @@ class Module implements
                     }
                 }
             }
-        
+            
             // Creating the Assetic configuration for images of all available themes
             /*if (PHP_SAPI !== 'cli') {
                 $themes = $themeMapper->findAll();
