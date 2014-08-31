@@ -24,31 +24,9 @@ class ColumnRight extends AbstractHelper
             $template = $this->viewTemplate;
         }
 
-        if (array_key_exists('channel', $options) && $options['channel'] != '') {
-            $channel = $options['channel'];
-        } else {
-            $channel = '';
-        }
-
-        /*if (array_key_exists('adserving', $options) && is_array($options['adserving'])) {
-            $cat1 = $options['adserving']['cat1'];
-            $cat2 = $options['adserving']['cat2'];
-            $cat3 = $options['adserving']['cat3'];
-        } else {*/
-            $cat1 = 'playground';
-            $cat2 = '';
-            $cat3 = '';
-        //}
-
         $vm = new ViewModel(array());
         $vm->setTemplate($template);
-        $vm->setVariables(array(
-            'cat1'   => $cat1,
-            'cat2'   => $cat2,
-            'cat3'   => $cat3,
-            'rssUrl' => $this->getRssUrl(),
-            'channel' => $channel,
-        ));
+        $vm->setVariables($options);
 
         return $this->getView()->render($vm);
     }
