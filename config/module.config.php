@@ -609,6 +609,12 @@ return array(
             'PlaygroundDesign\Controller\themeAdmin' => 'PlaygroundDesign\Controller\ThemeAdminController',
         ),
     ),
+    
+    'controller_plugins' => array(
+        'invokables' => array(
+            'frontendUrl' => 'PlaygroundDesign\Controller\Plugin\FrontendUrl',
+        ),
+    ),
 
     'translator' => array(
         'locale' => 'fr_FR',
