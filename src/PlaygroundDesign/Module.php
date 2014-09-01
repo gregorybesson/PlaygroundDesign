@@ -394,7 +394,6 @@ class Module implements
         setlocale(LC_TIME, "fr_FR", 'fr_FR.utf8', 'fra');
 
         AbstractValidator::setDefaultTranslator($translator,'playgrounddesign');
-
         
         // Start the session container
         $config = $e->getApplication()->getServiceManager()->get('config');
@@ -716,8 +715,21 @@ class Module implements
                 $actionName      = $match->getParam('action', 'not-found');
                 $channel         = $match->getParam('channel', 'not-found');
                 $viewModel       = $e->getViewModel();
+                
+                // I add this area param so that it can be used by Controller plugin frontendUrl 
+                // and View helper frontendUrl
+                $match->setParam('area', $areaName);
 
-
+/*
+                echo '$controllerClass : ' . $controllerClass . '<br/>';
+                echo '$moduleName : ' .$moduleName. '<br/>';
+                echo '$routeName : '.$routeName. '<br/>';
+                echo '$areaName : '.$areaName. '<br/>';
+                echo '$controllerName : ' .$controllerName. '<br/>';
+                echo '$actionName : ' . $actionName. '<br/>';
+                echo '$channel : ' .$channel. '<br/>'; 
+               
+*/                
                 /**
                  * Assign the correct layout
                  */
@@ -768,6 +780,23 @@ class Module implements
                 }
             }
         }, 100);
+        
+        // I put channel and area to each view
+        $e->getApplication()->getEventManager()->attach(\Zend\Mvc\MvcEvent::EVENT_RENDER, function (\Zend\Mvc\MvcEvent $e) use ($serviceManager) {
+        
+            $viewModel          = $e->getViewModel();
+            $match              = $e->getRouteMatch();
+            $channel            = isset($match)? $match->getParam('channel', ''):'';
+            $area               = isset($match)? $match->getParam('area', ''):'';
+            
+            $viewModel->channel = $channel;
+            $viewModel->area    = $area;
+            
+            foreach($viewModel->getChildren() as $child){
+                $child->channel = $channel;
+                $child->area = $area;
+            }
+        });
     }
 
     public function getAutoloaderConfig()
@@ -790,6 +819,22 @@ class Module implements
     {
         return array(
             'factories' => array(
+                
+                'frontendUrl' => function ($sm) {
+                    $serviceLocator = $sm->getServiceLocator();
+                    $view_helper =  new View\Helper\FrontendUrl();
+                    $router = \Zend\Console\Console::isConsole() ? 'HttpRouter' : 'Router';
+                    $view_helper->setRouter($serviceLocator->get($router));
+                
+                    $match = $sm->getServiceLocator()->get('application')->getMvcEvent()->getRouteMatch();
+                
+                    if ($match instanceof \Zend\Mvc\Router\Http\RouteMatch) {
+
+                        $view_helper->setRouteMatch($match);
+                    }
+                
+                    return $view_helper;
+                },
 
                 // This admin navigation layer gives the authentication layer based on BjyAuthorize ;)
                 'adminMenu' => function ($sm) {
