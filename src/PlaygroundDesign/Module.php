@@ -279,6 +279,13 @@ class Module implements
                                     $hasParent = true;
                                 }
                             }
+                            
+                            // Are there games with a specific URL ?
+                            if (isset($configTheme['design']['package']['custom_games'])){
+                                foreach($configTheme['design']['package']['custom_games'] as $k=>$v){
+                                    $themeHierarchy[$themeId]['custom_games'][$k] = $v;
+                                }
+                            }
                         }
                     } else {
 
@@ -352,6 +359,38 @@ class Module implements
         
                     if(isset($tab['path']) && isset($config['assetic_configuration']['modules']['frontend'])){
                         $config['assetic_configuration']['modules']['frontend']['root_path'][] = $tab['path'] . '/assets';
+                    }
+                    
+                    if(isset($tab['custom_games'])){
+                        foreach($tab['custom_games'] as $k=>$v){
+                            // I take the url model of the game type
+                            $routeModel = $config['router']['routes']['frontend']['child_routes'][$v['classType']];
+                            
+                            // Changing the root of the route
+                            $routeModel['options']['route'] = '/';
+                            
+                            // and removing the trailing slash for each subsequent route
+                            foreach($routeModel['child_routes'] as $id=>$ar){
+                                $routeModel['child_routes'][$id]['options']['route'] = ltrim($ar['options']['route'], '/');
+                            }
+                            
+                            // then create the hostname route + appending the model updated
+                            $config['router']['routes']['frontend.'.$v['url']] = array(
+                                'type' => 'Zend\Mvc\Router\Http\Hostname',
+                                'options' => array(
+                                    'route' => $v['url'],
+                                    'defaults' => array(
+                                        'id' => $k,
+                                        'channel'=> 'embed'
+                                    )
+                                ),
+                                'may_terminate' => true
+                            );
+                            $config['router']['routes']['frontend.'.$v['url']]['child_routes'][$v['classType']] = $routeModel;
+                            
+                            $coreLayoutModel = $config['core_layout']['frontend'];
+                            $config['core_layout']['frontend.'.$v['url']] = $coreLayoutModel;
+                        }
                     }
                 }
             }
