@@ -279,13 +279,6 @@ class Module implements
                                     $hasParent = true;
                                 }
                             }
-                            
-                            // Are there games with a specific URL ?
-                            if (isset($configTheme['design']['package']['custom_games'])){
-                                foreach($configTheme['design']['package']['custom_games'] as $k=>$v){
-                                    $themeHierarchy[$themeId]['custom_games'][$k] = $v;
-                                }
-                            }
                         }
                     } else {
 
@@ -361,8 +354,9 @@ class Module implements
                         $config['assetic_configuration']['modules']['frontend']['root_path'][] = $tab['path'] . '/assets';
                     }
                     
-                    if(isset($tab['custom_games'])){
-                        foreach($tab['custom_games'] as $k=>$v){
+                    // If custom games need a specific route. I create these routes
+                    if(isset($config['custom_games'])){
+                        foreach($config['custom_games'] as $k=>$v){
                             // I take the url model of the game type
                             $routeModel = $config['router']['routes']['frontend']['child_routes'][$v['classType']];
                             
