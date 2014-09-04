@@ -44,7 +44,13 @@ class FrontendUrl extends Url
             $matches = $event->getParam('route-match', false);
         }
         
-        $route = ($matches && $matches->getParam('area'))? $matches->getParam('area').'/'.$route:$route;
+        if($matches && $matches->getParam('area')){
+            if($route && ltrim($route,'/') !== '' ){
+                $route = $matches->getParam('area').'/'.ltrim($route,'/');
+            } else {
+                $route = $matches->getParam('area');
+            }
+        }
         
         $link = parent::fromRoute($route, $params, $options, $reuseMatchedParams);
 
