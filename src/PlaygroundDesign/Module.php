@@ -357,33 +357,41 @@ class Module implements
                     // If custom games need a specific route. I create these routes
                     if(isset($config['custom_games'])){
                         foreach($config['custom_games'] as $k=>$v){
-                            // I take the url model of the game type
-                            $routeModel = $config['router']['routes']['frontend']['child_routes'][$v['classType']];
-                            
-                            // Changing the root of the route
-                            $routeModel['options']['route'] = '/';
-                            
-                            // and removing the trailing slash for each subsequent route
-                            foreach($routeModel['child_routes'] as $id=>$ar){
-                                $routeModel['child_routes'][$id]['options']['route'] = ltrim($ar['options']['route'], '/');
+                            if(isset($v['url'])){
+                                // I take the url model of the game type
+                                $routeModel = $config['router']['routes']['frontend']['child_routes'][$v['classType']];
+                                
+                                // Changing the root of the route
+                                $routeModel['options']['route'] = '/';
+                                
+                                // and removing the trailing slash for each subsequent route
+                                foreach($routeModel['child_routes'] as $id=>$ar){
+                                    $routeModel['child_routes'][$id]['options']['route'] = ltrim($ar['options']['route'], '/');
+                                }
+                                
+                                // then create the hostname route + appending the model updated
+                                $config['router']['routes']['frontend.'.$v['url']] = array(
+                                    'type' => 'Zend\Mvc\Router\Http\Hostname',
+                                    'options' => array(
+                                        'route' => $v['url'],
+                                        'defaults' => array(
+                                            'id' => $k,
+                                            'channel'=> 'embed'
+                                        )
+                                    ),
+                                    'may_terminate' => true
+                                );
+                                $config['router']['routes']['frontend.'.$v['url']]['child_routes'][$v['classType']] = $routeModel;
+                                
+                                $coreLayoutModel = $config['core_layout']['frontend'];
+                                $config['core_layout']['frontend.'.$v['url']] = $coreLayoutModel;
                             }
-                            
-                            // then create the hostname route + appending the model updated
-                            $config['router']['routes']['frontend.'.$v['url']] = array(
-                                'type' => 'Zend\Mvc\Router\Http\Hostname',
-                                'options' => array(
-                                    'route' => $v['url'],
-                                    'defaults' => array(
-                                        'id' => $k,
-                                        'channel'=> 'embed'
-                                    )
-                                ),
-                                'may_terminate' => true
-                            );
-                            $config['router']['routes']['frontend.'.$v['url']]['child_routes'][$v['classType']] = $routeModel;
-                            
-                            $coreLayoutModel = $config['core_layout']['frontend'];
-                            $config['core_layout']['frontend.'.$v['url']] = $coreLayoutModel;
+                            if(isset($v['assetic_configuration'])){
+                                foreach($v['assetic_configuration']['modules'] as $m => $d){
+                                    $v['assetic_configuration']['modules'][$m]['root_path'][] = __DIR__ . '/../../../../../design/frontend/'. $parentTheme[0] .'/'. $parentTheme[1] . '/custom/' . $k . '/assets';
+                                }
+                                $config['assetic_configuration'] = array_replace_recursive($config['assetic_configuration'], $v['assetic_configuration'] );
+                            }
                         }
                     }
                 }
