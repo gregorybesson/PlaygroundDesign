@@ -1,0 +1,58 @@
+<?php $this->plugin('translate')->setTranslatorTextDomain('playgrounddesign');// Pour le texte ?>
+
+<div class="wrap-footer" >
+    <div id="footer" class="row">
+		<div class="wrapper">
+			<div class="logo">
+	            <a href="<?php echo $this->url('frontend', array('channel' => $this->channel)) ?>">
+	                <img src="<?php echo $this->frontendAssetPath('images/common/logo-white.png')?>" />
+	            </a>
+	        </div>
+	        <ul class="footer-links">
+	            <li>
+	                <a href="<?php echo $this->url('frontend', array('channel' => $this->channel)) ?>"><?php echo $this->translate('Home'); ?></a>
+	            </li>
+	            <li>
+	                <a href="<?php echo $this->url('frontend/gameslist', array('channel' => $this->channel)) ?>"><?php echo $this->translate('All contests'); ?></a>
+	            </li>
+	            <li>
+	                <a href="<?php echo $this->url('frontend/winner', array('channel' => $this->channel)) ?>"><?php echo $this->translate('Winners'); ?></a>
+	            </li>
+	            <li>
+	                <a href="<?php echo $this->url('frontend/cms', array('id' => 'comment-ca-marche', 'channel' => $this->channel)); ?>"><?php echo $this->translate('How it works ?'); ?></a>
+	            </li>
+	            <li>
+	                <a href="<?php if($this->zfcUserIdentity()): echo $this->url('frontend/badges', array('channel' => $this->channel)); else : echo $this->url('frontend/zfcuser/register', array('channel' => $this->channel)) . ($this->redirect ? '?redirect='.$this->redirect : ''); endif; ?>"><?php echo $this->translate('My account'); ?></a>
+	            </li>
+	            <li>
+	                <a href="<?php echo $this->url('frontend/contact', array('channel' => $this->channel)) ?>"><?php echo $this->translate('Contact us'); ?></a>
+	            </li>
+	            <li>
+	                <a href="<?php echo $this->url('frontend/faq', array('channel' => $this->channel)) ?>"><?php echo $this->translate('FAQ'); ?></a>
+	            </li>
+	        </ul>
+	        <ul class="game-nav footer-links">
+	            <li class="title"><?php echo $this->translate('Contests'); ?>,<br /><?php echo $this->translate('to win'); ?> :</li>
+	            <?php $categories = $this->playgroundPrizeCategory(); ?>
+	            <?php foreach($categories as $category): ?>
+	                <li class="jeu-item">
+	                    <a href="<?php echo $this->url('frontend/prizecategories', array('channel' => $this->channel)) . $category->getIdentifier(); ?>"><?php //echo $this->translate($category->getTitle()); ?></a>
+	                </li>
+	            <?php endforeach ?>
+	        </ul>
+		</div>
+    </div>
+</div>
+<div id="reglement-popin" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+              Fermer
+          </button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

@@ -1,0 +1,27 @@
+<?php $this->plugin('translate')->setTranslatorTextDomain('playgrounddesign');// Pour le texte ?>
+
+<?php $container = $this->navigation()->breadcrumbs()  ?>
+<?php /* @var $container \Zend\View\Helper\Navigation\Breadcrumbs */ ?>
+<?php $navigation = $container->getContainer() ?>
+<?php /* @var $navigation \Zend\Navigation\Navigation */ ?>
+
+<ul class="breadcrumb">
+    <li>
+        <a href="<?php echo $this->url('frontend', array('channel' => $this->channel)) ?>"><?php echo $this->translate('Home'); ?></a>
+    </li>
+    <?php $active = $container->findActive($navigation) ?>
+    <?php foreach($this->pages as $page): ?>
+        <?php /* @var $page \Zend\Navigation\Page\Mvc */ ?>
+        <?php if( ! $page->isActive()): ?>
+            <li>
+                <a href="<?php echo $page->getHref() ?>"><?php echo $this->translate($page->getLabel()) ?></a>
+            </li>
+        <?php else: ?>
+            <li class="active">
+                <?php if($container->getLinkLast()): ?><a href="<?php echo $page->getHref() ?>"><?php endif ?>
+                <?php echo $this->translate($page->getLabel()) ?>
+                <?php if($container->getLinkLast()): ?></a><?php endif ?>
+            </li>
+        <?php endif ?>
+    <?php endforeach ?>
+</ul>

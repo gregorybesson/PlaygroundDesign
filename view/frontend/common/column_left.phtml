@@ -1,0 +1,185 @@
+<?php $this->plugin('translate')->setTranslatorTextDomain('playgrounddesign');// Pour le texte ?>
+
+<div id="sidebar-homepage" class="sidebar span4">
+	<!-- BLOCK TONNES CADEAUX -->
+    <div class="tonnes-cadeaux sd-block">
+    	<img src="<?php echo $this->frontendAssetPath('images/common/icon-gifts.png')?>" width="84" height="82" border="0" alt="gifts" />
+		<p class="green"><?php echo $this->translate('Win a lot of gits !'); ?></p>
+    	<div class="txt"><?php echo $this->translate('Sign up and join the Playground contests our partners to win loads of gifts.'); ?></div>
+    	<div class="accroche"><?php echo $this->translate('Playground is 100% free!'); ?></div>
+    	<div class="btn btn-success"><a href="#"><?php echo $this->translate('Sign up now!'); ?></a></div>
+    	<div class="btn btn-inverse"><a href="#"><?php echo $this->translate('Connection'); ?></a></div>
+    </div><!-- END BLOCK TONNES CADEAUX -->
+
+    <!-- ADSERVING SIDEBAR -->
+    <!--
+    <div id="ad-sidebar" class="sidebar-block">
+    	<img src="<?php //echo $this->frontendAssetPath('images/adserving/adserving-sidebar.jpg')?>" border="0" />
+    </div>
+    -->
+    <!-- END ADSERVING SIDEBAR -->
+
+    <?php if($this->facebookUrl()): ?>
+    <!-- BLOCK FACEBOOK -->
+    <div class="fb-box sd-block">
+    	<p class="green"><?php echo $this->translate('Join us on Facebook'); ?><?php echo $this->translate('Join us on Facebook'); ?></p>
+    	<div class="fb-like-box" data-href="<?php echo $this->facebookUrl(); ?>" data-width="225" data-height="250" data-show-faces="true" data-stream="false" data-border-color="#eeefef" data-header="false"></div>
+    </div><!-- END BLOCK FACEBOOK -->
+    <?php endif; ?>
+
+    <!-- BLOCK NEWSLETTER -->
+    <div class="sd-block newsletter">
+    	<img src="<?php echo $this->frontendAssetPath('images/common/icon-newsletter.png')?>" width="82" height="81" border="0" alt="newsletter" />
+		<p class="green"><?php echo $this->translate('Sign up for the newsletter and never miss a game!'); ?></p>
+    	<?php if(!$this->zfcUserIdentity()): ?>
+	    	<form action="" method="POST">
+	    		<input class="input" type="email" name="email" value="<?php echo $this->translate('Your email address'); ?>" onclick="if(this.value=='<?php echo $this->translate('Your email address'); ?>'){this.value=''}" onblur="if(this.value==''){this.value='<?php echo $this->translate('Your email address'); ?>'} " />
+	    		<input class="btn btn-greendark" type="submit" value="Ok"/>
+	    	</form>
+	    <?php else: ?>
+	    	<div class="btn btn-success"><a href="newsletter.php"><?php echo $this->translate('Sign up now!'); ?></a></div>
+	    <?php endif; ?>
+    </div><!-- END BLOCK NEWSLETTER -->
+
+    <!-- BLOCK HOW IT WORKS -->
+    <div class="sd-block how-works">
+    	<img src="<?php echo $this->frontendAssetPath('images/common/icon-question.png')?>" width="82" height="80" border="0" alt="question" />
+		<p class="green"><?php echo $this->translate('How it works ?'); ?></p>
+    	<ul class="links-list">
+    		<li class="connect"><a href="#"><?php echo $this->translate('Register or log in to your account'); ?></a></li>
+    		<li class="game-play"><a href="#"><?php echo $this->translate('Participate in contests to win prizes'); ?></a></li>
+    		<li class="gain-points"><a href="#"><?php echo $this->translate('Collect points and earn badges.'); ?></a></li>
+    	</ul>
+    	<div class="link">&gt; <a href="#" class="green"><?php echo $this->translate('See how to earn more points!'); ?></a></div>
+    </div><!-- END BLOCK HOW IT WORKS -->
+
+    <!-- BLOCK CLASSEMENT -->
+    <div class="sd-block ranking">
+    	<p class="green"><?php echo $this->translate('Ranking'); ?></p>
+    	<div class="filter-bar">
+    		<div class="filter week"><a href="#" class="active"><?php echo $this->translate('This week'); ?></a></div>
+    		<div class="filter general"><a href="#"><?php echo $this->translate('General'); ?></a></div>
+    	</div>
+    	<ul class="list">
+    		<li class="line first">
+    			<div class="rank">1</div>
+    			<div class="avatar"><img src="<?php echo $this->frontendAssetPath('images/content/homepage/avatar-1.png')?>" width="33" height="33" border="0" alt="avatar" /></div>
+    			<div class="name">Alexandre F.</div>
+    			<div class="points">(65 000 points)</div>
+    		</li>
+    		<li class="line second">
+    			<div class="rank">2</div>
+    			<div class="avatar"><img src="<?php echo $this->frontendAssetPath('images/content/homepage/avatar-2.png')?>" width="33" height="33" border="0" alt="avatar" /></div>
+    			<div class="name">Sandra L.</div>
+    			<div class="points">(64 000 points)</div>
+    		</li>
+    		<li class="line third">
+    			<div class="rank">3</div>
+    			<div class="avatar"><img src="<?php echo $this->frontendAssetPath('images/content/homepage/avatar-3.png')?>" width="33" height="33" border="0" alt="avatar" /></div>
+    			<div class="name">Harry E.</div>
+    			<div class="points">(63 000 points)</div>
+    		</li>
+    		<li class="line fourth">
+    			<div class="rank">4</div>
+    			<div class="avatar"><img src="<?php echo $this->frontendAssetPath('images/content/homepage/avatar-4.png')?>" width="33" height="33" border="0" alt="avatar" /></div>
+    			<div class="name">Matthieu P.</div>
+    			<div class="points">(61 000 points)</div>
+    		</li>
+    		<li class="line fifth">
+    			<div class="rank">5</div>
+    			<div class="avatar"><img src="<?php echo $this->frontendAssetPath('images/content/homepage/avatar-5.png')?>" width="33" height="33" border="0" alt="avatar" /></div>
+    			<div class="name">Pascal K.</div>
+    			<div class="points">(55 000 points)</div>
+    		</li>
+    		<?php if($this->zfcUserIdentity()): ?>
+	    		<li class="line current">
+					<div class="position"><?php echo $this->translate('Your position'); ?></div>
+					<div class="avatar">
+						<?php if($this->zfcUserIdentity()->getAvatar()):?>
+							<img src="<?php echo $this->basePath($this->zfcUserIdentity()->getAvatar()) ?>" width="33" height="33" border="0" alt="<?php echo $this->zfcUserIdentity()->getFirstname(); ?> <?php echo $this->zfcUserIdentity()->getLastname(); ?>" />
+						<?php else:?>
+							<?php if($this->zfcUserIdentity()->getTitle() && $this->zfcUserIdentity()->getTitle() == 'M'): ?>
+        			        	<img src="<?php echo $this->frontendAssetPath('images/header/no-avatar-h.png'); ?>" alt="no avatar" width="33" height="33" border="0" />
+        			 		<?php else: ?>
+        			        	<img src="<?php echo $this->frontendAssetPath('images/header/no-avatar-f.png'); ?>" alt="no avatar" width="33" height="33" border="0" />
+        			 		<?php endif; ?>
+        			    <?php endif;?>
+					</div>
+					<div class="points">10000 points</div>
+					<div class="rank">48 569<sup><?php echo $this->translate('other_place'); ?></sup> position</div>
+				</li>
+			<?php endif; ?>
+    	</ul>
+    	<div class="link">&gt; <a href="#" class="green"> <?php echo $this->translate('See the overall'); ?></a></div>
+    </div>
+
+    <!-- BLOC ACTIVITES RECENTES -->
+	<div class="sd-block activities">
+		<p class="green"><?php echo $this->translate('Recent activity'); ?></p>
+		<ul class="list">
+			<li>
+				<div class="avatar"><img src="<?php echo $this->frontendAssetPath('images/content/homepage/avatar-1.png')?>" width="33" height="33" border="0" alt="avatar" /></div>
+				<div class="infos"><span class="name">Constantin75018</span> <?php echo $this->translate('received the badge'); ?> <span class="badgename">NomduBadge</span></div>
+			</li>
+			<li>
+				<div class="avatar"><img src="<?php echo $this->frontendAssetPath('images/content/homepage/avatar-2.png')?>" width="33" height="33" border="0" alt="avatar" /></div>
+				<div class="infos"><span class="name">Anne-Laure F.</span> <?php echo $this->translate('received the badge'); ?> <span class="badgename">NomduBadge</span></div>
+			</li>
+			<li>
+				<div class="avatar"><img src="<?php echo $this->frontendAssetPath('images/content/homepage/avatar-3.png')?>" width="33" height="33" border="0" alt="avatar" /></div>
+				<div class="infos"><span class="name">Jean-Charles D.</span> <?php echo $this->translate('received the badge'); ?> <span class="badgename">NomduBadge</span></div>
+			</li>
+			<li>
+				<div class="avatar"><img src="<?php echo $this->frontendAssetPath('images/content/homepage/avatar-4.png')?>" width="33" height="33" border="0" alt="avatar" /></div>
+				<div class="infos"><span class="name">Sophie75008</span> <?php echo $this->translate('received the badge'); ?> <span class="badgename">NomduBadge</span></div>
+			</li>
+			<li>
+				<div class="avatar"><img src="<?php echo $this->frontendAssetPath('images/content/homepage/avatar-5.png')?>" width="33" height="33" border="0" alt="avatar" /></div>
+				<div class="infos"><span class="name">Robert C.</span> <?php echo $this->translate('received the badge'); ?> <span class="badgename">NomduBadge</span></div>
+			</li>
+		</ul>
+	</div><!-- END BLOC ACTIVITES RECENTES -->
+
+	<!-- BLOC NEWS -->
+	<div class="sd-block news-feed">
+		<p class="green">Sur TF1</p>
+		<div class="news-one">
+			<div class="head-news"><span>A la une</span></div>
+			<a href="#">
+				<img src="<?php echo $this->frontendAssetPath('images/content/homepage/img-une.jpg')?>" height="120" border="0" alt="actualité à la une : Affaire Merah" />
+				<div class="title-news">UMP : "La messe n'est pas encore dite"</div>
+				<div class="content-news">La situation semble s'enliser à l'UMP. Craignez-vous des dégâts irréparables ? </div>
+			</a>
+		</div>
+		<div class="news-list">
+			<div class="head-news"><span>Dans l’actu</span></div>
+			<ul>
+				<li>
+					<a href="#">
+						<img src="<?php echo $this->frontendAssetPath('images/content/homepage/img-actu.jpg')?>" height="63" border="0" alt="actualité : Affaire Merah" />
+						<div class="content-news">Affaire Merah : le gardé à vue nie être le "troisième homme"</div>
+					</a>
+				</li>
+				<li class="right">
+					<a href="#">
+						<img src="<?php echo $this->frontendAssetPath('images/content/homepage/img-actu.jpg')?>" height="63" border="0" alt="actualité : Affaire Merah" />
+						<div class="content-news">Affaire Merah : le gardé à vue nie être le "troisième homme"</div>
+					</a>
+				</li>
+				<li class="right">
+					<a href="#">
+						<img src="<?php echo $this->frontendAssetPath('images/content/homepage/img-actu.jpg')?>" height="63" border="0" alt="actualité : Affaire Merah" />
+						<div class="content-news">Affaire Merah : le gardé à vue nie être le "troisième homme"</div>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<img src="<?php echo $this->frontendAssetPath('images/content/homepage/img-actu.jpg')?>" height="63" border="0" alt="actualité : Affaire Merah" />
+						<div class="content-news">Affaire Merah : le gardé à vue nie être le "troisième homme"</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div><!-- END BLOC NEWS -->
+
+</div>
