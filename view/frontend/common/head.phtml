@@ -1,0 +1,29 @@
+<?php $this->plugin('translate')->setTranslatorTextDomain('playgrounddesign');// Pour le texte ?>
+
+<?php echo $this->headTitle($this->translate('Playground'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+<?php
+$this->headMeta()->setCharset('UTF-8');
+$this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable = no');
+?>
+<?php echo $this->headMeta(); ?>
+
+<!-- Le styles -->
+<?php /*echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/images/favicon.ico'))
+                ->prependStylesheet($this->basePath() . '/css/ie7.css', 'screen', 'IE 7')
+                ->prependStylesheet($this->basePath() . '/css/ie8.css', 'screen', 'IE 8')
+                ->prependStylesheet($this->basePath() . '/css/ie.css', 'screen', 'IE')
+*/
+                ?>
+
+<!-- Scripts -->
+<?php /* echo $this->headScript()->prependFile($this->basePath() . '/js/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+							  ->prependFile($this->basePath() . '/js/lib/pie.js', 'text/javascript', array('conditional' => 'IE 8',))
+							  ->prependFile($this->basePath() . '/js/lib/selectivizr-min.js', 'text/javascript', array('conditional' => 'IE',))
+*/ ?>
+         
+<?php
+	echo $this->plugin('HeadLink');
+    echo $this->plugin('HeadStyle');
+    echo $this->plugin('HeadScript');
+?>

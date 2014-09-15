@@ -208,26 +208,25 @@ class ThemeAdminController extends AbstractActionController
                 if(is_dir($directoryThemes.'/'.$file)){
                     $nbTheme = $this->checkAssets($directoryThemes.'/'.$file, $nbTheme);
                 }else{
-                    if($file=="assets.php"){
+                    if($file=="theme.php"){
                         $themeDefine = explode('//', $directoryThemes.'/'.$file);
                         $themeDefine = explode('/', $themeDefine[1]);
                         $area = $themeDefine[0];
-                        if(file_exists($directoryThemes.'/theme.php')) {
-                            $themeArray = include($directoryThemes.'/theme.php');
-                            $package = $themeArray['design']['package']['code'];
-                            $title = $themeArray['design']['package']['theme']['title'];
-                            $themeCode = $themeArray['design']['package']['theme']['code'];
+                        
+                        $themeArray = include($directoryThemes.'/theme.php');
+                        $package = $themeArray['design']['package']['code'];
+                        $title = $themeArray['design']['package']['theme']['title'];
+                        $themeCode = $themeArray['design']['package']['theme']['code'];
 
-                            $themes = $this->getAdminThemeService()->findThemeByAreaPackageAndBase($area, $package, $themeCode);
-                            if(sizeof($themes) == 0) {
-                                $theme = new ThemeEntity();
-                                $theme->setTitle($title);
-                                $theme->setArea($area);
-                                $theme->setPackage($package);
-                                $theme->setTheme($themeCode);
-                                $this->getAdminThemeService()->insert($theme);
-                                $nbTheme ++;
-                            }
+                        $themes = $this->getAdminThemeService()->findThemeByAreaPackageAndBase($area, $package, $themeCode);
+                        if(sizeof($themes) == 0) {
+                            $theme = new ThemeEntity();
+                            $theme->setTitle($title);
+                            $theme->setArea($area);
+                            $theme->setPackage($package);
+                            $theme->setTheme($themeCode);
+                            $this->getAdminThemeService()->insert($theme);
+                            $nbTheme ++;
                         }
                     }
                 }
