@@ -15,7 +15,10 @@ class FrontendUrl extends ZendUrl {
 
     public function __invoke($name = null, $params = array(), $options = array(), $reuseMatchedParams = true) {
         
-        $name = ($this->routeMatch && $this->routeMatch->getParam('area'))? $this->routeMatch->getParam('area').'/'.$name:$name;
+        $name = ($this->routeMatch && $this->routeMatch->getParam('area'))
+            ? $this->routeMatch->getParam('area') . (
+                $name ? '/' . $name : ''
+            ) : $name;
         
         $link = parent::__invoke($name, $params, $options, $reuseMatchedParams);
 
