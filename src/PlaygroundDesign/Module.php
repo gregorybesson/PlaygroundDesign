@@ -928,6 +928,11 @@ class Module implements
     {
         return array(
             'factories' => array(
+                // overriding wilmogrod Assetic definition
+                'AsseticBundle\Configuration' => function ($sm) {
+                    $configuration = $sm->get('Configuration');
+                    return new Assetic\Configuration($configuration['assetic_configuration']);
+                },
                 'admin_navigation' => 'PlaygroundDesign\Service\AdminNavigationFactory',
                 'playgrounddesign_module_options' => function ($sm) {
                     $config = $sm->get('Configuration');

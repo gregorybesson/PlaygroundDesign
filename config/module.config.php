@@ -51,6 +51,10 @@ return array(
             'translator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
             'nav' => 'Zend\Navigation\Service\DefaultNavigationFactory',
         ),
+        'invokables' => array(
+            // this definition has to be done here to override Wilmogrod Assetic declaration
+            'AsseticBundle\Listener' => 'PlaygroundDesign\Assetic\Listener',
+        ),
     ),
 
     'assetic_configuration' => array(
