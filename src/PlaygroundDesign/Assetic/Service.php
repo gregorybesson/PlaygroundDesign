@@ -12,14 +12,45 @@ use Assetic\Asset\AssetCache;
 use Assetic\Cache\FilesystemCache;
 use Zend\View\Renderer\RendererInterface as Renderer;
 use AsseticBundle\View\StrategyInterface;
-use AsseticBundle\Configuration;
+use PlaygroundDesign\Assetic\Configuration;
 
 class Service extends \AsseticBundle\Service
 {
+    
+    /**
+     * @var array of route params
+     */
+    protected $params = array();
 
     public function __construct(Configuration $configuration)
     {
         parent::__construct($configuration);
+    }
+    
+    /**
+     * @param array $params
+     */
+    public function setParams($params)
+    {
+        $this->params = $params;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getParams()
+    {
+        return $this->params;
+    }
+    
+    /**
+     * Adding route Params to specialize assets on params like channel or game id
+     * @see \AsseticBundle\Service::getRouterConfig()
+     */
+    public function getRouterConfig()
+    {
+        $assetOptions = $this->configuration->getRoute($this->getRouteName(), $this->getParams());
+        return $assetOptions ? $assetOptions : array();
     }
 
     /**
