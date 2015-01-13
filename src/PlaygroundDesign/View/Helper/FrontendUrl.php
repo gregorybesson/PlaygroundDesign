@@ -15,10 +15,19 @@ class FrontendUrl extends ZendUrl {
 
     public function __invoke($name = null, $params = array(), $options = array(), $reuseMatchedParams = true) {
         
-        $name = ($this->routeMatch && $this->routeMatch->getParam('area'))
-            ? $this->routeMatch->getParam('area') . (
-                $name ? '/' . $name : ''
-            ) : $name;
+        if($this->routeMatch && $this->routeMatch->getParam('area')){
+        	if($name){
+        		$name = $this->routeMatch->getParam('area') . '/' . $name;
+        	} else {
+        		$name = $this->routeMatch->getParam('area');
+        	}
+        } else if($name){
+        	if (strtolower(substr($name, 0, 8)) != 'frontend'){
+       			$name = 'frontend/' . $name;
+       		}
+        } else {
+        	$name = 'frontend';
+        }
         
         $link = parent::__invoke($name, $params, $options, $reuseMatchedParams);
 
