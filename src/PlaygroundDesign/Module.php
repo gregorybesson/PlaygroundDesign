@@ -90,6 +90,7 @@ class Module implements
             // ********************************************
             // Check if a frontend theme is set in database
             // ********************************************
+            $themeActivated = null;
             $select = $sql->select();
             $select->from('design_theme');
             $select->where(array('is_active' => 1, 'area' => 'frontend'));
