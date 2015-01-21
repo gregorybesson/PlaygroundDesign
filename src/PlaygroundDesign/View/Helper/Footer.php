@@ -31,9 +31,7 @@ class Footer extends AbstractHelper
 
         $vm = new ViewModel();
         $vm->setTemplate($template);
-        $vm->setVariables(array(
-            'channel' => $channel,
-        ));
+        $vm->setVariables($options);
         return $this->getView()->render($vm, array());
 
     }
