@@ -11,7 +11,7 @@ return array(
         'rule_providers' => array(
             'BjyAuthorize\Provider\Rule\Config' => array(
                 'allow' => array(
-                    array(array('admin'), 'design',         array('system')),
+                    array(array('admin'), 'design',         array('menu','system')),
                 ),
             ),
         ),
@@ -646,7 +646,7 @@ return array(
                 'label' => 'Configuration',
                 'route' => 'admin/playgrounddesign_companyadmin',
                 'resource' => 'design',
-                'privilege' => 'system',
+                'privilege' => 'menu',
                 'pages' => array(
                     'company' => array(
                         'label' => 'Company',
