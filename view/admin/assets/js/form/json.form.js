@@ -156,6 +156,7 @@ var commonsJson = function (formElements, typeName, classType, typeType){
             });
         } else if (classType === 'form_dropdown'){
             var innerData = [];
+            var s = ($(this).find('[selected="selected"]'));
 
             $('option.dropdown_option').each(function(){
                 innerData.push({
@@ -174,7 +175,7 @@ var commonsJson = function (formElements, typeName, classType, typeType){
                     'class': li.find('[name="class"]').attr("value"),
                     'id': li.find('[name="id"]').attr("value"),
                     'notinarray': li.find('[name="notinarray"]').attr("value"),
-                    'default': $(this).find('[selected="selected"]').attr('id').replace(/[^\d.]/g, "")
+                    'default': (s.length !== 0)? s.attr('id').replace(/[^\d.]/g, ""): -1
                 }
             });
         } else if (classType === 'form_input'){

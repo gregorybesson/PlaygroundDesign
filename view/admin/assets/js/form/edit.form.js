@@ -58,13 +58,14 @@ var editLineText = function editLineText (id, type){
     //line_checkbox and line_radio
     var numberIdEdit    = liId.find('input[name="label_class"]').val();
     var numberClassEdit = liId.find('input[name="label_id"]').val();
-    //TODO : get values from the checkbox
+    var tabValues       = liId.find('.span_checkbox .checkbox');
 
     //line_radio
     //TODO : get values from the radio
 
     //line_dropdown
     var notinarrayEdit = liId.find('input[name="number_notinarray"]').val();
+    var dropDownValues = liId.find('.dropdown .dropdown_option');
 
     //line_upload
     var filesizeMinEdit          = liId.find('input[name="upload_filesize_min"]').val();
@@ -142,6 +143,9 @@ var editLineText = function editLineText (id, type){
 
         liClass.find('input[name="number_label_class"]').val(numberIdEdit);
         liClass.find('input[name="number_label_id"]').val(numberClassEdit);
+        liClass.find('.duplicate_input input').each(function(index, data){
+            $(this).val(tabValues[index].innerText);
+        });
     }
 
     if(type == 'line_radio'){
@@ -155,6 +159,9 @@ var editLineText = function editLineText (id, type){
         defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, idEdit);
 
         liClass.find('input[name="number_notinarray"]').val(notinarrayEdit);
+        liClass.find('.duplicate_input input').each(function(index, data){
+            $(this).val(dropDownValues[index].innerText);
+        });
     }
 
     if(type == 'line_upload'){
