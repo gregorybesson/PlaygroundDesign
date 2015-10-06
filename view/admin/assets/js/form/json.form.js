@@ -109,9 +109,9 @@ var commonsJson = function (formElements, typeName, classType, typeType){
         if (classType === 'form_checkbox'){
             var innerData = [];
 
-            $('span.span_checkbox', $(this)).each(function (){
+            li.find('.span_checkbox .checkbox', $(this)).each(function (){
                 innerData.push({
-                    'label': $(this).find('label.checkbox').text()
+                    'label': $(this).text()
                 });
             });
 
@@ -134,9 +134,9 @@ var commonsJson = function (formElements, typeName, classType, typeType){
         } else if (classType === 'form_radio'){
             var innerData = [];
 
-            $('span.span_radio').each(function(){
+            li.find('.span_radio .radio', $(this)).each(function (){
                 innerData.push({
-                    'label': $(this).find('label.radio').text()
+                    'label': $(this).text()
                 });
             });
 
@@ -158,7 +158,7 @@ var commonsJson = function (formElements, typeName, classType, typeType){
             var innerData = [];
             var s = ($(this).find('[selected="selected"]'));
 
-            $('option.dropdown_option').each(function(){
+            li.find('option.dropdown_option').each(function(){
                 innerData.push({
                     'dropdown_label': $(this).html(),
                     'default': $(this).attr("selected")
