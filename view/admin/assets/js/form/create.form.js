@@ -21,7 +21,7 @@ $(document).ready(function() {
 	
 	$(document).on("click", ".edit_form_checkbox .edit_li", function () {
        var liId = $(this).parent().attr('id'),
-           size = $(this).parent().find('.span_checkbox').size();
+           size = $(this).parent().find('.span_checkbox').length;
        secondTab.tab('show');
        $.get(basepath+'/formgen/checkbox', { name: "Edit Checkbox Field", id: liId, 'length': size}).done(function(data) {
            fieldProp.html(data);
