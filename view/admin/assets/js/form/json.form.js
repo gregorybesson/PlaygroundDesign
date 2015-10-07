@@ -109,9 +109,9 @@ var commonsJson = function (formElements, typeName, classType, typeType){
         if (classType === 'form_checkbox'){
             var innerData = [];
 
-            $('span.span_checkbox', $(this)).each(function (){
+            li.find('.span_checkbox .checkbox', $(this)).each(function (){
                 innerData.push({
-                    'label': $(this).find('label.checkbox').text()
+                    'label': $(this).text()
                 });
             });
 
@@ -134,9 +134,9 @@ var commonsJson = function (formElements, typeName, classType, typeType){
         } else if (classType === 'form_radio'){
             var innerData = [];
 
-            $('span.span_radio').each(function(){
+            li.find('.span_radio .radio', $(this)).each(function (){
                 innerData.push({
-                    'label': $(this).find('label.radio').text()
+                    'label': $(this).text()
                 });
             });
 
@@ -149,15 +149,16 @@ var commonsJson = function (formElements, typeName, classType, typeType){
                     'innerData': innerData,
                     'class': li.find('[name="class"]').attr("value"),
                     'id': li.find('[name="id"]').attr("value"),
-                    'default': $(this).find('[checked="checked"]').attr('id').replace(/[^\d.]/g, ""),
+                    'default': (li.find(':checked').attr('id'))?li.find(':checked').attr('id').replace(/[^\d.]/g, ""):0,
                     'label_class': li.find('[name="label_class"]').attr("value"),
                     'label_id': li.find('[name="label_id"]').attr("value")
                 }
             });
         } else if (classType === 'form_dropdown'){
             var innerData = [];
+            var s = ($(this).find('[selected="selected"]'));
 
-            $('option.dropdown_option').each(function(){
+            li.find('option.dropdown_option').each(function(){
                 innerData.push({
                     'dropdown_label': $(this).html(),
                     'default': $(this).attr("selected")
@@ -174,7 +175,7 @@ var commonsJson = function (formElements, typeName, classType, typeType){
                     'class': li.find('[name="class"]').attr("value"),
                     'id': li.find('[name="id"]').attr("value"),
                     'notinarray': li.find('[name="notinarray"]').attr("value"),
-                    'default': $(this).find('[selected="selected"]').attr('id').replace(/[^\d.]/g, "")
+                    'default': (s.length !== 0)? s.attr('id').replace(/[^\d.]/g, ""): -1
                 }
             });
         } else if (classType === 'form_input'){

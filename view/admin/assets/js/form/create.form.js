@@ -18,15 +18,25 @@ $(document).ready(function() {
 	$(document).on("click", ".delete_li", function () {
 		$(this).parent().remove();
 	});
+
+	$(document).on("click", ".edit_form_dropdown .edit_li", function () {
+       	var liId = $(this).parent().attr('id'),
+        	size = $(this).parent().find('.dropdown .dropdown_option').length;
+       	secondTab.tab('show');
+       	$.get(basepath+'/formgen/dropdown', { name: "Edit Dropdown Field", id: liId, 'length': size}).done(function(data) {
+           	fieldProp.html(data);
+            editLineText(liId, 'line_dropdown');
+       	});
+	});
 	
 	$(document).on("click", ".edit_form_checkbox .edit_li", function () {
-       var liId = $(this).parent().attr('id'),
-           size = $(this).parent().find('.span_checkbox').size();
-       secondTab.tab('show');
-       $.get(basepath+'/formgen/checkbox', { name: "Edit Checkbox Field", id: liId, 'length': size}).done(function(data) {
-           fieldProp.html(data);
-              editLineText(liId, 'line_checkbox');
-       });
+       	var liId = $(this).parent().attr('id'),
+        	size = $(this).parent().find('.span_checkbox').length;
+       	secondTab.tab('show');
+       	$.get(basepath+'/formgen/checkbox', { name: "Edit Checkbox Field", id: liId, 'length': size}).done(function(data) {
+        	fieldProp.html(data);
+            editLineText(liId, 'line_checkbox');
+       	});
 	});
 	       
 	$(document).on("click", ".edit_form_radio .edit_li", function () {

@@ -58,34 +58,35 @@ var editLineText = function editLineText (id, type){
     //line_checkbox and line_radio
     var numberIdEdit    = liId.find('input[name="label_class"]').val();
     var numberClassEdit = liId.find('input[name="label_id"]').val();
-    //TODO : get values from the checkbox
+    var tabValues       = liId.find('.span_checkbox .checkbox');
 
     //line_radio
-    //TODO : get values from the radio
+    var radioValues       = liId.find('.span_radio .radio');
 
     //line_dropdown
     var notinarrayEdit = liId.find('input[name="number_notinarray"]').val();
+    var dropDownValues = liId.find('.dropdown .dropdown_option');
 
     //line_upload
-    var filesizeMinEdit          = liId.find('input[name="upload_filesize_min"]').val();
-    var filesizeMaxEdit          = liId.find('input[name="upload_filesize_max"]').val();
-    var filefilesizeMinEdit      = liId.find('input[name="upload_filefilessize_min"]').val();
-    var filefilesizeMaxEdit      = liId.find('input[name="upload_filefilessize_max"]').val();
-    var filecounMinEdit          = liId.find('input[name="upload_filecount_min"]').val();
-    var filecounMaxEdit          = liId.find('input[name="upload_filecount_max"]').val();
-    var fileexcludeextensionEdit = liId.find('input[name="upload_fileexcludeextension"]').val();
-    var filemimetypeEdit         = liId.find('input[name="upload_filemimetype"]').val();
-    var fileexcludemimetypeEdit  = liId.find('input[name="upload_fileexcludemimetype"]').val();
-    var fileexistsEdit           = liId.find('input[name="upload_fileexists"]').val();
-    var fileextensionEdit        = liId.find('input[name="upload_fileextension"]').val();
-    var minheightEdit            = liId.find('input[name="upload_fileimagesize_minheight"]').val();
-    var maxheightEdit            = liId.find('input[name="upload_fileimagesize_maxheight"]').val();
-    var minwidthEdit             = liId.find('input[name="upload_fileimagesize_minwidth"]').val();
-    var maxwidthEdit             = liId.find('input[name="upload_fileimagesize_maxwidth"]').val();
-    var fileiscompressedEdit     = liId.find('input[name="upload_fileiscompressed"]').val();
-    var fileisimageEdit          = liId.find('input[name="upload_fileisimage"]').val();
-    var filewordcountMinEdit     = liId.find('input[name="upload_filewordcount_min"]').val();
-    var filewordcountMaxEdit     = liId.find('input[name="upload_filewordcount_max"]').val();
+    var filesizeMinEdit          = liId.find('input[name="filesize_min"]').val();
+    var filesizeMaxEdit          = liId.find('input[name="filesize_max"]').val();
+    var filefilesizeMinEdit      = liId.find('input[name="filefilessize_min"]').val();
+    var filefilesizeMaxEdit      = liId.find('input[name="filefilessize_max"]').val();
+    var filecounMinEdit          = liId.find('input[name="filecount_min"]').val();
+    var filecounMaxEdit          = liId.find('input[name="filecount_max"]').val();
+    var fileexcludeextensionEdit = liId.find('input[name="fileexcludeextension"]').val();
+    var filemimetypeEdit         = liId.find('input[name="filemimetype"]').val();
+    var fileexcludemimetypeEdit  = liId.find('input[name="fileexcludemimetype"]').val();
+    var fileexistsEdit           = liId.find('input[name="fileexists"]').val();
+    var fileextensionEdit        = liId.find('input[name="fileextension"]').val();
+    var minheightEdit            = liId.find('input[name="fileimagesize_minheight"]').val();
+    var maxheightEdit            = liId.find('input[name="fileimagesize_maxheight"]').val();
+    var minwidthEdit             = liId.find('input[name="fileimagesize_minwidth"]').val();
+    var maxwidthEdit             = liId.find('input[name="fileimagesize_maxwidth"]').val();
+    var fileiscompressedEdit     = liId.find('input[name="fileiscompressed"]').val();
+    var fileisimageEdit          = liId.find('input[name="fileisimage"]').val();
+    var filewordcountMinEdit     = liId.find('input[name="filewordcount_min"]').val();
+    var filewordcountMaxEdit     = liId.find('input[name="filewordcount_max"]').val();
 
     if(type == 'line_text'){
         defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, idEdit);
@@ -142,6 +143,9 @@ var editLineText = function editLineText (id, type){
 
         liClass.find('input[name="number_label_class"]').val(numberIdEdit);
         liClass.find('input[name="number_label_id"]').val(numberClassEdit);
+        liClass.find('.duplicate_input input').each(function(index, data){
+            $(this).val(tabValues[index].innerText);
+        });
     }
 
     if(type == 'line_radio'){
@@ -149,36 +153,42 @@ var editLineText = function editLineText (id, type){
 
         liClass.find('input[name="number_label_class"]').val(numberIdEdit);
         liClass.find('input[name="number_label_id"]').val(numberClassEdit);
+        liClass.find('.duplicate_input input').each(function(index, data){
+            $(this).val(radioValues[index].innerText);
+        });
     }
 
     if(type == 'line_dropdown'){
         defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, idEdit);
 
         liClass.find('input[name="number_notinarray"]').val(notinarrayEdit);
+        liClass.find('.duplicate_input input').each(function(index, data){
+            $(this).val(dropDownValues[index].innerText);
+        });
     }
 
     if(type == 'line_upload'){
         defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, idEdit);
 
-        liClass.find('input[name="filesize_min"]').val(filesizeMinEdit);
-        liClass.find('input[name="filesize_max"]').val(filesizeMaxEdit);
-        liClass.find('input[name="filefilessize_min"]').val(filefilesizeMinEdit);
-        liClass.find('input[name="filefilessize_max"]').val(filefilesizeMaxEdit);
-        liClass.find('input[name="filecount_min"]').val(filecounMinEdit);
-        liClass.find('input[name="filecount_max"]').val(filecounMaxEdit);
-        liClass.find('input[name="fileexcludeextension"]').val(fileexcludeextensionEdit);
-        liClass.find('input[name="filemimetype"]').val(filemimetypeEdit);
-        liClass.find('input[name="fileexcludemimetype"]').val(fileexcludemimetypeEdit);
-        liClass.find('input[name="filemimetype"]').val(fileexistsEdit);
-        liClass.find('input[name="fileexists"]').val(fileextensionEdit);
-        liClass.find('input[name="fileimagesize_minheight"]').val(minheightEdit);
-        liClass.find('input[name="fileimagesize_maxheight"]').val(maxheightEdit);
-        liClass.find('input[name="fileimagesize_minwidth"]').val(minwidthEdit);
-        liClass.find('input[name="fileimagesize_maxwidth"]').val(maxwidthEdit);
-        liClass.find('input[name="fileiscompressed"]').val(fileiscompressedEdit);
-        liClass.find('input[name="fileisimage"]').val(fileisimageEdit);
-        liClass.find('input[name="filewordcount_min"]').val(filewordcountMinEdit);
-        liClass.find('input[name="filewordcount_max"]').val(filewordcountMaxEdit);
+        liClass.find('input[name="upload_filesize_min"]').val(filesizeMinEdit);
+        liClass.find('input[name="upload_filesize_max"]').val(filesizeMaxEdit);
+        liClass.find('input[name="upload_filefilessize_min"]').val(filefilesizeMinEdit);
+        liClass.find('input[name="upload_filefilessize_max"]').val(filefilesizeMaxEdit);
+        liClass.find('input[name="upload_filecount_min"]').val(filecounMinEdit);
+        liClass.find('input[name="upload_filecount_max"]').val(filecounMaxEdit);
+        liClass.find('input[name="upload_fileexcludeextension"]').val(fileexcludeextensionEdit);
+        liClass.find('input[name="upload_filemimetype"]').val(filemimetypeEdit);
+        liClass.find('input[name="upload_fileexcludemimetype"]').val(fileexcludemimetypeEdit);
+        liClass.find('input[name="upload_filemimetype"]').val(fileexistsEdit);
+        liClass.find('input[name="upload_fileexists"]').val(fileextensionEdit);
+        liClass.find('input[name="upload_fileimagesize_minheight"]').val(minheightEdit);
+        liClass.find('input[name="upload_fileimagesize_maxheight"]').val(maxheightEdit);
+        liClass.find('input[name="upload_fileimagesize_minwidth"]').val(minwidthEdit);
+        liClass.find('input[name="upload_fileimagesize_maxwidth"]').val(maxwidthEdit);
+        liClass.find('input[name="upload_fileiscompressed"]').val(fileiscompressedEdit);
+        liClass.find('input[name="upload_fileisimage"]').val(fileisimageEdit);
+        liClass.find('input[name="upload_filewordcount_min"]').val(filewordcountMinEdit);
+        liClass.find('input[name="upload_filewordcount_max"]').val(filewordcountMaxEdit);
     }
 
     //console.log(liId);

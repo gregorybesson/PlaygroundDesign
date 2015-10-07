@@ -411,8 +411,8 @@ var line_radio = function (liId, theForm, fieldProp, uniqueId, liClass)
     hiddenRequired('label_class', '').appendTo(li);
     hiddenRequired('label_id', '').appendTo(li);
 
-	formButton("Delete", "delete_li").appendTo(li);
-	formButton("Edit", "edit_li").appendTo(li);
+	formButton("Supprimer", "delete_li").appendTo(li);
+	formButton("Editer", "edit_li").appendTo(li);
 
     clearBoth().appendTo(li);
 };
@@ -446,8 +446,8 @@ var line_dropdown = function (liId, theForm, fieldProp, uniqueId, liClass)
     hiddenRequired('class', '').appendTo(li);
     hiddenRequired('id', '').appendTo(li);
 
-	formButton("Delete", "delete_li").appendTo(li);
-	formButton("Edit", "edit_li").appendTo(li);
+	formButton("Supprimer", "delete_li").appendTo(li);
+	formButton("Editer", "edit_li").appendTo(li);
 
     clearBoth().appendTo(li);
 };

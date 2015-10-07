@@ -1,7 +1,7 @@
-/.project
-/vendor
-/composer.lock
-.settings
+vendor/
+build/
 composer.phar
-/.buildpath
-/build
+.DS_Store
+.buildpath
+.project
+.settings
