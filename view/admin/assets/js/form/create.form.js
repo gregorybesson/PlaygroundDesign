@@ -87,6 +87,16 @@ $(document).ready(function() {
 	    });
 	});
 
+	$(document).on("click", ".edit_form_password .edit_li", function () {
+		var liId = $(this).parent().attr('id');
+		secondTab.tab('show');
+
+		$.get(basepath+'/formgen/password', { name: "Edit Password Field", id: liId}).done(function(data) {
+			fieldProp.html(data);
+            editLineText(liId, 'line_password');
+	    });
+	});
+
 	$('#add_form_element a').click(function (e) {
 		e.preventDefault();
 		$(this).tab('show');
@@ -205,13 +215,13 @@ $(document).ready(function() {
 
         line_password(liId, theForm, fieldProp, uniqueId, "edit_form_password");
 
-		$('#'+ liId +' .edit_li').click(function () {
-			secondTab.tab('show');
-			$.get(basepath+'/formgen/password', { name: "Edit Password Field", id: liId}).done(function(data) {
-				fieldProp.html(data);
-                editLineText(liId, 'line_password');
-		    });
-		});
+		// $('#'+ liId +' .edit_li').click(function () {
+		// 	secondTab.tab('show');
+		// 	$.get(basepath+'/formgen/password', { name: "Edit Password Field", id: liId}).done(function(data) {
+		// 		fieldProp.html(data);
+  //               editLineText(liId, 'line_password');
+		//     });
+		// });
 
 		uniqueId++;
 	});
