@@ -154,8 +154,8 @@ var line_password = function (liId, theForm, fieldProp, uniqueId, liClass)
     hiddenRequired('min', '').appendTo(li);
     hiddenRequired('max', '').appendTo(li);
 
-    formButton("Delete", "delete_li").appendTo(li);
-    formButton("Edit", "edit_li").appendTo(li);
+    formButton("Supprimer", "delete_li").appendTo(li);
+    formButton("Editer", "edit_li").appendTo(li);
 
     clearBoth().appendTo(li);
 };
