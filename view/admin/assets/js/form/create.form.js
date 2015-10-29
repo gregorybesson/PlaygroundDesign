@@ -97,6 +97,16 @@ $(document).ready(function() {
 	    });
 	});
 
+	$(document).on("click", ".edit_form_hidden .edit_li", function () {
+	     
+		var liId = $(this).parent().attr('id');
+		secondTab.tab('show');
+		$.get(basepath+'/formgen/hidden', { name: "Editer le champ caché", id: liId}).done(function(data) {
+			fieldProp.html(data);
+            editLineText(liId, 'line_text');
+	    });
+	});
+
 	$('#add_form_element a').click(function (e) {
 		e.preventDefault();
 		$(this).tab('show');
