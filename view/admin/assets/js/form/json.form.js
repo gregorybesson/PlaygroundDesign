@@ -192,7 +192,8 @@ var commonsJson = function (formElements, typeName, classType, typeType){
                     'length' : {
                         'min' : li.find('[name="min"]').attr("value"),
                         'max' : li.find('[name="max"]').attr("value")
-                    }
+                    },
+                    'validator': li.find('[name="validator"]').attr("value")
                 }
             });
         } else if (classType === 'form_date'){
@@ -389,7 +390,8 @@ var commonsJson = function (formElements, typeName, classType, typeType){
                     'length' : {
                         'min' : li.find('[name="min"]').attr("value"),
                         'max' : li.find('[name="max"]').attr("value")
-                    }
+                    },
+                    'validator': li.find('[name="validator"]').attr("value")
                 }
             });
         }

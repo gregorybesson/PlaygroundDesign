@@ -152,7 +152,7 @@ $(document).ready(function() {
             //formValidatorElements.push(textValidator(lineHidden, 'hidden'));
         }
 
-        console.log(form[i]);
+        //console.log(form[i]);
     }
 
     formElements.push(csrf());

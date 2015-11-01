@@ -326,6 +326,9 @@ $(document).ready(function()
         // set hidden label id
         $('#' + formField + ' input[name="label_id"]').attr("value", formJson.number_label_id);
 
+        // set hidden additional validator
+        $('#' + formField + ' input[name="validator"]').attr("value", formJson.validator);
+
         // set email
         if(specificType === 'email'){
             $('#' + formField + ' input[name="invalid_type"]').attr("value", formJson.invalid_type);
@@ -402,7 +405,7 @@ $(document).ready(function()
             });
 
             $('#' + formField + ' input[name="number_notinarray"]').attr("value", formJson.number_notinarray);
-            console.log(formField);
+            //console.log(formField);
         }
 
         $('#' + formField).css({'background-color' : '#87ffc1'}).animate({backgroundColor: '#ffffff'},{duration:1000});
