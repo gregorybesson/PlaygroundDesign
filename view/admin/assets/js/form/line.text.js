@@ -31,6 +31,7 @@ var line_text = function (liId, theForm, fieldProp, uniqueId, liClass)
     hiddenRequired('id', '').appendTo(li);
     hiddenRequired('min', '').appendTo(li);
     hiddenRequired('max', '').appendTo(li);
+    hiddenRequired('validator', '').appendTo(li);
 
     formButton("Supprimer", "delete_li").appendTo(li);
     formButton("Editer", "edit_li").appendTo(li);

@@ -31,6 +31,7 @@ var editLineText = function editLineText (id, type){
     var nameEdit        = liId.find('input[name="input_name"]').val();
     var classEdit       = liId.find('input[name="class"]').val();
     var idEdit          = liId.find('input[name="id"]').val();
+    var validatorEdit   = liId.find('input[name="validator"]').val();
     var minEdit         = liId.find('input[name="min"]').val();
     var maxEdit         = liId.find('input[name="max"]').val();
 
@@ -89,11 +90,11 @@ var editLineText = function editLineText (id, type){
     var filewordcountMaxEdit     = liId.find('input[name="filewordcount_max"]').val();
 
     if(type == 'line_text'){
-        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, idEdit);
+        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, validatorEdit, idEdit);
     }
 
     if(type == 'line_date'){
-        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, idEdit);
+        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, validatorEdit, idEdit);
 
         liClass.find('input[name="date_min"]').val(dateMinEdit);
         liClass.find('input[name="date_max"]').val(dateMaxEdit);
@@ -104,7 +105,7 @@ var editLineText = function editLineText (id, type){
     }
 
     if(type == 'line_number'){
-        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, idEdit);
+        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, validatorEdit, idEdit);
 
         liClass.find('select[name="valid_type"]').val(validationEdit);
         var html5PLaceholder = liClass.find('input[name="number_html5"]');
@@ -114,32 +115,32 @@ var editLineText = function editLineText (id, type){
     }
 
     if(type == 'line_phone'){
-        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, idEdit);
+        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, validatorEdit, idEdit);
     }
 
     if(type == 'line_password'){
-        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, idEdit);
+        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, validatorEdit, idEdit);
     }
 
     if(type == 'line_password_verify'){
-        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, idEdit);
+        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, validatorEdit, idEdit);
 
         liClass.find('input[name="token"]').val(tokenEdit);
     }
 
     if(type == 'line_email'){
-        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, idEdit);
+        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, validatorEdit, idEdit);
 
         liClass.find('input[name="invalid_type"]').val(invalidTypeEdit);
         liClass.find('input[name="is_empty_type"]').val(isEmptyTypeEdit);
     }
 
     if(type == 'line_paragraph'){
-        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, idEdit);
+        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, validatorEdit, idEdit);
     }
 
     if(type == 'line_checkbox'){
-        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, idEdit);
+        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, validatorEdit, idEdit);
 
         liClass.find('input[name="number_label_class"]').val(numberIdEdit);
         liClass.find('input[name="number_label_id"]').val(numberClassEdit);
@@ -149,7 +150,7 @@ var editLineText = function editLineText (id, type){
     }
 
     if(type == 'line_radio'){
-        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, idEdit);
+        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, validatorEdit, idEdit);
 
         liClass.find('input[name="number_label_class"]').val(numberIdEdit);
         liClass.find('input[name="number_label_id"]').val(numberClassEdit);
@@ -159,7 +160,7 @@ var editLineText = function editLineText (id, type){
     }
 
     if(type == 'line_dropdown'){
-        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, idEdit);
+        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, validatorEdit, idEdit);
 
         liClass.find('input[name="number_notinarray"]').val(notinarrayEdit);
         liClass.find('.duplicate_input input').each(function(index, data){
@@ -168,7 +169,7 @@ var editLineText = function editLineText (id, type){
     }
 
     if(type == 'line_upload'){
-        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, idEdit);
+        defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, validatorEdit, idEdit);
 
         liClass.find('input[name="upload_filesize_min"]').val(filesizeMinEdit);
         liClass.find('input[name="upload_filesize_max"]').val(filesizeMaxEdit);
@@ -196,7 +197,7 @@ var editLineText = function editLineText (id, type){
 
 }
 
-var defaultValues = function defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, idEdit){
+var defaultValues = function defaultValues(liClass, labelEdit, nameEdit, placeholderEdit, requiredEdit, minEdit, maxEdit, classEdit, validatorEdit, idEdit){
     liClass.find('input[name="text_label"]').val(labelEdit),
     liClass.find('input[name="input_name"]').val(nameEdit),
     liClass.find('input[name="placeholder_text"]').val(placeholderEdit),
@@ -205,4 +206,5 @@ var defaultValues = function defaultValues(liClass, labelEdit, nameEdit, placeho
     liClass.find('input[name="number_max"]').val(maxEdit),
     liClass.find('input[name="number_class"]').val(classEdit),
     liClass.find('input[name="number_id"]').val(idEdit);
+    liClass.find('input[name="validator"]').val(validatorEdit);
 };
