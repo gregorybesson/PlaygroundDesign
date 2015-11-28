@@ -23,12 +23,6 @@ class Footer extends AbstractHelper
             $template = $this->viewTemplate;
         }
 
-        if (array_key_exists('channel', $options) && $options['channel'] != '') {
-            $channel = $options['channel'];
-        } else {
-            $channel = '';
-        }
-
         $vm = new ViewModel();
         $vm->setTemplate($template);
         $vm->setVariables($options);

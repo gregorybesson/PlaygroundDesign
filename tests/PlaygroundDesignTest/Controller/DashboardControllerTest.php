@@ -19,12 +19,12 @@ class DashboardControllerTest extends AbstractHttpControllerTestCase
 
     public function testIndexAction()
     {
-    	$this->dispatch('/admin');
-    	
-    	$this->assertModuleName('playgrounddesign');
-    	$this->assertControllerName('playgrounddesign\controller\dashboard');
-    	$this->assertControllerClass('DashboardController');
-    	$this->assertActionName('index');
-    	$this->assertMatchedRouteName('admin');
+        $this->dispatch('/admin');
+        
+        $this->assertModuleName('playgrounddesign');
+        $this->assertControllerName('playgrounddesign\controller\dashboard');
+        $this->assertControllerClass('DashboardController');
+        $this->assertActionName('index');
+        $this->assertMatchedRouteName('admin');
     }
 }

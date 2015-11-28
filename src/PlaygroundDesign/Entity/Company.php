@@ -10,7 +10,6 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-
 /**
  * @ORM\Entity @HasLifecycleCallbacks
  * @ORM\Table(name="company")
@@ -215,7 +214,7 @@ class Company implements CompanyInterface, InputFilterAwareInterface
         if (isset($data['address']) && $data['address'] != null) {
             $this->address = $data['address'];
         }
-            if (isset($data['phoneNumber']) && $data['phoneNumber'] != null) {
+        if (isset($data['phoneNumber']) && $data['phoneNumber'] != null) {
             $this->phoneNumber = $data['phoneNumber'];
         }
         if (isset($data['facebookPage']) && $data['facebookPage'] != null) {
@@ -247,7 +246,7 @@ class Company implements CompanyInterface, InputFilterAwareInterface
     */
     public function getInputFilter()
     {
-         if (!$this->inputFilter) {
+        if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
             $this->inputFilter = $inputFilter;
         }

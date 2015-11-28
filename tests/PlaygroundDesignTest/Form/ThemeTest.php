@@ -17,13 +17,13 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testValid()
-    {   
+    {
         $data = array('title' => 'test');
         $this->form->setData($data);
         $this->assertTrue($this->form->isValid());
     }
 
-    public function getForm() 
+    public function getForm()
     {
         if (null === $this->form) {
             $sm = Bootstrap::getServiceManager();
@@ -32,6 +32,4 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
 
         return $this->form;
     }
-
-
 }

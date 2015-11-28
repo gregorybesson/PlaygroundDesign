@@ -27,7 +27,7 @@ class ServiceFactory extends \AsseticBundle\ServiceFactory implements FactoryInt
         $asseticService->setFilterManager($locator->get('AsseticFilterManager'));
 
         // Cache buster is not mandatory
-        if ($locator->has('AsseticCacheBuster')){
+        if ($locator->has('AsseticCacheBuster')) {
             $asseticService->setCacheBusterStrategy($locator->get('AsseticCacheBuster'));
         }
 

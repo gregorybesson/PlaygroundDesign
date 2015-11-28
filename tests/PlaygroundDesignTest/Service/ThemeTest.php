@@ -297,5 +297,4 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($theme, $service->findThemeByAreaPackageAndBase("area", "package", "base"));
     }
-
 }

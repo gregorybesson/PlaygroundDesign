@@ -7,7 +7,7 @@
 
 <ul class="breadcrumb">
     <li>
-        <a href="<?php echo $this->url('frontend', array('channel' => $this->channel)) ?>"><?php echo $this->translate('Home'); ?></a>
+        <a href="<?php echo $this->url('frontend') ?>"><?php echo $this->translate('Home'); ?></a>
     </li>
     <?php $active = $container->findActive($navigation) ?>
     <?php foreach($this->pages as $page): ?>

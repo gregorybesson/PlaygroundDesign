@@ -17,7 +17,7 @@ $ourView  = $children[0];
 			<div id="content">
 				
             	<!-- HEADER WRAPPER -->
-	            <?php echo $this->header(array(/*'adserving' => $this->adserving,*/ 'currentPage' => $this->currentPage, 'channel' => $this->channel));?>
+	            <?php echo $this->header(array('currentPage' => $this->currentPage));?>
 	            <!-- END HEADER WRAPPER -->
 	                
 	            <!-- CONTENT PAGE -->
@@ -59,7 +59,6 @@ $ourView  = $children[0];
                 	<!-- SIDEBAR -->
                 	<?php echo $this->column_right(array(
                 		'template' => $this->col_right,
-                	    'channel' => $this->channel,
                 	    'game' => $this->game
                 	)); ?>
                 	<!-- END SIDEBAR -->
@@ -67,7 +66,7 @@ $ourView  = $children[0];
 	            </div><!-- END CONTENT PAGE -->
 	            
                 <!-- FOOTER WRAPPER -->
-                <?php echo $this->footer(array('channel' => $this->channel));?>
+                <?php echo $this->footer();?>
                 <!-- END FOOTER WRAPPER -->
                 
             </div> <!-- END CONTENT -->

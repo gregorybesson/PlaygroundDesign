@@ -16,7 +16,7 @@ use Zend\Mvc\Router\RouteStackInterface;
 class FrontendUrl extends Url
 {
     /**
-     * 
+     *
      *
      * @param string $longUrl
      */
@@ -44,9 +44,9 @@ class FrontendUrl extends Url
             $matches = $event->getParam('route-match', false);
         }
         
-        if($matches && $matches->getParam('area')){
-            if($route && ltrim($route,'/') !== '' ){
-                $route = $matches->getParam('area').'/'.ltrim($route,'/');
+        if ($matches && $matches->getParam('area')) {
+            if ($route && ltrim($route, '/') !== '') {
+                $route = $matches->getParam('area').'/'.ltrim($route, '/');
             } else {
                 $route = $matches->getParam('area');
             }

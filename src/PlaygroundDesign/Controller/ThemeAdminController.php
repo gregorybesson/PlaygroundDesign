@@ -64,8 +64,8 @@ class ThemeAdminController extends AbstractActionController
 
         if ($request->isPost()) {
             $data = array_merge(
-                    $request->getPost()->toArray(),
-                    $request->getFiles()->toArray()
+                $request->getPost()->toArray(),
+                $request->getFiles()->toArray()
             );
 
             $theme = $this->getAdminThemeService()->edit($data, $theme, 'playgrounddesign_theme_form');
@@ -104,8 +104,8 @@ class ThemeAdminController extends AbstractActionController
 
         if ($request->isPost()) {
             $data = array_merge(
-                    $request->getPost()->toArray(),
-                    $request->getFiles()->toArray()
+                $request->getPost()->toArray(),
+                $request->getFiles()->toArray()
             );
 
             $theme = $this->getAdminThemeService()->create($data, 'playgrounddesign_theme_form');
@@ -205,10 +205,10 @@ class ThemeAdminController extends AbstractActionController
         $files = scandir($directoryThemes);
         foreach ($files as $file) {
             if ($file != '.' && $file != '..') {
-                if(is_dir($directoryThemes.'/'.$file)){
+                if (is_dir($directoryThemes.'/'.$file)) {
                     $nbTheme = $this->checkAssets($directoryThemes.'/'.$file, $nbTheme);
-                }else{
-                    if($file=="theme.php"){
+                } else {
+                    if ($file=="theme.php") {
                         $themeDefine = explode('//', $directoryThemes.'/'.$file);
                         $themeDefine = explode('/', $themeDefine[1]);
                         $area = $themeDefine[0];
@@ -219,7 +219,7 @@ class ThemeAdminController extends AbstractActionController
                         $themeCode = $themeArray['design']['package']['theme']['code'];
 
                         $themes = $this->getAdminThemeService()->findThemeByAreaPackageAndBase($area, $package, $themeCode);
-                        if(sizeof($themes) == 0) {
+                        if (sizeof($themes) == 0) {
                             $theme = new ThemeEntity();
                             $theme->setTitle($title);
                             $theme->setArea($area);

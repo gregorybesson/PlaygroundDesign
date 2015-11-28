@@ -17,7 +17,7 @@ class FacebookUrl extends AbstractHelper
      */
     public function __construct($fbUrl)
     {
-       $this->fbUrl = $fbUrl;
+        $this->fbUrl = $fbUrl;
     }
 
     /**
@@ -28,7 +28,7 @@ class FacebookUrl extends AbstractHelper
      */
     public function __invoke()
     {
-        if($this->fbUrl === null){
+        if ($this->fbUrl === null) {
             return false;
         }
         return $this->fbUrl;

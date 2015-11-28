@@ -82,7 +82,7 @@ class Module implements
                 $themeActivated = $result;
             }
             
-            if(!empty($themeActivated)) {
+            if (!empty($themeActivated)) {
                 $config['design']['admin']['package'] = $themeActivated['package'];
                 $config['design']['admin']['theme'] = $themeActivated['theme'];
             }
@@ -102,7 +102,7 @@ class Module implements
             }
             
             // Surchage par le theme qui est activé en base de donnée
-            if(!empty($themeActivated)) {
+            if (!empty($themeActivated)) {
                 $config['design']['frontend']['package'] = $themeActivated['package'];
                 $config['design']['frontend']['theme'] = $themeActivated['theme'];
             }
@@ -111,26 +111,25 @@ class Module implements
         // **************************************************
         // Design management : template and assets management
         // **************************************************
-        if(isset($config['design'])){
+        if (isset($config['design'])) {
             $viewResolverPathStack = $config['view_manager']['template_path_stack'];
             
-            if(isset($config['design']['admin']['theme'])){
-        
+            if (isset($config['design']['admin']['theme'])) {
                 $themeHierarchy = array();
                 $hasParent = true;
                 $parentTheme = array($config['design']['admin']['package'], $config['design']['admin']['theme']);
         
-                while($hasParent){
+                while ($hasParent) {
                     // I get the Theme definition file and apply a check on the parent theme.
                     // TODO : Apply recursion to this stuff.
                     $hasParent = false;
                     $adminPath = __DIR__ . '/../../../../../design/admin/'. $parentTheme[0] .'/'. $parentTheme[1];
                     $themeId = $parentTheme[0] .'_'. $parentTheme[1];
 
-                    if(!(strtolower($themeId) === 'playground_base')){
+                    if (!(strtolower($themeId) === 'playground_base')) {
                         $adminThemePath = $adminPath . '/theme.php';
         
-                        if(is_file($adminThemePath) && is_readable($adminThemePath)){
+                        if (is_file($adminThemePath) && is_readable($adminThemePath)) {
                             $configTheme                      = new \Zend\Config\Config(include $adminThemePath);
                             $themeHierarchy[$themeId]['path'] = $adminPath;
         
@@ -138,18 +137,18 @@ class Module implements
                             $themeHierarchy[$themeId]['template_path']= $pathStack;
         
                             $assets = $adminPath . '/assets.php';
-                            if(is_file($assets) && is_readable($assets)){
+                            if (is_file($assets) && is_readable($assets)) {
                                 $configAssets = new \Zend\Config\Config(include $assets);
                                 $themeHierarchy[$themeId]['assets'] = $configAssets->toArray();
                             }
         
                             $layout = $adminPath . '/layout.php';
-                            if(is_file($layout) && is_readable($layout)){
+                            if (is_file($layout) && is_readable($layout)) {
                                 $configLayout = new \Zend\Config\Config(include $layout);
                                 $themeHierarchy[$themeId]['layout'] = $configLayout->toArray();
                             }
         
-                            if (isset($configTheme['design']['package']['theme']['parent'])){
+                            if (isset($configTheme['design']['package']['theme']['parent'])) {
                                 $parentTheme = explode('_', $configTheme['design']['package']['theme']['parent']);
                                 $parentThemeId = $parentTheme[0] .'_'. $parentTheme[1];
         
@@ -161,17 +160,16 @@ class Module implements
                             }
                         }
                     } else {
-        
                         $stack = array();
-                        foreach($viewResolverPathStack as $path){
-                            if($result = preg_match('/\/admin\/$/',$path,$matches)){
+                        foreach ($viewResolverPathStack as $path) {
+                            if ($result = preg_match('/\/admin\/$/', $path, $matches)) {
                                 $stack[] = $path;
                             }
                         }
                         $themeHierarchy[$themeId]['template_path']= array_reverse($stack);
         
         
-                        if(isset($config['assetic_configuration']['modules']['admin'])){
+                        if (isset($config['assetic_configuration']['modules']['admin'])) {
                             $asseticConfig = array('assetic_configuration' => array(
                                 'modules' => array('admin' => $config['assetic_configuration']['modules']['admin']),
                                 'routes' => array('admin.*' => $config['assetic_configuration']['routes']['admin.*'])
@@ -180,7 +178,7 @@ class Module implements
                             $themeHierarchy[$themeId]['assets'] = $asseticConfig;
                         }
         
-                        if(isset($config['core_layout']['admin'])){
+                        if (isset($config['core_layout']['admin'])) {
                             $themeHierarchy[$themeId]['layout'] = $config['core_layout']['admin'];
                         }
                     }
@@ -191,8 +189,8 @@ class Module implements
         
                 // We remove the former config
                 $stack = array();
-                foreach($viewResolverPathStack as $path){
-                    if(!$result = preg_match('/\/admin\/$/',$path,$matches)){
+                foreach ($viewResolverPathStack as $path) {
+                    if (!$result = preg_match('/\/admin\/$/', $path, $matches)) {
                         $stack[] = $path;
                     }
                 }
@@ -200,13 +198,13 @@ class Module implements
                 $viewResolverPathStack = array_reverse($stack);
                 
                 // removing default assetic configuration
-                if(isset($config['assetic_configuration']['modules']['admin'])){
+                if (isset($config['assetic_configuration']['modules']['admin'])) {
                     unset($config['assetic_configuration']['modules']['admin']);
                     unset($config['assetic_configuration']['routes']['admin.*']);
                 }
         
                 // removing default layout configuration
-                if(isset($config['core_layout']['admin'])){
+                if (isset($config['core_layout']['admin'])) {
                     unset($config['core_layout']['admin']);
                 }
                 
@@ -214,44 +212,42 @@ class Module implements
                 $config['view_manager']['template_path_stack'] = $viewResolverPathStack;
         
                 //I then recreate the config
-                foreach($themeHierarchy as $theme=>$tab){
-                    if(isset($tab['layout'])){
-                        $config = array_replace_recursive($config, $tab['layout'] );
+                foreach ($themeHierarchy as $theme => $tab) {
+                    if (isset($tab['layout'])) {
+                        $config = array_replace_recursive($config, $tab['layout']);
                     }
         
-                    if(isset($tab['assets'])){
-                        $config = array_replace_recursive($config, $tab['assets'] );
+                    if (isset($tab['assets'])) {
+                        $config = array_replace_recursive($config, $tab['assets']);
                     }
         
-                    if(isset($tab['template_path'])){
-                        $config['view_manager']['template_path_stack'] = array_merge($config['view_manager']['template_path_stack'],$tab['template_path']);
+                    if (isset($tab['template_path'])) {
+                        $config['view_manager']['template_path_stack'] = array_merge($config['view_manager']['template_path_stack'], $tab['template_path']);
                     }
         
-                    if(isset($tab['path']) && isset($config['assetic_configuration']['modules']['admin'])){
+                    if (isset($tab['path']) && isset($config['assetic_configuration']['modules']['admin'])) {
                         $config['assetic_configuration']['modules']['admin']['root_path'][] = $tab['path'] . '/assets';
                     }
                 }
             }
         
-            if(isset($config['design']['frontend']['theme'])){
-        
+            if (isset($config['design']['frontend']['theme'])) {
                 $viewResolverPathStack = array_reverse($config['view_manager']['template_path_stack']);
                 $themeHierarchy = array();
                 $hasParent = true;
                 $parentTheme = array($config['design']['frontend']['package'], $config['design']['frontend']['theme']);
         
-                while($hasParent){
-
+                while ($hasParent) {
                     // I get the Theme definition file and apply a check on the parent theme.
                     // TODO : Apply recursion to this stuff.
                     $hasParent = false;
                     $frontendPath = __DIR__ . '/../../../../../design/frontend/'. $parentTheme[0] .'/'. $parentTheme[1];
                     $themeId = $parentTheme[0] .'_'. $parentTheme[1];
         
-                    if(!(strtolower($themeId) === 'playground_base')){
+                    if (!(strtolower($themeId) === 'playground_base')) {
                         $frontendThemePath = $frontendPath . '/theme.php';
         
-                        if(is_file($frontendThemePath) && is_readable($frontendThemePath)){
+                        if (is_file($frontendThemePath) && is_readable($frontendThemePath)) {
                             $configTheme                      = new \Zend\Config\Config(include $frontendThemePath);
                             $themeHierarchy[$themeId]['path'] = $frontendPath;
         
@@ -259,40 +255,39 @@ class Module implements
                             $themeHierarchy[$themeId]['template_path']= $pathStack;
         
                             $assets = $frontendPath . '/assets.php';
-                            if(is_file($assets) && is_readable($assets)){
+                            if (is_file($assets) && is_readable($assets)) {
                                 $configAssets = new \Zend\Config\Config(include $assets);
                                 $themeHierarchy[$themeId]['assets'] = $configAssets->toArray();
                             }
         
                             $layout = $frontendPath . '/layout.php';
-                            if(is_file($layout) && is_readable($layout)){
+                            if (is_file($layout) && is_readable($layout)) {
                                 $configLayout = new \Zend\Config\Config(include $layout);
                                 $themeHierarchy[$themeId]['layout'] = $configLayout->toArray();
                             }
         
-                            if (isset($configTheme['design']['package']['theme']['parent'])){
+                            if (isset($configTheme['design']['package']['theme']['parent'])) {
                                 $parentTheme = explode('_', $configTheme['design']['package']['theme']['parent']);
                                 $parentThemeId = $parentTheme[0] .'_'. $parentTheme[1];
         
                                 if ($parentThemeId  == $themeId) {
                                     $hasParent = false;
-                                }else{
+                                } else {
                                     $hasParent = true;
                                 }
                             }
                         }
                     } else {
-
                         $stack = array();
-                        foreach($viewResolverPathStack as $path){
-                            if($result = preg_match('/\/frontend\/$/',$path,$matches)){
+                        foreach ($viewResolverPathStack as $path) {
+                            if ($result = preg_match('/\/frontend\/$/', $path, $matches)) {
                                 $stack[] = $path;
                             }
                         }
         
                         $themeHierarchy[$themeId]['template_path']= array_reverse($stack);
 
-                        if(isset($config['assetic_configuration']['modules']['frontend'])){
+                        if (isset($config['assetic_configuration']['modules']['frontend'])) {
                             $asseticConfig = array('assetic_configuration' => array(
                                 'modules' => array('frontend' => $config['assetic_configuration']['modules']['frontend']),
                                 'routes' => array('frontend.*' => $config['assetic_configuration']['routes']['frontend.*'])
@@ -302,7 +297,7 @@ class Module implements
         
                         }
         
-                        if(isset($config['core_layout']['frontend'])){
+                        if (isset($config['core_layout']['frontend'])) {
                             $themeHierarchy[$themeId]['layout'] = $config['core_layout']['frontend'];
                         }
                     }
@@ -312,8 +307,8 @@ class Module implements
                 
                 // We remove the former config
                 $stack = array();
-                foreach($viewResolverPathStack as $path){
-                    if(!$result = preg_match('/\/frontend\/$/',$path,$matches)){
+                foreach ($viewResolverPathStack as $path) {
+                    if (!$result = preg_match('/\/frontend\/$/', $path, $matches)) {
                         $stack[] = $path;
                     }
                 }
@@ -323,13 +318,13 @@ class Module implements
                 $viewResolverPathStack = array_reverse($stack);
         
                 // removing default assetic configuration
-                if(isset($config['assetic_configuration']['modules']['frontend'])){
+                if (isset($config['assetic_configuration']['modules']['frontend'])) {
                     unset($config['assetic_configuration']['modules']['frontend']);
                     unset($config['assetic_configuration']['routes']['frontend.*']);
                 }
         
                 // removing default layout configuration
-                if(isset($config['core_layout']['frontend'])){
+                if (isset($config['core_layout']['frontend'])) {
                     unset($config['core_layout']['frontend']);
                 }
         
@@ -337,21 +332,21 @@ class Module implements
                 $config['view_manager']['template_path_stack'] = $viewResolverPathStack;
                 
                 //I then recreate the config
-                foreach($themeHierarchy as $theme=>$tab){
-                    if(isset($tab['layout'])){
-                        $config = array_replace_recursive($config, $tab['layout'] );
+                foreach ($themeHierarchy as $theme => $tab) {
+                    if (isset($tab['layout'])) {
+                        $config = array_replace_recursive($config, $tab['layout']);
                     }
         
-                    if(isset($tab['assets'])){
-                        $config = array_replace_recursive($config, $tab['assets'] );
+                    if (isset($tab['assets'])) {
+                        $config = array_replace_recursive($config, $tab['assets']);
                     }
         
-                    if(isset($tab['template_path'])){
+                    if (isset($tab['template_path'])) {
                         //print_r($tab['template_path']);
                         $config['view_manager']['template_path_stack'] = array_merge($config['view_manager']['template_path_stack'], $tab['template_path']);
                     }
         
-                    if(isset($tab['path']) && isset($config['assetic_configuration']['modules']['frontend'])){
+                    if (isset($tab['path']) && isset($config['assetic_configuration']['modules']['frontend'])) {
                         $config['assetic_configuration']['modules']['frontend']['root_path'][] = $tab['path'] . '/assets';
                     }
                 }
@@ -395,7 +390,7 @@ class Module implements
         // positionnement de la langue pour les traductions de date avec strftime
         setlocale(LC_TIME, "fr_FR", 'fr_FR.utf8', 'fra');
 
-        AbstractValidator::setDefaultTranslator($translator,'playgrounddesign');
+        AbstractValidator::setDefaultTranslator($translator, 'playgrounddesign');
         
         // Start the session container
         $config = $e->getApplication()->getServiceManager()->get('config');
@@ -416,10 +411,9 @@ class Module implements
                 $areaName        = ($areaName == 'frontend' || $areaName == 'admin')? $areaName : 'frontend';
                 $controllerName  = $match->getParam('controller', 'not-found');
                 $actionName      = $match->getParam('action', 'not-found');
-                $channel         = $match->getParam('channel', 'not-found');
                 $viewModel       = $e->getViewModel();
                 
-                // I add this area param so that it can be used by Controller plugin frontendUrl 
+                // I add this area param so that it can be used by Controller plugin frontendUrl
                 // and View helper frontendUrl
                 $match->setParam('area', $areaName);
 
@@ -430,34 +424,21 @@ class Module implements
                 echo '$areaName : '.$areaName. '<br/>';
                 echo '$controllerName : ' .$controllerName. '<br/>';
                 echo '$actionName : ' . $actionName. '<br/>';
-                echo '$channel : ' .$channel. '<br/>'; 
                
-*/                
+*/
                 /**
                  * Assign the correct layout
                  */
 
-                if (isset($config['core_layout'][$areaName]['modules'][$moduleName]['controllers'][$controllerName]['actions'][$actionName]['channel'][$channel]['layout'])) {
-                    //print_r($config['core_layout'][$areaName]['modules'][$moduleName]['controllers'][$controllerName]['actions'][$actionName]['channel'][$channel]['layout']);
-                    $controller->layout($config['core_layout'][$areaName]['modules'][$moduleName]['controllers'][$controllerName]['actions'][$actionName]['channel'][$channel]['layout']);
-                } elseif (isset($config['core_layout'][$areaName]['modules'][$moduleName]['controllers'][$controllerName]['actions'][$actionName]['layout'])) {
+                if (isset($config['core_layout'][$areaName]['modules'][$moduleName]['controllers'][$controllerName]['actions'][$actionName]['layout'])) {
                     //print_r($config['core_layout'][$areaName]['modules'][$moduleName]['controllers'][$controllerName]['actions'][$actionName]['layout']);
                     $controller->layout($config['core_layout'][$areaName]['modules'][$moduleName]['controllers'][$controllerName]['actions'][$actionName]['layout']);
-                } elseif (isset($config['core_layout'][$areaName]['modules'][$moduleName]['controllers'][$controllerName]['channel'][$channel]['layout'])) {
-                    //print_r($config['core_layout'][$areaName]['modules'][$moduleName]['controllers'][$controllerName]['channel'][$channel]['layout']);
-                    $controller->layout($config['core_layout'][$areaName]['modules'][$moduleName]['controllers'][$controllerName]['channel'][$channel]['layout']);
                 } elseif (isset($config['core_layout'][$areaName]['modules'][$moduleName]['controllers'][$controllerName]['layout'])) {
                     //print_r($config['core_layout'][$areaName]['modules'][$moduleName]['controllers'][$controllerName]['layout']);
                     $controller->layout($config['core_layout'][$areaName]['modules'][$moduleName]['controllers'][$controllerName]['layout']);
-                } elseif (isset($config['core_layout'][$areaName]['modules'][$moduleName]['channel'][$channel]['layout'])) {
-                    //print_r($config['core_layout'][$areaName]['modules'][$moduleName]['channel'][$channel]['layout']);
-                    $controller->layout($config['core_layout'][$areaName]['modules'][$moduleName]['channel'][$channel]['layout']);
                 } elseif (isset($config['core_layout'][$areaName]['modules'][$moduleName]['layout'])) {
                     //print_r($config['core_layout'][$areaName]['modules'][$moduleName]['layout']);
                     $controller->layout($config['core_layout'][$areaName]['modules'][$moduleName]['layout']);
-                } elseif (isset($config['core_layout'][$areaName]['channel'][$channel]['layout'])) {
-                    //print_r($config['core_layout'][$areaName]['channel'][$channel]['layout']);
-                    $controller->layout($config['core_layout'][$areaName]['channel'][$channel]['layout']);
                 } elseif (isset($config['core_layout'][$areaName]['layout'])) {
                     $controller->layout($config['core_layout'][$areaName]['layout']);
                 }
@@ -484,19 +465,16 @@ class Module implements
             }
         }, 100);
         
-        // I put channel and area to each view
+        // I put area to each view
         $e->getApplication()->getEventManager()->attach(\Zend\Mvc\MvcEvent::EVENT_RENDER, function (\Zend\Mvc\MvcEvent $e) use ($serviceManager) {
         
             $viewModel          = $e->getViewModel();
             $match              = $e->getRouteMatch();
-            $channel            = isset($match)? $match->getParam('channel', ''):'';
             $area               = isset($match)? $match->getParam('area', ''):'';
             
-            $viewModel->channel = $channel;
             $viewModel->area    = $area;
             
-            foreach($viewModel->getChildren() as $child){
-                $child->channel = $channel;
+            foreach ($viewModel->getChildren() as $child) {
                 $child->area = $area;
             }
         });
@@ -532,7 +510,6 @@ class Module implements
                     $match = $sm->getServiceLocator()->get('application')->getMvcEvent()->getRouteMatch();
                 
                     if ($match instanceof \Zend\Mvc\Router\Http\RouteMatch) {
-
                         $view_helper->setRouteMatch($match);
                     }
                 
