@@ -1,7 +1,6 @@
 <?php
 namespace PlaygroundDesign\Exception;
 
-class InvalidArgumentException
-    extends \InvalidArgumentException
+class InvalidArgumentException extends \InvalidArgumentException
 {
 }

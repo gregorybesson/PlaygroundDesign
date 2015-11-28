@@ -40,5 +40,4 @@ class ColumnLeft extends AbstractHelper
 
         return $this;
     }
-
 }

@@ -32,14 +32,14 @@ class CompanyAdminController extends AbstractActionController
                 $this->getRequest()->getPost()->toArray(),
                 $this->getRequest()->getFiles()->toArray()
             );
-            if($company) {
+            if ($company) {
                 $company = $service->edit($data, $company);
             } else {
                 $company = $service->create($data);
             }
         }
 
-        if($company) {
+        if ($company) {
             $form->bind($company);
         }
 

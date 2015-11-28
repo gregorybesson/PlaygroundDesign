@@ -96,10 +96,10 @@ class Company extends EventProvider implements ServiceManagerAwareInterface
 
     public function uploadImage($company, $data)
     {
-         if (!empty($data['uploadMainImage']['tmp_name'])) {
+        if (!empty($data['uploadMainImage']['tmp_name'])) {
             $path = $this->getOptions()->getMediaPath() . DIRECTORY_SEPARATOR;
             if (!is_dir($path)) {
-                mkdir($path,0777, true);
+                mkdir($path, 0777, true);
             }
             $media_url = $this->getOptions()->getMediaUrl() . '/';
             move_uploaded_file($data['uploadMainImage']['tmp_name'], $path . $company->getId() . "-" . $data['uploadMainImage']['name']);

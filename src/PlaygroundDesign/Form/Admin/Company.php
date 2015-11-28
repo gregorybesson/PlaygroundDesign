@@ -27,7 +27,7 @@ class Company extends ProvidesEventsForm
     {
         parent::__construct($name);
 
-        $this->setAttribute('enctype','multipart/form-data');
+        $this->setAttribute('enctype', 'multipart/form-data');
 
         $this->add(array(
             'name' => 'id',

@@ -115,7 +115,7 @@ class ThemeAdminControllerTest extends AbstractHttpControllerTestCase
         $this->assertMatchedRouteName('admin/playgrounddesign_themeadmin_edit');
     }*/
 
-    public function testDeleteAction() 
+    public function testDeleteAction()
     {
         $serviceManager = $this->getApplicationServiceLocator();
         $serviceManager->setAllowOverride(true);
@@ -148,7 +148,7 @@ class ThemeAdminControllerTest extends AbstractHttpControllerTestCase
         $this->assertRedirectTo('/admin/theme');
     }
 
-    public function testActivateAction() 
+    public function testActivateAction()
     {
         $serviceManager = $this->getApplicationServiceLocator();
         $serviceManager->setAllowOverride(true);
@@ -185,7 +185,7 @@ class ThemeAdminControllerTest extends AbstractHttpControllerTestCase
         $this->assertRedirectTo('/admin/theme');
     }
 
-    public function testActivateActionWithAllreadyActivedTheme() 
+    public function testActivateActionWithAllreadyActivedTheme()
     {
         $serviceManager = $this->getApplicationServiceLocator();
         $serviceManager->setAllowOverride(true);
@@ -221,5 +221,4 @@ class ThemeAdminControllerTest extends AbstractHttpControllerTestCase
 
         $this->assertRedirectTo('/admin/theme');
     }
-    
 }

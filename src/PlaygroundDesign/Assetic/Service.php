@@ -44,7 +44,7 @@ class Service extends \AsseticBundle\Service
     }
     
     /**
-     * Adding route Params to specialize assets on params like channel or game id
+     * Adding route Params to specialize assets on params like game id
      * @see \AsseticBundle\Service::getRouterConfig()
      */
     public function getRouterConfig()
@@ -62,7 +62,7 @@ class Service extends \AsseticBundle\Service
         $moduleConfiguration = $this->configuration->getModules();
         // I need to reverse the modules so that the last added becomes the first played
         $moduleConfiguration = array_reverse($moduleConfiguration);
-        foreach ($moduleConfiguration as $k=>$configuration) {
+        foreach ($moduleConfiguration as $k => $configuration) {
             //echo "<br/><h3>" . $k . "</h3><br/>";
             //print_r($configuration);
             //echo "<br/>---------" . $k . "-----------<br/>";
@@ -73,17 +73,17 @@ class Service extends \AsseticBundle\Service
                 //print_r($assets);
                 // Je recrée les paths des assets en fonction du tableau de root_path
                 // fichiers relatifs quand copiés dans design
-                if(is_array($configuration['root_path'])){
+                if (is_array($configuration['root_path'])) {
                     $paths = array_reverse($configuration['root_path']);
                     //print_r($paths);
                     //$paths = $configuration['root_path'];
                     //$assets = array_unique($assets);
                     //echo "<br/> paths :<br/>";
                     //print_r($paths);
-                    foreach($assets as $l=>$asset){
+                    foreach ($assets as $l => $asset) {
                         //echo "<br/>titre : " . $l . " : <br/>Asset : " . $asset . "<br/>";
                         // Test on assets to remove
-                        if(empty($asset)){
+                        if (empty($asset)) {
                             //echo "<br/> Suppression : " . $l . "<br/>";
 
                             unset($assets[$l]);
@@ -91,11 +91,11 @@ class Service extends \AsseticBundle\Service
                             unset($collections[$name]['assets'][$l]);
                             unset($configuration['collections'][$name]['assets'][$l]);
                         } else {
-                            if ($this->isRelativePath($asset)){
-                                foreach($paths as $path){
+                            if ($this->isRelativePath($asset)) {
+                                foreach ($paths as $path) {
                                     //print_r($asset);
                                     //echo "<br/>";
-                                    if(is_file($path . '/' . $asset)){
+                                    if (is_file($path . '/' . $asset)) {
                                         $options['assets'][$l] = $path . '/' . $asset;
                                         $collections[$name]['assets'][$l] = $path . '/' . $asset;
                                         $configuration['collections'][$name]['assets'][$l] = $path . '/' . $asset;
@@ -138,9 +138,9 @@ class Service extends \AsseticBundle\Service
      */
     public function createAssetFactory(array $configuration)
     {
-        if(is_array($configuration['root_path'])){
+        if (is_array($configuration['root_path'])) {
             $factory = new Factory\AssetFactory($configuration['root_path'][0]);
-        }else{
+        } else {
             $factory = new Factory\AssetFactory($configuration['root_path']);
         }
 
@@ -163,9 +163,9 @@ class Service extends \AsseticBundle\Service
      * Adding the possibility to give an output path
      * PR to wilmogrod as improvement
      */
-    public function moveRaw(AssetCollection $asset, $output=null)
+    public function moveRaw(AssetCollection $asset, $output = null)
     {
-        if (!empty($output) && substr($output, -1) !== '/'){
+        if (!empty($output) && substr($output, -1) !== '/') {
             $output = $output.'/';
         }
         foreach ($asset as $value) {
@@ -254,7 +254,7 @@ class Service extends \AsseticBundle\Service
             if (is_array($options)) {
                 if (!isset($options['name'])) {
                     throw new Exception\InvalidArgumentException(
-                            'Filter "' . $alias . '" required option "name"'
+                        'Filter "' . $alias . '" required option "name"'
                     );
                 }
 

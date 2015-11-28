@@ -4,34 +4,35 @@ namespace PlaygroundDesign\View\Helper;
 use Zend\View\Helper\Url as ZendUrl;
 
 /**
- * This Class will reuse the params from the current page url (channel + area)
+ * This Class will reuse the params from the current page url (area)
  * It will then prepend the area with the name ('treasurehunt/play' will become 'frontend/treasurehunt/play')
  * This will make the creation of an url much easier for the front dev !
- * 
+ *
  * @author greg
  *
  */
-class FrontendUrl extends ZendUrl {
+class FrontendUrl extends ZendUrl
+{
 
-    public function __invoke($name = null, $params = array(), $options = array(), $reuseMatchedParams = true) {
+    public function __invoke($name = null, $params = array(), $options = array(), $reuseMatchedParams = true)
+    {
         
-        if($this->routeMatch && $this->routeMatch->getParam('area')){
-        	if($name){
-        		$name = $this->routeMatch->getParam('area') . '/' . $name;
-        	} else {
-        		$name = $this->routeMatch->getParam('area');
-        	}
-        } else if($name){
-        	if (strtolower(substr($name, 0, 8)) != 'frontend'){
-       			$name = 'frontend/' . $name;
-       		}
+        if ($this->routeMatch && $this->routeMatch->getParam('area')) {
+            if ($name) {
+                $name = $this->routeMatch->getParam('area') . '/' . $name;
+            } else {
+                $name = $this->routeMatch->getParam('area');
+            }
+        } elseif ($name) {
+            if (strtolower(substr($name, 0, 8)) != 'frontend') {
+                $name = 'frontend/' . $name;
+            }
         } else {
-        	$name = 'frontend';
+            $name = 'frontend';
         }
         
         $link = parent::__invoke($name, $params, $options, $reuseMatchedParams);
 
         return $link;
     }
-
 }

@@ -10,7 +10,6 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-
 /**
  * @ORM\Entity @HasLifecycleCallbacks
  * @ORM\Table(name="design_theme")
@@ -188,7 +187,7 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
 
         $screenshotsPath = $this->getFilePath().self::SCREENSHOT_PATH;
         $files = array();
-        if(is_dir($screenshotsPath)){
+        if (is_dir($screenshotsPath)) {
             $files = scandir($screenshotsPath);
         }
 
@@ -430,7 +429,7 @@ class Theme implements ThemeInterface, InputFilterAwareInterface
     */
     public function getInputFilter()
     {
-         if (!$this->inputFilter) {
+        if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
             $this->inputFilter = $inputFilter;
         }

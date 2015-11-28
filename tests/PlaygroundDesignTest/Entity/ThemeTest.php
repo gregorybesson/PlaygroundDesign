@@ -25,7 +25,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
         parent::setUp();
     }
 
-    public function testCreateAuthor() 
+    public function testCreateAuthor()
     {
         $theme = new ThemeEntity;
         $theme->createAuthor();
@@ -40,7 +40,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(new \DateTime("now"), $theme->getUpdatedAt());
     }
 
-    public function testPopulate() 
+    public function testPopulate()
     {
         $theme = new ThemeEntity;
         $theme->populate($this->themeData);
@@ -53,18 +53,17 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->themeData["is_active"], $theme->getIsActive());
     }
 
-    public function testGetUrlBase() 
+    public function testGetUrlBase()
     {
         $theme = new ThemeEntity;
         $theme->populate($this->themeData);
         $this->assertEquals(ThemeEntity::BASE.$this->themeData['area'].'/'.$this->themeData['package'].'/'.$this->themeData['theme'].'/', $theme->getUrlBase());
     }
 
-    public function testGetFilePath() 
+    public function testGetFilePath()
     {
         $theme = new ThemeEntity;
         $theme->populate($this->themeData);
         $this->assertEquals($theme->getBasePath().$this->themeData['area'].'/'.$this->themeData['package'].'/'.$this->themeData['theme'].'/', $theme->getFilePath());
     }
-
 }

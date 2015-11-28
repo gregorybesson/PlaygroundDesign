@@ -53,5 +53,4 @@ class ColumnRight extends AbstractHelper
     {
         return $this->rssUrl;
     }
-
 }

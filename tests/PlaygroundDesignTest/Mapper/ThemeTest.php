@@ -38,7 +38,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
         parent::setUp();
     }
 
-     public function testCanInsertNewRecord()
+    public function testCanInsertNewRecord()
     {
         $theme = new ThemeEntity();
         $theme->populate($this->themeData);
@@ -55,7 +55,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
 
   
     public function testFindAll()
-    {   
+    {
         $theme = new ThemeEntity();
         $theme->populate($this->themeData);
         // save data
@@ -68,7 +68,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testFindBy()
-    {   
+    {
         $theme = new ThemeEntity();
         $theme->populate($this->themeData);
         // save data
@@ -185,6 +185,4 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
         unset($this->em);
         parent::tearDown();
     }
-
-
 }

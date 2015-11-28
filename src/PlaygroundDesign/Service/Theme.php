@@ -60,7 +60,7 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
         if (!$form->isValid()) {
             return false;
         }
-        if(!$this->checkDirectoryTheme($theme, $data)) {
+        if (!$this->checkDirectoryTheme($theme, $data)) {
             mkdir($theme->getBasePath().'/'.$data['area'].'/'.$data['package'].'/'.$data['theme'], 0777, true);
         }
 
@@ -114,10 +114,10 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
 
     public function uploadImage($theme, $data)
     {
-         if (!empty($data['uploadImage']['tmp_name'])) {
+        if (!empty($data['uploadImage']['tmp_name'])) {
             $path = $this->getOptions()->getMediaPath() . $data['area'] . DIRECTORY_SEPARATOR . $data['package'] . DIRECTORY_SEPARATOR . $data['theme'] . '/assets/images/screenshots/';
             if (!is_dir($path)) {
-                mkdir($path,0777, true);
+                mkdir($path, 0777, true);
             }
             $media_url = $this->getOptions()->getMediaUrl() . '/';
             move_uploaded_file($data['uploadImage']['tmp_name'], $path . $theme->getId() . "-" . $data['uploadImage']['name']);

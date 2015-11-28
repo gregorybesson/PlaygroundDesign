@@ -2,7 +2,7 @@
 
 <?php $achievements    = $this->activityWidget();?>
 <?php $leaderboard     = $this->leaderboardWidget();?>
-<?php $baseUrl         = $this->url('frontend', array('channel' => $this->channel), array('force_canonical' => true)); ?>
+<?php $baseUrl         = $this->url('frontend', , array('force_canonical' => true)); ?>
 
 <div class="sidebar col-md-4">
 
@@ -12,7 +12,7 @@
 	    	<img src="<?php echo $this->frontendAssetPath('images/common/icon-newsletter.png')?>" alt="newsletter" />
 	    	<h5 class="sb-block-title"><?php echo $this->translate('Sign up for the newsletter and never miss a game!'); ?></h5>
 			<div class="sb-block-content">
-			    <form action="<?php echo $this->url('frontend/zfcuser/ajax_newsletter', array('channel' => $this->channel));?>" method="POST" id="ajax-newsletter">
+			    <form action="<?php echo $this->url('frontend/zfcuser/ajax_newsletter', );?>" method="POST" id="ajax-newsletter">
 			        <input type="hidden" value="1" name="optin" />
 			    	<input class="btn btn-default up" type="submit" value="<?php echo $this->translate('Sign up now!'); ?>"/>
 			    </form>
@@ -37,8 +37,8 @@
 	    	<div class="sb-content">
 		    	<div class="txt"><?php echo $this->translate('Sign up and join the Playground contests our partners to win loads of gifts.'); ?></div>
 		    	<div class="accroche"><?php echo $this->translate('Playground is 100% free!'); ?></div>
-		    	<a class="btn btn-default up" href="<?php echo $this->url('frontend/zfcuser/register', array('channel' => $this->channel)) . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('Sign up now!'); ?></a>
-		    	<a class="btn btn-inverse" href="<?php echo $this->url('frontend/zfcuser/register', array('channel' => $this->channel)) . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('Connection'); ?></a>
+		    	<a class="btn btn-default up" href="<?php echo $this->url('frontend/zfcuser/register', ) . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('Sign up now!'); ?></a>
+		    	<a class="btn btn-inverse" href="<?php echo $this->url('frontend/zfcuser/register', ) . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('Connection'); ?></a>
 		    </div>
 	    </div>
     <?php endif; ?><!-- END BLOCK TONNES CADEAUX -->
@@ -76,21 +76,21 @@
 			<div class="sb-content">
 				<ul class="links-list">
 					<li class="coordonnees">
-						<a href="<?php echo $this->url('frontend/zfcuser/profile', array('channel' => $this->channel));?>" class="sb-picto-link">
+						<a href="<?php echo $this->url('frontend/zfcuser/profile', );?>" class="sb-picto-link">
 						    <!-- <img src="<?php //echo $this->frontendAssetPath('images/common/btn-coordonnees-hd.png')?>" alt="coordonnees" /> -->
 							<?php echo $this->translate('Fill in your details'); ?>
 							50 points
 						</a>
 					</li>
 					<li class="parrain">
-						<a href="<?php echo $this->url('frontend/sponsorfriends', array('channel' => $this->channel)); ?>" class="sb-picto-link">
+						<a href="<?php echo $this->url('frontend/sponsorfriends', ); ?>" class="sb-picto-link">
                              <!--<img src="<?php //echo $this->frontendAssetPath('images/common/btn-parrain-hd.png')?>" alt="parrain" /> -->
 							<?php echo $this->translate('Refer your friends'); ?>
 							100 points <?php echo $this->translate('by friend sponsored'); ?>
 						</a>
 					</li>
 					<li class="partage">
-						<a href="<?php echo $this->url('frontend/sponsorfriends', array('channel' => $this->channel)); ?>" class="sb-picto-link">
+						<a href="<?php echo $this->url('frontend/sponsorfriends', ); ?>" class="sb-picto-link">
                            <!--  <img src="<?php //echo $this->frontendAssetPath('images/common/btn-partage-hd.png')?>" alt="partage" /> -->
 							<?php echo $this->translate('Share on social networks'); ?>
 							50 points
@@ -109,12 +109,12 @@
 	    	<ul class="links-list">
 	    		<li class="connect">
                    <!-- <img src="<?php //echo $this->frontendAssetPath('images/common/btn-connect-account-hd.png')?>" alt="connect" /> -->
-	    		    <a href="<?php echo $this->url('frontend/zfcuser/register', array('channel' => $this->channel)) . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('Register'); ?></a> <?php echo $this->translate('or'); ?><br />
-	    		    <a href="<?php echo $this->url('frontend/zfcuser/register', array('channel' => $this->channel)) . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('log in'); ?></a> <?php echo $this->translate('to your account'); ?>
+	    		    <a href="<?php echo $this->url('frontend/zfcuser/register', ) . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('Register'); ?></a> <?php echo $this->translate('or'); ?><br />
+	    		    <a href="<?php echo $this->url('frontend/zfcuser/register', ) . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('log in'); ?></a> <?php echo $this->translate('to your account'); ?>
     		    </li>
 	    		<li class="game-play">
                     <!-- <img src="<?php // echo $this->frontendAssetPath('images/common/btn-contest-play-hd.png')?>" alt="gameplay" />-->
-	    		    <a href="<?php echo $this->url('frontend/gameslist', array('channel' => $this->channel)); ?>"><?php echo $this->translate('Participate in contests'); ?></a>
+	    		    <a href="<?php echo $this->url('frontend/gameslist', ); ?>"><?php echo $this->translate('Participate in contests'); ?></a>
 	    		    <?php echo $this->translate('to win prizes'); ?>
     		    </li>
 	    		<li class="gain-points">
@@ -122,7 +122,7 @@
                     <?php echo $this->translate('Collect points and earn badges.'); ?>
                 </li>
 	    	</ul>
-	    	<a href="<?php echo $this->url('frontend/cms', array('id' => 'comment-ca-marche', 'channel' => $this->channel)); ?>" class="link how-works"><?php echo $this->translate('See how to earn more points!'); ?></a>
+	    	<a href="<?php echo $this->url('frontend/cms', array('id' => 'comment-ca-marche')); ?>" class="link how-works"><?php echo $this->translate('See how to earn more points!'); ?></a>
 	   </div>
     </div><!-- END BLOCK HOW IT WORKS -->
 
@@ -130,7 +130,7 @@
     <div class="sb-block ranking">
         <img src="<?php echo $this->frontendAssetPath('images/common/icon-ranking.png')?>" alt="classement" />
     	<h5>
-    	    <a href="<?php echo $this->url('frontend/reward/leaderboard', array('period'=>'general', 'channel' => $this->channel)); ?>"><?php echo $this->translate('Ranking'); ?></a>
+    	    <a href="<?php echo $this->url('frontend/reward/leaderboard', array('period'=>'general')); ?>"><?php echo $this->translate('Ranking'); ?></a>
     	</h5>
     	<div class="sb-content">
         	<div class="btn-group btn-group-justified">
