@@ -4,7 +4,6 @@ return array(
         'DoctrineModule',
         'DoctrineORMModule',
         'ZfcBase',
-        'ZfcUser',
         'PlaygroundCore',
         'PlaygroundDesign',
     ),
