@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "128b69d619efb27a30958a00f908ed6f",
+    "hash": "536c0239050b141894481e5877a05830",
     "content-hash": "4d4c41ad545b352170e21aa95fbc7d20",
     "packages": [
         {
@@ -301,16 +301,16 @@
         },
         {
             "name": "doctrine/cache",
-            "version": "v1.5.2",
+            "version": "v1.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "47c7128262da274f590ae6f86eb137a7a64e82af"
+                "reference": "47cdc76ceb95cc591d9c79a36dc3794975b5d136"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/47c7128262da274f590ae6f86eb137a7a64e82af",
-                "reference": "47c7128262da274f590ae6f86eb137a7a64e82af",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/47cdc76ceb95cc591d9c79a36dc3794975b5d136",
+                "reference": "47cdc76ceb95cc591d9c79a36dc3794975b5d136",
                 "shasum": ""
             },
             "require": {
@@ -367,7 +367,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2015-12-03 10:50:37"
+            "time": "2015-12-19 05:03:47"
         },
         {
             "name": "doctrine/collections",
@@ -1778,16 +1778,16 @@
         },
         {
             "name": "playground/core",
-            "version": "2.5.1",
+            "version": "2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gregorybesson/PlaygroundCore.git",
-                "reference": "2691886602cc27b5ee88feaedb01f4c5b88133e5"
+                "reference": "802d6e6b7ea5ed1dde59e7f64dcd54f65887d587"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gregorybesson/PlaygroundCore/zipball/2691886602cc27b5ee88feaedb01f4c5b88133e5",
-                "reference": "2691886602cc27b5ee88feaedb01f4c5b88133e5",
+                "url": "https://api.github.com/repos/gregorybesson/PlaygroundCore/zipball/802d6e6b7ea5ed1dde59e7f64dcd54f65887d587",
+                "reference": "802d6e6b7ea5ed1dde59e7f64dcd54f65887d587",
                 "shasum": ""
             },
             "require": {
@@ -1799,6 +1799,7 @@
                 "hounddog/doctrine-data-fixture-module": "0.*",
                 "jhuet/zdt-logger-module": "0.*",
                 "php": ">=5.3.3",
+                "studio-42/elfinder": "2.*",
                 "twilio/sdk": "3.*",
                 "widmogrod/zf2-assetic-module": "1.3.*",
                 "zendframework/zend-developer-tools": "dev-master@dev",
@@ -1839,7 +1840,7 @@
                 "playground-core",
                 "zf2"
             ],
-            "time": "2015-12-17 10:57:42"
+            "time": "2015-12-19 08:04:23"
         },
         {
             "name": "sebastian/comparator",
@@ -2211,6 +2212,65 @@
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
             "homepage": "https://github.com/sebastianbergmann/version",
             "time": "2015-06-21 13:59:46"
+        },
+        {
+            "name": "studio-42/elfinder",
+            "version": "2.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Studio-42/elFinder.git",
+                "reference": "56956ceebcd6ff7176f31a9017a94e6af8339f47"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Studio-42/elFinder/zipball/56956ceebcd6ff7176f31a9017a94e6af8339f47",
+                "reference": "56956ceebcd6ff7176f31a9017a94e6af8339f47",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "suggest": {
+                "barryvdh/elfinder-flysystem-driver": "VolumeDriver for elFinder to use Flysystem as a root.",
+                "dropbox-php/dropbox-php": "elFinder Volume driver `Dropbox` require `dropbox-php/dropbox-php`.",
+                "pear/auth": "dropbox-php require `pear/auth` or `PHP OAuth extension`.",
+                "pear/http_request2": "dropbox-php require `pear/http_request2` or `PHP OAuth extension`.",
+                "pear/net_url2": "dropbox-php require `pear/net_url2` or `PHP OAuth extension`."
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitry Levashov",
+                    "email": "dio@std42.ru",
+                    "homepage": "http://std42.ru"
+                },
+                {
+                    "name": "Troex Nevelin",
+                    "email": "troex@fury.scancode.ru",
+                    "homepage": "http://std42.ru"
+                },
+                {
+                    "name": "Naoki Sawada",
+                    "email": "hypweb@gmail.com",
+                    "homepage": "http://xoops.hypweb.net"
+                },
+                {
+                    "name": "Community contributions",
+                    "homepage": "https://github.com/Studio-42/elFinder/contributors"
+                }
+            ],
+            "description": "File manager for web",
+            "homepage": "http://elfinder.org",
+            "time": "2015-12-16 13:17:39"
         },
         {
             "name": "sybio/gif-creator",
@@ -4049,20 +4109,20 @@
         },
         {
             "name": "zendframework/zend-math",
-            "version": "2.5.1",
+            "version": "2.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-math.git",
-                "reference": "9f02a1ac4d3374d3332c80f9215deec9c71558fc"
+                "reference": "2648ee3cce39aa3876788c837e3b58f198dc8a78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-math/zipball/9f02a1ac4d3374d3332c80f9215deec9c71558fc",
-                "reference": "9f02a1ac4d3374d3332c80f9215deec9c71558fc",
+                "url": "https://api.github.com/repos/zendframework/zend-math/zipball/2648ee3cce39aa3876788c837e3b58f198dc8a78",
+                "reference": "2648ee3cce39aa3876788c837e3b58f198dc8a78",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.23"
+                "php": ">=5.5"
             },
             "require-dev": {
                 "fabpot/php-cs-fixer": "1.7.*",
@@ -4097,7 +4157,7 @@
                 "math",
                 "zf2"
             ],
-            "time": "2015-06-03 15:32:02"
+            "time": "2015-12-17 15:31:58"
         },
         {
             "name": "zendframework/zend-memory",
@@ -5721,12 +5781,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/satooshi/php-coveralls.git",
-                "reference": "e70899e79e92b66bf20d18a7aa9e5b6613f2d052"
+                "reference": "f2fe833caef2c65620c11f5fabe60040df39339f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/satooshi/php-coveralls/zipball/e70899e79e92b66bf20d18a7aa9e5b6613f2d052",
-                "reference": "e70899e79e92b66bf20d18a7aa9e5b6613f2d052",
+                "url": "https://api.github.com/repos/satooshi/php-coveralls/zipball/f2fe833caef2c65620c11f5fabe60040df39339f",
+                "reference": "f2fe833caef2c65620c11f5fabe60040df39339f",
                 "shasum": ""
             },
             "require": {
@@ -5776,7 +5836,7 @@
                 "github",
                 "test"
             ],
-            "time": "2015-12-15 20:03:58"
+            "time": "2015-12-17 20:16:23"
         },
         {
             "name": "squizlabs/php_codesniffer",

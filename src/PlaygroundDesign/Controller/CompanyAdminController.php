@@ -56,7 +56,7 @@ class CompanyAdminController extends AbstractActionController
         return $this->companyForm;
     }
 
-    public function setCompanyForm(CompanyForm $form)
+    public function setCompanyForm(\PlaygoundDesign\Form\Admin\Company $form)
     {
         $this->companyForm = $form;
 
