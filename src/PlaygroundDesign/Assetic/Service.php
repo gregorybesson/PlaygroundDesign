@@ -253,7 +253,7 @@ class Service extends \AsseticBundle\Service
             $option = null;
             if (is_array($options)) {
                 if (!isset($options['name'])) {
-                    throw new Exception\InvalidArgumentException(
+                    throw new \InvalidArgumentException(
                         'Filter "' . $alias . '" required option "name"'
                     );
                 }

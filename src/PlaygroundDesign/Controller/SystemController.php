@@ -19,7 +19,8 @@ class SystemController extends AbstractActionController
 
     public function modulesAction()
     {
-        $modules = Module::getLoadedModules();
+        $manager = $this->getServiceLocator()->get('ModuleManager');
+        $modules = $manager->getLoadedModules();
 
         return array('modules' => $modules);
     }
