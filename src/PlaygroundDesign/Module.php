@@ -351,7 +351,7 @@ class Module implements
                     }
                 }
             }
-            
+
             // Creating the Assetic configuration for images of all available themes
             /*if (PHP_SAPI !== 'cli') {
                 $themeMapper = $this->getThemeMapper($serviceManager);
