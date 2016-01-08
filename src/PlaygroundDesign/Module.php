@@ -351,7 +351,22 @@ class Module implements
                     }
                 }
             }
-            
+
+            // frontend translation files
+            /*$config['translator']['translation_file_patterns'][] = array(
+                'type' => 'phpArray',
+                'base_dir' => __DIR__ . '/../../../../../language',
+                'pattern' => '%s.php',
+                'text_domain' => 'frontend'
+            );
+            $config['translator']['translation_file_patterns'][] = array(
+                'type' => 'phpArray',
+                'base_dir' => __DIR__ . '/../../../../../design/frontend/'. $parentTheme[0] .
+                    '/'. $parentTheme[1] . '/language',
+                'pattern' => '%s.php',
+                'text_domain' => 'frontend'
+            );*/
+
             // Creating the Assetic configuration for images of all available themes
             /*if (PHP_SAPI !== 'cli') {
                 $themeMapper = $this->getThemeMapper($serviceManager);
