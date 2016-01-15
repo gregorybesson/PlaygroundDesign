@@ -40,6 +40,10 @@ class Listener extends \AsseticBundle\Listener implements ListenerAggregateInter
             $asseticService->setControllerName($router->getParam('controller'));
             $asseticService->setActionName($router->getParam('action'));
             $asseticService->setParams($router->getParams());
+        } else {
+            $asseticService->setRouteName('error_404');
+            $asseticService->setControllerName('Application\Controller\Index');
+            $asseticService->setActionName('error_' . uniqid());
         }
 
         // Create all objects
