@@ -442,6 +442,12 @@ return array(
                 '@head_frontend_lib_js' => '@head_frontend_lib_js',
                 '@head_frontend_js'     => '@head_frontend_js',
             ),
+            'error_404' => array(
+                '@frontend_lib_css'     => '@frontend_lib_css',
+                '@frontend_css'         => '@frontend_base_css',
+                '@head_frontend_lib'    => '@head_frontend_base_lib',
+                '@head_frontend_js'     => '@head_frontend_base_js',
+            ),
         ),
     ),
 
