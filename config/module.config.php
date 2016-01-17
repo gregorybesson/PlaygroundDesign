@@ -454,9 +454,7 @@ return array(
   'router' => array(
     'routes' => array(
       'frontend' => array(
-        'type' => 'PlaygroundCore\Mvc\Router\Http\RegexSlash',
         'options' => array(
-          'regex' => '\/(?<locale>([a-z]{2})(\/|\z)+)?\/?',
           'defaults' => array(
             'controller' => 'PlaygroundDesign\Controller\Frontend\Home',
             'action'     => 'index',
