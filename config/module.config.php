@@ -87,7 +87,7 @@ return array(
                     ),
                     'jquery_ui' => array(
                         'assets' => array(
-                            'js/jquery-ui.min.js',
+                            'js/elfinder/jquery/jquery-ui-1.10.1.custom.min.js',
                         ),
                     ),
                     'jquery_validate' => array(
@@ -173,7 +173,7 @@ return array(
                     ),
                     'jquery_ui_css' => array(
                         'assets' => array(
-                            'http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css',
+                            'js/elfinder/jquery/ui-themes/smoothness/jquery-ui-1.10.1.custom.css',
                         ),
                     ),
                     'datepicker_css' => array(

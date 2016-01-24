@@ -468,10 +468,31 @@ class Module implements
         // I put area to each view
         $e->getApplication()->getEventManager()->attach(\Zend\Mvc\MvcEvent::EVENT_RENDER, function (\Zend\Mvc\MvcEvent $e) use ($serviceManager) {
         
-            $viewModel          = $e->getViewModel();
-            $match              = $e->getRouteMatch();
-            $area               = isset($match)? $match->getParam('area', ''):'';
-            
+            $viewModel = $e->getViewModel();
+            $match = $e->getRouteMatch();
+            $area = isset($match)? $match->getParam('area', ''):'';
+            $sm = $e->getApplication()->getServiceManager();
+            if($match){
+                $action = $match->getParam('action');
+                $controller = explode('\\', $match->getParam('controller'));
+                $controller = end($controller);
+                $module = __NAMESPACE__;
+                $headTitleHelper = $sm->get('viewHelperManager')->get('headTitle');
+                $title = $module . '-' . $controller . '-' . $action;
+                $title = $sm->get('translator')->translate($title, 'routes');
+
+                if($title !== ' ' && !empty($title)){
+                    if(!empty($headTitleHelper->renderTitle())){
+                        $title = $sm->get('translator')->translate(
+                            $headTitleHelper->renderTitle() . ' - ' . $title,
+                            'routes'
+                        );
+                    }
+
+                    $headTitleHelper->set($title);
+                }
+            }
+
             $viewModel->area    = $area;
             
             foreach ($viewModel->getChildren() as $child) {
