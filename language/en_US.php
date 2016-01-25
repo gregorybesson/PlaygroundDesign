@@ -23,6 +23,7 @@
  * EN-Revision: 09.Sept.2012
  */
 return array(
+
     // Zend_I18n_Validator_Alnum
     "Invalid type given. String, integer or float expected" => "Invalid type given. String, integer or float expected",
     "The input contains characters which are non alphabetic and no digits" => "The input contains characters which are non alphabetic and no digits",

@@ -321,6 +321,7 @@ return array(
     // Menus
 	'Home' 	=> 'Accueil',
     'Users'			=> 'Utilisateurs',
+    'Roles list'    => 'liste des rôles',
     'Users list' 	=> 'Liste des utilisateurs',
     'Create user' 	=> 'Créer un utilisateur',
     
@@ -328,12 +329,13 @@ return array(
     'Game stats'	=> 'Statistiques des jeux',
     'Export'		=> 'Export',
     
+    'Your media repository' => 'Accès aux media',
     'Posts' => 'Les articles',
     'Posts list' => 'Liste des articles',
     'Create a post' => 'Créer un article',
-    'Content bloc list' => 'Liste des blocs de contenu',
+    'Blocks' => 'Blocs',
     'Create a content bloc' => 'Créer un bloc de contenu',
-    'Dynamic blocs list' => 'Liste des blocs dynamiques',
+    'Dynamic blocks' => 'Blocs dynamiques',
     
     'Rewards' => 'Récompenses',
     'Rewards list' => 'Listes des récompenses',
@@ -345,6 +347,7 @@ return array(
     'Add new quiz' 			=> 'Créer un quiz',
     'Add new post & vote' 	=> 'Créer un Post & Vote',
     'Add new instant win' 	=> 'Créer un instant gagnant',
+    'Add new mission'       => 'Créer une mission',
     'Manage categories gain' => 'Gérer les catégories de gain',
     'Add new treasure hunt' => 'Créer une chasse au trésor',
     'Mission Management'    => 'Gestion des missions',
