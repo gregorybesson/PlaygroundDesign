@@ -387,9 +387,6 @@ class Module implements
             $translate->getTranslator()->setLocale($locale);
         }
 
-        // positionnement de la langue pour les traductions de date avec strftime
-        setlocale(LC_TIME, "fr_FR", 'fr_FR.utf8', 'fra');
-
         AbstractValidator::setDefaultTranslator($translator, 'playgrounddesign');
         
         // Start the session container
