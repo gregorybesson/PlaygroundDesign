@@ -387,9 +387,6 @@ class Module implements
             $translate->getTranslator()->setLocale($locale);
         }
 
-        // positionnement de la langue pour les traductions de date avec strftime
-        setlocale(LC_TIME, "fr_FR", 'fr_FR.utf8', 'fra');
-
         AbstractValidator::setDefaultTranslator($translator, 'playgrounddesign');
         
         // Start the session container
@@ -473,23 +470,17 @@ class Module implements
             $area = isset($match)? $match->getParam('area', ''):'';
             $sm = $e->getApplication()->getServiceManager();
             if($match){
+                $title = $match->getParam('title');
                 $action = $match->getParam('action');
                 $controller = explode('\\', $match->getParam('controller'));
                 $controller = end($controller);
-                $module = __NAMESPACE__;
                 $headTitleHelper = $sm->get('viewHelperManager')->get('headTitle');
-                $title = $module . '-' . $controller . '-' . $action;
+
+                if(empty($title)) $title = $controller . '-' . $action;
                 $title = $sm->get('translator')->translate($title, 'routes');
 
                 if($title !== ' ' && !empty($title)){
-                    if(!empty($headTitleHelper->renderTitle())){
-                        $title = $sm->get('translator')->translate(
-                            $headTitleHelper->renderTitle() . ' - ' . $title,
-                            'routes'
-                        );
-                    }
-
-                    $headTitleHelper->set($title);
+                    $headTitleHelper->prepend($title);
                 }
             }
 
@@ -498,7 +489,7 @@ class Module implements
             foreach ($viewModel->getChildren() as $child) {
                 $child->area = $area;
             }
-        });
+        },-1000);
     }
 
     public function getAutoloaderConfig()
