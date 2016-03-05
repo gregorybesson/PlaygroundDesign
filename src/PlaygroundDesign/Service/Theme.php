@@ -3,9 +3,7 @@
 namespace PlaygroundDesign\Service;
 
 use PlaygroundDesign\Entity\Theme as ThemeEntity;
-
 use Zend\Form\Form;
-use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Validator\NotEmpty;
 use ZfcBase\EventManager\EventProvider;
@@ -13,7 +11,7 @@ use PlaygroundDesign\Options\ModuleOptions;
 use DoctrineModule\Validator\NoObjectExists as NoObjectExistsValidator;
 use Zend\Stdlib\ErrorHandler;
 
-class Theme extends EventProvider implements ServiceManagerAwareInterface
+class Theme extends EventProvider
 {
 
     /**
@@ -22,16 +20,22 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
     protected $themeMapper;
 
     /**
-     * @var ServiceManager
-     */
-    protected $serviceManager;
-
-    /**
      * @var UserServiceOptionsInterface
      */
     protected $options;
 
     public static $files = array('assets.php', 'layout.php', 'theme.php');
+
+    /**
+     *
+     * @var ServiceManager
+     */
+    protected $serviceLocator;
+
+    public function __construct(ServiceLocatorInterface $locator)
+    {
+        $this->serviceLocator = $locator;
+    }
 
     /**
      *
@@ -51,7 +55,7 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
 
         $theme = new ThemeEntity;
 
-        $form = $this->getServiceManager()->get($formClass);
+        $form = $this->serviceLocator->get($formClass);
 
         $form->bind($theme);
         $theme->setImage('tmp');
@@ -93,9 +97,9 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
             return false;
         }
 
-        $entityManager = $this->getServiceManager()->get('playgrounddesign_doctrine_em');
+        $entityManager = $this->serviceLocator->get('playgrounddesign_doctrine_em');
 
-        $form  = $this->getServiceManager()->get($formClass);
+        $form  = $this->serviceLocator->get($formClass);
 
         $form->bind($theme);
 
@@ -137,7 +141,6 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
      */
     public function checkDirectoryTheme($theme, $data)
     {
-
         $newUrlTheme = $theme->getBasePath().'/'.$data['area'].'/'.$data['package'].'/'.$data['theme'];
         if (!is_dir($newUrlTheme)) {
             return false;
@@ -153,7 +156,7 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
                 continue;
             }
             $contentAssets = file_get_contents(__DIR__.'/../Templates/'.$file);
-            $contentAssets = str_replace(array('{{area}}', '{{package}}','{{theme}}', '{{title}}'), array($data['area'], $data['package'], $data['theme'], $data['title']), $contentAssets);
+            $contentAssets = str_replace(array('{{area}}', '{{package}}', '{{theme}}', '{{title}}'), array($data['area'], $data['package'], $data['theme'], $data['title']), $contentAssets);
             file_put_contents($theme->getBasePath().$data['area'].'/'.$data['package'].'/'.$data['theme'].'/'.$file, $contentAssets);
         }
     }
@@ -245,7 +248,7 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
     public function getThemeMapper()
     {
         if (null === $this->themeMapper) {
-            $this->themeMapper = $this->getServiceManager()->get('playgrounddesign_theme_mapper');
+            $this->themeMapper = $this->serviceLocator->get('playgrounddesign_theme_mapper');
         }
 
         return $this->themeMapper;
@@ -285,32 +288,9 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
     public function getOptions()
     {
         if (!$this->options instanceof ModuleOptions) {
-            $this->setOptions($this->getServiceManager()->get('playgrounddesignmodule_options'));
+            $this->setOptions($this->serviceLocator->get('playgrounddesignmodule_options'));
         }
 
         return $this->options;
-    }
-
-    /**
-     * Retrieve service manager instance
-     *
-     * @return ServiceManager
-     */
-    public function getServiceManager()
-    {
-        return $this->serviceManager;
-    }
-
-    /**
-     * Set service manager instance
-     *
-     * @param  ServiceManager $serviceManager
-     * @return User
-     */
-    public function setServiceManager(ServiceManager $serviceManager)
-    {
-        $this->serviceManager = $serviceManager;
-
-        return $this;
     }
 }

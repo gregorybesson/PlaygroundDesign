@@ -5,7 +5,6 @@ namespace PlaygroundDesign\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\EventManager\EventManager;
-
 use PlaygroundDesign\Entity\Theme as ThemeEntity;
 use PlaygroundDesign\Mapper\Theme;
 
@@ -75,7 +74,7 @@ class ThemeAdminController extends AbstractActionController
 
                 return $this->redirect()->toRoute('admin/playgrounddesign_themeadmin');
             } else {
-                 $this->flashMessenger()->addMessage('The theme was not updated');
+                $this->flashMessenger()->addMessage('The theme was not updated');
 
                 return $this->redirect()->toRoute('admin/playgrounddesign_themeadmin');
             }
@@ -114,11 +113,10 @@ class ThemeAdminController extends AbstractActionController
 
                 return $this->redirect()->toRoute('admin/playgrounddesign_themeadmin');
             } else {
-                 $this->flashMessenger()->addMessage('The theme was not created');
+                $this->flashMessenger()->addMessage('The theme was not created');
 
                 return $this->redirect()->toRoute('admin/playgrounddesign_themeadmin');
             }
-
         }
 
         $viewModel = new ViewModel();
@@ -126,7 +124,6 @@ class ThemeAdminController extends AbstractActionController
 
         return $viewModel->setVariables(array('form'           => $form,
                                               'automaticTheme' => 0));
-
     }
 
     /**
@@ -152,7 +149,6 @@ class ThemeAdminController extends AbstractActionController
     */
     public function activateAction()
     {
-
         $themeId = $this->getEvent()->getRouteMatch()->getParam('themeId');
         $theme = $this->getAdminThemeService()->findById($themeId);
 
@@ -230,7 +226,6 @@ class ThemeAdminController extends AbstractActionController
                         }
                     }
                 }
-
             }
         }
 

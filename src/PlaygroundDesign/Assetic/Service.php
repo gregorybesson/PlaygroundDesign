@@ -118,7 +118,6 @@ class Service extends \AsseticBundle\Service
                     //print_r($options);
                 }
                 //print_r($assets);
-
             }
 
             $factory = $this->createAssetFactory($configuration);
@@ -127,7 +126,6 @@ class Service extends \AsseticBundle\Service
                 //print_r($options);
                 $this->prepareCollection($options, $name, $factory);
             }
-
         }
     }
 

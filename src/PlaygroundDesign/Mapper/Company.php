@@ -4,7 +4,6 @@ namespace PlaygroundDesign\Mapper;
 
 use Doctrine\ORM\EntityManager;
 use ZfcBase\Mapper\AbstractDbMapper;
-
 use PlaygroundDesign\Options\ModuleOptions;
 
 class Company implements CompanyInterface

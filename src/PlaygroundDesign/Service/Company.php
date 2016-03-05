@@ -3,7 +3,6 @@
 namespace PlaygroundDesign\Service;
 
 use PlaygroundDesign\Entity\Company as CompanyEntity;
-
 use Zend\Form\Form;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
@@ -13,7 +12,7 @@ use PlaygroundDesign\Options\ModuleOptions;
 use DoctrineModule\Validator\NoObjectExists as NoObjectExistsValidator;
 use Zend\Stdlib\ErrorHandler;
 
-class Company extends EventProvider implements ServiceManagerAwareInterface
+class Company extends EventProvider
 {
 
     /**
@@ -22,14 +21,20 @@ class Company extends EventProvider implements ServiceManagerAwareInterface
     protected $companyMapper;
 
     /**
-     * @var ServiceManager
-     */
-    protected $serviceManager;
-
-    /**
      * @var UserServiceOptionsInterface
      */
     protected $options;
+
+    /**
+     *
+     * @var ServiceManager
+     */
+    protected $serviceLocator;
+
+    public function __construct(ServiceLocatorInterface $locator)
+    {
+        $this->serviceLocator = $locator;
+    }
 
     /**
      *
@@ -43,9 +48,9 @@ class Company extends EventProvider implements ServiceManagerAwareInterface
     public function create(array $data)
     {
         $company = new CompanyEntity;
-        $entityManager = $this->getServiceManager()->get('playgrounddesign_doctrine_em');
+        $entityManager = $this->serviceLocator->get('playgrounddesign_doctrine_em');
 
-        $form = $this->getServiceManager()->get('playgrounddesign_company_form');
+        $form = $this->serviceLocator->get('playgrounddesign_company_form');
 
         $form->bind($company);
         $form->setData($data);
@@ -76,9 +81,9 @@ class Company extends EventProvider implements ServiceManagerAwareInterface
      */
     public function edit(array $data, $company)
     {
-        $entityManager = $this->getServiceManager()->get('playgrounddesign_doctrine_em');
+        $entityManager = $this->serviceLocator->get('playgrounddesign_doctrine_em');
 
-        $form  = $this->getServiceManager()->get('playgrounddesign_company_form');
+        $form  = $this->serviceLocator->get('playgrounddesign_company_form');
 
         $form->bind($company);
 
@@ -116,7 +121,7 @@ class Company extends EventProvider implements ServiceManagerAwareInterface
     public function getCompanyMapper()
     {
         if (null === $this->companyMapper) {
-            $this->companyMapper = $this->getServiceManager()->get('playgrounddesign_company_mapper');
+            $this->companyMapper = $this->serviceLocator->get('playgrounddesign_company_mapper');
         }
 
         return $this->companyMapper;
@@ -156,32 +161,9 @@ class Company extends EventProvider implements ServiceManagerAwareInterface
     public function getOptions()
     {
         if (!$this->options instanceof ModuleOptions) {
-            $this->setOptions($this->getServiceManager()->get('playgrounddesignmodule_options'));
+            $this->setOptions($this->serviceLocator->get('playgrounddesignmodule_options'));
         }
 
         return $this->options;
-    }
-
-    /**
-     * Retrieve service manager instance
-     *
-     * @return ServiceManager
-     */
-    public function getServiceManager()
-    {
-        return $this->serviceManager;
-    }
-
-    /**
-     * Set service manager instance
-     *
-     * @param  ServiceManager $serviceManager
-     * @return User
-     */
-    public function setServiceManager(ServiceManager $serviceManager)
-    {
-        $this->serviceManager = $serviceManager;
-
-        return $this;
     }
 }
