@@ -617,9 +617,6 @@ class Module implements
     {
         return array(
             'factories' => array(
-                'playgrounddesign_theme_service' => 'PlaygroundDesign\Service\ThemeFactory',
-                'playgrounddesign_company_service' => 'PlaygroundDesign\Service\CompanyFactory',
-                'admin_navigation' => 'PlaygroundDesign\Service\AdminNavigationFactory',
                 // overriding wilmogrod Assetic definition
                 'AsseticBundle\Configuration' => function ($sm) {
                     $configuration = $sm->get('Configuration');
@@ -655,9 +652,6 @@ class Module implements
                     $form->setInputFilter($company->getInputFilter());
                     return $form;
                 }
-            ),
-            'aliases' => array(
-                'playgrounddesign_doctrine_em' => 'doctrine.entitymanager.orm_default'
             ),
         );
     }
