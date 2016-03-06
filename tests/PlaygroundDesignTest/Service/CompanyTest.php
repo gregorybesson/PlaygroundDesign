@@ -30,8 +30,7 @@ class CompanyTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateTrue()
     {
-        $service = new \PlaygroundDesign\Service\Company();
-        $service->setServiceManager(Bootstrap::getServiceManager());
+        $service = new \PlaygroundDesign\Service\Company(Bootstrap::getServiceManager());
 
         $companyPostUpdate = new CompanyEntity;
         $companyPostUpdate->setTitle($this->companyData['title']);

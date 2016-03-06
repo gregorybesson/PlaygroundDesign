@@ -4,15 +4,15 @@ namespace PlaygroundDesign\Service;
 
 use PlaygroundDesign\Entity\Company as CompanyEntity;
 use Zend\Form\Form;
-use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Validator\NotEmpty;
 use ZfcBase\EventManager\EventProvider;
 use PlaygroundDesign\Options\ModuleOptions;
 use DoctrineModule\Validator\NoObjectExists as NoObjectExistsValidator;
 use Zend\Stdlib\ErrorHandler;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
-class Company extends EventProvider implements ServiceManagerAwareInterface
+class Company extends EventProvider
 {
 
     /**
@@ -29,6 +29,11 @@ class Company extends EventProvider implements ServiceManagerAwareInterface
      * @var UserServiceOptionsInterface
      */
     protected $options;
+
+    public function __construct(ServiceLocatorInterface $locator)
+    {
+        $this->serviceManager = $locator;
+    }
 
     /**
      *
@@ -169,18 +174,5 @@ class Company extends EventProvider implements ServiceManagerAwareInterface
     public function getServiceManager()
     {
         return $this->serviceManager;
-    }
-
-    /**
-     * Set service manager instance
-     *
-     * @param  ServiceManager $serviceManager
-     * @return User
-     */
-    public function setServiceManager(ServiceManager $serviceManager)
-    {
-        $this->serviceManager = $serviceManager;
-
-        return $this;
     }
 }

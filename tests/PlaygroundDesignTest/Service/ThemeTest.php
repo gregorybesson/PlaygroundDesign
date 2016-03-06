@@ -16,14 +16,14 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateTitleFalse()
     {
-        $service = new \PlaygroundDesign\Service\Theme();
+        $service = new \PlaygroundDesign\Service\Theme(Bootstrap::getServiceManager());
         $data = array("title" => "");
         $this->assertFalse($service->create($data, "playgrounddesign_theme_form"));
     }
 
     public function testEditTitleFalse()
     {
-        $service = new \PlaygroundDesign\Service\Theme();
+        $service = new \PlaygroundDesign\Service\Theme(Bootstrap::getServiceManager());
         $data = array("title" => "");
         $this->assertFalse($service->edit($data, new ThemeEntity, "playgrounddesign_theme_form"));
     }
@@ -36,7 +36,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
                       'package' => 'tata',
                       'theme' => 'titi');
 
-        $ts = new \PlaygroundDesign\Service\Theme();
+        $ts = new \PlaygroundDesign\Service\Theme(Bootstrap::getServiceManager());
         $this->assertFalse($ts->checkDirectoryTheme($theme, $data));
     }
 
@@ -47,7 +47,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
                       'package' => 'default',
                       'theme' => 'base');
 
-        $ts = new \PlaygroundDesign\Service\Theme();
+        $ts = new \PlaygroundDesign\Service\Theme(Bootstrap::getServiceManager());
         $this->assertTrue($ts->checkDirectoryTheme($theme, $data));
     }
 
@@ -59,7 +59,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
     public function testCreateFiles()
     {
         $data = array("area" => "area", "package" => "package", "theme" => "theme", "title" => "Toto");
-        $ts = new \PlaygroundDesign\Service\Theme();
+        $ts = new \PlaygroundDesign\Service\Theme(Bootstrap::getServiceManager());
         $theme = new ThemeEntity();
         mkdir($theme->getBasePath().'/'.$data['area'].'/'.$data['package'].'/'.$data['theme'], 0777, true);
         $ts->createFiles($theme, $data);
@@ -75,7 +75,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
     public function testCreateExistFiles()
     {
         $data = array("area" => "area", "package" => "package", "theme" => "theme", "title" => "Toto");
-        $ts = new \PlaygroundDesign\Service\Theme();
+        $ts = new \PlaygroundDesign\Service\Theme(Bootstrap::getServiceManager());
         $theme = new ThemeEntity();
         mkdir($theme->getBasePath().'/'.$data['area'].'/'.$data['package'].'/'.$data['theme'], 0777, true);
         file_put_contents($theme->getBasePath().$data['area'].'/'.$data['package'].'/'.$data['theme'].'/assets.php', 'null');
@@ -93,7 +93,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
     {
         $data = array();
         $theme = new ThemeEntity();
-        $ts = new \PlaygroundDesign\Service\Theme();
+        $ts = new \PlaygroundDesign\Service\Theme(Bootstrap::getServiceManager());
         $this->assertEquals($theme, $ts->uploadImage($theme, $data));
     }
 /*
@@ -105,7 +105,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
 
         $theme = new ThemeEntity();
         $theme->setId('12');
-        $ts = new \PlaygroundDesign\Service\Theme();
+        $ts = new \PlaygroundDesign\Service\Theme(Bootstrap::getServiceManager());
         $ts->setServiceManager(Bootstrap::getServiceManager());
         $theme = $ts->uploadImage($theme, $data);
         $this->assertEquals('/theme/images/screenshots/12-CeciEstBidon', $theme->getImage());
@@ -122,14 +122,12 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
     public function testCreateTrue()
     {
 
-        $service = new \PlaygroundDesign\Service\Theme();
+        $service = new \PlaygroundDesign\Service\Theme(Bootstrap::getServiceManager());
         $data = array("area" => "Ceci", "package" => "Est", "theme" => "bidon", "title" => "Toto");
-        $service->setServiceManager(Bootstrap::getServiceManager());
 
         $themePostUpdate = new ThemeEntity;
         $themePostUpdate->setTitle($data['title']);
 
-        $service->setServiceManager(Bootstrap::getServiceManager());
         $mapper = $this->getMockBuilder('PlaygroundDesign\Mapper\Theme')
             ->disableOriginalConstructor()
             ->getMock();
@@ -156,14 +154,13 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
     public function testEditFalse()
     {
 
-        $service = new \PlaygroundDesign\Service\Theme();
+        $service = new \PlaygroundDesign\Service\Theme(Bootstrap::getServiceManager());
         $data = array("area" => "admin", "package" => "default", "theme" => "base", "title" => "Toto2");
         $theme = new ThemeEntity();
 
         $themePostUpdate = new ThemeEntity;
         $themePostUpdate->setTitle($data['title']);
 
-        $service->setServiceManager(Bootstrap::getServiceManager());
         $mapper = $this->getMockBuilder('PlaygroundDesign\Mapper\Theme')
             ->disableOriginalConstructor()
             ->getMock();
@@ -179,8 +176,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
     public function testSetMapper()
     {
 
-        $service = new \PlaygroundDesign\Service\Theme();
-        $service->setServiceManager(Bootstrap::getServiceManager());
+        $service = new \PlaygroundDesign\Service\Theme(Bootstrap::getServiceManager());
         $mapper = $this->getMockBuilder('PlaygroundDesign\Mapper\Theme')
             ->disableOriginalConstructor()
             ->getMock();
@@ -190,8 +186,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
 
     public function testFindById()
     {
-        $service = new \PlaygroundDesign\Service\Theme();
-        $service->setServiceManager(Bootstrap::getServiceManager());
+        $service = new \PlaygroundDesign\Service\Theme(Bootstrap::getServiceManager());
 
         $theme = new ThemeEntity();
 
@@ -208,8 +203,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
 
     public function testInsert()
     {
-        $service = new \PlaygroundDesign\Service\Theme();
-        $service->setServiceManager(Bootstrap::getServiceManager());
+        $service = new \PlaygroundDesign\Service\Theme(Bootstrap::getServiceManager());
 
         $theme = new ThemeEntity();
 
@@ -226,8 +220,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
 
     public function testUpdate()
     {
-        $service = new \PlaygroundDesign\Service\Theme();
-        $service->setServiceManager(Bootstrap::getServiceManager());
+        $service = new \PlaygroundDesign\Service\Theme(Bootstrap::getServiceManager());
 
         $theme = new ThemeEntity();
 
@@ -244,8 +237,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
 
     public function testFindActiveTheme()
     {
-        $service = new \PlaygroundDesign\Service\Theme();
-        $service->setServiceManager(Bootstrap::getServiceManager());
+        $service = new \PlaygroundDesign\Service\Theme(Bootstrap::getServiceManager());
 
         $theme = new ThemeEntity();
 
@@ -263,8 +255,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
 
     public function testFindActiveThemeByArea()
     {
-        $service = new \PlaygroundDesign\Service\Theme();
-        $service->setServiceManager(Bootstrap::getServiceManager());
+        $service = new \PlaygroundDesign\Service\Theme(Bootstrap::getServiceManager());
 
         $theme = new ThemeEntity();
 
@@ -282,8 +273,7 @@ class ThemeTest extends \PHPUnit_Framework_TestCase
 
     public function testFindThemeByAreaPackageAndBase()
     {
-        $service = new \PlaygroundDesign\Service\Theme();
-        $service->setServiceManager(Bootstrap::getServiceManager());
+        $service = new \PlaygroundDesign\Service\Theme(Bootstrap::getServiceManager());
 
         $theme = new ThemeEntity();
 

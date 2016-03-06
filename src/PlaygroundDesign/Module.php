@@ -622,7 +622,6 @@ class Module implements
                     $configuration = $sm->get('Configuration');
                     return new Assetic\Configuration($configuration['assetic_configuration']);
                 },
-                'admin_navigation' => 'PlaygroundDesign\Service\AdminNavigationFactory',
                 'playgrounddesign_module_options' => function ($sm) {
                     $config = $sm->get('Configuration');
 
@@ -653,13 +652,6 @@ class Module implements
                     $form->setInputFilter($company->getInputFilter());
                     return $form;
                 }
-            ),
-            'aliases' => array(
-                'playgrounddesign_doctrine_em' => 'doctrine.entitymanager.orm_default'
-            ),
-            'invokables' => array(
-                'playgrounddesign_theme_service' => 'PlaygroundDesign\Service\Theme',
-                'playgrounddesign_company_service' => 'PlaygroundDesign\Service\Company'
             ),
         );
     }

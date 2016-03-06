@@ -45,11 +45,17 @@ return array(
     ),
 
     'service_manager' => array(
+        'aliases' => array(
+            'playgrounddesign_doctrine_em' => 'doctrine.entitymanager.orm_default'
+        ),
         'factories' => array(
             // this definition has to be done here to override Wilmogrod Assetic declaration
             'AsseticBundle\Service' => 'PlaygroundDesign\Assetic\ServiceFactory',
             'translator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
             'nav' => 'Zend\Navigation\Service\DefaultNavigationFactory',
+            'admin_navigation' => 'PlaygroundDesign\Service\Factory\AdminNavigationFactory',
+            'playgrounddesign_theme_service' => 'PlaygroundDesign\Service\Factory\ThemeFactory',
+            'playgrounddesign_company_service' => 'PlaygroundDesign\Service\Factory\CompanyFactory'
         ),
         'invokables' => array(
             // this definition has to be done here to override Wilmogrod Assetic declaration
