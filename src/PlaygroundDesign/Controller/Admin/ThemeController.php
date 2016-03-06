@@ -1,14 +1,15 @@
 <?php
 
-namespace PlaygroundDesign\Controller;
+namespace PlaygroundDesign\Controller\Admin;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\EventManager\EventManager;
 use PlaygroundDesign\Entity\Theme as ThemeEntity;
 use PlaygroundDesign\Mapper\Theme;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
-class ThemeAdminController extends AbstractActionController
+class ThemeController extends AbstractActionController
 {
     /**
     * @var $themeMapper mapper de l'entity theme
@@ -19,6 +20,22 @@ class ThemeAdminController extends AbstractActionController
     * @var $adminActionService Service de l'entity theme
     */
     protected $adminActionService;
+
+    /**
+     *
+     * @var ServiceManager
+     */
+    protected $serviceLocator;
+
+    public function __construct(ServiceLocatorInterface $locator)
+    {
+        $this->serviceLocator = $locator;
+    }
+
+    public function getServiceLocator()
+    {
+        return $this->serviceLocator;
+    }
 
     /**
     * Liste des themes

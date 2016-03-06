@@ -57,8 +57,8 @@ class CompanyAdminControllerTest extends AbstractHttpControllerTestCase
 
         $this->dispatch('/admin/company');
         $this->assertModuleName('playgrounddesign');
-        $this->assertControllerName('playgrounddesign\controller\CompanyAdmin');
-        $this->assertControllerClass('CompanyAdminController');
+        $this->assertControllerName('playgrounddesign\controller\admin\Company');
+        $this->assertControllerClass('CompanyController');
         $this->assertActionName('index');
         $this->assertMatchedRouteName('admin/playgrounddesign_companyadmin');
     }
