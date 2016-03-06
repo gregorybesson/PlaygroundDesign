@@ -27,6 +27,7 @@ class Footer extends AbstractHelper
         $vm->setTemplate($template);
         $vm->setVariables($options);
         return $this->getView()->render($vm, array());
+
     }
 
     /**

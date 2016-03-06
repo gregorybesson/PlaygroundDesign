@@ -4,7 +4,7 @@ namespace PlaygroundDesign\Entity;
 
 interface CompanyInterface
 {
-    /**
+     /**
      * @param $title
      * @return mixed
      */

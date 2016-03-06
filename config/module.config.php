@@ -19,11 +19,11 @@ return array(
         'guards' => array(
             'BjyAuthorize\Guard\Controller' => array(
                 
-                array('controller' => 'PlaygroundDesign\Controller\Frontend\Home',             'roles' => array('guest', 'user')),
-                array('controller' => 'PlaygroundDesign\Controller\System',                     'roles' => array('admin')),
-                array('controller' => 'PlaygroundDesign\Controller\Dashboard',                  'roles' => array('admin')),
-                array('controller' => 'PlaygroundDesign\Controller\CompanyAdmin',               'roles' => array('admin')),
-                array('controller' => 'PlaygroundDesign\Controller\ThemeAdmin',                 'roles' => array('admin')),
+                array('controller' => 'PlaygroundDesign\Controller\Frontend\Home',  'roles' => array('guest', 'user')),
+                array('controller' => 'PlaygroundDesign\Controller\Admin\System',   'roles' => array('admin')),
+                array('controller' => 'PlaygroundDesign\Controller\Admin\Dashboard','roles' => array('admin')),
+                array('controller' => 'PlaygroundDesign\Controller\Admin\Company',  'roles' => array('admin')),
+                array('controller' => 'PlaygroundDesign\Controller\Admin\Theme',    'roles' => array('admin')),
             ),
         ),
     ),
@@ -45,17 +45,11 @@ return array(
     ),
 
     'service_manager' => array(
-        'aliases' => array(
-            'playgrounddesign_doctrine_em' => 'doctrine.entitymanager.orm_default'
-        ),
         'factories' => array(
             // this definition has to be done here to override Wilmogrod Assetic declaration
             'AsseticBundle\Service' => 'PlaygroundDesign\Assetic\ServiceFactory',
             'translator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
             'nav' => 'Zend\Navigation\Service\DefaultNavigationFactory',
-            'playgrounddesign_theme_service' => 'PlaygroundDesign\Service\ThemeFactory',
-            'playgrounddesign_company_service' => 'PlaygroundDesign\Service\CompanyFactory',
-            'admin_navigation' => 'PlaygroundDesign\Service\AdminNavigationFactory',
         ),
         'invokables' => array(
             // this definition has to be done here to override Wilmogrod Assetic declaration
@@ -474,7 +468,7 @@ return array(
         'options' => array(
           'route'    => '/admin',
           'defaults' => array(
-            'controller' => 'PlaygroundDesign\Controller\Dashboard',
+            'controller' => 'PlaygroundDesign\Controller\Admin\Dashboard',
             'action'     => 'index',
           ),
         ),
@@ -485,7 +479,7 @@ return array(
             'options' => array(
               'route'    => '/dashboard',
               'defaults' => array(
-                'controller' => 'PlaygroundDesign\Controller\Dashboard',
+                'controller' => 'PlaygroundDesign\Controller\Admin\Dashboard',
                 'action'     => 'index',
               ),
             ),
@@ -495,7 +489,7 @@ return array(
             'options' => array(
               'route'    => '/company',
               'defaults' => array(
-                'controller' => 'PlaygroundDesign\Controller\CompanyAdmin',
+                'controller' => 'PlaygroundDesign\Controller\Admin\Company',
                 'action'     => 'index',
               ),
             ),
@@ -506,7 +500,7 @@ return array(
             'options' => array(
                 'route'    => '/theme',
                 'defaults' => array(
-                    'controller' => 'PlaygroundDesign\Controller\ThemeAdmin',
+                    'controller' => 'PlaygroundDesign\Controller\Admin\Theme',
                     'action'     => 'list',
                 ),
             ),
@@ -517,7 +511,7 @@ return array(
             'options' => array(
                 'route'    => '/theme/new',
                 'defaults' => array(
-                    'controller' => 'PlaygroundDesign\Controller\ThemeAdmin',
+                    'controller' => 'PlaygroundDesign\Controller\Admin\Theme',
                     'action'     => 'new',
                 ),
             ),
@@ -531,7 +525,7 @@ return array(
                     'id' => '[0-9]+',
                 ),
               'defaults' => array(
-                'controller' => 'PlaygroundDesign\Controller\ThemeAdmin',
+                'controller' => 'PlaygroundDesign\Controller\Admin\Theme',
                 'action'     => 'edit',
               ),
             ),
@@ -545,7 +539,7 @@ return array(
                     'id' => '[0-9]+',
                 ),
               'defaults' => array(
-                'controller' => 'PlaygroundDesign\Controller\ThemeAdmin',
+                'controller' => 'PlaygroundDesign\Controller\Admin\Theme',
                 'action'     => 'delete',
               ),
             ),
@@ -559,7 +553,7 @@ return array(
                     'id' => '[0-9]+',
                 ),
               'defaults' => array(
-                'controller' => 'PlaygroundDesign\Controller\ThemeAdmin',
+                'controller' => 'PlaygroundDesign\Controller\Admin\Theme',
                 'action'     => 'activate',
               ),
             ),
@@ -570,7 +564,7 @@ return array(
             'options' => array(
               'route'    => '/system',
               'defaults' => array(
-                'controller' => 'PlaygroundDesign\Controller\System',
+                'controller' => 'PlaygroundDesign\Controller\Admin\System',
                 'action'     => 'index',
               ),
             ),
@@ -581,7 +575,7 @@ return array(
                 'options' => array(
                   'route'    => '/modules',
                   'defaults' => array(
-                    'controller' => 'PlaygroundDesign\Controller\System',
+                    'controller' => 'PlaygroundDesign\Controller\Admin\System',
                     'action'     => 'modules',
                   ),
                 )
@@ -591,7 +585,7 @@ return array(
                 'options' => array(
                   'route'    => '/settings',
                   'defaults' => array(
-                    'controller' => 'PlaygroundDesign\Controller\System',
+                    'controller' => 'PlaygroundDesign\Controller\Admin\System',
                     'action'     => 'settings',
                   ),
                 )
@@ -614,12 +608,12 @@ return array(
 
 
     'controllers' => array(
-        'invokables' => array(
-            'PlaygroundDesign\Controller\Frontend\Home' => 'PlaygroundDesign\Controller\Frontend\HomeController',
-            'PlaygroundDesign\Controller\Dashboard' => 'PlaygroundDesign\Controller\DashboardController',
-            'PlaygroundDesign\Controller\System'    => 'PlaygroundDesign\Controller\SystemController',
-            'PlaygroundDesign\Controller\CompanyAdmin' => 'PlaygroundDesign\Controller\CompanyAdminController',
-            'PlaygroundDesign\Controller\themeAdmin' => 'PlaygroundDesign\Controller\ThemeAdminController',
+        'factories' => array(
+            'PlaygroundDesign\Controller\Frontend\Home' => 'PlaygroundDesign\Service\Factory\FrontendHomeControllerFactory',
+            'PlaygroundDesign\Controller\Admin\Dashboard' => 'PlaygroundDesign\Service\Factory\AdminDashboardControllerFactory',
+            'PlaygroundDesign\Controller\Admin\System'    => 'PlaygroundDesign\Service\Factory\AdminSystemControllerFactory',
+            'PlaygroundDesign\Controller\Admin\Company' => 'PlaygroundDesign\Service\Factory\AdminCompanyControllerFactory',
+            'PlaygroundDesign\Controller\Admin\Theme' => 'PlaygroundDesign\Service\Factory\AdminThemeControllerFactory',
         ),
     ),
     

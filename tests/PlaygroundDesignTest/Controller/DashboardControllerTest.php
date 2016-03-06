@@ -22,7 +22,7 @@ class DashboardControllerTest extends AbstractHttpControllerTestCase
         $this->dispatch('/admin');
         
         $this->assertModuleName('playgrounddesign');
-        $this->assertControllerName('playgrounddesign\controller\dashboard');
+        $this->assertControllerName('playgrounddesign\controller\admin\dashboard');
         $this->assertControllerClass('DashboardController');
         $this->assertActionName('index');
         $this->assertMatchedRouteName('admin');

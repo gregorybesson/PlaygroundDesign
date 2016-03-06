@@ -6,7 +6,7 @@ use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 use PlaygroundDesignTest\Bootstrap;
 use PlaygroundDesign\Entity\Theme;
 
-class ThemeAdminControllerTest extends AbstractHttpControllerTestCase
+class themecontrollerTest extends AbstractHttpControllerTestCase
 {
     protected $traceError = true;
 
@@ -45,8 +45,8 @@ class ThemeAdminControllerTest extends AbstractHttpControllerTestCase
 
         $this->dispatch('/admin/theme');
         $this->assertModuleName('playgrounddesign');
-        $this->assertControllerName('playgrounddesign\controller\ThemeAdmin');
-        $this->assertControllerClass('ThemeAdminController');
+        $this->assertControllerName('playgrounddesign\controller\admin\theme');
+        $this->assertControllerClass('themecontroller');
         $this->assertActionName('list');
         $this->assertMatchedRouteName('admin/playgrounddesign_themeadmin');
 
@@ -75,8 +75,8 @@ class ThemeAdminControllerTest extends AbstractHttpControllerTestCase
 
         $this->dispatch('/admin/theme');
         $this->assertModuleName('playgrounddesign');
-        $this->assertControllerName('playgrounddesign\controller\ThemeAdmin');
-        $this->assertControllerClass('ThemeAdminController');
+        $this->assertControllerName('playgrounddesign\controller\admin\theme');
+        $this->assertControllerClass('themecontroller');
         $this->assertActionName('list');
         $this->assertMatchedRouteName('admin/playgrounddesign_themeadmin');
 
@@ -109,8 +109,8 @@ class ThemeAdminControllerTest extends AbstractHttpControllerTestCase
 
         $this->dispatch('/admin/theme/'.$id.'/update');
         $this->assertModuleName('playgrounddesign');
-        $this->assertControllerName('playgrounddesign\controller\ThemeAdmin');
-        $this->assertControllerClass('ThemeAdminController');
+        $this->assertControllerName('playgrounddesign\controller\admin\theme');
+        $this->assertControllerClass('themecontroller');
         $this->assertActionName('edit');
         $this->assertMatchedRouteName('admin/playgrounddesign_themeadmin_edit');
     }*/
@@ -140,8 +140,8 @@ class ThemeAdminControllerTest extends AbstractHttpControllerTestCase
 
         $this->dispatch('/admin/theme/'.$theme->getId().'/delete');
         $this->assertModuleName('playgrounddesign');
-        $this->assertControllerName('playgrounddesign\controller\ThemeAdmin');
-        $this->assertControllerClass('ThemeAdminController');
+        $this->assertControllerName('playgrounddesign\controller\admin\theme');
+        $this->assertControllerClass('themecontroller');
         $this->assertActionName('delete');
         $this->assertMatchedRouteName('admin/playgrounddesign_themeadmin_delete');
 
@@ -177,8 +177,8 @@ class ThemeAdminControllerTest extends AbstractHttpControllerTestCase
 
         $this->dispatch('/admin/theme/'.$id.'/activate');
         $this->assertModuleName('playgrounddesign');
-        $this->assertControllerName('playgrounddesign\controller\ThemeAdmin');
-        $this->assertControllerClass('ThemeAdminController');
+        $this->assertControllerName('playgrounddesign\controller\admin\theme');
+        $this->assertControllerClass('themecontroller');
         $this->assertActionName('activate');
         $this->assertMatchedRouteName('admin/playgrounddesign_themeadmin_activate');
 
@@ -214,8 +214,8 @@ class ThemeAdminControllerTest extends AbstractHttpControllerTestCase
 
         $this->dispatch('/admin/theme/'.$id.'/activate');
         $this->assertModuleName('playgrounddesign');
-        $this->assertControllerName('playgrounddesign\controller\ThemeAdmin');
-        $this->assertControllerClass('ThemeAdminController');
+        $this->assertControllerName('playgrounddesign\controller\admin\theme');
+        $this->assertControllerClass('themecontroller');
         $this->assertActionName('activate');
         $this->assertMatchedRouteName('admin/playgrounddesign_themeadmin_activate');
 

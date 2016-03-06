@@ -118,6 +118,7 @@ class Service extends \AsseticBundle\Service
                     //print_r($options);
                 }
                 //print_r($assets);
+
             }
 
             $factory = $this->createAssetFactory($configuration);
@@ -126,6 +127,7 @@ class Service extends \AsseticBundle\Service
                 //print_r($options);
                 $this->prepareCollection($options, $name, $factory);
             }
+
         }
     }
 
@@ -161,7 +163,7 @@ class Service extends \AsseticBundle\Service
      * Adding the possibility to give an output path
      * PR to wilmogrod as improvement
      */
-    public function moveRaw(AssetCollection $asset, $output = null)
+    public function moveRaw(AssetCollection $asset, $output = null, $disableSourcePath = NULL)
     {
         if (!empty($output) && substr($output, -1) !== '/') {
             $output = $output.'/';

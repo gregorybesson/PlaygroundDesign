@@ -27,6 +27,7 @@ class Head extends AbstractHelper
         $vm->setTemplate($template);
 
         return $this->getView()->render($vm);
+
     }
 
     /**

@@ -4,7 +4,7 @@ namespace PlaygroundDesign\Entity;
 
 interface ThemeInterface
 {
-    /**
+   /**
      * @return int $id
      */
     public function getId();
