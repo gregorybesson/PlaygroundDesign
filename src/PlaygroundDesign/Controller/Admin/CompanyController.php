@@ -29,7 +29,6 @@ class CompanyController extends AbstractActionController
 
     public function getServiceLocator()
     {
-        
         return $this->serviceLocator;
     }
 

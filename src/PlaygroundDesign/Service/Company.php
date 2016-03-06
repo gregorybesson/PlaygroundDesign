@@ -3,7 +3,6 @@
 namespace PlaygroundDesign\Service;
 
 use PlaygroundDesign\Entity\Company as CompanyEntity;
-
 use Zend\Form\Form;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;

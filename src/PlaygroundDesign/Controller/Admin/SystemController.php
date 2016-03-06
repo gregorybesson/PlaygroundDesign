@@ -21,7 +21,6 @@ class SystemController extends AbstractActionController
 
     public function getServiceLocator()
     {
-        
         return $this->serviceLocator;
     }
     

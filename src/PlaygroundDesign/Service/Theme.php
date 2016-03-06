@@ -3,7 +3,6 @@
 namespace PlaygroundDesign\Service;
 
 use PlaygroundDesign\Entity\Theme as ThemeEntity;
-
 use Zend\Form\Form;
 use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
@@ -137,7 +136,6 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
      */
     public function checkDirectoryTheme($theme, $data)
     {
-
         $newUrlTheme = $theme->getBasePath().'/'.$data['area'].'/'.$data['package'].'/'.$data['theme'];
         if (!is_dir($newUrlTheme)) {
             return false;
@@ -153,7 +151,7 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
                 continue;
             }
             $contentAssets = file_get_contents(__DIR__.'/../Templates/'.$file);
-            $contentAssets = str_replace(array('{{area}}', '{{package}}','{{theme}}', '{{title}}'), array($data['area'], $data['package'], $data['theme'], $data['title']), $contentAssets);
+            $contentAssets = str_replace(array('{{area}}', '{{package}}', '{{theme}}', '{{title}}'), array($data['area'], $data['package'], $data['theme'], $data['title']), $contentAssets);
             file_put_contents($theme->getBasePath().$data['area'].'/'.$data['package'].'/'.$data['theme'].'/'.$file, $contentAssets);
         }
     }

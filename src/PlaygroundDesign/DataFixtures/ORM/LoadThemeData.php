@@ -5,7 +5,6 @@ namespace PlaygroundDesign\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-
 use PlaygroundDesign\Entity\Theme;
 
 /**
@@ -23,7 +22,6 @@ class LoadThemeData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-
         $theme = new Theme();
         $theme->setTitle('Theme 1');
         $theme->setImage('/theme/images/screenshots/1-Penguins.jpg');

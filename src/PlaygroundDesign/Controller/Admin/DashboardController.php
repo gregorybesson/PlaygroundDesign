@@ -8,7 +8,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class DashboardController extends AbstractActionController
 {
-	/**
+    /**
      *
      * @var ServiceManager
      */
@@ -21,7 +21,6 @@ class DashboardController extends AbstractActionController
 
     public function getServiceLocator()
     {
-        
         return $this->serviceLocator;
     }
     

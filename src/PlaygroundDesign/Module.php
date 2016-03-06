@@ -30,7 +30,6 @@ class Module implements
 
     public function init(ModuleManager $manager)
     {
-
         $eventManager = $manager->getEventManager();
 
         /*
@@ -47,7 +46,6 @@ class Module implements
      */
     public function onMergeConfig($e)
     {
-
         $stack = array();
         $config = $e->getConfigListener()->getMergedConfig(false);
 
@@ -294,7 +292,6 @@ class Module implements
                             ));
         
                             $themeHierarchy[$themeId]['assets'] = $asseticConfig;
-        
                         }
         
                         if (isset($config['core_layout']['frontend'])) {
@@ -364,7 +361,6 @@ class Module implements
                     $config['assetic_configuration']['modules'][$moduleName]['collections']['admin_images']['options']['move_raw'] = 'true';
                 }
             }*/
-        
         }
 
         $e->getConfigListener()->setMergedConfig($config);
@@ -469,17 +465,19 @@ class Module implements
             $match = $e->getRouteMatch();
             $area = isset($match)? $match->getParam('area', ''):'';
             $sm = $e->getApplication()->getServiceManager();
-            if($match){
+            if ($match) {
                 $title = $match->getParam('title');
                 $action = $match->getParam('action');
                 $controller = explode('\\', $match->getParam('controller'));
                 $controller = end($controller);
                 $headTitleHelper = $sm->get('viewHelperManager')->get('headTitle');
 
-                if(empty($title)) $title = $controller . '-' . $action;
+                if (empty($title)) {
+                    $title = $controller . '-' . $action;
+                }
                 $title = $sm->get('translator')->translate($title, 'routes');
 
-                if($title !== ' ' && !empty($title)){
+                if ($title !== ' ' && !empty($title)) {
                     $headTitleHelper->prepend($title);
                 }
             }
@@ -489,7 +487,7 @@ class Module implements
             foreach ($viewModel->getChildren() as $child) {
                 $child->area = $area;
             }
-        },-1000);
+        }, -1000);
     }
 
     public function getAutoloaderConfig()
@@ -613,7 +611,6 @@ class Module implements
                 },
             ),
         );
-
     }
 
     public function getServiceConfig()
