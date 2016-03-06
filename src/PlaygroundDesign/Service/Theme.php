@@ -4,15 +4,15 @@ namespace PlaygroundDesign\Service;
 
 use PlaygroundDesign\Entity\Theme as ThemeEntity;
 use Zend\Form\Form;
-use Zend\ServiceManager\ServiceManagerAwareInterface;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Validator\NotEmpty;
 use ZfcBase\EventManager\EventProvider;
 use PlaygroundDesign\Options\ModuleOptions;
 use DoctrineModule\Validator\NoObjectExists as NoObjectExistsValidator;
 use Zend\Stdlib\ErrorHandler;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
-class Theme extends EventProvider implements ServiceManagerAwareInterface
+class Theme extends EventProvider
 {
 
     /**
@@ -31,6 +31,11 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
     protected $options;
 
     public static $files = array('assets.php', 'layout.php', 'theme.php');
+
+    public function __construct(ServiceLocatorInterface $locator)
+    {
+        $this->serviceManager = $locator;
+    }
 
     /**
      *
@@ -297,18 +302,5 @@ class Theme extends EventProvider implements ServiceManagerAwareInterface
     public function getServiceManager()
     {
         return $this->serviceManager;
-    }
-
-    /**
-     * Set service manager instance
-     *
-     * @param  ServiceManager $serviceManager
-     * @return User
-     */
-    public function setServiceManager(ServiceManager $serviceManager)
-    {
-        $this->serviceManager = $serviceManager;
-
-        return $this;
     }
 }
