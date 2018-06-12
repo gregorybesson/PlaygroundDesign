@@ -609,6 +609,10 @@ class Module implements
                 'footer' => function ($sm) {
                     return new View\Helper\Footer();
                 },
+                'companyWidget' => function ($sm) {
+                    $locator = $sm->getServiceLocator();
+                    return new View\Helper\CompanyWidget($locator->get('playgrounddesign_company_mapper'));
+                },
             ),
         );
     }
