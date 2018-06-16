@@ -22,7 +22,7 @@
         "zendframework/zend-config" : "2.*",
         "zendframework/zend-serializer" : "2.*",
         "zendframework/zend-i18n" :"2.*",
-        "playground/core" : ">2.11.0"	
+        "playground/core" : ">=2.11.0"	
     },
 	"require-dev" : {
 		"phpunit/phpunit" : "4.*",
@@ -33,10 +33,5 @@
 		"psr-4" : {
 			"PlaygroundDesign" : "src/"
 		}
-	},
-	"extra": {
-        "branch-alias": {
-            "dev-master": "2.x-dev"
-        }
-    }
+	}
 }
