@@ -18,7 +18,6 @@ use Zend\Db\Sql\Sql;
 use Zend\Db\Adapter\Adapter;
 
 class Module implements
-    AutoloaderProviderInterface,
     BootstrapListenerInterface,
     ConfigProviderInterface,
     ServiceProviderInterface,
@@ -490,20 +489,9 @@ class Module implements
         }, -1000);
     }
 
-    public function getAutoloaderConfig()
-    {
-        return array(
-            'Zend\Loader\StandardAutoloader' => array(
-                'namespaces' => array(
-                    __NAMESPACE__ => __DIR__ . '/../../src/' . __NAMESPACE__,
-                ),
-            ),
-        );
-    }
-
     public function getConfig()
     {
-        return include __DIR__ . '/../../config/module.config.php';
+        return include __DIR__ . '/../config/module.config.php';
     }
 
     public function getViewHelperConfig()
