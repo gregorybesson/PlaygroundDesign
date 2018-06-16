@@ -12,7 +12,7 @@
     "authors": [
         {
             "name": "Greg Besson",
-            "email": "gregory.besson@playground.gg",
+            "email": "gregory.besson@abecms.com",
             "homepage": "http://www.playground.gg"
         }
     ],
@@ -22,7 +22,7 @@
         "zendframework/zend-config" : "2.*",
         "zendframework/zend-serializer" : "2.*",
         "zendframework/zend-i18n" :"2.*",
-        "playground/core" : "2.*"	
+        "playground/core" : ">2.11.0"	
     },
 	"require-dev" : {
 		"phpunit/phpunit" : "4.*",
@@ -30,7 +30,7 @@
         "satooshi/php-coveralls": "0.*"
 	},
     "autoload" : {
-		"psr-0" : {
+		"psr-4" : {
 			"PlaygroundDesign" : "src/"
 		}
 	},
