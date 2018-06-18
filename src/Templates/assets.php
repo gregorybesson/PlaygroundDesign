@@ -4,7 +4,7 @@ return array(
         'modules' => array(
             'default_base' => array(
                 'root_path' => array(
-                    __DIR__ . '/../../../../design/{{area}}/{{package}}/{{theme}}/assets',
+                    __DIR__ . '/../../../design/{{area}}/{{package}}/{{theme}}/assets',
                 ),
                 'collections' => array(
                     '{{area}}_images' => array(
