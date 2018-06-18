@@ -75,9 +75,9 @@ return array(
             \BjyAuthorize\Guard\Route::ERROR,
         ),
 
-        'webPath' => __DIR__ . '/../../../../public',
+        'webPath' => __DIR__ . '/../../../public',
         'cacheEnabled' => false,
-        'cachePath' => __DIR__ . '/../../../../data/cache',
+        'cachePath' => __DIR__ . '/../../../data/cache',
         'modules' => array(
             'lib' => array(
                 # module root path for your css and js files
@@ -634,7 +634,7 @@ return array(
         'translation_file_patterns' => array(
             array(
                 'type' => 'phpArray',
-                'base_dir' => __DIR__ . '/../../../../language',
+                'base_dir' => __DIR__ . '/../../../language',
                 'pattern' => '%s.php',
                 'text_domain' => 'playgrounddesign'
             ),

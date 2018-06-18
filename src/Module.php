@@ -120,7 +120,7 @@ class Module implements
                     // I get the Theme definition file and apply a check on the parent theme.
                     // TODO : Apply recursion to this stuff.
                     $hasParent = false;
-                    $adminPath = __DIR__ . '/../../../../../design/admin/'. $parentTheme[0] .'/'. $parentTheme[1];
+                    $adminPath = __DIR__ . '/../../../../design/admin/'. $parentTheme[0] .'/'. $parentTheme[1];
                     $themeId = $parentTheme[0] .'_'. $parentTheme[1];
 
                     if (!(strtolower($themeId) === 'playground_base')) {
@@ -238,7 +238,7 @@ class Module implements
                     // I get the Theme definition file and apply a check on the parent theme.
                     // TODO : Apply recursion to this stuff.
                     $hasParent = false;
-                    $frontendPath = __DIR__ . '/../../../../../design/frontend/'. $parentTheme[0] .'/'. $parentTheme[1];
+                    $frontendPath = __DIR__ . '/../../../../design/frontend/'. $parentTheme[0] .'/'. $parentTheme[1];
                     $themeId = $parentTheme[0] .'_'. $parentTheme[1];
         
                     if (!(strtolower($themeId) === 'playground_base')) {
@@ -354,7 +354,7 @@ class Module implements
                 $themes = $themeMapper->findAll();
                 foreach ($themes as $theme) {
                     $moduleName = 'preview_' . $theme->getArea() . '_' . $theme->getPackage() . '_' . $theme->getTheme();
-                    $config['assetic_configuration']['modules'][$moduleName]['root_path'][] = __DIR__ . '/../../../../../design/'.$theme->getArea().'/'.$theme->getPackage().'/'.$theme->getTheme().'/assets';
+                    $config['assetic_configuration']['modules'][$moduleName]['root_path'][] = __DIR__ . '/../../../../design/'.$theme->getArea().'/'.$theme->getPackage().'/'.$theme->getTheme().'/assets';
                     $config['assetic_configuration']['modules'][$moduleName]['collections']['admin_images']['assets'] = array('images/screenshots/*.jpg', 'images/screenshots/*.gif', 'images/screenshots/*.png');
                     $config['assetic_configuration']['modules'][$moduleName]['collections']['admin_images']['options']['output'] = 'theme/';
                     $config['assetic_configuration']['modules'][$moduleName]['collections']['admin_images']['options']['move_raw'] = 'true';
