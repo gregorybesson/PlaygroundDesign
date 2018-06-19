@@ -2,7 +2,7 @@
     "name": "playground/design",
     "description": "Playground Design Module",
     "type": "library",
-    "license": "BSD-3-Clause",
+    "license": "MIT",
     "keywords": [
         "zf2",
         "playground",
@@ -18,16 +18,16 @@
     ],
     "require": {
         "php": ">=5.5",
-        "zendframework/zend-developer-tools" : "1.*@RC",
-        "zendframework/zend-config" : "2.*",
-        "zendframework/zend-serializer" : "2.*",
-        "zendframework/zend-i18n" :"2.*",
+        "zendframework/zend-developer-tools" : ">=1.0.0",
+        "zendframework/zend-config" : ">=2.0.0",
+        "zendframework/zend-serializer" : ">=2.0.0",
+        "zendframework/zend-i18n" :">=2.0.0",
         "playground/core" : ">=2.11.0"	
     },
 	"require-dev" : {
-		"phpunit/phpunit" : "4.*",
-        "squizlabs/php_codesniffer": "2.*",
-        "satooshi/php-coveralls": "0.*"
+		"phpunit/phpunit" : ">=4.0.0",
+        "squizlabs/php_codesniffer": ">=2.0.0",
+        "php-coveralls/php-coveralls": ">=0..0.0"
 	},
     "autoload" : {
 		"psr-4" : {
