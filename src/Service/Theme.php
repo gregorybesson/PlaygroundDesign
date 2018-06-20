@@ -6,14 +6,15 @@ use PlaygroundDesign\Entity\Theme as ThemeEntity;
 use Zend\Form\Form;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Validator\NotEmpty;
-use ZfcBase\EventManager\EventProvider;
+use Zend\EventManager\EventManagerAwareTrait;
 use PlaygroundDesign\Options\ModuleOptions;
 use DoctrineModule\Validator\NoObjectExists as NoObjectExistsValidator;
 use Zend\Stdlib\ErrorHandler;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class Theme extends EventProvider
+class Theme
 {
+    use EventManagerAwareTrait;
 
     /**
      * @var themeMapperInterface

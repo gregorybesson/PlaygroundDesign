@@ -6,14 +6,15 @@ use PlaygroundDesign\Entity\Company as CompanyEntity;
 use Zend\Form\Form;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Validator\NotEmpty;
-use ZfcBase\EventManager\EventProvider;
+use Zend\EventManager\EventManagerAwareTrait;
 use PlaygroundDesign\Options\ModuleOptions;
 use DoctrineModule\Validator\NoObjectExists as NoObjectExistsValidator;
 use Zend\Stdlib\ErrorHandler;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class Company extends EventProvider
+class Company
 {
+    use EventManagerAwareTrait;
 
     /**
      * @var companyMapperInterface
