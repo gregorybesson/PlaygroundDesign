@@ -615,11 +615,11 @@ return array(
 
     'controllers' => array(
         'factories' => array(
-            'PlaygroundDesign\Controller\Frontend\Home' => 'PlaygroundDesign\Service\Factory\FrontendHomeControllerFactory',
-            'PlaygroundDesign\Controller\Admin\Dashboard' => 'PlaygroundDesign\Service\Factory\AdminDashboardControllerFactory',
-            'PlaygroundDesign\Controller\Admin\System'    => 'PlaygroundDesign\Service\Factory\AdminSystemControllerFactory',
-            'PlaygroundDesign\Controller\Admin\Company' => 'PlaygroundDesign\Service\Factory\AdminCompanyControllerFactory',
-            'PlaygroundDesign\Controller\Admin\Theme' => 'PlaygroundDesign\Service\Factory\AdminThemeControllerFactory',
+            \PlaygroundDesign\Controller\Frontend\Home::class => \PlaygroundDesign\Service\Factory\FrontendHomeControllerFactory::class,
+            \PlaygroundDesign\Controller\Admin\Dashboard::class => \PlaygroundDesign\Service\Factory\AdminDashboardControllerFactory::class,
+            \PlaygroundDesign\Controller\Admin\System::class => \PlaygroundDesign\Service\Factory\AdminSystemControllerFactory::class,
+            \PlaygroundDesign\Controller\Admin\Company::class => \PlaygroundDesign\Service\Factory\AdminCompanyControllerFactory::class,
+            \PlaygroundDesign\Controller\Admin\Theme::class => \PlaygroundDesign\Service\Factory\AdminThemeControllerFactory::class,
         ),
     ),
     
