@@ -3,7 +3,6 @@ return array(
     'modules' => array(
         'DoctrineModule',
         'DoctrineORMModule',
-        'ZfcBase',
         'PlaygroundCore',
         'PlaygroundDesign',
     ),

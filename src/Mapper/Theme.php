@@ -3,7 +3,7 @@
 namespace PlaygroundDesign\Mapper;
 
 use Doctrine\ORM\EntityManager;
-use ZfcBase\Mapper\AbstractDbMapper;
+
 use PlaygroundDesign\Options\ModuleOptions;
 
 class Theme implements ThemeInterface
