@@ -2,18 +2,14 @@
 namespace PlaygroundDesign\Service\Factory;
 
 use PlaygroundDesign\Controller\Frontend\HomeController;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
+use Interop\Container\ContainerInterface;
 
 class FrontendHomeControllerFactory implements FactoryInterface
 {
-    /**
-    * @param ServiceLocatorInterface $locator
-    * @return \PlaygroundDesign\Controller\Frontend\HomeController
-    */
-    public function createService(ServiceLocatorInterface $locator)
+    public function __invoke(ContainerInterface $container, $requestedName, $options = null)
     {
-        $controller = new HomeController($locator);
+        $controller = new HomeController($container);
 
         return $controller;
     }

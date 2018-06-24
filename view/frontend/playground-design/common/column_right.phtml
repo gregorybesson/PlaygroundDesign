@@ -22,11 +22,11 @@
     <?php endif; ?>
     <!-- END BLOCK NEWSLETTER -->
 
-    <?php if(($this->playgroundDynablock('column_home')) != ''):?>
-    	<?php foreach($this->playgroundDynablock('column_home') as $block): ?>
+    <?php if(($this->dynablockWidget('column_home')) != ''):?>
+    	<?php foreach($this->dynablockWidget('column_home') as $block): ?>
     		<div class="sb-block ad"><?php echo $block ?></div>
     	<?php endforeach; ?>
-    	<?php //echo $this->playgroundDynablock('column_home') ;?>
+    	<?php //echo $this->dynablockWidget('column_home') ;?>
     <?php endif; ?>
 
 	<!-- BLOCK TONNES CADEAUX -->

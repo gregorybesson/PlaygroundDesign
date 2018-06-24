@@ -1,34 +1,31 @@
 <?php
 namespace PlaygroundDesign\Assetic;
 
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
+use Interop\Container\ContainerInterface;
 
 class ServiceFactory extends \AsseticBundle\ServiceFactory implements FactoryInterface
 {
-    /**
-     * @param ServiceLocatorInterface $locator
-     * @return \AsseticBundle\Service
-     */
-    public function createService(ServiceLocatorInterface $locator)
+
+    public function __invoke(ContainerInterface $container, $requestedName, $options = null)
     {
-        $asseticConfig = $locator->get('AsseticConfiguration');
+        $asseticConfig = $container->get('AsseticConfiguration');
         if ($asseticConfig->detectBaseUrl()) {
             /** @var $request \Zend\Http\PhpEnvironment\Request */
-            $request = $locator->get('Request');
+            $request = $container->get('Request');
             if (method_exists($request, 'getBaseUrl')) {
                 $asseticConfig->setBaseUrl($request->getBaseUrl());
             }
         }
 
         $asseticService = new Service($asseticConfig);
-        $asseticService->setAssetManager($locator->get('AsseticAssetManager'));
-        $asseticService->setAssetWriter($locator->get('AsseticAssetWriter'));
-        $asseticService->setFilterManager($locator->get('AsseticFilterManager'));
+        $asseticService->setAssetManager($container->get('Assetic\AssetManager'));
+        $asseticService->setAssetWriter($container->get('Assetic\AssetWriter'));
+        $asseticService->setFilterManager($container->get('AsseticBundle\FilterManager'));
 
         // Cache buster is not mandatory
-        if ($locator->has('AsseticCacheBuster')) {
-            $asseticService->setCacheBusterStrategy($locator->get('AsseticCacheBuster'));
+        if ($container->has('AsseticCacheBuster')) {
+            $asseticService->setCacheBusterStrategy($container->get('AsseticCacheBuster'));
         }
 
         return $asseticService;

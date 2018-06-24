@@ -14,7 +14,7 @@ class FrontendUrl extends ZendUrl
     public function __invoke($name = null, $params = array(), $options = array(), $reuseMatchedParams = true)
     {
         $link = null;
-        
+
         try {
             if ($this->routeMatch && $this->routeMatch->getParam('area')) {
                 if ($name) {
@@ -29,11 +29,12 @@ class FrontendUrl extends ZendUrl
             } else {
                 $name = 'frontend';
             }
-            
+
             $link = parent::__invoke($name, $params, $options, $reuseMatchedParams);
         } catch (\Exception $e) {
             //throw $e;
         }
+
         return $link;
     }
 }

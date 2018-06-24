@@ -46,11 +46,13 @@ return array(
 
     'service_manager' => array(
         'aliases' => array(
-            'playgrounddesign_doctrine_em' => 'doctrine.entitymanager.orm_default'
+            'playgrounddesign_doctrine_em' => 'doctrine.entitymanager.orm_default',
+            'Zend\Mvc\View\Http\InjectTemplateListener' => \PlaygroundDesign\View\Http\InjectTemplateListener::class,
         ),
         'factories' => array(
             // this definition has to be done here to override Wilmogrod Assetic declaration
             'AsseticBundle\Service' => 'PlaygroundDesign\Assetic\ServiceFactory',
+            \PlaygroundDesign\View\Http\InjectTemplateListener::class => \PlaygroundDesign\View\Http\InjectTemplateListenerFactory::class,
             'translator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
             'nav' => 'Zend\Navigation\Service\DefaultNavigationFactory',
             'admin_navigation' => 'PlaygroundDesign\Service\Factory\AdminNavigationFactory',
@@ -469,7 +471,7 @@ return array(
         'may_terminate' => true,
       ),
       'admin' => array(
-        'type' => 'Literal',
+        'type' => 'Zend\Router\Http\Literal',
         'priority' => 1000,
         'options' => array(
           'route'    => '/admin',
@@ -491,7 +493,7 @@ return array(
             ),
           ),
           'playgrounddesign_companyadmin' => array(
-            'type' => 'Literal',
+            'type' => 'Zend\Router\Http\Literal',
             'options' => array(
               'route'    => '/company',
               'defaults' => array(
@@ -502,7 +504,7 @@ return array(
             'may_terminate' => true,
           ),
           'playgrounddesign_themeadmin' => array(
-            'type' => 'Literal',
+            'type' => 'Zend\Router\Http\Literal',
             'options' => array(
                 'route'    => '/theme',
                 'defaults' => array(
@@ -513,7 +515,7 @@ return array(
             'may_terminate' => true,
           ),
           'playgrounddesign_themeadmin_new' => array(
-            'type' => 'Literal',
+            'type' => 'Zend\Router\Http\Literal',
             'options' => array(
                 'route'    => '/theme/new',
                 'defaults' => array(
@@ -624,8 +626,11 @@ return array(
     ),
     
     'controller_plugins' => array(
-        'invokables' => array(
-            'frontendUrl' => 'PlaygroundDesign\Controller\Plugin\FrontendUrl',
+        // 'invokables' => array(
+        //     'frontendUrl' => 'PlaygroundDesign\Controller\Plugin\FrontendUrl',
+        // ),
+        'factories' => array(
+            'frontendUrl'    => \PlaygroundDesign\Controller\Plugin\FrontendUrlFactory::class,
         ),
     ),
 
