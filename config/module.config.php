@@ -77,9 +77,9 @@ return array(
             \BjyAuthorize\Guard\Route::ERROR,
         ),
 
-        'webPath' => __DIR__ . '/../../../public',
+        'webPath' => __DIR__ . '/../../../../public',
         'cacheEnabled' => false,
-        'cachePath' => __DIR__ . '/../../../data/cache',
+        'cachePath' => __DIR__ . '/../../../../data/cache',
         'modules' => array(
             'lib' => array(
                 # module root path for your css and js files
