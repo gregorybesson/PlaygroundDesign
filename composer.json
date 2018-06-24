@@ -21,7 +21,7 @@
         "zendframework/zend-developer-tools" : ">=1.0.0",
         "zendframework/zend-config" : ">=3.0.0",
         "zendframework/zend-serializer" : ">=2.0.0",
-        "zendframework/zend-i18n" :">=3.0.0",
+        "zendframework/zend-i18n" :">=2.0.0",
         "playground/core" : ">=4.0.0"	
     },
 	"require-dev" : {
