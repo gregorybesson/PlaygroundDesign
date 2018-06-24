@@ -2,18 +2,14 @@
 namespace PlaygroundDesign\Service\Factory;
 
 use PlaygroundDesign\Service\Company;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
+use Interop\Container\ContainerInterface;
 
 class CompanyFactory implements FactoryInterface
 {
-    /**
-    * @param ServiceLocatorInterface $locator
-    * @return \PlaygroundDesign\Service\Company
-    */
-    public function createService(ServiceLocatorInterface $locator)
+    public function __invoke(ContainerInterface $container, $requestedName, $options = null)
     {
-        $service = new Company($locator);
+        $service = new Company($container);
 
         return $service;
     }

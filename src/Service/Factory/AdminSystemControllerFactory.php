@@ -2,18 +2,14 @@
 namespace PlaygroundDesign\Service\Factory;
 
 use PlaygroundDesign\Controller\Admin\SystemController;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
+use Interop\Container\ContainerInterface;
 
 class AdminSystemControllerFactory implements FactoryInterface
 {
-    /**
-    * @param ServiceLocatorInterface $locator
-    * @return \PlaygroundDesign\Controller\Admin\SystemController
-    */
-    public function createService(ServiceLocatorInterface $locator)
+    public function __invoke(ContainerInterface $container, $requestedName, $options = null)
     {
-        $controller = new SystemController($locator);
+        $controller = new SystemController($container);
 
         return $controller;
     }

@@ -371,14 +371,14 @@ class Module implements
         $this->setServiceManager($serviceManager);
 
         $options = $serviceManager->get('playgroundcore_module_options');
-        $translator = $serviceManager->get('translator');
+        $translator = $serviceManager->get('MvcTranslator');
         $locale = $options->getLocale();
         if (!empty($locale)) {
             //translator
             $translator->setLocale($locale);
 
             // plugins
-            $translate = $serviceManager->get('viewhelpermanager')->get('translate');
+            $translate = $serviceManager->get('ViewHelperManager')->get('translate');
             $translate->getTranslator()->setLocale($locale);
         }
 
@@ -391,7 +391,7 @@ class Module implements
          * This listener gives the possibility to select the layout on module / controller / action level !
          * Just configure it in any module config or autoloaded config.
          */
-        $e->getApplication()->getEventManager()->getSharedManager()->attach('Zend\Mvc\Controller\AbstractActionController', 'dispatch', function ($e) {
+        $e->getApplication()->getEventManager()->getSharedManager()->attach(\Zend\Mvc\Controller\AbstractActionController::class, 'dispatch', function ($e) {
             $config     = $e->getApplication()->getServiceManager()->get('config');
             if (isset($config['core_layout'])) {
                 $controller      = $e->getTarget();
@@ -409,15 +409,13 @@ class Module implements
                 // and View helper frontendUrl
                 $match->setParam('area', $areaName);
 
-/*
-                echo '$controllerClass : ' . $controllerClass . '<br/>';
-                echo '$moduleName : ' .$moduleName. '<br/>';
-                echo '$routeName : '.$routeName. '<br/>';
-                echo '$areaName : '.$areaName. '<br/>';
-                echo '$controllerName : ' .$controllerName. '<br/>';
-                echo '$actionName : ' . $actionName. '<br/>';
-               
-*/
+                // echo '$controllerClass : ' . $controllerClass . '<br/>';
+                // echo '$moduleName : ' .$moduleName. '<br/>';
+                // echo '$routeName : '.$routeName. '<br/>';
+                // echo '$areaName : '.$areaName. '<br/>';
+                // echo '$controllerName : ' .$controllerName. '<br/>';
+                // echo '$actionName : ' . $actionName. '<br/>';
+
                 /**
                  * Assign the correct layout
                  */
@@ -469,12 +467,12 @@ class Module implements
                 $action = $match->getParam('action');
                 $controller = explode('\\', $match->getParam('controller'));
                 $controller = end($controller);
-                $headTitleHelper = $sm->get('viewHelperManager')->get('headTitle');
+                $headTitleHelper = $sm->get('ViewHelperManager')->get('headTitle');
 
                 if (empty($title)) {
                     $title = $controller . '-' . $action;
                 }
-                $title = $sm->get('translator')->translate($title, 'routes');
+                $title = $sm->get('MvcTranslator')->translate($title, 'routes');
 
                 if ($title !== ' ' && !empty($title)) {
                     $headTitleHelper->prepend($title);
@@ -497,17 +495,19 @@ class Module implements
     public function getViewHelperConfig()
     {
         return array(
+            'aliases' => array(
+                'routeMatch' => \PlaygroundDesign\View\Helper\RouteMatchWidget::class,
+            ),
             'factories' => array(
                 
+                \PlaygroundDesign\View\Helper\RouteMatchWidget::class => \PlaygroundDesign\View\Helper\RouteMatchWidgetFactory::class,
                 'frontendUrl' => function ($sm) {
-                    $serviceLocator = $sm->getServiceLocator();
                     $view_helper =  new View\Helper\FrontendUrl();
-                    $router = \Zend\Console\Console::isConsole() ? 'HttpRouter' : 'Router';
-                    $view_helper->setRouter($serviceLocator->get($router));
+                    $view_helper->setRouter($sm->get('HttpRouter'));
                 
-                    $match = $sm->getServiceLocator()->get('application')->getMvcEvent()->getRouteMatch();
+                    $match = $sm->get('Application')->getMvcEvent()->getRouteMatch();
                 
-                    if ($match instanceof \Zend\Mvc\Router\Http\RouteMatch) {
+                    if ($match instanceof \Zend\Router\Http\RouteMatch) {
                         $view_helper->setRouteMatch($match);
                     }
                 
@@ -516,8 +516,8 @@ class Module implements
 
                 // This admin navigation layer gives the authentication layer based on BjyAuthorize ;)
                 'adminMenu' => function ($sm) {
-                    $nav = $sm->get('navigation')->menu('admin_navigation');
-                    $serviceLocator = $sm->getServiceLocator();
+                    $helperPluginManager = $sm->get('ViewHelperManager');
+                    $nav = $helperPluginManager->get('navigation')->menu('admin_navigation');
                     $nav->setUlClass('nav')
                         ->setMaxDepth(10)
                         ->setRenderInvisible(false);
@@ -526,45 +526,44 @@ class Module implements
                 },
 
                 'adminAssetPath' => function ($sm) {
-                    $config = $sm->getServiceLocator()->has('Config') ? $sm->getServiceLocator()->get('Config') : array();
+                    $config = $sm->has('Config') ? $sm->get('Config') : array();
                     $helper  = new View\Helper\AdminAssetPath;
                     if (isset($config['view_manager']) && isset($config['view_manager']['base_path'])) {
                         $basePath = $config['view_manager']['base_path'];
                     } else {
-                        $basePath = $sm->getServiceLocator()->get('Request')->getBasePath();
+                        $basePath = $sm->get('Request')->getBasePath();
                     }
                     $helper->setBasePath($basePath);
                     return $helper;
                 },
 
                 'frontendAssetPath' => function ($sm) {
-                    $config = $sm->getServiceLocator()->has('Config') ? $sm->getServiceLocator()->get('Config') : array();
+                    $config = $sm->has('Config') ? $sm->get('Config') : array();
                     $helper  = new View\Helper\FrontendAssetPath;
                     if (isset($config['view_manager']) && isset($config['view_manager']['base_path'])) {
                         $basePath = $config['view_manager']['base_path'];
                     } else {
-                        $basePath = $sm->getServiceLocator()->get('Request')->getBasePath();
+                        $basePath = $sm->get('Request')->getBasePath();
                     }
                     $helper->setBasePath($basePath);
                     return $helper;
                 },
 
                 'libAssetPath' => function ($sm) {
-                    $config = $sm->getServiceLocator()->has('Config') ? $sm->getServiceLocator()->get('Config') : array();
+                    $config = $sm->has('Config') ? $sm->get('Config') : array();
                     $helper  = new View\Helper\LibAssetPath;
                     if (isset($config['view_manager']) && isset($config['view_manager']['base_path'])) {
                         $basePath = $config['view_manager']['base_path'];
                     } else {
-                        $basePath = $sm->getServiceLocator()->get('Request')->getBasePath();
+                        $basePath = $sm->get('Request')->getBasePath();
                     }
                     $helper->setBasePath($basePath);
                     return $helper;
                 },
 
                 'facebookUrl' => function ($sm) {
-                    $locator = $sm->getServiceLocator();
                     $fbUrl = null;
-                    $config = $locator->get('config');
+                    $config = $sm->get('config');
                     if (isset($config['facebook_url'])) {
                         $fbUrl = $config['facebook_url'];
                     }
@@ -580,9 +579,8 @@ class Module implements
                     return new View\Helper\Header();
                 },
                 'column_right' => function ($sm) {
-                    $locator = $sm->getServiceLocator();
                     $rssUrl = '';
-                    $config = $locator->get('config');
+                    $config = $sm->get('config');
                     if (isset($config['rss']['url'])) {
                         $rssUrl = $config['rss']['url'];
                     }
@@ -598,8 +596,7 @@ class Module implements
                     return new View\Helper\Footer();
                 },
                 'companyWidget' => function ($sm) {
-                    $locator = $sm->getServiceLocator();
-                    return new View\Helper\CompanyWidget($locator->get('playgrounddesign_company_mapper'));
+                    return new View\Helper\CompanyWidget($sm->get('playgrounddesign_company_mapper'));
                 },
             ),
         );
@@ -629,7 +626,7 @@ class Module implements
                 },
 
                 'playgrounddesign_theme_form' => function ($sm) {
-                    $translator = $sm->get('translator');
+                    $translator = $sm->get('MvcTranslator');
                     $form = new Form\Admin\Theme(null, $sm, $translator);
                     $theme = new Entity\Theme();
                     $form->setInputFilter($theme->getInputFilter());
@@ -638,7 +635,7 @@ class Module implements
                 },
 
                 'playgrounddesign_company_form' => function ($sm) {
-                    $translator = $sm->get('translator');
+                    $translator = $sm->get('MvcTranslator');
                     $form = new Form\Admin\Company(null, $sm, $translator);
                     $company = new Entity\Company();
                     $form->setInputFilter($company->getInputFilter());

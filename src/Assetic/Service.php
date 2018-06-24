@@ -12,7 +12,7 @@ use Assetic\Asset\AssetCache;
 use Assetic\Cache\FilesystemCache;
 use Zend\View\Renderer\RendererInterface as Renderer;
 use AsseticBundle\View\StrategyInterface;
-use PlaygroundDesign\Assetic\Configuration;
+//use PlaygroundDesign\Assetic\Configuration;
 
 class Service extends \AsseticBundle\Service
 {
@@ -22,7 +22,7 @@ class Service extends \AsseticBundle\Service
      */
     protected $params = array();
 
-    public function __construct(Configuration $configuration)
+    public function __construct(\AsseticBundle\Configuration $configuration)
     {
         parent::__construct($configuration);
     }
@@ -161,18 +161,18 @@ class Service extends \AsseticBundle\Service
      * Adding the possibility to give an output path
      * PR to wilmogrod as improvement
      */
-    public function moveRaw(AssetCollection $asset, $output = null, $disableSourcePath = null)
-    {
-        if (!empty($output) && substr($output, -1) !== '/') {
-            $output = $output.'/';
-        }
-        foreach ($asset as $value) {
-            /** @var $value AssetInterface */
-            $value->setTargetPath($output. $value->getSourcePath());
-            $value = $this->cacheAsset($value);
-            $this->writeAsset($value);
-        }
-    }
+    // public function moveRaw(AssetCollection $asset, $output = null, $disableSourcePath = null)
+    // {
+    //     if (!empty($output) && substr($output, -1) !== '/') {
+    //         $output = $output.'/';
+    //     }
+    //     foreach ($asset as $value) {
+    //         /** @var $value AssetInterface */
+    //         $value->setTargetPath($output. $value->getSourcePath());
+    //         $value = $this->cacheAsset($value);
+    //         $this->writeAsset($value);
+    //     }
+    // }
 
     /**
      * @param array $options
@@ -182,28 +182,29 @@ class Service extends \AsseticBundle\Service
      * Adding the output var in moveRaw
      * PR to wilmogrod as improvement
      */
-    public function prepareCollection($options, $name, Factory\AssetFactory $factory)
-    {
-        $assets = isset($options['assets']) ? $options['assets'] : array();
-        $filters = isset($options['filters']) ? $options['filters'] : array();
-        $options = isset($options['options']) ? $options['options'] : array();
-        $options['output'] = isset($options['output']) ? $options['output'] : $name;
-        $moveRaw = isset($options['move_raw']) && $options['move_raw'];
+    // public function prepareCollection($options, $name, Factory\AssetFactory $factory)
+    // {
+    //     $assets = isset($options['assets']) ? $options['assets'] : array();
+    //     $filters = isset($options['filters']) ? $options['filters'] : array();
+    //     $options = isset($options['options']) ? $options['options'] : array();
+    //     $options['output'] = isset($options['output']) ? $options['output'] : $name;
+    //     $moveRaw = isset($options['move_raw']) && $options['move_raw'];
 
-        $filters = $this->initFilters($filters);
+    //     $filters = $this->initFilters($filters);
 
-        $asset = $factory->createAsset($assets, $filters, $options);
+    //     $asset = $factory->createAsset($assets, $filters, $options);
 
-        // Allow to move all files 1:1 to new directory
-        // its particularly useful when this assets are i.e. images.
-        if ($moveRaw) {
-            // Allow usage of $output to be able to copy the files in different subdirectories
-            $this->moveRaw($asset, ($options['output']===$name)?null:$options['output']);
-        } else {
-            $asset = $this->cacheAsset($asset);
-            $this->assetManager->set($name, $asset);
-        }
-    }
+    //     // Allow to move all files 1:1 to new directory
+    //     // its particularly useful when this assets are i.e. images.
+    //     if ($moveRaw) {
+    //         // Allow usage of $output to be able to copy the files in different subdirectories
+    //         $this->moveRaw($asset, ($options['output']===$name)?null:$options['output']);
+    //     } else {
+    //         $asset = $this->cacheAsset($asset);
+    //         $this->assetManager->set($name, $asset);
+    //     }
+    // }
+
     /**
      *
      * @param string $path

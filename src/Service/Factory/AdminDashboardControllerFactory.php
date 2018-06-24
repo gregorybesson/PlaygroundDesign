@@ -2,18 +2,14 @@
 namespace PlaygroundDesign\Service\Factory;
 
 use PlaygroundDesign\Controller\Admin\DashboardController;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
+use Interop\Container\ContainerInterface;
 
 class AdminDashboardControllerFactory implements FactoryInterface
 {
-    /**
-    * @param ServiceLocatorInterface $locator
-    * @return \PlaygroundDesign\Controller\Admin\DashboardController
-    */
-    public function createService(ServiceLocatorInterface $locator)
+    public function __invoke(ContainerInterface $container, $requestedName, $options = null)
     {
-        $controller = new DashboardController($locator);
+        $controller = new DashboardController($container);
 
         return $controller;
     }
