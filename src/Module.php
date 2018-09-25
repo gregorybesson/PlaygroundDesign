@@ -33,8 +33,8 @@ class Module implements
 
         /*
          * This event change the config before it's cached
-         * The change will apply to 'template_path_stack' and 'assetic_configuration'
-         * These 2 config take part in the Playground Theme Management
+         * The change will apply to 'template_path_stack'
+         * This config take part in the Playground Theme Management
          */
         $eventManager->attach(\Zend\ModuleManager\ModuleEvent::EVENT_MERGE_CONFIG, array($this, 'onMergeConfig'), 100);
     }
@@ -165,16 +165,6 @@ class Module implements
                         }
                         $themeHierarchy[$themeId]['template_path']= array_reverse($stack);
         
-        
-                        if (isset($config['assetic_configuration']['modules']['admin'])) {
-                            $asseticConfig = array('assetic_configuration' => array(
-                                'modules' => array('admin' => $config['assetic_configuration']['modules']['admin']),
-                                'routes' => array('admin.*' => $config['assetic_configuration']['routes']['admin.*'])
-                            ));
-        
-                            $themeHierarchy[$themeId]['assets'] = $asseticConfig;
-                        }
-        
                         if (isset($config['core_layout']['admin'])) {
                             $themeHierarchy[$themeId]['layout'] = $config['core_layout']['admin'];
                         }
@@ -193,12 +183,6 @@ class Module implements
                 }
 
                 $viewResolverPathStack = array_reverse($stack);
-                
-                // removing default assetic configuration
-                if (isset($config['assetic_configuration']['modules']['admin'])) {
-                    unset($config['assetic_configuration']['modules']['admin']);
-                    unset($config['assetic_configuration']['routes']['admin.*']);
-                }
         
                 // removing default layout configuration
                 if (isset($config['core_layout']['admin'])) {
@@ -220,10 +204,6 @@ class Module implements
         
                     if (isset($tab['template_path'])) {
                         $config['view_manager']['template_path_stack'] = array_merge($config['view_manager']['template_path_stack'], $tab['template_path']);
-                    }
-        
-                    if (isset($tab['path']) && isset($config['assetic_configuration']['modules']['admin'])) {
-                        $config['assetic_configuration']['modules']['admin']['root_path'][] = $tab['path'] . '/assets';
                     }
                 }
             }
@@ -283,15 +263,6 @@ class Module implements
                         }
         
                         $themeHierarchy[$themeId]['template_path']= array_reverse($stack);
-
-                        if (isset($config['assetic_configuration']['modules']['frontend'])) {
-                            $asseticConfig = array('assetic_configuration' => array(
-                                'modules' => array('frontend' => $config['assetic_configuration']['modules']['frontend']),
-                                'routes' => array('frontend.*' => $config['assetic_configuration']['routes']['frontend.*'])
-                            ));
-        
-                            $themeHierarchy[$themeId]['assets'] = $asseticConfig;
-                        }
         
                         if (isset($config['core_layout']['frontend'])) {
                             $themeHierarchy[$themeId]['layout'] = $config['core_layout']['frontend'];
@@ -312,12 +283,6 @@ class Module implements
                 $viewResolverPathStack = array();
         
                 $viewResolverPathStack = array_reverse($stack);
-        
-                // removing default assetic configuration
-                if (isset($config['assetic_configuration']['modules']['frontend'])) {
-                    unset($config['assetic_configuration']['modules']['frontend']);
-                    unset($config['assetic_configuration']['routes']['frontend.*']);
-                }
         
                 // removing default layout configuration
                 if (isset($config['core_layout']['frontend'])) {
@@ -341,25 +306,8 @@ class Module implements
                         //print_r($tab['template_path']);
                         $config['view_manager']['template_path_stack'] = array_merge($config['view_manager']['template_path_stack'], $tab['template_path']);
                     }
-        
-                    if (isset($tab['path']) && isset($config['assetic_configuration']['modules']['frontend'])) {
-                        $config['assetic_configuration']['modules']['frontend']['root_path'][] = $tab['path'] . '/assets';
-                    }
                 }
             }
-
-            // Creating the Assetic configuration for images of all available themes
-            /*if (PHP_SAPI !== 'cli') {
-                $themeMapper = $this->getThemeMapper($serviceManager);
-                $themes = $themeMapper->findAll();
-                foreach ($themes as $theme) {
-                    $moduleName = 'preview_' . $theme->getArea() . '_' . $theme->getPackage() . '_' . $theme->getTheme();
-                    $config['assetic_configuration']['modules'][$moduleName]['root_path'][] = __DIR__ . '/../../../../design/'.$theme->getArea().'/'.$theme->getPackage().'/'.$theme->getTheme().'/assets';
-                    $config['assetic_configuration']['modules'][$moduleName]['collections']['admin_images']['assets'] = array('images/screenshots/*.jpg', 'images/screenshots/*.gif', 'images/screenshots/*.png');
-                    $config['assetic_configuration']['modules'][$moduleName]['collections']['admin_images']['options']['output'] = 'theme/';
-                    $config['assetic_configuration']['modules'][$moduleName]['collections']['admin_images']['options']['move_raw'] = 'true';
-                }
-            }*/
         }
 
         $e->getConfigListener()->setMergedConfig($config);
@@ -598,6 +546,9 @@ class Module implements
                 'companyWidget' => function ($sm) {
                     return new View\Helper\CompanyWidget($sm->get('playgrounddesign_company_mapper'));
                 },
+                'debugView' => function ($sm) {
+                    return new View\Helper\DebugView();
+                }
             ),
         );
     }
@@ -606,11 +557,6 @@ class Module implements
     {
         return array(
             'factories' => array(
-                // overriding wilmogrod Assetic definition
-                'AsseticBundle\Configuration' => function ($sm) {
-                    $configuration = $sm->get('Configuration');
-                    return new Assetic\Configuration($configuration['assetic_configuration']);
-                },
                 'playgrounddesign_module_options' => function ($sm) {
                     $config = $sm->get('Configuration');
 
