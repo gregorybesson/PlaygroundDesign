@@ -81,6 +81,7 @@ class Company
      */
     public function edit(array $data, $company)
     {
+        
         $entityManager = $this->getServiceManager()->get('playgrounddesign_doctrine_em');
 
         $form  = $this->getServiceManager()->get('playgrounddesign_company_form');
@@ -101,6 +102,7 @@ class Company
 
     public function uploadImage($company, $data)
     {
+
         if (!empty($data['uploadMainImage']['tmp_name'])) {
             $path = $this->getOptions()->getMediaPath() . DIRECTORY_SEPARATOR;
             if (!is_dir($path)) {
@@ -161,7 +163,7 @@ class Company
     public function getOptions()
     {
         if (!$this->options instanceof ModuleOptions) {
-            $this->setOptions($this->getServiceManager()->get('playgrounddesignmodule_options'));
+            $this->setOptions($this->getServiceManager()->get('playgrounddesign_module_options'));
         }
 
         return $this->options;

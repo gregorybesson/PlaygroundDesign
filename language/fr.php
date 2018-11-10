@@ -347,6 +347,7 @@ return array(
     'Add new quiz' 			=> 'Créer un quiz',
     'Add new post & vote' 	=> 'Créer un Post & Vote',
     'Add new instant win' 	=> 'Créer un instant gagnant',
+    'Add new trading card'  => 'Créer un jeu de cartes à collectionner',
     'Add new mission'       => 'Créer une mission',
     'Manage categories gain' => 'Gérer les catégories de gain',
     'Add new treasure hunt' => 'Créer une chasse au trésor',

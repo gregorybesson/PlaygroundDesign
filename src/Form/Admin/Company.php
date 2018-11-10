@@ -60,11 +60,11 @@ class Company extends ProvidesEventsForm
             'attributes' => array(
                 'type' => 'textarea',
                 'placeholder' => $translator->translate('Company address', 'playgrounddesign'),
-                'required' => 'required'
+                //'required' => 'required'
             ),
-            'validator' => array(
-                new \Zend\Validator\NotEmpty(),
-            )
+            // 'validator' => array(
+            //     new \Zend\Validator\NotEmpty(),
+            // )
         ));
 
         $this->add(array(
@@ -75,11 +75,11 @@ class Company extends ProvidesEventsForm
             'attributes' => array(
                 'type' => 'tel',
                 'placeholder' => $translator->translate('Company phone number', 'playgrounddesign'),
-                'required' => 'required'
+                //'required' => 'required'
             ),
-            'validator' => array(
-                new \Zend\Validator\NotEmpty(),
-            )
+            // 'validator' => array(
+            //     new \Zend\Validator\NotEmpty(),
+            // )
         ));
 
         $this->add(array(

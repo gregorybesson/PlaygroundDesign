@@ -289,7 +289,7 @@ class Theme
     public function getOptions()
     {
         if (!$this->options instanceof ModuleOptions) {
-            $this->setOptions($this->getServiceManager()->get('playgrounddesignmodule_options'));
+            $this->setOptions($this->getServiceManager()->get('playgrounddesign_module_options'));
         }
 
         return $this->options;
