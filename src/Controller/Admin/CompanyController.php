@@ -49,6 +49,7 @@ class CompanyController extends AbstractActionController
                 $this->getRequest()->getPost()->toArray(),
                 $this->getRequest()->getFiles()->toArray()
             );
+            
             if ($company) {
                 $company = $service->edit($data, $company);
             } else {
