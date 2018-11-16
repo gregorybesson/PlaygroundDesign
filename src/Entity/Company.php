@@ -33,13 +33,13 @@ class Company implements CompanyInterface, InputFilterAwareInterface
 
     /**
      * address
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $address;
 
     /**
      * phoneNumber
-     * @ORM\Column(type="string", length=20, nullable=false)
+     * @ORM\Column(type="string", length=20, nullable=true)
      */
     protected $phoneNumber;
 
@@ -54,6 +54,12 @@ class Company implements CompanyInterface, InputFilterAwareInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $twitterAccount;
+
+    /**
+     * googleAnalytics
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $googleAnalytics;
 
     /**
      * @ORM\Column(name="main_image", type="string", length=255, nullable=true)
@@ -115,6 +121,25 @@ class Company implements CompanyInterface, InputFilterAwareInterface
     public function getAddress()
     {
         return $this->address;
+    }
+
+    /**
+     * @param string $googleAnalytics
+     * @return Company
+     */
+    public function setGoogleAnalytics($googleAnalytics)
+    {
+        $this->googleAnalytics = (string) $googleAnalytics;
+
+        return $this;
+    }
+
+    /**
+     * @return string $googleAnalytics
+     */
+    public function getGoogleAnalytics()
+    {
+        return $this->googleAnalytics;
     }
 
     /**
@@ -222,6 +247,9 @@ class Company implements CompanyInterface, InputFilterAwareInterface
         }
         if (isset($data['twitterAccount']) && $data['twitterAccount'] != null) {
             $this->twitterAccount = $data['twitterAccount'];
+        }
+        if (isset($data['googleAnalytics']) && $data['googleAnalytics'] != null) {
+            $this->googleAnalytics = $data['googleAnalytics'];
         }
         if (isset($data['mainImage']) && $data['mainImage'] != null) {
             $this->mainImage = $data['mainImage'];

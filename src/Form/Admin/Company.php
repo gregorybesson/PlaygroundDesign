@@ -104,6 +104,17 @@ class Company extends ProvidesEventsForm
             )
         ));
 
+        $this->add(array(
+            'name' => 'googleAnalytics',
+            'options' => array(
+                'label' => $translator->translate('Google Analytics ID', 'playgrounddesign'),
+            ),
+            'attributes' => array(
+                'type' => 'text',
+                'placeholder' => $translator->translate('Google Analytics ID', 'playgrounddesign'),
+            )
+        ));
+
         // Adding an empty upload field to be able to correctly handle this on
         // the service side.
         $this->add(array(
