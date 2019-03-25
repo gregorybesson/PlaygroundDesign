@@ -68,6 +68,36 @@ class Company extends ProvidesEventsForm
         ));
 
         $this->add(array(
+            'name' => 'emailAddress',
+            'options' => array(
+                'label' => $translator->translate('Company email address', 'playgrounddesign'),
+            ),
+            'attributes' => array(
+                'type' => 'textarea',
+                'placeholder' => $translator->translate('Company email address', 'playgrounddesign'),
+                //'required' => 'required'
+            ),
+            // 'validator' => array(
+            //     new \Zend\Validator\NotEmpty(),
+            // )
+        ));
+
+        $this->add(array(
+            'name' => 'emailName',
+            'options' => array(
+                'label' => $translator->translate('Company email name', 'playgrounddesign'),
+            ),
+            'attributes' => array(
+                'type' => 'textarea',
+                'placeholder' => $translator->translate('Company email name', 'playgrounddesign'),
+                //'required' => 'required'
+            ),
+            // 'validator' => array(
+            //     new \Zend\Validator\NotEmpty(),
+            // )
+        ));
+
+        $this->add(array(
             'name' => 'phoneNumber',
             'options' => array(
                 'label' => $translator->translate('Company phone number', 'playgrounddesign'),
@@ -101,6 +131,17 @@ class Company extends ProvidesEventsForm
             'attributes' => array(
                 'type' => 'text',
                 'placeholder' => $translator->translate('Company twitter account', 'playgrounddesign'),
+            )
+        ));
+
+        $this->add(array(
+            'name' => 'googleAnalytics',
+            'options' => array(
+                'label' => $translator->translate('Google Analytics ID', 'playgrounddesign'),
+            ),
+            'attributes' => array(
+                'type' => 'text',
+                'placeholder' => $translator->translate('Google Analytics ID', 'playgrounddesign'),
             )
         ));
 

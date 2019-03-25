@@ -33,13 +33,25 @@ class Company implements CompanyInterface, InputFilterAwareInterface
 
     /**
      * address
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $address;
 
     /**
+     * email address
+     * @ORM\Column(name="email_address", type="string", length=255, nullable=true)
+     */
+    protected $emailAddress;
+
+    /**
+     * email name
+     * @ORM\Column(name="email_name", type="string", length=255, nullable=true)
+     */
+    protected $emailName;
+
+    /**
      * phoneNumber
-     * @ORM\Column(type="string", length=20, nullable=false)
+     * @ORM\Column(type="string", length=20, nullable=true)
      */
     protected $phoneNumber;
 
@@ -54,6 +66,12 @@ class Company implements CompanyInterface, InputFilterAwareInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $twitterAccount;
+
+    /**
+     * googleAnalytics
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $googleAnalytics;
 
     /**
      * @ORM\Column(name="main_image", type="string", length=255, nullable=true)
@@ -99,6 +117,45 @@ class Company implements CompanyInterface, InputFilterAwareInterface
     }
 
     /**
+     * @param string $emailAddress
+     * @return Company
+     */
+    public function setEmailAddress($emailEmail)
+    {
+        $this->emailAddress = (string) $emailAddress;
+
+        return $this;
+    }
+
+    /**
+     * @return string $emailAddress
+     */
+    public function getEmailAddress()
+    {
+        return $this->emailAddress;
+    }
+
+    /**
+     * @param string $emailName
+     * @return Company
+     */
+    public function setEmailName($emailName)
+    {
+        $this->emailName = (string) $emailName;
+
+        return $this;
+    }
+
+    /**
+     * @return string $emailName
+     */
+    public function getEmailName()
+    {
+        return $this->emailName;
+    }
+
+
+    /**
      * @param string $address
      * @return Company
      */
@@ -115,6 +172,25 @@ class Company implements CompanyInterface, InputFilterAwareInterface
     public function getAddress()
     {
         return $this->address;
+    }
+
+    /**
+     * @param string $googleAnalytics
+     * @return Company
+     */
+    public function setGoogleAnalytics($googleAnalytics)
+    {
+        $this->googleAnalytics = (string) $googleAnalytics;
+
+        return $this;
+    }
+
+    /**
+     * @return string $googleAnalytics
+     */
+    public function getGoogleAnalytics()
+    {
+        return $this->googleAnalytics;
     }
 
     /**
@@ -214,6 +290,12 @@ class Company implements CompanyInterface, InputFilterAwareInterface
         if (isset($data['address']) && $data['address'] != null) {
             $this->address = $data['address'];
         }
+        if (isset($data['emailAddress']) && $data['emailAddress'] != null) {
+            $this->emailAddress = $data['emailAddress'];
+        }
+        if (isset($data['emailName']) && $data['emailName'] != null) {
+            $this->emailName = $data['emailName'];
+        }
         if (isset($data['phoneNumber']) && $data['phoneNumber'] != null) {
             $this->phoneNumber = $data['phoneNumber'];
         }
@@ -222,6 +304,9 @@ class Company implements CompanyInterface, InputFilterAwareInterface
         }
         if (isset($data['twitterAccount']) && $data['twitterAccount'] != null) {
             $this->twitterAccount = $data['twitterAccount'];
+        }
+        if (isset($data['googleAnalytics']) && $data['googleAnalytics'] != null) {
+            $this->googleAnalytics = $data['googleAnalytics'];
         }
         if (isset($data['mainImage']) && $data['mainImage'] != null) {
             $this->mainImage = $data['mainImage'];

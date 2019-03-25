@@ -47,6 +47,11 @@ class Company implements CompanyInterface
         return $this->getEntityRepository()->find($id);
     }
 
+    public function findOneBy($array = array())
+    {
+        return $this->getEntityRepository()->findOneBy($array);
+    }
+
     /**
     * findBy : recupere des entites en fonction de filtre
     * @param array $array tableau de filtre
