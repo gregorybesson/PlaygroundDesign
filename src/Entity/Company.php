@@ -38,6 +38,18 @@ class Company implements CompanyInterface, InputFilterAwareInterface
     protected $address;
 
     /**
+     * email address
+     * @ORM\Column(name="email_address", type="string", length=255, nullable=true)
+     */
+    protected $emailAddress;
+
+    /**
+     * email name
+     * @ORM\Column(name="email_name", type="string", length=255, nullable=true)
+     */
+    protected $emailName;
+
+    /**
      * phoneNumber
      * @ORM\Column(type="string", length=20, nullable=true)
      */
@@ -103,6 +115,45 @@ class Company implements CompanyInterface, InputFilterAwareInterface
     {
         return $this->title;
     }
+
+    /**
+     * @param string $emailAddress
+     * @return Company
+     */
+    public function setEmailAddress($emailEmail)
+    {
+        $this->emailAddress = (string) $emailAddress;
+
+        return $this;
+    }
+
+    /**
+     * @return string $emailAddress
+     */
+    public function getEmailAddress()
+    {
+        return $this->emailAddress;
+    }
+
+    /**
+     * @param string $emailName
+     * @return Company
+     */
+    public function setEmailName($emailName)
+    {
+        $this->emailName = (string) $emailName;
+
+        return $this;
+    }
+
+    /**
+     * @return string $emailName
+     */
+    public function getEmailName()
+    {
+        return $this->emailName;
+    }
+
 
     /**
      * @param string $address
@@ -238,6 +289,12 @@ class Company implements CompanyInterface, InputFilterAwareInterface
         }
         if (isset($data['address']) && $data['address'] != null) {
             $this->address = $data['address'];
+        }
+        if (isset($data['emailAddress']) && $data['emailAddress'] != null) {
+            $this->emailAddress = $data['emailAddress'];
+        }
+        if (isset($data['emailName']) && $data['emailName'] != null) {
+            $this->emailName = $data['emailName'];
         }
         if (isset($data['phoneNumber']) && $data['phoneNumber'] != null) {
             $this->phoneNumber = $data['phoneNumber'];
