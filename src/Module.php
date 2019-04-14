@@ -461,6 +461,18 @@ class Module implements
                 
                     return $view_helper;
                 },
+                'adminUrl' => function ($sm) {
+                    $view_helper =  new View\Helper\AdminUrl();
+                    $view_helper->setRouter($sm->get('HttpRouter'));
+                
+                    $match = $sm->get('Application')->getMvcEvent()->getRouteMatch();
+                
+                    if ($match instanceof \Zend\Router\Http\RouteMatch) {
+                        $view_helper->setRouteMatch($match);
+                    }
+                
+                    return $view_helper;
+                },
 
                 // This admin navigation layer gives the authentication layer based on BjyAuthorize ;)
                 'adminMenu' => function ($sm) {
