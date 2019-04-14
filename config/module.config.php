@@ -71,16 +71,20 @@ return array(
             'may_terminate' => true,
         ),
         'admin' => array(
-            'type' => 'Zend\Router\Http\Literal',
+            'type'      => 'Segment',
             'priority' => 1000,
-            'options' => array(
-            'route'    => '/admin',
-            'defaults' => array(
-                'controller' => 'PlaygroundDesign\Controller\Admin\Dashboard',
-                'action'     => 'index',
-            ),
-            ),
             'may_terminate' => true,
+            'options'   => array(
+                'route'    => '/[:locale[/]]admin',
+                'constraints' => [
+                    'locale' => '[a-z]{2}([-_][A-Z]{2})?(?=/|$)',
+                ],
+                'defaults' => array(
+                    'controller' => 'PlaygroundDesign\Controller\Admin\Dashboard',
+                    'locale' => 'fr',
+                'action'     => 'index',
+                ),
+            ),
             'child_routes' => array(
             'dashboard' => array(
                 'type' => 'literal',
@@ -274,12 +278,14 @@ return array(
                         'route' => 'admin/playgrounddesign_companyadmin',
                         'resource' => 'design',
                         'privilege' => 'system',
+                        'use_route_match' => true,
                     ),
                     'theme' => array(
                         'label' => 'Themes',
                         'route' => 'admin/playgrounddesign_themeadmin',
                         'resource' => 'design',
                         'privilege' => 'system',
+                        'use_route_match' => true,
                     ),
                 ),
             ),
