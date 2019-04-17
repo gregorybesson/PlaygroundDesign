@@ -235,6 +235,7 @@ return array(
         // ),
         'factories' => array(
             'frontendUrl'    => \PlaygroundDesign\Controller\Plugin\FrontendUrlFactory::class,
+            'adminUrl'    => \PlaygroundDesign\Controller\Plugin\AdminUrlFactory::class,
         ),
     ),
 
