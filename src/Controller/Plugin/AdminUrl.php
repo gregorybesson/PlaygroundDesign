@@ -35,6 +35,10 @@ class AdminUrl extends Url
             }
             $params = iterator_to_array($params);
         }
+
+        if (!isset($params['locale'])) {
+            $params['locale'] = $controller->getServiceLocator()->get('MvcTranslator')->getLocale();
+        }
         
         $event   = $controller->getEvent();
         $matches = null;
