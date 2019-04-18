@@ -35,6 +35,11 @@ class FrontendUrl extends Url
             }
             $params = iterator_to_array($params);
         }
+
+        // this parameter will be used only when $config['playgroundLocale'] is enabled
+        if (!isset($params['locale'])) {
+            $params['locale'] = $controller->getServiceLocator()->get('MvcTranslator')->getLocale();
+        }
         
         $event   = $controller->getEvent();
         $matches = null;
