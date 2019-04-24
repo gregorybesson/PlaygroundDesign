@@ -582,7 +582,9 @@ class Module implements
                 'playgrounddesign_company_mapper' => function ($sm) {
                     return new Mapper\Company($sm->get('playgrounddesign_doctrine_em'), $sm->get('playgrounddesign_module_options'));
                 },
-
+                'playgrounddesign_settings_mapper' => function ($sm) {
+                    return new Mapper\Settings($sm->get('playgrounddesign_doctrine_em'), $sm->get('playgrounddesign_module_options'));
+                },
                 'playgrounddesign_theme_form' => function ($sm) {
                     $translator = $sm->get('MvcTranslator');
                     $form = new Form\Admin\Theme(null, $sm, $translator);
@@ -591,14 +593,21 @@ class Module implements
 
                     return $form;
                 },
-
                 'playgrounddesign_company_form' => function ($sm) {
                     $translator = $sm->get('MvcTranslator');
                     $form = new Form\Admin\Company(null, $sm, $translator);
                     $company = new Entity\Company();
                     $form->setInputFilter($company->getInputFilter());
                     return $form;
-                }
+                },
+                'playgrounddesign_settings_form' => function ($sm) {
+                    $translator = $sm->get('MvcTranslator');
+                    $form = new Form\Admin\Settings(null, $sm, $translator);
+                    $settings = new Entity\Settings();
+                    $form->setInputFilter($settings->getInputFilter());
+
+                    return $form;
+                },
             ),
         );
     }
