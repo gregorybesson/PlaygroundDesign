@@ -55,7 +55,8 @@ return array(
             'nav' => 'Zend\Navigation\Service\DefaultNavigationFactory',
             'admin_navigation' => 'PlaygroundDesign\Service\Factory\AdminNavigationFactory',
             'playgrounddesign_theme_service' => 'PlaygroundDesign\Service\Factory\ThemeFactory',
-            'playgrounddesign_company_service' => 'PlaygroundDesign\Service\Factory\CompanyFactory'
+            'playgrounddesign_company_service' => 'PlaygroundDesign\Service\Factory\CompanyFactory',
+            'playgrounddesign_settings_service' => \PlaygroundDesign\Service\SettingsFactory::class,
         ),
     ),
 
@@ -243,16 +244,16 @@ return array(
         'locale' => 'fr_FR',
         'translation_file_patterns' => array(
             array(
-                'type' => 'phpArray',
-                'base_dir' => __DIR__ . '/../../../language',
-                'pattern' => '%s.php',
-                'text_domain' => 'playgrounddesign'
-            ),
-            array(
                 'type'         => 'phpArray',
                 'base_dir'     => __DIR__ . '/../language',
                 'pattern'      => '%s.php',
                 'text_domain'  => 'playgrounddesign'
+            ),
+            array(
+                'type' => 'phpArray',
+                'base_dir' => __DIR__ . '/../../../language',
+                'pattern' => '%s.php',
+                'text_domain' => 'playgrounddesign'
             ),
         ),
     ),
@@ -265,6 +266,7 @@ return array(
                 'order' => -100,
                 'resource' => 'design',
                 'privilege' => 'edit',
+                'use_route_match' => true,
             ),
              'playgroundconfigurationadmin' => array(
                 'order' => 100,
@@ -273,6 +275,7 @@ return array(
                 'resource' => 'design',
                 'privilege' => 'menu',
                 'target' => 'nav-icon icon-settings',
+                'use_route_match' => true,
                 'pages' => array(
                     'company' => array(
                         'label' => 'Company',
@@ -284,6 +287,13 @@ return array(
                     'theme' => array(
                         'label' => 'Themes',
                         'route' => 'admin/playgrounddesign_themeadmin',
+                        'resource' => 'design',
+                        'privilege' => 'system',
+                        'use_route_match' => true,
+                    ),
+                    'settings' => array(
+                        'label' => 'Platform settings',
+                        'route' => 'admin/system/settings',
                         'resource' => 'design',
                         'privilege' => 'system',
                         'use_route_match' => true,
