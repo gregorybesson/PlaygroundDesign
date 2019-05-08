@@ -74,6 +74,12 @@ class Company implements CompanyInterface, InputFilterAwareInterface
     protected $googleAnalytics;
 
     /**
+     * googleAnalytics view id (for the stats module)
+     * @ORM\Column(name="ga_view_id", type="string", length=255, nullable=true)
+     */
+    protected $gaViewId;
+
+    /**
      * @ORM\Column(name="main_image", type="string", length=255, nullable=true)
      */
     protected $mainImage;
@@ -194,6 +200,25 @@ class Company implements CompanyInterface, InputFilterAwareInterface
     }
 
     /**
+     * @param string $gaViewId
+     * @return Company
+     */
+    public function setGaViewId($gaViewId)
+    {
+        $this->gaViewId = (string) $gaViewId;
+
+        return $this;
+    }
+
+    /**
+     * @return string $gaViewId
+     */
+    public function getGaViewId()
+    {
+        return $this->gaViewId;
+    }
+
+    /**
      * @param string $phoneNumber
      * @return Company
      */
@@ -307,6 +332,9 @@ class Company implements CompanyInterface, InputFilterAwareInterface
         }
         if (isset($data['googleAnalytics']) && $data['googleAnalytics'] != null) {
             $this->googleAnalytics = $data['googleAnalytics'];
+        }
+        if (isset($data['gaViewId']) && $data['gaViewId'] != null) {
+            $this->gaViewId = $data['gaViewId'];
         }
         if (isset($data['mainImage']) && $data['mainImage'] != null) {
             $this->mainImage = $data['mainImage'];
