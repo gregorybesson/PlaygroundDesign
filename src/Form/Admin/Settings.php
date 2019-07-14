@@ -52,6 +52,27 @@ class Settings extends ProvidesEventsForm
             )
         );
 
+        $this->add(
+            array(
+                'name' => 'gReCaptchaUrl',
+                'options' => array(
+                    'label' => $translator->translate('Google ReCaptcha URL', 'playgrounddesign'),
+                ),
+                'attributes' => array(
+                    'value' => 'https://www.google.com/recaptcha/api/siteverify',
+                ),
+            )
+        );
+
+        $this->add(
+            array(
+                'name' => 'gReCaptchaKey',
+                'options' => array(
+                    'label' => $translator->translate('Google ReCaptcha Key', 'playgrounddesign'),
+                ),
+            )
+        );
+
         $submitElement = new Element\Button('submit');
         $submitElement->setLabel($translator->translate('Upgrade', 'playgrounddesign'))
             ->setAttributes(array('type'  => 'submit'));

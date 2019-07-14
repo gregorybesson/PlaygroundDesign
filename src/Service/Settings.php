@@ -48,7 +48,6 @@ class Settings
     public function create(array $data)
     {
         $settings = new SettingsEntity;
-        $entityManager = $this->getServiceManager()->get('playgrounddesign_doctrine_em');
 
         $form = $this->getServiceManager()->get('playgrounddesign_settings_form');
 
@@ -77,19 +76,12 @@ class Settings
      */
     public function edit(array $data, $settings)
     {
-        
-        $entityManager = $this->getServiceManager()->get('playgrounddesign_doctrine_em');
-
         $form  = $this->getServiceManager()->get('playgrounddesign_settings_form');
-
         $form->bind($settings);
-
         $form->setData($data);
-
         if (!$form->isValid()) {
             return false;
         }
-    
         $settings = $this->getSettingsMapper()->update($settings);
 
         return $settings;
