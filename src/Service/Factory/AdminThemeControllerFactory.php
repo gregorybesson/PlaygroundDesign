@@ -2,7 +2,7 @@
 namespace PlaygroundDesign\Service\Factory;
 
 use PlaygroundDesign\Controller\Admin\ThemeController;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
 
 class AdminThemeControllerFactory implements FactoryInterface

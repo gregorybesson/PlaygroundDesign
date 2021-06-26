@@ -1,11 +1,11 @@
 <?php
 
-namespace PlaygroundDesginTest\Service;
+namespace PlaygroundDesignTest\Service;
 
 use PlaygroundDesignTest\Bootstrap;
 use \PlaygroundDesign\Entity\Company as CompanyEntity;
 
-class CompanyTest extends \PHPUnit_Framework_TestCase
+class CompanyTest extends \PHPUnit\Framework\TestCase
 {
     protected $traceError = true;
 
@@ -15,7 +15,7 @@ class CompanyTest extends \PHPUnit_Framework_TestCase
      */
     protected $companyData;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->companyData = array(
             'title' => 'Company',

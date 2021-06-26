@@ -3,9 +3,9 @@
 namespace PlaygroundDesign\Controller\Admin;
 
 use PlaygroundDesign\Service\Company as CompanyService;
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class CompanyController extends AbstractActionController
 {

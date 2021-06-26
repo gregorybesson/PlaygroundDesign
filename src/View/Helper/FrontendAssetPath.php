@@ -2,8 +2,8 @@
 
 namespace PlaygroundDesign\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
-use Zend\View\Exception;
+use Laminas\View\Helper\AbstractHelper;
+use Laminas\View\Exception;
 
 /**
  * Helper for retrieving the base path.

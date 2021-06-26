@@ -2,9 +2,9 @@
 
 namespace PlaygroundDesign\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 use PlaygroundDesign\Mapper\Company as CompanyMapper;
-use Zend\View\Model\ViewModel;
+use Laminas\View\Model\ViewModel;
 
 class CompanyWidget extends AbstractHelper
 {

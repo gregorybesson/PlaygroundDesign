@@ -1,9 +1,9 @@
 <?php
 namespace PlaygroundDesign\View\Helper;
 
-use Zend\Http\Request;
-use Zend\Router\RouteStackInterface;
-use Zend\View\Helper\AbstractHelper;
+use Laminas\Http\Request;
+use Laminas\Router\RouteStackInterface;
+use Laminas\View\Helper\AbstractHelper;
 
 /**
  * Helper to get the RouteMatch
@@ -34,7 +34,7 @@ class RouteMatchWidget extends AbstractHelper
     }
 
     /**
-     * @return \Zend\Router\RouteMatch
+     * @return \Laminas\Router\RouteMatch
      */
     public function __invoke()
     {

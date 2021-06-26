@@ -3,9 +3,9 @@
 namespace PlaygroundDesign\Controller\Plugin;
 
 use PlaygroundDesign\Controller\Plugin\FrontendUrl;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
-use Zend\Mvc\Service\AbstractPluginManagerFactory;
+use Laminas\Mvc\Service\AbstractPluginManagerFactory;
 
 class FrontendUrlFactory extends AbstractPluginManagerFactory
 {

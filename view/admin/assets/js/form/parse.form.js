@@ -177,9 +177,9 @@ var zfHead = function zfHead (prop){
     var file =
         'namespace ' + prop.namespace + '\\Form; <br>' +
             '<br>' +
-            'use Zend\\Captcha; <br>' +
-            'use Zend\\Form\\Element; <br>' +
-            'use Zend\\Form\\Form; <br>' +
+            'use Laminas\\Captcha; <br>' +
+            'use Laminas\\Form\\Element; <br>' +
+            'use Laminas\\Form\\Form; <br>' +
             '<br>' +
             'class ' + prop.class_name + ' extends Form <br>' +
             '<br>' +
@@ -198,10 +198,10 @@ var zfValidatorHead = function zfValidatorHead (prop){
     var file =
         'namespace ' + prop.namespace + '\\Form; <br>' +
             '<br>' +
-            'use Zend\\InputFilter\\Factory as InputFactory; <br>' +
-            'use Zend\\InputFilter\\InputFilter; <br>' +
-            'use Zend\\InputFilter\\InputFilterAwareInterface; <br>' +
-            'use Zend\\InputFilter\\InputFilterInterface; <br>' +
+            'use Laminas\\InputFilter\\Factory as InputFactory; <br>' +
+            'use Laminas\\InputFilter\\InputFilter; <br>' +
+            'use Laminas\\InputFilter\\InputFilterAwareInterface; <br>' +
+            'use Laminas\\InputFilter\\InputFilterInterface; <br>' +
             '<br>' +
             'class ' + prop.class_name + 'Validator implements InputFilterAwareInterface <br>' +
             '<br>' +
@@ -248,7 +248,7 @@ var csrf = function csrf (){
     var csrfForm =
     tt + "$this->add(array( <br>" +
         ttt + "'name' => 'csrf', <br>" +
-        ttt + "'type' => 'Zend\\Form\\Element\\Csrf', <br>" +
+        ttt + "'type' => 'Laminas\\Form\\Element\\Csrf', <br>" +
     tt + "));";
     return (csrfForm);
 };
@@ -257,7 +257,7 @@ var hidden = function hidden (){
     var hiddenForm =
     tt + "$this->add(array( <br>" +
         ttt + "'name' => 'hidden', <br>" +
-        ttt + "'type' => 'Zend\\Form\\Element\\Hidden', <br>" +
+        ttt + "'type' => 'Laminas\\Form\\Element\\Hidden', <br>" +
     tt + "));";
     return (hiddenForm);
 };
@@ -487,7 +487,7 @@ var formValidatorCreditCard = function formValidatorCreditCard (d){
 
     if(d.institutes){
         if(d.institutes && d.institutes != ''){
-            institutes = tttttt + "'type' => \\Zend\\Validator\\CreditCard::" + d.institutes  + ", <br>";
+            institutes = tttttt + "'type' => \\Laminas\\Validator\\CreditCard::" + d.institutes  + ", <br>";
         }
     }
 
@@ -740,8 +740,8 @@ function zfController(prop){
     var file =
         "namespace " + props.namespace + "\\Controller; <br>" +
         "<br>" +
-        "use Zend\\Mvc\\Controller\\AbstractActionController; <br>" +
-        "use Zend\\View\\Model\\ViewModel; <br>" +
+        "use Laminas\\Mvc\\Controller\\AbstractActionController; <br>" +
+        "use Laminas\\View\\Model\\ViewModel; <br>" +
         "use " + props.namespace + "\\Form\\" + props.class_name + "; <br>" +
         "use " + props.namespace + "\\Form\\" + props.class_name + "Validator; <br>" +
         "use " + props.namespace + "\\Model\\" + props.model_name + "; <br>" +
@@ -868,7 +868,7 @@ function zfViewHelper(){
     var file =
         'namespace Formgen\\View\\Helper; <br>' +
         '<br>' +
-        'use Zend\\View\\Helper\\AbstractHelper; <br>' +
+        'use Laminas\\View\\Helper\\AbstractHelper; <br>' +
         '<br>' +
         'class RenderForm extends AbstractHelper <br>' +
         '<br>' +

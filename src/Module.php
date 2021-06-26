@@ -2,20 +2,20 @@
 
 namespace PlaygroundDesign;
 
-use Zend\Session\SessionManager;
-use Zend\Session\Config\SessionConfig;
-use Zend\Session\Container;
-use Zend\Validator\AbstractValidator;
-use Zend\ModuleManager\ModuleManager;
-use Zend\ModuleManager\ModuleEvent;
-use Zend\EventManager\EventInterface;
-use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
-use Zend\ModuleManager\Feature\BootstrapListenerInterface;
-use Zend\ModuleManager\Feature\ConfigProviderInterface;
-use Zend\ModuleManager\Feature\ServiceProviderInterface;
-use Zend\ModuleManager\Feature\ViewHelperProviderInterface;
-use Zend\Db\Sql\Sql;
-use Zend\Db\Adapter\Adapter;
+use Laminas\Session\SessionManager;
+use Laminas\Session\Config\SessionConfig;
+use Laminas\Session\Container;
+use Laminas\Validator\AbstractValidator;
+use Laminas\ModuleManager\ModuleManager;
+use Laminas\ModuleManager\ModuleEvent;
+use Laminas\EventManager\EventInterface;
+use Laminas\ModuleManager\Feature\AutoloaderProviderInterface;
+use Laminas\ModuleManager\Feature\BootstrapListenerInterface;
+use Laminas\ModuleManager\Feature\ConfigProviderInterface;
+use Laminas\ModuleManager\Feature\ServiceProviderInterface;
+use Laminas\ModuleManager\Feature\ViewHelperProviderInterface;
+use Laminas\Db\Sql\Sql;
+use Laminas\Db\Adapter\Adapter;
 
 class Module implements
     BootstrapListenerInterface,
@@ -36,7 +36,7 @@ class Module implements
          * The change will apply to 'template_path_stack'
          * This config take part in the Playground Theme Management
          */
-        $eventManager->attach(\Zend\ModuleManager\ModuleEvent::EVENT_MERGE_CONFIG, array($this, 'onMergeConfig'), 100);
+        $eventManager->attach(\Laminas\ModuleManager\ModuleEvent::EVENT_MERGE_CONFIG, array($this, 'onMergeConfig'), 100);
     }
 
     /**
@@ -127,7 +127,7 @@ class Module implements
                         $adminThemePath = $adminPath . '/theme.php';
         
                         if (is_file($adminThemePath) && is_readable($adminThemePath)) {
-                            $configTheme                      = new \Zend\Config\Config(include $adminThemePath);
+                            $configTheme                      = new \Laminas\Config\Config(include $adminThemePath);
                             $themeHierarchy[$themeId]['path'] = $adminPath;
         
                             $pathStack = array($adminPath);
@@ -135,13 +135,13 @@ class Module implements
         
                             $assets = $adminPath . '/assets.php';
                             if (is_file($assets) && is_readable($assets)) {
-                                $configAssets = new \Zend\Config\Config(include $assets);
+                                $configAssets = new \Laminas\Config\Config(include $assets);
                                 $themeHierarchy[$themeId]['assets'] = $configAssets->toArray();
                             }
         
                             $layout = $adminPath . '/layout.php';
                             if (is_file($layout) && is_readable($layout)) {
-                                $configLayout = new \Zend\Config\Config(include $layout);
+                                $configLayout = new \Laminas\Config\Config(include $layout);
                                 $themeHierarchy[$themeId]['layout'] = $configLayout->toArray();
                             }
         
@@ -225,7 +225,7 @@ class Module implements
                         $frontendThemePath = $frontendPath . '/theme.php';
         
                         if (is_file($frontendThemePath) && is_readable($frontendThemePath)) {
-                            $configTheme                      = new \Zend\Config\Config(include $frontendThemePath);
+                            $configTheme                      = new \Laminas\Config\Config(include $frontendThemePath);
                             $themeHierarchy[$themeId]['path'] = $frontendPath;
         
                             $pathStack = array($frontendPath);
@@ -233,13 +233,13 @@ class Module implements
         
                             $assets = $frontendPath . '/assets.php';
                             if (is_file($assets) && is_readable($assets)) {
-                                $configAssets = new \Zend\Config\Config(include $assets);
+                                $configAssets = new \Laminas\Config\Config(include $assets);
                                 $themeHierarchy[$themeId]['assets'] = $configAssets->toArray();
                             }
         
                             $layout = $frontendPath . '/layout.php';
                             if (is_file($layout) && is_readable($layout)) {
-                                $configLayout = new \Zend\Config\Config(include $layout);
+                                $configLayout = new \Laminas\Config\Config(include $layout);
                                 $themeHierarchy[$themeId]['layout'] = $configLayout->toArray();
                             }
         
@@ -339,7 +339,7 @@ class Module implements
          * This listener gives the possibility to select the layout on module / controller / action level !
          * Just configure it in any module config or autoloaded config.
          */
-        $e->getApplication()->getEventManager()->getSharedManager()->attach(\Zend\Mvc\Controller\AbstractActionController::class, 'dispatch', function ($e) {
+        $e->getApplication()->getEventManager()->getSharedManager()->attach(\Laminas\Mvc\Controller\AbstractActionController::class, 'dispatch', function ($e) {
             $config     = $e->getApplication()->getServiceManager()->get('config');
             if (isset($config['core_layout'])) {
                 $controller      = $e->getTarget();
@@ -404,7 +404,7 @@ class Module implements
         }, 100);
         
         // I put area to each view
-        $e->getApplication()->getEventManager()->attach(\Zend\Mvc\MvcEvent::EVENT_RENDER, function (\Zend\Mvc\MvcEvent $e) use ($serviceManager) {
+        $e->getApplication()->getEventManager()->attach(\Laminas\Mvc\MvcEvent::EVENT_RENDER, function (\Laminas\Mvc\MvcEvent $e) use ($serviceManager) {
         
             $viewModel = $e->getViewModel();
             $match = $e->getRouteMatch();
@@ -455,7 +455,7 @@ class Module implements
                 
                     $match = $sm->get('Application')->getMvcEvent()->getRouteMatch();
                 
-                    if ($match instanceof \Zend\Router\Http\RouteMatch) {
+                    if ($match instanceof \Laminas\Router\Http\RouteMatch) {
                         $view_helper->setRouteMatch($match);
                     }
                 
@@ -467,7 +467,7 @@ class Module implements
                 
                     $match = $sm->get('Application')->getMvcEvent()->getRouteMatch();
                 
-                    if ($match instanceof \Zend\Router\Http\RouteMatch) {
+                    if ($match instanceof \Laminas\Router\Http\RouteMatch) {
                         $view_helper->setRouteMatch($match);
                     }
                 

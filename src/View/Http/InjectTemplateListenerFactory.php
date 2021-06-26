@@ -4,7 +4,7 @@ namespace PlaygroundDesign\View\Http;
 
 use Interop\Container\ContainerInterface;
 use PlaygroundDesign\View\Http\InjectTemplateListener;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class InjectTemplateListenerFactory implements FactoryInterface
 {

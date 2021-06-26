@@ -7,7 +7,7 @@ return array(
                 'design'        => array(),
             ),
         ),
-    
+
         'rule_providers' => array(
             'BjyAuthorize\Provider\Rule\Config' => array(
                 'allow' => array(
@@ -15,10 +15,10 @@ return array(
                 ),
             ),
         ),
-    
+
         'guards' => array(
             'BjyAuthorize\Guard\Controller' => array(
-                
+
                 array('controller' => 'PlaygroundDesign\Controller\Frontend\Home',  'roles' => array('guest', 'user')),
                 array('controller' => 'PlaygroundDesign\Controller\Admin\System',   'roles' => array('admin')),
                 array('controller' => 'PlaygroundDesign\Controller\Admin\Dashboard','roles' => array('admin')),
@@ -27,7 +27,7 @@ return array(
             ),
         ),
     ),
-    
+
     'doctrine' => array(
         'driver' => array(
             'playgrounddesign_entity' => array(
@@ -47,12 +47,14 @@ return array(
     'service_manager' => array(
         'aliases' => array(
             'playgrounddesign_doctrine_em' => 'doctrine.entitymanager.orm_default',
-            'Zend\Mvc\View\Http\InjectTemplateListener' => \PlaygroundDesign\View\Http\InjectTemplateListener::class,
+            'Laminas\Mvc\View\Http\InjectTemplateListener' => \PlaygroundDesign\View\Http\InjectTemplateListener::class,
+            'translator' => 'MvcTranslator',
         ),
         'factories' => array(
             \PlaygroundDesign\View\Http\InjectTemplateListener::class => \PlaygroundDesign\View\Http\InjectTemplateListenerFactory::class,
-            'translator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
-            'nav' => 'Zend\Navigation\Service\DefaultNavigationFactory',
+            'Router' => 'Laminas\RouterFactory',
+            'MvcTranslator' => 'Laminas\Mvc\I18n\TranslatorFactory',
+            'nav' => 'Laminas\Navigation\Service\DefaultNavigationFactory',
             'admin_navigation' => 'PlaygroundDesign\Service\Factory\AdminNavigationFactory',
             'playgrounddesign_theme_service' => 'PlaygroundDesign\Service\Factory\ThemeFactory',
             'playgrounddesign_company_service' => 'PlaygroundDesign\Service\Factory\CompanyFactory',
@@ -98,7 +100,7 @@ return array(
                 ),
             ),
             'playgrounddesign_companyadmin' => array(
-                'type' => 'Zend\Router\Http\Literal',
+                'type' => 'Laminas\Router\Http\Literal',
                 'options' => array(
                 'route'    => '/company',
                 'defaults' => array(
@@ -109,7 +111,7 @@ return array(
                 'may_terminate' => true,
             ),
             'playgrounddesign_themeadmin' => array(
-                'type' => 'Zend\Router\Http\Literal',
+                'type' => 'Laminas\Router\Http\Literal',
                 'options' => array(
                     'route'    => '/theme',
                     'defaults' => array(
@@ -120,7 +122,7 @@ return array(
                 'may_terminate' => true,
             ),
             'playgrounddesign_themeadmin_new' => array(
-                'type' => 'Zend\Router\Http\Literal',
+                'type' => 'Laminas\Router\Http\Literal',
                 'options' => array(
                     'route'    => '/theme/new',
                     'defaults' => array(
@@ -229,7 +231,7 @@ return array(
             \PlaygroundDesign\Controller\Admin\Theme::class => \PlaygroundDesign\Service\Factory\AdminThemeControllerFactory::class,
         ),
     ),
-    
+
     'controller_plugins' => array(
         // 'invokables' => array(
         //     'frontendUrl' => 'PlaygroundDesign\Controller\Plugin\FrontendUrl',
