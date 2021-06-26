@@ -3,14 +3,14 @@
 namespace PlaygroundDesign\Service;
 
 use PlaygroundDesign\Entity\Company as CompanyEntity;
-use Zend\Form\Form;
-use Zend\ServiceManager\ServiceManager;
-use Zend\Validator\NotEmpty;
-use Zend\EventManager\EventManagerAwareTrait;
+use Laminas\Form\Form;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\Validator\NotEmpty;
+use Laminas\EventManager\EventManagerAwareTrait;
 use PlaygroundDesign\Options\ModuleOptions;
 use DoctrineModule\Validator\NoObjectExists as NoObjectExistsValidator;
-use Zend\Stdlib\ErrorHandler;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Stdlib\ErrorHandler;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class Company
 {

@@ -2,16 +2,16 @@
 
 namespace PlaygroundDesign\Controller\Plugin;
 
-use Zend\Mvc\Controller\Plugin\Url;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Mvc\Controller\Plugin\Url;
+use Laminas\ServiceManager\ServiceLocatorAwareInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Traversable;
-use Zend\EventManager\EventInterface;
-use Zend\Mvc\Exception;
-use Zend\Mvc\InjectApplicationEventInterface;
-use Zend\Mvc\ModuleRouteListener;
-use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Router\RouteStackInterface;
+use Laminas\EventManager\EventInterface;
+use Laminas\Mvc\Exception;
+use Laminas\Mvc\InjectApplicationEventInterface;
+use Laminas\Mvc\ModuleRouteListener;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Mvc\Router\RouteStackInterface;
 
 class AdminUrl extends Url
 {
@@ -24,7 +24,7 @@ class AdminUrl extends Url
     {
         $controller = $this->getController();
         if (!$controller instanceof InjectApplicationEventInterface) {
-            throw new \Zend\Mvc\Exception\DomainException('Url plugin requires a controller that implements InjectApplicationEventInterface');
+            throw new \Laminas\Mvc\Exception\DomainException('Url plugin requires a controller that implements InjectApplicationEventInterface');
         }
         
         if (!is_array($params)) {

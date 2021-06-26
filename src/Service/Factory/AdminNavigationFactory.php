@@ -1,7 +1,7 @@
 <?php
 namespace PlaygroundDesign\Service\Factory;
 
-use Zend\Navigation\Service\DefaultNavigationFactory;
+use Laminas\Navigation\Service\DefaultNavigationFactory;
 
 /**
  * Factory for the ZfcAdmin admin navigation

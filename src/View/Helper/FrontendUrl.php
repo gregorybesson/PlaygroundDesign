@@ -1,6 +1,6 @@
 <?php
 namespace PlaygroundDesign\View\Helper;
-use Zend\View\Helper\Url as ZendUrl;
+use Laminas\View\Helper\Url as ZendUrl;
 /**
  * This Class will reuse the params from the current page url (area)
  * It will then prepend the area with the name ('treasurehunt/play' will become 'frontend/treasurehunt/play')

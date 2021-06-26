@@ -1,14 +1,14 @@
 <?php
-namespace PlaygroundDesginTest\Mapper;
+namespace PlaygroundDesignTest\Mapper;
 
 use PlaygroundDesignTest\Bootstrap;
 use \PlaygroundDesign\Entity\Company as CompanyEntity;
 
-class CompanyTest extends \PHPUnit_Framework_TestCase
+class CompanyTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Service Manager
-     * @var Zend\ServiceManager\ServiceManager
+     * @var Laminas\ServiceManager\ServiceManager
      */
     protected $sm;
 
@@ -24,7 +24,7 @@ class CompanyTest extends \PHPUnit_Framework_TestCase
      */
     protected $companyData;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->sm = Bootstrap::getServiceManager();
         $this->em = $this->sm->get('doctrine.entitymanager.orm_default');
@@ -102,7 +102,7 @@ class CompanyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(false, $company);
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         $dbh = $this->em->getConnection();
 

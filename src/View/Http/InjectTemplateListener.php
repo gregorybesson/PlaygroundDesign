@@ -2,12 +2,12 @@
 
 namespace PlaygroundDesign\View\Http;
 
-use Zend\EventManager\AbstractListenerAggregate;
-use Zend\EventManager\EventManagerInterface as Events;
-use Zend\Mvc\MvcEvent;
-use Zend\Stdlib\StringUtils;
-use Zend\View\Model\ModelInterface as ViewModel;
-use Zend\Mvc\View\Http\InjectTemplateListener as ZendInjectTemplateListener;
+use Laminas\EventManager\AbstractListenerAggregate;
+use Laminas\EventManager\EventManagerInterface as Events;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Stdlib\StringUtils;
+use Laminas\View\Model\ModelInterface as ViewModel;
+use Laminas\Mvc\View\Http\InjectTemplateListener as ZendInjectTemplateListener;
 
 class InjectTemplateListener extends ZendInjectTemplateListener
 {

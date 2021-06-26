@@ -5,6 +5,10 @@ return array(
         'DoctrineORMModule',
         'PlaygroundCore',
         'PlaygroundDesign',
+        'Laminas\Router',
+        'Laminas\Navigation',
+        'Laminas\I18n',
+        'Laminas\Mvc\Plugin\FlashMessenger',
     ),
     'module_listener_options' => array(
         'config_glob_paths'    => array(

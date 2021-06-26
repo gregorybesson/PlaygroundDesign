@@ -2,15 +2,15 @@
 
 namespace PlaygroundDesign\Form\Admin;
 
-use Zend\Form\Element;
-use ZfcUser\Form\ProvidesEventsForm;
-use Zend\Mvc\I18n\Translator;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\Form\Element;
+use PlaygroundCore\Form\ProvidesEventsForm;
+use Laminas\Mvc\I18n\Translator;
+use Laminas\ServiceManager\ServiceManager;
 
 class Theme extends ProvidesEventsForm
 {
     /**
-    * @var Zend\ServiceManager\ServiceManager $serviceManager
+    * @var Laminas\ServiceManager\ServiceManager $serviceManager
     */
     protected $serviceManager;
 
@@ -18,8 +18,8 @@ class Theme extends ProvidesEventsForm
     * __construct : permet de construire le formulaire qui peuplera l'entity theme
     *
     * @param string $name
-    * @param Zend\ServiceManager\ServiceManager $serviceManager
-    * @param Zend\Mvc\I18n\Translator $translator
+    * @param Laminas\ServiceManager\ServiceManager $serviceManager
+    * @param Laminas\Mvc\I18n\Translator $translator
     *
     */
     public function __construct($name = null, ServiceManager $serviceManager, Translator $translator)
@@ -30,7 +30,7 @@ class Theme extends ProvidesEventsForm
 
         $this->add(array(
             'name' => 'id',
-            'type'  => 'Zend\Form\Element\Hidden',
+            'type'  => 'Laminas\Form\Element\Hidden',
             'attributes' => array(
                 'value' => 0,
             ),
@@ -47,7 +47,7 @@ class Theme extends ProvidesEventsForm
                 'required' => 'required'
             ),
             'validator' => array(
-                new \Zend\Validator\NotEmpty(),
+                new \Laminas\Validator\NotEmpty(),
             )
         ));
 
@@ -62,7 +62,7 @@ class Theme extends ProvidesEventsForm
         ));
         $this->add(array(
             'name' => 'image',
-            'type'  => 'Zend\Form\Element\Hidden',
+            'type'  => 'Laminas\Form\Element\Hidden',
             'attributes' => array(
                     'value' => '',
             ),

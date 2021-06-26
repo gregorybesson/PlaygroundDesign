@@ -1,15 +1,15 @@
 <?php
 
-namespace PlaygroundDesginTest\Service;
+namespace PlaygroundDesignTest\Service;
 
 use PlaygroundDesignTest\Bootstrap;
 use \PlaygroundDesign\Entity\Theme as ThemeEntity;
 
-class ThemeTest extends \PHPUnit_Framework_TestCase
+class ThemeTest extends \PHPUnit\Framework\TestCase
 {
     protected $traceError = true;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
     }

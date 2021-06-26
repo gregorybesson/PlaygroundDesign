@@ -2,7 +2,7 @@
 
 namespace PlaygroundDesign\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 class FacebookUrl extends AbstractHelper
 {

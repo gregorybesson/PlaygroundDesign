@@ -2,7 +2,7 @@
 namespace PlaygroundDesign\Service;
 
 use PlaygroundDesign\Service\Theme;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
 
 class ThemeFactory implements FactoryInterface

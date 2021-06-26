@@ -2,7 +2,7 @@
 namespace PlaygroundDesign\Service;
 
 use PlaygroundDesign\Service\Settings;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
 
 class SettingsFactory implements FactoryInterface

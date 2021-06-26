@@ -2,12 +2,12 @@
 
 namespace PlaygroundDesign\Controller\Admin;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\EventManager\EventManager;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\EventManager\EventManager;
 use PlaygroundDesign\Entity\Theme as ThemeEntity;
 use PlaygroundDesign\Mapper\Theme;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class ThemeController extends AbstractActionController
 {
@@ -180,7 +180,7 @@ class ThemeController extends AbstractActionController
         $this->flashMessenger()->addMessage('The theme "'.$theme->getTitle().'" is activate');
 
         $eventManager = new EventManager();
-        $eventManager->trigger(\Zend\ModuleManager\ModuleEvent::EVENT_MERGE_CONFIG);
+        $eventManager->trigger(\Laminas\ModuleManager\ModuleEvent::EVENT_MERGE_CONFIG);
 
         return $this->redirect()->toRoute('admin/playgrounddesign_themeadmin');
     }

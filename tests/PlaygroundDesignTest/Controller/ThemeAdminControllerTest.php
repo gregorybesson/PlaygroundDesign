@@ -1,7 +1,7 @@
 <?php
-namespace PlaygroundDesignTest\Controller\Frontend;
+namespace PlaygroundDesignTest\Controller;
 
-use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
+use Laminas\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 
 use PlaygroundDesignTest\Bootstrap;
 use PlaygroundDesign\Entity\Theme;
@@ -12,7 +12,7 @@ class themecontrollerTest extends AbstractHttpControllerTestCase
 
     protected $themeId;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->setApplicationConfig(
             include __DIR__ . '/../../TestConfig.php'
@@ -24,7 +24,7 @@ class themecontrollerTest extends AbstractHttpControllerTestCase
 
     public function testIndexActionWithoutAutomaticThemeAdd()
     {
-        
+
         $serviceManager = $this->getApplicationServiceLocator();
         $serviceManager->setAllowOverride(true);
 
@@ -54,7 +54,7 @@ class themecontrollerTest extends AbstractHttpControllerTestCase
 
     public function testIndexActionWithAutomaticThemeAdd()
     {
-        
+
         $serviceManager = $this->getApplicationServiceLocator();
         $serviceManager->setAllowOverride(true);
 
@@ -145,7 +145,7 @@ class themecontrollerTest extends AbstractHttpControllerTestCase
         $this->assertActionName('delete');
         $this->assertMatchedRouteName('admin/playgrounddesign_themeadmin_delete');
 
-        $this->assertRedirectTo('/admin/theme');
+        $this->assertRedirectTo('/fr/admin/theme');
     }
 
     public function testActivateAction()
@@ -182,7 +182,7 @@ class themecontrollerTest extends AbstractHttpControllerTestCase
         $this->assertActionName('activate');
         $this->assertMatchedRouteName('admin/playgrounddesign_themeadmin_activate');
 
-        $this->assertRedirectTo('/admin/theme');
+        $this->assertRedirectTo('/fr/admin/theme');
     }
 
     public function testActivateActionWithAllreadyActivedTheme()
@@ -219,6 +219,6 @@ class themecontrollerTest extends AbstractHttpControllerTestCase
         $this->assertActionName('activate');
         $this->assertMatchedRouteName('admin/playgrounddesign_themeadmin_activate');
 
-        $this->assertRedirectTo('/admin/theme');
+        $this->assertRedirectTo('/fr/admin/theme');
     }
 }

@@ -2,7 +2,7 @@
 
 namespace PlaygroundDesign\Options;
 
-use Zend\Stdlib\AbstractOptions;
+use Laminas\Stdlib\AbstractOptions;
 
 class ModuleOptions extends AbstractOptions
 {

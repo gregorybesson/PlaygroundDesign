@@ -1,13 +1,13 @@
 <?php $container = $this->navigation()->breadcrumbs()  ?>
-<?php /* @var $container \Zend\View\Helper\Navigation\Breadcrumbs */ ?>
+<?php /* @var $container \Laminas\View\Helper\Navigation\Breadcrumbs */ ?>
 <?php $navigation = $container->getContainer() ?>
-<?php /* @var $navigation \Zend\Navigation\Navigation */ ?>
+<?php /* @var $navigation \Laminas\Navigation\Navigation */ ?>
 
 <ul class="breadcrumb">
     <li><a href="<?php echo $this->url('admin') ?>"><?php echo $this->translate('Home'); ?></a></li>
     <?php $active = $container->findActive($navigation) ?>
     <?php foreach($this->pages as $page): ?>
-        <?php /* @var $page \Zend\Navigation\Page\Mvc */ ?>
+        <?php /* @var $page \Laminas\Navigation\Page\Mvc */ ?>
         <?php if( ! $page->isActive()): ?>
             <li>
                 <span class="divider">&nbsp;&gt;</span>

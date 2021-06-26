@@ -2,7 +2,7 @@
 
 namespace PlaygroundDesignTest\Controller\Frontend;
 
-use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
+use Laminas\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 
 use PlaygroundDesignTest\Bootstrap;
 use PlaygroundDesign\Entity\Company as CompanyEntity;
@@ -16,7 +16,7 @@ class CompanyAdminControllerTest extends AbstractHttpControllerTestCase
     */
     protected $CompanyMapper;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->setApplicationConfig(
             include __DIR__ . '/../../TestConfig.php'

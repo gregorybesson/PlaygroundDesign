@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Doctrine\ORM\Mapping\PrePersist;
 use Doctrine\ORM\Mapping\PreUpdate;
-use Zend\InputFilter\InputFilter;
-use Zend\InputFilter\InputFilterAwareInterface;
-use Zend\InputFilter\InputFilterInterface;
+use Laminas\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilterAwareInterface;
+use Laminas\InputFilter\InputFilterInterface;
 
 /**
  * @ORM\Entity @HasLifecycleCallbacks
@@ -29,6 +29,16 @@ class Settings implements InputFilterAwareInterface
      * @ORM\Column(name="home_pagination", type="integer", nullable=true)
      */
     protected $homePagination = 0;
+
+    /**
+     * @ORM\Column(name="google_recaptcha_url", type="string", nullable=true)
+     */
+    protected $gReCaptchaUrl = 'https://www.google.com/recaptcha/api/siteverify';
+
+    /**
+     * @ORM\Column(name="google_recaptcha_key", type="string", nullable=true)
+     */
+    protected $gReCaptchaKey = '';
 
     /**
      * @ORM\Column(name="created_at", type="datetime")
@@ -98,6 +108,46 @@ class Settings implements InputFilterAwareInterface
     }
 
     /**
+     *
+     * @return the $gReCaptchaUrl
+     */
+    public function getGReCaptchaUrl()
+    {
+        return $this->gReCaptchaUrl;
+    }
+
+    /**
+     *
+     * @param field_type $gReCaptchaUrl
+     */
+    public function setGReCaptchaUrl($gReCaptchaUrl)
+    {
+        $this->gReCaptchaUrl = $gReCaptchaUrl;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @return the $gReCaptchaKey
+     */
+    public function getGReCaptchaKey()
+    {
+        return $this->gReCaptchaKey;
+    }
+
+    /**
+     *
+     * @param field_type $gReCaptchaKey
+     */
+    public function setGReCaptchaKey($gReCaptchaKey)
+    {
+        $this->gReCaptchaKey = $gReCaptchaKey;
+
+        return $this;
+    }
+
+    /**
      * @param mixed $createdAt
      * @return Theme
      */
@@ -141,7 +191,7 @@ class Settings implements InputFilterAwareInterface
     }
 
     /**
-     * Populate from an array.
+     * Populate from an array. Used when hydrating from a form
      *
      * @param array $data
      */
@@ -149,6 +199,12 @@ class Settings implements InputFilterAwareInterface
     {
         if (isset($data['homePagination']) && $data['homePagination'] != null) {
             $this->homePagination = $data['homePagination'];
+        }
+        if (isset($data['gReCaptchaUrl']) && $data['gReCaptchaUrl'] != null) {
+            $this->gReCaptchaUrl = $data['gReCaptchaUrl'];
+        }
+        if (isset($data['gReCaptchaKey']) && $data['gReCaptchaKey'] != null) {
+            $this->gReCaptchaKey = $data['gReCaptchaKey'];
         }
     }
 

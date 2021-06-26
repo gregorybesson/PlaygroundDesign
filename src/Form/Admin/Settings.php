@@ -2,16 +2,16 @@
 
 namespace PlaygroundDesign\Form\Admin;
 
-use Zend\Form\Form;
-use Zend\Form\Element;
-use ZfcUser\Form\ProvidesEventsForm;
-use Zend\Mvc\I18n\Translator;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\Form\Form;
+use Laminas\Form\Element;
+use PlaygroundCore\Form\ProvidesEventsForm;
+use Laminas\Mvc\I18n\Translator;
+use Laminas\ServiceManager\ServiceManager;
 
 class Settings extends ProvidesEventsForm
 {
     /**
-    * @var Zend\ServiceManager\ServiceManager $serviceManager
+    * @var Laminas\ServiceManager\ServiceManager $serviceManager
     */
     protected $serviceManager;
 
@@ -19,8 +19,8 @@ class Settings extends ProvidesEventsForm
     * __construct : permet de construire le formulaire qui peuplera l'entity company
     *
     * @param string $name
-    * @param Zend\ServiceManager\ServiceManager $serviceManager
-    * @param use Zend\Mvc\I18n\Translator $translator
+    * @param Laminas\ServiceManager\ServiceManager $serviceManager
+    * @param use Laminas\Mvc\I18n\Translator $translator
     *
     */
     public function __construct($name = null, ServiceManager $serviceManager, Translator $translator)
@@ -32,7 +32,7 @@ class Settings extends ProvidesEventsForm
         $this->add(
             array(
                 'name' => 'id',
-                'type'  => 'Zend\Form\Element\Hidden',
+                'type'  => 'Laminas\Form\Element\Hidden',
                 'attributes' => array(
                     'value' => 0,
                 ),
@@ -48,6 +48,27 @@ class Settings extends ProvidesEventsForm
                 'attributes' => array(
                     'type' => 'tel',
                     'placeholder' => $translator->translate('Home pagination', 'playgrounddesign'),
+                ),
+            )
+        );
+
+        $this->add(
+            array(
+                'name' => 'gReCaptchaUrl',
+                'options' => array(
+                    'label' => $translator->translate('Google ReCaptcha URL', 'playgrounddesign'),
+                ),
+                'attributes' => array(
+                    'value' => 'https://www.google.com/recaptcha/api/siteverify',
+                ),
+            )
+        );
+
+        $this->add(
+            array(
+                'name' => 'gReCaptchaKey',
+                'options' => array(
+                    'label' => $translator->translate('Google ReCaptcha Key', 'playgrounddesign'),
                 ),
             )
         );
