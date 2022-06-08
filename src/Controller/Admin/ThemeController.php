@@ -98,7 +98,7 @@ class ThemeController extends AbstractActionController
         }
 
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('playground-design/theme-admin/theme');
+        $viewModel->setTemplate('playground-design/theme/theme');
 
         return $viewModel->setVariables(array('form'           => $form,
                                               'automaticTheme' => 0));
@@ -137,7 +137,7 @@ class ThemeController extends AbstractActionController
         }
 
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('playground-design/theme-admin/theme');
+        $viewModel->setTemplate('playground-design/theme/theme');
 
         return $viewModel->setVariables(array('form'           => $form,
                                               'automaticTheme' => 0));
@@ -225,7 +225,7 @@ class ThemeController extends AbstractActionController
                         $themeDefine = explode('//', $directoryThemes.'/'.$file);
                         $themeDefine = explode('/', $themeDefine[1]);
                         $area = $themeDefine[0];
-                        
+
                         $themeArray = include($directoryThemes.'/theme.php');
                         $package = $themeArray['design']['package']['code'];
                         $title = $themeArray['design']['package']['theme']['title'];

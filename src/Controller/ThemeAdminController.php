@@ -81,7 +81,7 @@ class ThemeAdminController extends AbstractActionController
         }
 
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('playground-design/theme-admin/theme');
+        $viewModel->setTemplate('playground-design/theme/theme');
 
         return $viewModel->setVariables(array('form'           => $form,
                                               'automaticTheme' => 0));
@@ -120,7 +120,7 @@ class ThemeAdminController extends AbstractActionController
         }
 
         $viewModel = new ViewModel();
-        $viewModel->setTemplate('playground-design/theme-admin/theme');
+        $viewModel->setTemplate('playground-design/theme/theme');
 
         return $viewModel->setVariables(array('form'           => $form,
                                               'automaticTheme' => 0));
