@@ -7,12 +7,12 @@
 <div class="sidebar col-md-4">
 
     <!-- BLOCK NEWSLETTER -->
-	<?php if($this->zfcUserIdentity() && ! $this->zfcUserIdentity()->getOptin()): ?>
+	<?php if($this->lmcUserIdentity() && ! $this->lmcUserIdentity()->getOptin()): ?>
 	    <div class="sb-block newsletter-connect">
 	    	<img src="<?php echo $this->frontendAssetPath('images/common/icon-newsletter.png')?>" alt="newsletter" />
 	    	<h5 class="sb-block-title"><?php echo $this->translate('Sign up for the newsletter and never miss a game!'); ?></h5>
 			<div class="sb-block-content">
-			    <form action="<?php echo $this->url('frontend/zfcuser/ajax_newsletter');?>" method="POST" id="ajax-newsletter">
+			    <form action="<?php echo $this->url('frontend/lmcuser/ajax_newsletter');?>" method="POST" id="ajax-newsletter">
 			        <input type="hidden" value="1" name="optin" />
 			    	<input class="btn btn-default up" type="submit" value="<?php echo $this->translate('Sign up now!'); ?>"/>
 			    </form>
@@ -30,15 +30,15 @@
     <?php endif; ?>
 
 	<!-- BLOCK TONNES CADEAUX -->
-	<?php if(!$this->zfcUserIdentity()): ?>
+	<?php if(!$this->lmcUserIdentity()): ?>
 	    <div class="sb-block tonnes-cadeaux">
 	    	<img src="<?php echo $this->frontendAssetPath('images/common/icon-gifts.png')?>" alt="gifts" />
             <h5><?php echo $this->translate('Win a lot of gits !'); ?></h5>
 	    	<div class="sb-content">
 		    	<div class="txt"><?php echo $this->translate('Sign up and join the Playground contests our partners to win loads of gifts.'); ?></div>
 		    	<div class="accroche"><?php echo $this->translate('Playground is 100% free!'); ?></div>
-		    	<a class="btn btn-default up" href="<?php echo $this->url('frontend/zfcuser/register') . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('Sign up now!'); ?></a>
-		    	<a class="btn btn-inverse" href="<?php echo $this->url('frontend/zfcuser/register') . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('Connection'); ?></a>
+		    	<a class="btn btn-default up" href="<?php echo $this->url('frontend/lmcuser/register') . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('Sign up now!'); ?></a>
+		    	<a class="btn btn-inverse" href="<?php echo $this->url('frontend/lmcuser/register') . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('Connection'); ?></a>
 		    </div>
 	    </div>
     <?php endif; ?><!-- END BLOCK TONNES CADEAUX -->
@@ -54,7 +54,7 @@
     <?php endif; ?>
 
     <!-- BLOCK NEWSLETTER -->
-    <!-- <?php if(!$this->zfcUserIdentity()): ?>
+    <!-- <?php if(!$this->lmcUserIdentity()): ?>
     	    <div class="sb-block newsletter">
     	    	<img src="<?php echo $this->frontendAssetPath('images/common/icon-newsletter.png')?>" width="82" height="81" border="0" alt="newsletter" />
     			<div class="bg-sdblock">
@@ -69,14 +69,14 @@
     <!-- END BLOCK NEWSLETTER -->
 
     <!-- BLOCK WIN POINTS -->
-    <?php if($this->zfcUserIdentity()): ?>
+    <?php if($this->lmcUserIdentity()): ?>
 		<div class="sb-block win-points">
 			<img src="<?php echo $this->frontendAssetPath('images/common/icon-cup-home.png')?>" alt="cup" />
             <h5><?php echo $this->translate('Earn more points!'); ?></h5>
 			<div class="sb-content">
 				<ul class="links-list">
 					<li class="coordonnees">
-						<a href="<?php echo $this->url('frontend/zfcuser/profile');?>" class="sb-picto-link">
+						<a href="<?php echo $this->url('frontend/lmcuser/profile');?>" class="sb-picto-link">
 						    <!-- <img src="<?php //echo $this->frontendAssetPath('images/common/btn-coordonnees-hd.png')?>" alt="coordonnees" /> -->
 							<?php echo $this->translate('Fill in your details'); ?>
 							50 points
@@ -109,8 +109,8 @@
 	    	<ul class="links-list">
 	    		<li class="connect">
                    <!-- <img src="<?php //echo $this->frontendAssetPath('images/common/btn-connect-account-hd.png')?>" alt="connect" /> -->
-	    		    <a href="<?php echo $this->url('frontend/zfcuser/register') . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('Register'); ?></a> <?php echo $this->translate('or'); ?><br />
-	    		    <a href="<?php echo $this->url('frontend/zfcuser/register') . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('log in'); ?></a> <?php echo $this->translate('to your account'); ?>
+	    		    <a href="<?php echo $this->url('frontend/lmcuser/register') . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('Register'); ?></a> <?php echo $this->translate('or'); ?><br />
+	    		    <a href="<?php echo $this->url('frontend/lmcuser/register') . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('log in'); ?></a> <?php echo $this->translate('to your account'); ?>
     		    </li>
 	    		<li class="game-play">
                     <!-- <img src="<?php // echo $this->frontendAssetPath('images/common/btn-contest-play-hd.png')?>" alt="gameplay" />-->
@@ -163,18 +163,18 @@
     				</li>
     			<?php $i++;endforeach;?>
 
-        		<?php if($this->zfcUserIdentity()): ?>
-        			<?php $rank =  $this->rankWidget($this->zfcUserIdentity()->getId());?>
+        		<?php if($this->lmcUserIdentity()): ?>
+        			<?php $rank =  $this->rankWidget($this->lmcUserIdentity()->getId());?>
     	    		<li class="row general current">
     					<!-- <div class="position"><?php //echo $this->translate('Your position'); ?></div> -->
 						<div class="avatar">
-							<?php if($this->zfcUserIdentity()->getAvatar()):?>
-								<img src="<?php echo $this->basePath($this->zfcUserIdentity()->getAvatar()) ?>" width="33" height="33" border="0" alt="<?php echo $this->zfcUserIdentity()->getFirstname(); ?> <?php echo $this->zfcUserIdentity()->getLastname(); ?>" />
+							<?php if($this->lmcUserIdentity()->getAvatar()):?>
+								<img src="<?php echo $this->basePath($this->lmcUserIdentity()->getAvatar()) ?>" width="33" height="33" border="0" alt="<?php echo $this->lmcUserIdentity()->getFirstname(); ?> <?php echo $this->lmcUserIdentity()->getLastname(); ?>" />
 							<?php else:?>
-								<?php if($this->zfcUserIdentity()->getTitle() && $this->zfcUserIdentity()->getTitle() == 'M'): ?>
-	        			        	<img src="<?php echo $this->frontendAssetPath('images/user/no-avatar-small-h.png'); ?>" alt="<?php echo $this->zfcUserIdentity()->getFirstname(); ?> <?php echo $this->zfcUserIdentity()->getLastname(); ?>" width="33" height="33" border="0" />
+								<?php if($this->lmcUserIdentity()->getTitle() && $this->lmcUserIdentity()->getTitle() == 'M'): ?>
+	        			        	<img src="<?php echo $this->frontendAssetPath('images/user/no-avatar-small-h.png'); ?>" alt="<?php echo $this->lmcUserIdentity()->getFirstname(); ?> <?php echo $this->lmcUserIdentity()->getLastname(); ?>" width="33" height="33" border="0" />
 	        			    	<?php else: ?>
-	        			    		<img src="<?php echo $this->frontendAssetPath('images/user/no-avatar-small-f.png'); ?>" alt="<?php echo $this->zfcUserIdentity()->getFirstname(); ?> <?php echo $this->zfcUserIdentity()->getLastname(); ?>" width="33" height="33" border="0" />
+	        			    		<img src="<?php echo $this->frontendAssetPath('images/user/no-avatar-small-f.png'); ?>" alt="<?php echo $this->lmcUserIdentity()->getFirstname(); ?> <?php echo $this->lmcUserIdentity()->getLastname(); ?>" width="33" height="33" border="0" />
 	        			    	<?php endif; ?>
 	        			    <?php endif;?>
 						</div>

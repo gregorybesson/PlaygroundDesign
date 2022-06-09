@@ -17,7 +17,7 @@
                 </a>
             </div>
             <div class="col-md-5 hook-title" ><?php echo $this->translate('The first open source platform games!'); ?></div>
-        <?php if(!$this->zfcUserIdentity()): ?>
+        <?php if(!$this->lmcUserIdentity()): ?>
             <?php echo $this->userLoginWidget(array('redirect' => $this->url('frontend'),'enableRegistration' => true)); ?>
         <?php else: ?>
 		<div class="barnav row">
@@ -35,17 +35,17 @@
 	                </ul>
 	                <ul class="nav navbar-nav right">
 	                    <li>
-	                        <a href="<?php echo $this->url('frontend/zfcuser/profile') ?>">
-	                            <?php if($this->zfcUserIdentity()->getAvatar()):?>
-	                                <img src="<?php echo $this->basePath($this->zfcUserIdentity()->getAvatar()) ?>" width="28" height="28" alt="<?php echo $this->zfcUserIdentity()->getFirstname(); ?> <?php echo $this->zfcUserIdentity()->getLastname(); ?>" />
+	                        <a href="<?php echo $this->url('frontend/lmcuser/profile') ?>">
+	                            <?php if($this->lmcUserIdentity()->getAvatar()):?>
+	                                <img src="<?php echo $this->basePath($this->lmcUserIdentity()->getAvatar()) ?>" width="28" height="28" alt="<?php echo $this->lmcUserIdentity()->getFirstname(); ?> <?php echo $this->lmcUserIdentity()->getLastname(); ?>" />
 	                            <?php else:?>
-	                                    <?php if($this->zfcUserIdentity()->getTitle() && $this->zfcUserIdentity()->getTitle() == 'M'): ?>
+	                                    <?php if($this->lmcUserIdentity()->getTitle() && $this->lmcUserIdentity()->getTitle() == 'M'): ?>
 	                                        <img src="<?php echo $this->frontendAssetPath('images/user/no-avatar-small-h.png'); ?>" alt="no avatar" />
 	                                    <?php else: ?>
 	                                        <img src="<?php echo $this->frontendAssetPath('images/user/no-avatar-small-f.png'); ?>" alt="no avatar" />
 	                                    <?php endif; ?>
 	                            <?php endif;?>
-	                            <?php echo $this->zfcUserIdentity()->getUsername();?>
+	                            <?php echo $this->lmcUserIdentity()->getUsername();?>
 	                       </a>
 	                    </li>
 	                    <li class="dropdown account-options">
@@ -66,13 +66,13 @@
 	                                </a>
 	                            </li>
 	                            <li>
-	                                <a href="<?php echo $this->url('frontend/zfcuser/profile');?>" class="profile">
+	                                <a href="<?php echo $this->url('frontend/lmcuser/profile');?>" class="profile">
 	                                    <span class="sprite-icon"></span>
 	                                    <?php echo $this->translate('Change my informations'); ?>
 	                                </a>
 	                            </li>
 	                            <li>
-	                                <a href="<?php echo $this->url('frontend/zfcuser/newsletter');?>" class="newsletter">
+	                                <a href="<?php echo $this->url('frontend/lmcuser/newsletter');?>" class="newsletter">
 	                                    <span class="sprite-icon"></span>
 	                                    <?php echo $this->translate('Manage my newletters'); ?>
 	                                </a>
@@ -84,7 +84,7 @@
 	                                </a>
 	                            </li>
 	                            <li id="last-item">
-	                                <a href="<?php echo $this->url('frontend/zfcuser/logout') ?>" class="logout">
+	                                <a href="<?php echo $this->url('frontend/lmcuser/logout') ?>" class="logout">
 	                                    <span class="sprite-icon"></span>
 	                                    <?php echo $this->translate('Logout'); ?>
 	                                </a>

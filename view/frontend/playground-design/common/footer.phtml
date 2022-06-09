@@ -22,7 +22,7 @@
 	                <a href="<?php echo $this->url('frontend/cms', array('id' => 'comment-ca-marche')); ?>"><?php echo $this->translate('How it works ?'); ?></a>
 	            </li>
 	            <li>
-	                <a href="<?php if($this->zfcUserIdentity()): echo $this->url('frontend/badges'); else : echo $this->url('frontend/zfcuser/register') . ($this->redirect ? '?redirect='.$this->redirect : ''); endif; ?>"><?php echo $this->translate('My account'); ?></a>
+	                <a href="<?php if($this->lmcUserIdentity()): echo $this->url('frontend/badges'); else : echo $this->url('frontend/lmcuser/register') . ($this->redirect ? '?redirect='.$this->redirect : ''); endif; ?>"><?php echo $this->translate('My account'); ?></a>
 	            </li>
 	            <li>
 	                <a href="<?php echo $this->url('frontend/contact') ?>"><?php echo $this->translate('Contact us'); ?></a>
