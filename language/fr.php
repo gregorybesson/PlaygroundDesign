@@ -317,18 +317,18 @@ return array(
     'Company twitter account' => 'Compte twitter',
     'Main image'            => 'Logo',
     'Upgrade'				=> 'Mettre à jour',
-    
+
     // Menus
 	'Home' 	=> 'Accueil',
     'Users'			=> 'Utilisateurs',
     'Roles list'    => 'liste des rôles',
     'Users list' 	=> 'Liste des utilisateurs',
     'Create user' 	=> 'Créer un utilisateur',
-    
+
     'Statistics'	=> 'Statistiques',
     'Game stats'	=> 'Statistiques des jeux',
     'Export'		=> 'Export',
-    
+
     'Your media repository' => 'Accès aux media',
     'Posts' => 'Les articles',
     'Posts list' => 'Liste des articles',
@@ -336,11 +336,11 @@ return array(
     'Blocks' => 'Blocs',
     'Create a content bloc' => 'Créer un bloc de contenu',
     'Dynamic blocks' => 'Blocs dynamiques',
-    
+
     'Rewards' => 'Récompenses',
     'Rewards list' => 'Listes des récompenses',
     'Type of Leaderboard' => 'Type de Classements',
-    
+
     'Games' 				=> 'Les jeux',
     'Games list' 			=> 'Liste des jeux',
     'Add new lottery' 		=> 'Créer un tirage au sort',
@@ -348,11 +348,14 @@ return array(
     'Add new post & vote' 	=> 'Créer un Post & Vote',
     'Add new instant win' 	=> 'Créer un instant gagnant',
     'Add new trading card'  => 'Créer un jeu de cartes à collectionner',
+    'Add a new crossword game' => 'Créer un mots croisés',
+    'Add a new memory game' => 'Créer un jeu de Memory',
+    'Add a new treasure hunt game' => 'Créer une chasse au trésor',
     'Add new mission'       => 'Créer une mission',
     'Manage categories gain' => 'Gérer les catégories de gain',
     'Add new treasure hunt' => 'Créer une chasse au trésor',
     'Mission Management'    => 'Gestion des missions',
-   	
+
     'Open graph' 	=> 'Open graph',
     'Stories list'	=> 'Liste des stories',
     'Create story' 	=> 'Créer une story',
@@ -360,44 +363,45 @@ return array(
     'Objects list' 	=> 'Liste des objets',
     'Domains list' 	=> 'Liste des domaines',
     'Apps list' 	=> 'Liste des apps',
-    
+
     'New appli' 	=> 'Nouvelle Appli',
     'Pages list' 	=> 'Liste des Pages',
     'New page' 		=> 'Nouvelle Page',
-    
+
     'Partners' 			=> 'Partenaires',
     'Partners list' 	=> 'Liste des partenaires',
     'Create partner' 	=> 'Créer un nouveau partenaire',
-    
+
     'FAQ' => 'FAQ',
     'FAQ list' => 'Liste des FAQ',
     'New FAQ' => 'Nouvelle FAQ',
-    
+
     'Configuration' => 'Configuration',
     'Company' 		=> 'Société',
     'Themes' 		=> 'Gestion des thèmes',
-    
+    'Platform settings' => 'Configuration du site',
+
     // Page Contactez-nous, colonne de gauche
     'How it works ?' => 'Comment ça marche ?',
     'Badges and points' => 'Les badges et les points',
     'F.A.Q' => 'F.A.Q',
     'Contact us' => 'Contactez-nous',
-    
+
     // BLOCK TONNES CADEAUX
     'Win a lot of gits !' => 'Gagnez des tonnes de cadeaux !',
     'Sign up and join the Playground contests our partners to win loads of gifts.' => 'Inscrivez-vous sur Playground et participez aux jeux concours de nos partenaires pour gagner pleins de cadeaux.',
     'Playground is 100% free!' => 'Playground est 100% gratuit !',
     'Sign up now!' => 'Je m’inscris !',
     'Connection' => 'Connexion',
-    
+
     // BLOC FACEBOOK
     'Join us on Facebook' => 'Rejoignez-nous sur Facebook',
-    
+
     // BLOC NEWSLETTER
     'Sign up for the newsletter and never miss a game!' => 'Inscrivez-vous à la newsletter et ne ratez aucun jeu !',
     'Your email address' => 'Votre adresse email',
     'Thank you, your registration is taken into account!' => 'Merci, votre inscription est bien prise en compte!',
-    
+
     // BLOC HOW IT WORKS
     'Register or log in to your account' => 'Inscrivez-vous ou connectez-vous à votre compte',
     'Participate in contests to win prizes' => 'Participez aux jeux concours pour gagner des cadeaux',
@@ -409,7 +413,7 @@ return array(
     'to your account' => 'à votre compte',
     'Participate in contests' => 'Participez aux jeux concours',
     'to win prizes' => 'pour gagner des cadeaux',
-    
+
     // BLOCK CLASSEMENT
     'Ranking' => 'Classement',
     'This week' => 'Cette semaine',
@@ -420,18 +424,18 @@ return array(
     'second_place' => 'ème',
     'third_place' => 'ème',
     'other_place' => 'ème',
-    
+
     // BLOC ACTIVITES RECENTES
     'Recent activity' => 'Activités récentes',
     'received the badge' => 'a obtenu le badge',
-    
+
     // BLOCK WIN POINTS
     'Earn more points!' => 'Gagnez plus de points !',
     'Fill in your details' => 'Remplissez vos coordonnées',
     'Refer your friends' => 'Parrainez vos amis',
     'by friend sponsored' => 'par amis parrainé',
     'Share on social networks' => 'Partagez sur les réseaux sociaux',
-   
+
     // FOOTER
     'Home' => 'Accueil',
     'All contests' => 'Tous les jeux concours',
@@ -440,7 +444,7 @@ return array(
     'My account' => 'Mon compte',
     'Contests' => 'Les jeux concours',
     'to win' => 'à gagner',
-    
+
     // MON ACTIVITE
     'My activity' => 'Mon activité',
     'Filter history by type of action' => 'Filtrer l’historique par type d’action',
@@ -450,10 +454,10 @@ return array(
     'Invitations and sponsorship' => 'Invitations et parrainage',
     'Badges' => 'Badges',
     'More news' => 'Plus d\'actus',
-    
+
     // NOUS CONTACTER
     'A question to ask ?' => 'Une question à nous poser ?',
-    
+
     // HEADER DU SITE
     'The first open source platform games !' => 'La première plateforme de jeux open source !',
     'Contests' => 'Jeux concours',
@@ -472,6 +476,6 @@ return array(
     '' => '',
     '' => '',
     '' => '',
-    
-    
+
+
 );
