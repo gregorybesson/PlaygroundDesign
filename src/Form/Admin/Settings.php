@@ -52,6 +52,17 @@ class Settings extends ProvidesEventsForm
             )
         );
 
+        $this->add(array(
+            'type' => 'Laminas\Form\Element\Checkbox',
+            'attributes' => array(
+                'class' => 'switch-input',
+            ),
+            'name' => 'homeKeepClosedGamePosition',
+            'options' => array(
+                'label' => $translator->translate('Keep a closed game in its original position', 'playgroundgame'),
+            ),
+        ));
+
         $this->add(
             array(
                 'name' => 'gReCaptchaUrl',

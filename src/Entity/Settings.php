@@ -31,6 +31,11 @@ class Settings implements InputFilterAwareInterface
     protected $homePagination = 0;
 
     /**
+     * @ORM\Column(name="home_keep_closed_game_position", type="integer", nullable=true)
+     */
+    protected $homeKeepClosedGamePosition = 0;
+
+    /**
      * @ORM\Column(name="google_recaptcha_url", type="string", nullable=true)
      */
     protected $gReCaptchaUrl = 'https://www.google.com/recaptcha/api/siteverify';
@@ -103,6 +108,26 @@ class Settings implements InputFilterAwareInterface
     public function setHomePagination($homePagination)
     {
         $this->homePagination = $homePagination;
+
+        return $this;
+    }
+
+    /**
+     *
+     * @return the $homeKeepClosedGamePosition
+     */
+    public function getHomeKeepClosedGamePosition()
+    {
+        return $this->homeKeepClosedGamePosition;
+    }
+
+    /**
+     *
+     * @param field_type $homeKeepClosedGamePosition
+     */
+    public function setHomeKeepClosedGamePosition($homeKeepClosedGamePosition)
+    {
+        $this->homeKeepClosedGamePosition = $homeKeepClosedGamePosition;
 
         return $this;
     }
@@ -199,6 +224,9 @@ class Settings implements InputFilterAwareInterface
     {
         if (isset($data['homePagination']) && $data['homePagination'] != null) {
             $this->homePagination = $data['homePagination'];
+        }
+        if (isset($data['homeKeepClosedGamePosition']) && $data['homeKeepClosedGamePosition'] != null) {
+            $this->homeKeepClosedGamePosition = $data['homeKeepClosedGamePosition'];
         }
         if (isset($data['gReCaptchaUrl']) && $data['gReCaptchaUrl'] != null) {
             $this->gReCaptchaUrl = $data['gReCaptchaUrl'];
