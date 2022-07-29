@@ -70,7 +70,7 @@ class ThemeAdminController extends AbstractActionController
             $theme = $this->getAdminThemeService()->edit($data, $theme, 'playgrounddesign_theme_form');
 
             if ($theme) {
-                $this->flashMessenger()->addMessage('The theme "'.$theme->getTitle().'" was updated');
+                $this->flashMessenger()->addMessage('The theme "'.$theme->getTitle().'" has been updated');
 
                 return $this->redirect()->toRoute('admin/playgrounddesign_themeadmin');
             } else {

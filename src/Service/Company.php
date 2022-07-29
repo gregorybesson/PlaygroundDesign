@@ -81,13 +81,9 @@ class Company
      */
     public function edit(array $data, $company)
     {
-        
         $entityManager = $this->getServiceManager()->get('playgrounddesign_doctrine_em');
-
         $form  = $this->getServiceManager()->get('playgrounddesign_company_form');
-
         $form->bind($company);
-
         $form->setData($data);
 
         if (!$form->isValid()) {
